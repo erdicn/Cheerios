@@ -73,6 +73,7 @@ void testGsl();
 
 
 int main(){
+    printf("Test Github\n");
     gsl_set_error_handler_off();
     // TODO peut etre faire tel que on prends les variables nescesaire de le meme fichier de donnees ? 
     // On initialise les variables nescesaire 
