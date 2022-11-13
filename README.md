@@ -5,3 +5,4 @@ Truc
 Tu me vois ?
 Je te vois
 Tant miexu alors
+quelque chose
