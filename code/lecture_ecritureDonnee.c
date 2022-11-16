@@ -2,7 +2,7 @@
  * @file lecture_ecritureDonnee.c
  * @authors Baptiste BRAUN-DELVOYE, Erdi Çan
  * @brief Fichier permettant l'écriture et la lecture de nos données.
- * @version 5.5
+ * @version 5.8
  * @date 2022-11-08
  * 
  * @copyright Copyright (c) 2022

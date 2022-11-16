@@ -2,7 +2,7 @@
  * @file main.c
  * @authors Baptiste BRAUN-DELVOYE, Erdi Çan
  * @brief Fichier principale de notre simulation.
- * @version 5.5
+ * @version 5.8
  * @date 2022-11-08
  * 
  * @copyright Copyright (c) 2022
@@ -83,7 +83,7 @@ int main(){
     // soit on le mets directement soin on le calcule nous meme
     double surface_tension = 71.99 / 1000;                                      // tension de surface (gamma) pour l'eau gamma = 72 mN/m = 72/1000 N/m source (https://www.biolinscientific.com/blog/surface-tension-of-water-why-is-it-so-high#:~:text=The%20surface%20tension%20of%20water,highest%20surface%20tension%20for%20liquid.)
     double g = 9.81;
-    double capilary_lenght = sqrt(surface_tension/(fabs(rho_liq-rho_air)*g));  // capilary lenght = L_c ≡ sqrt(γ/(𝜌*g))  γ = gamma = surface tension//2.7 / 1000; // L_c of water = 2.7 mm https://www.sciencedirect.com/topics/engineering/capillary-length#:~:text=As%20surface%20energy%20is%20related,will%20indeed%20have%20little%20effect.
+    double capilary_lenght = sqrt(surface_tension/(fabs(rho_liq-rho_air)*g)) ;  // capilary lenght = L_c ≡ sqrt(γ/(𝜌*g))  γ = gamma = surface tension//2.7 / 1000; // L_c of water = 2.7 mm https://www.sciencedirect.com/topics/engineering/capillary-length#:~:text=As%20surface%20energy%20is%20related,will%20indeed%20have%20little%20effect.
     printf("cappilary length = %lf\n", capilary_lenght);
     long int NT = 300;                                                          // nombre de pas de temps 
     double dt = 1./600;                                                         // notre pas de temps  // TODO peut etre le metre en const ???
