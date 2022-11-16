@@ -73,7 +73,6 @@ void testGsl();
 
 
 int main(){
-    printf("Test Github\n");
     gsl_set_error_handler_off();
     // TODO peut etre faire tel que on prends les variables nescesaire de le meme fichier de donnees ? 
     // On initialise les variables nescesaire 
@@ -91,7 +90,10 @@ int main(){
     double*  masses_tas = NULL;  
     cheerio_t *cheerios= NULL;                                                  // notre tableaux qui est remplie de cheerios
     cheerios = LectureTouteCheerios("cheerio_donnees_test.txt", &nb_cheerios, &NT, &dt, masses_tas);  
+    printf("Revenue dans le main\n");
     for(int i = 0; i < nb_cheerios/2; i++){
+        printf("Si on a une seg fault la ca veux dire que on a une faute dans masses_tas\n");
+        printf("Debug %d %lf\n", i, masses_tas[i]);
         masses_tas[i] = -1;
     }
     if(WARNING_MESAGES){

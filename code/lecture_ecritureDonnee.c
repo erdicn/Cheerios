@@ -24,13 +24,17 @@ cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* N
 		exit(1);
 	} else{
 		fscanf(fichier_avec_donnees_initiales_cheerios, "%d %ld %lf", nb_cheerios, NT, dt); // la premiere ligne sur le fichier indique le nombre de cheerios(objets flottants)
-		masses_tas = malloc(sizeof(double)*(*nb_cheerios/2)); // car on peux avoir max nb_cheerios/2 tas
+		printf("DEBUG LEctureData\n");
+		masses_tas = malloc(sizeof(double)*(*nb_cheerios)); // TODO remetre le /2 car on peux avoir max nb_cheerios/2 tas 
+		printf("DEBUG LEctureData2\n");
+		printf("DEBUG LEctureData ca marche ?%lf\n", masses_tas[1]);
 		cheerio_t *cheerios= NULL;
 		cheerios = malloc(sizeof(cheerio_t)* *nb_cheerios);
 		for(int i = 0; i < *nb_cheerios; i++){
 			LectureData(fichier_avec_donnees_initiales_cheerios, &cheerios[i], i, masses_tas);
 		}
 		fclose(fichier_avec_donnees_initiales_cheerios);
+		printf("Lecture data fin\n");
 		return cheerios;
 	}
 }
@@ -53,6 +57,7 @@ void LectureData(FILE* fichier, cheerio_t *cher, long int compteur_id, double* m
 	cher->f_applique.y = f_y;
 	cher->cher_id = compteur_id;
 	cher->tas_id = -1;
+	printf("%d Lec dat %lf\n",compteur_id, masses_tas[1]);
 	cher->masses_tas = masses_tas;
     // The [] is the scanset character. [^\n] tells that while the input is not a newline ('\n') take input. 
     //Then with the %*c it reads the newline character from the input buffer (which is not read), and the * indicates 
