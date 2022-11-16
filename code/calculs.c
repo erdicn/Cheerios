@@ -25,7 +25,9 @@ double cb(double x){
     return x*x*x;
 }
 
-// Retourne le cotangeant d'un angle x.
+/**
+ * @brief Retourne le cotangeant d'un angle x.
+ */
 double cot(double x){
     return cos(x)/sin(x);
 }
