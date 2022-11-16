@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /**
  * @file calculs.c
  * @authors Bapiste BRAUN-DELVOYE, Erdi Çan
@@ -431,16 +430,7 @@ double ForceBetweenTwoInteractingParticles(double gamma, double R, double B,
 
 
 // TODO eq 14 et 15
-
-
-
-
-
-
-
-
-                                                                                                                                                                                                                                                                                                                                                                                                                
-=======
+                                                                                                                                                                                                                                                                                                                                                                                                              
 /**
  * @file calculs.c
  * @authors Bapiste BRAUN-DELVOYE, Erdi Çan
@@ -793,13 +783,3 @@ double ForceBetweenTwoInteractingParticles(double gamma, double R, double B,
 
 
 // TODO eq 14 et 15
-
-
-
-
-
-
-
-
-                                                                                                                                                                                                                                                                                                                                                                                                                
->>>>>>> a9b07e1 (Co-authored-by: Arthasee <baptiste.braun.delvoye@gmail.com>)
