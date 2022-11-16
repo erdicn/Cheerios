@@ -2,7 +2,7 @@
  * @file main.c
  * @authors Baptiste BRAUN-DELVOYE, Erdi Çan
  * @brief Fichier principale de notre simulation.
- * @version 5.8
+ * @version 6.0
  * @date 2022-11-08
  * 
  * @copyright Copyright (c) 2022
@@ -87,11 +87,13 @@ int main(){
     printf("cappilary length = %lf\n", capilary_lenght);
     long int NT = 300;                                                          // nombre de pas de temps 
     double dt = 1./600;                                                         // notre pas de temps  // TODO peut etre le metre en const ???
-    
     int nb_cheerios = 0;
+    double*  masses_tas = NULL;  
     cheerio_t *cheerios= NULL;                                                  // notre tableaux qui est remplie de cheerios
-    cheerios = LectureTouteCheerios("cheerio_donnees_test.txt", &nb_cheerios, &NT, &dt);  
-    
+    cheerios = LectureTouteCheerios("cheerio_donnees_test.txt", &nb_cheerios, &NT, &dt, masses_tas);  
+    for(int i = 0; i < nb_cheerios/2; i++){
+        masses_tas[i] = -1;
+    }
     if(WARNING_MESAGES){
         printf("nb_cheerios = %d\nNT = %ld\ndt = %g\n", nb_cheerios, NT, dt);
         voirSiNotreLectureABienMarche(cheerios, nb_cheerios);

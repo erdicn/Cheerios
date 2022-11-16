@@ -2,7 +2,7 @@
  * @file collisions.c
  * @authors Baptiste BRAUN-DELVOYE, Erdi Çan
  * @brief Fichier permettant de calculer et gérer les collisions entre les cheerios.
- * @version 5.8
+ * @version 6.0
  * @date 2022-11-08
  * 
  * @copyright Copyright (c) 2022
@@ -16,11 +16,58 @@
 // TODO pour linstant ca nous print et ca change rien 
 // basic non optimised collision algorithm that checks one by one 
 
+typedef struct Objet{
+    long int  len_liste;
+    long int* liste;
+    double m_tot;
+} obj_t;
+
+typedef struct Objects{
+    long int len;
+    obj_t* l_objects;
+} objets_t;
+
 // Calcul et modifie la vitesses comme si ils avait fait une collision inelastic parfait (m1+m2)*vf = m1*v1 + m2*v2 =>
-void PerfectInerlasticCollision(cheerio_t* c1, cheerio_t* c2){
+void PerfectInerlasticCollision(cheerio_t* c1, cheerio_t* c2, int nb_cheerios){ // ptas = plusieurs tas tableau de tas
+    double m1 = 0;
+    double m2 = 0;
+    int i;
+    if( c1->tas_id != c2->tas_id){
+        if (c1->tas_id >= 0 ){ // c1 apartient a un tas 
+            m1 = c1->masses_tas[c1->tas_id];
+        } else {         
+            m1 = c1->m;     
+        }    
+
+        if (c2->tas_id >= 0){
+            m2 = c2->masses_tas[c1->tas_id];
+        } else{
+            m2 = c2->m;
+        }
+
+    } else {
+        if (c1->tas_id < 0 && c2->tas_id < 0){ // si les cheerio na pas de tas en les mets dans un tas 
+            for(i = 0; i < nb_cheerios; i++){
+                if(c2->masses_tas[i] < 0 && c1->masses_tas[i] < 0){
+                    c2->tas_id = i;
+                    c1->tas_id = i;
+                }
+            }
+        } else if (c1->tas_id > 0 && c2->tas_id < 0){ // c1 a un tas mais pas c2
+            c2->tas_id = c1->tas_id;
+            c1->masses_tas[c1->tas_id] += c2->m;
+        } else if(c1->tas_id < 0 && c2->tas_id > 0){ // si c2 a un tas mais pas c1
+            c1->tas_id = c2->tas_id;
+            c2->masses_tas[c2->tas_id] += c1->m;
+        }else { // apartient aux meme tas 
+            m1 = c1->m;
+            m2 = c2->m;
+        }
+    }
+
     vec2_t vf = VectorDiviseScalaire(
-                            VecteurAdition(VectorTimesScalar(c1->v, c1->m ) , VectorTimesScalar( c2->v, c2->m))
-                            ,(c1->m + c2->m));
+                            VecteurAdition(VectorTimesScalar(c1->v, m1 ) , VectorTimesScalar( c2->v, m2))
+                            ,(m1 +m2));
     c1->v = vf;
     c2->v = vf;
     //InitialiseVec(&(c1->a), 0, 0);
@@ -34,15 +81,7 @@ void isThereCollision(cheerio_t* cheerios, int nb_cheerios, double dt){
             // si la distance entre cheerios est plus petit que leur rayon combine on dis que il ya une collision
             //printf("Distance entre %d et %d = %lf\n", i,c, DistanceEntreDeuxCheerios(cheerios[i], cheerios[c]));
             if (0 >= DistanceEntreDeuxCheerios(cheerios[i], cheerios[c])){
-                //printf("\n\n\nDistance entre %d et %d = %lf\n\n\n", i,c, DistanceEntreDeuxCheerios(cheerios[i], cheerios[c]));
-                // cheerios[i].v          = NormaliseVector(VectorTimesScalar(cheerios[i].v,-1));
-                // cheerios[i].a          = NormaliseVector(VectorTimesScalar(cheerios[i].a,-1));
-                // cheerios[i].f_applique = NormaliseVector(VectorTimesScalar(cheerios[i].f_applique,-1));
-                // cheerios[c].v          = NormaliseVector(VectorTimesScalar(cheerios[c].a,-1));
-                // cheerios[c].a          = NormaliseVector(VectorTimesScalar(cheerios[c].a,-1));
-                // cheerios[c].f_applique = NormaliseVector(VectorTimesScalar(cheerios[c].f_applique,-1));
-                PerfectInerlasticCollision(cheerios+i, cheerios+c);
-                //printf("COLLISION ENTRE %d et %d\n", i, c);
+                PerfectInerlasticCollision(cheerios+i, cheerios+c, nb_cheerios);
                 if(PRINT_INFO) printf("COLLISION ENTRE %d et %d\n", i, c);
             }
         }

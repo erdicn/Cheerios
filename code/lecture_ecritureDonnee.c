@@ -2,7 +2,7 @@
  * @file lecture_ecritureDonnee.c
  * @authors Baptiste BRAUN-DELVOYE, Erdi Çan
  * @brief Fichier permettant l'écriture et la lecture de nos données.
- * @version 5.8
+ * @version 6.0
  * @date 2022-11-08
  * 
  * @copyright Copyright (c) 2022
@@ -15,26 +15,27 @@
 #include "cheerios.h"
 #define BUFFER_TAILLE_MAX 1000
 
-void LectureData(FILE* fichier, cheerio_t *cher);
+void LectureData(FILE* fichier, cheerio_t *cher, long int compteur_id, double* masses_tas);
  
-cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* NT, double* dt){
+cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* NT, double* dt, double* masses_tas){
 	FILE* fichier_avec_donnees_initiales_cheerios = fopen(nom_fichier,"r");
 	if (fichier_avec_donnees_initiales_cheerios == NULL){
 		printf("Error opening file!\n");
 		exit(1);
 	} else{
 		fscanf(fichier_avec_donnees_initiales_cheerios, "%d %ld %lf", nb_cheerios, NT, dt); // la premiere ligne sur le fichier indique le nombre de cheerios(objets flottants)
+		masses_tas = malloc(sizeof(double)*(*nb_cheerios/2)); // car on peux avoir max nb_cheerios/2 tas
 		cheerio_t *cheerios= NULL;
 		cheerios = malloc(sizeof(cheerio_t)* *nb_cheerios);
 		for(int i = 0; i < *nb_cheerios; i++){
-			LectureData(fichier_avec_donnees_initiales_cheerios, &cheerios[i]);
+			LectureData(fichier_avec_donnees_initiales_cheerios, &cheerios[i], i, masses_tas);
 		}
 		fclose(fichier_avec_donnees_initiales_cheerios);
 		return cheerios;
 	}
 }
 
-void LectureData(FILE* fichier, cheerio_t *cher){
+void LectureData(FILE* fichier, cheerio_t *cher, long int compteur_id, double* masses_tas){
     //char tmp[BUFFER_TAILLE_MAX];
 	double posx = 0,posy = 0 ,d = 0, v_x = 0, v_y = 0, a_x = 0, a_y = 0, m = 0, f_x = 0, f_y = 0;
 	// %[^\n]%*c  si il ya pas autre chose il faux pas le metre car sinon ca marche pas autrement si il ya des extra if faux le metre 
@@ -50,6 +51,9 @@ void LectureData(FILE* fichier, cheerio_t *cher){
 	cher->m = m;
 	cher->f_applique.x = f_x;
 	cher->f_applique.y = f_y;
+	cher->cher_id = compteur_id;
+	cher->tas_id = -1;
+	cher->masses_tas = masses_tas;
     // The [] is the scanset character. [^\n] tells that while the input is not a newline ('\n') take input. 
     //Then with the %*c it reads the newline character from the input buffer (which is not read), and the * indicates 
     //that this read in input is discarded (assignment suppression), as you do not need it, and this newline in the 
