@@ -1,5 +1,7 @@
 #compilation du code Cheerios
 
+# TODO peut etre essayer de linker les libraries staticquement pour faire tel que les gens peuv run le code sans avoir la librarie GSL
+
 # Options de compilation																							v optimisation flag (desconseille de utiliser dans les codes paralele et les codes pas tres robust/teste)
 CFLAGS = -Wall -Wextra -Wfloat-equal -Wundef -Wshadow -Wcast-align  -Wcast-qual -Wunreachable-code -Wfloat-equal # -O 1 2 3# -Wconversion  -fsanitize=address -Wstrict-prototypes#-fsanitize=thread -fsanitize=undefined -fstack-protector
 #CFLAGS = -g
@@ -19,7 +21,7 @@ OBJ= $(SRC:.c=.o)
 # action declenchee par defaut
 all: $(EXEC)
 
-# compilation des fichiers sources en fichiers objets
+# compilation des fichiers sources en fichiers objets  
 %.o: %.c
 	$(CC) $(CFLAGS) -c $^
 
