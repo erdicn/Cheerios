@@ -2,8 +2,8 @@
 
 # TODO peut etre essayer de linker les libraries staticquement pour faire tel que les gens peuv run le code sans avoir la librarie GSL
 
-# Options de compilation																							v optimisation flag (desconseille de utiliser dans les codes paralele et les codes pas tres robust/teste)
-CFLAGS = -Wall -Wextra -Wfloat-equal -Wundef -Wshadow -Wcast-align  -Wcast-qual -Wunreachable-code -Wfloat-equal # -O 1 2 3# -Wconversion  -fsanitize=address -Wstrict-prototypes#-fsanitize=thread -fsanitize=undefined -fstack-protector
+# Options de compilation																														v optimisation flag (desconseille de utiliser dans les codes paralele et les codes pas tres robust/teste)
+CFLAGS = -Wall -Wextra -Wfloat-equal -Wundef -Wshadow -Wcast-align  -Wcast-qual -Wunreachable-code -Wfloat-equal -Wunsafe-loop-optimizations# -O 1 2 3 fast g s# -Wconversion  -fsanitize=address -Wstrict-prototypes#-fsanitize=thread -fsanitize=undefined -fstack-protector
 #CFLAGS = -g
 
 # nom des librairies a lier     v le emplacement de la librarie gsl (default location) # optionel comme dest dans lib et C regarde dans lib au tout les cas cest mis au cas ou ya des gens qui ont change lemplacement et pour les faciliter
