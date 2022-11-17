@@ -1,10 +1,7 @@
 from matplotlib import pyplot as plt
-from celluloid import Camera
-from matplotlib.animation import FuncAnimation
 import matplotlib.animation as animation
 import numpy as np
 from matplotlib.patches import Circle
-from itertools import combinations
 
 Donnees = np.loadtxt(open("donnees.txt", 'rt').readlines())
 T   = Donnees[:, 0]
@@ -61,8 +58,9 @@ def animate(i):
         patches[p].center = (X[p+i], Y[p+i])
         patches[p].radius = D[p+i]/2
     return patches
-
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=[i for i in range(0,NT, 10)], interval=1, blit=True#, repeat = True 
+                                                                #[i for i in range(0,NT, 10)] ou NT
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=NT#[i for i in range(0,NT, 10)]
+                               , interval=1, blit=True#, repeat = True 
                                )
 #anim.save('./5_6code/VisualisationTest/donnees_visualisation_matplot.gif', fps=400, dpi=200)
 plt.show()

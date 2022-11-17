@@ -39,17 +39,6 @@ void PerfectInerlasticCollision(cheerio_t* c1, cheerio_t* c2, int nb_cheerios){ 
         c1->masses_tas[c1->tas_id] += c2->masses_tas[c2->tas_id];
         c2->masses_tas[c2->tas_id] -= c2->m;
         c2->tas_id = c1->tas_id;            // TODO pas sur de ici si on change un est que ca change tous avec les contacts ? 
-        // if (c1->tas_id >= 0 ){ // c1 apartient a un tas 
-        //     m1 = c1->masses_tas[c1->tas_id];
-        // } else {         
-        //     m1 = c1->m;     
-        // }    
-
-        // if (c2->tas_id >= 0){
-        //     m2 = c2->masses_tas[c1->tas_id];
-        // } else{
-        //     m2 = c2->m;
-        // }
     } else {
         if (c1->tas_id < 0 && c2->tas_id < 0){ // si les cheerio na pas de tas en les mets dans un tas 
             for(i = 0; i < nb_cheerios; i++){
