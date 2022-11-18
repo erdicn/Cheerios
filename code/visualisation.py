@@ -59,7 +59,7 @@ def animate(i):
         patches[p].radius = D[p+i]/2
     return patches
                                                                 #[i for i in range(0,NT, 10)] ou NT
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=NT#[i for i in range(0,NT, 10)]
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=[i for i in range(0,NT, 100)]
                                , interval=1, blit=True#, repeat = True 
                                )
 #anim.save('./5_6code/VisualisationTest/donnees_visualisation_matplot.gif', fps=400, dpi=200)

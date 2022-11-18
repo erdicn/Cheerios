@@ -119,6 +119,7 @@ void UpdateAll(cheerio_t* cheerios, int nb_cheerios, double dt);
  * @return double 
  */
 double DistanceEntreDeuxCheerios(cheerio_t c1, cheerio_t c2);
+double DistanceEntreDeuxCentreDeCheerios(cheerio_t c1, cheerio_t c2);
 double ForcePerUnitLenght(double surface_tension, double theta1, double theta2, double L_c, double d);
 double CalculBuoyancyForce(double rho_liquide, double g, double R, 
                             double z_c, double phi_c);

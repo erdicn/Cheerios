@@ -1,0 +1,37 @@
+\documentclass[a4paper, 11pt, oneside]{article} % A4 paper size, default 11pt font size and oneside for equal margins
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage[french]{babel}
+
+\usepackage{hyperref} %For hyperlinks 
+\hypersetup{pdfborder=0 0 0}
+
+\usepackage{graphicx}  % Pour images
+\graphicspath{{Figures/}}
+
+\newcommand{\comment}[1]{}%pour faire des comentaires a plusueures lignes 
+
+\begin{document} 
+
+\newpage
+\section{Introduction}
+    Dire cest quoi leffet cheerios etc...
+
+\section{nescescites}
+    \subsection{Effet Cheerios}
+    On mets les formules et peut etre demontrer ou ils viennes et sourtout les cas ou on peux utiliser ces formulles les cas ou ca marche pas etc...
+    \subsection{integration de verlet}
+    On prouve lintegration de verlet et montre que on peux lutiliser pour notre probleme
+    \subsection{Collsisions}
+    Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
+
+\section{Comment on a concue notre probleme}
+    \begin{itemize}
+        \item On a pris l'interaction des forces totale sur chaque particule par la fonction dans l'article "Cheerios effect"
+        \item et de ca on deduis la force que reagis a chaque cheerios pour un pas de temps 
+        \item Check si il ya des collisions ou pas et si il ya on change les proprietes des cheerios par rapport aux collisions
+        \item De la force en utilisant l'integration de verlet et le principe fondamentale de la dynamique somme forces = derive(masse*vitesse) on peux changer les positions des cheerios
+    \end{itemize}
+\section{Conclusion}
+\end{document}

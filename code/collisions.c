@@ -10,6 +10,7 @@
  */
 
 #include <stdio.h>
+#include <math.h>
 #include "cheerios.h"
 #include "calculs.h"
 
@@ -27,8 +28,8 @@ typedef struct Objects{
     obj_t* l_objects;
 } objets_t;
 
-// Calcul et modifie la vitesses comme si ils avait fait une collision inelastic parfait (m1+m2)*vf = m1*v1 + m2*v2 =>
-void PerfectInerlasticCollision(cheerio_t* c1, cheerio_t* c2, int nb_cheerios){ // ptas = plusieurs tas tableau de tas
+// Calcul et modifie la vitesses comme si ils avait fait une collision inelastic parfait (m1+m2)*vf = m1*v1 + m2*v2 => vf = (m1*v1 + m2*v2) / (m1+m2)
+void PerfectInelasticCollision(cheerio_t* c1, cheerio_t* c2, int nb_cheerios){ // ptas = plusieurs tas tableau de tas
     double m1 = 0;
     double m2 = 0;
     int i;
@@ -68,6 +69,17 @@ void PerfectInerlasticCollision(cheerio_t* c1, cheerio_t* c2, int nb_cheerios){ 
     //InitialiseVec(&(c2->a), 0, 0);
 }
 
+void PerfectInelasticCollisionTest(cheerio_t* c1, cheerio_t* c2){
+    vec2_t cdm = VectorTimesScalar(SensEntreC1aC2(*c1, *c2), 
+                                        DistanceEntreDeuxCentreDeCheerios(*c1, *c2)/2.);
+    // vf cest la vitesse finale de un 
+    vec2_t vf = VectorDiviseScalaire(
+                            VecteurAdition(VectorTimesScalar(c1->v, c1->m ) , VectorTimesScalar( c2->v, c2->m))
+                            ,(c1->m + c2->m));
+    // InitialiseVec(&(c1->v),0,0); c1->v = vf;
+    // InitialiseVec(&(c2->v),0,0); c2->v = vf;
+}
+
 void isThereCollision(cheerio_t* cheerios, int nb_cheerios, double dt){
     int i, c;
     for(i = 0; i < nb_cheerios; i++){
@@ -75,7 +87,8 @@ void isThereCollision(cheerio_t* cheerios, int nb_cheerios, double dt){
             // si la distance entre cheerios est plus petit que leur rayon combine on dis que il ya une collision
             //printf("Distance entre %d et %d = %lf\n", i,c, DistanceEntreDeuxCheerios(cheerios[i], cheerios[c]));
             if (0 >= DistanceEntreDeuxCheerios(cheerios[i], cheerios[c])){
-                PerfectInerlasticCollision(cheerios+i, cheerios+c, nb_cheerios);
+                //PerfectInelasticCollision(cheerios+i, cheerios+c, nb_cheerios);
+                PerfectInelasticCollisionTest(cheerios+i, cheerios+c);
                 if(PRINT_INFO) printf("COLLISION ENTRE %d et %d\n", i, c);
             }
         }

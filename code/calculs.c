@@ -98,6 +98,10 @@ double DistanceEntreDeuxCheerios(cheerio_t c1, cheerio_t c2){
     return sqrt(sq(c1.pos.x - c2.pos.x) + sq(c1.pos.y - c2.pos.y)) - c1.d/2 - c2.d/2; // on enleve la distance de leur rayons
 }
 
+double DistanceEntreDeuxCentreDeCheerios(cheerio_t c1, cheerio_t c2){
+     return sqrt(sq(c1.pos.x - c2.pos.x) + sq(c1.pos.y - c2.pos.y));
+}
+
 // Met à jour la position, la vitesse et l'accélération du cheerio en utilisant l'intégratioon de Verlet (TODO) et la force de trainée https://en.wikipedia.org/wiki/Verlet_integration 
 void UpdateCheerio(cheerio_t* cheerio, double dt){
     vec2_t new_acc = VectorDiviseScalaire(cheerio->f_applique, cheerio->m); // F = ma => a = F/m
