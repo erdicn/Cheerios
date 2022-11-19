@@ -111,6 +111,8 @@ void UpdateCheerio(cheerio_t* cheerio, double dt);
  */
 void UpdateAll(cheerio_t* cheerios, int nb_cheerios, double dt);
 
+double AngleEntreDeuxCheerios(cheerio_t c1, cheerio_t c2);
+
 /**
  * @brief Retourne la distance entre le centre de deux cheerios, c1 et c2.
  * 
@@ -144,5 +146,7 @@ double EnergyBetweenTwoInteractingParticles(double gamma, double R, double B,
  * @return double 
  */
 double ForceBetweenTwoInteractingParticles(double gamma, double R, double B, 
-                                            double Sigma, double l, double L_c,long long int* warning_counter);
+                                            double Sigma, double l, double L_c);
+                                            
+vec2_t CalculForceDuBords(cheerio_t cher, bords_t bords, double surface_tension, double R, double B, double Sigma,double capilary_length);
 #endif //CALCULS_H       

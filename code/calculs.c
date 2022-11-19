@@ -92,6 +92,10 @@ vec2_t SensEntreC1aC2(cheerio_t c1, cheerio_t c2){
     return NormaliseVector(sens);
 }
 
+// TODO je suis pas sur de ici 
+double AngleEntreDeuxCheerios(cheerio_t c1, cheerio_t c2){
+    return atan((c2.pos.y - c1.pos.y) / (c2.pos.x - c1.pos.x));  // lordre na pas de importance 
+}
 
 // Retourne la distance entre le centre de deux cheerios, c1 et c2.
 double DistanceEntreDeuxCheerios(cheerio_t c1, cheerio_t c2){
@@ -118,7 +122,6 @@ void UpdateCheerio(cheerio_t* cheerio, double dt){
 void UpdateAll(cheerio_t* cheerios, int nb_cheerios, double dt){
     for(int c = 0; c < nb_cheerios; c++){
         UpdateCheerio(cheerios+c, dt);
-        //                 ^ pointer arithmetic meme chose que &(cheerios[c])
     }
 }
 
@@ -169,7 +172,7 @@ double CalculSigma(double rho_flottant, double rho_liquide, double theta, long l
 // force of interaction is given by F(l) = -dE/dl or :
 // Retourne la force d'intéraction entre deux particules.
 double ForceBetweenTwoInteractingParticles(double gamma, double R, double B, 
-                                            double Sigma, double l, double L_c,long long int* warning_counter){
+                                            double Sigma, double l, double L_c){
     // precondition l > 0 
     double l_over_L_c = l/L_c;
     if(l_over_L_c > 36 && WARNING_MESAGES){
@@ -177,6 +180,29 @@ double ForceBetweenTwoInteractingParticles(double gamma, double R, double B,
         //return 0;
     } // if it is smaller than 36 calculates itself 
     return -2*M_PI*gamma*R*sqrt(pow(B,5))*sq(Sigma)*gsl_sf_bessel_K1(l/L_c);
+}
+
+// Return un vec2_t qui est la force des bords sur le cheerios
+vec2_t CalculForceDuBords(cheerio_t cher, bords_t bords, double surface_tension, double R, double B, double Sigma,double capilary_length){
+    double force = 0;
+    vec2_t force_avec_direction = {.x = 0, .y = 0}, sensDeLaForce;
+    // droite
+    force = ForceBetweenTwoInteractingParticles(surface_tension, R, B, -Sigma, fabs(cher.pos.x - bords.droite), capilary_length); // TODO jai mis ca juste comme un placeholder mais je suis pas sur de Sigma
+    InitialiseVec(&sensDeLaForce, 1, 0);
+    force_avec_direction = VecteurAdition(force_avec_direction,  VectorTimesScalar(sensDeLaForce, force));
+    // gauche
+    force = ForceBetweenTwoInteractingParticles(surface_tension, R, B, -Sigma, fabs(cher.pos.x - bords.gauche), capilary_length); // TODO jai mis ca juste comme un placeholder mais je suis pas sur de Sigma    
+    InitialiseVec(&sensDeLaForce, -1, 0);
+    force_avec_direction = VecteurAdition(force_avec_direction,  VectorTimesScalar(sensDeLaForce, force));
+    // haut
+    force = ForceBetweenTwoInteractingParticles(surface_tension, R, B, -Sigma, fabs(cher.pos.x - bords.bas), capilary_length); // TODO jai mis ca juste comme un placeholder mais je suis pas sur de Sigma
+    InitialiseVec(&sensDeLaForce, 0, 1);
+    force_avec_direction = VecteurAdition(force_avec_direction,  VectorTimesScalar(sensDeLaForce, force));
+    // bas
+    force = ForceBetweenTwoInteractingParticles(surface_tension, R, B, -Sigma, fabs(cher.pos.x - bords.haut), capilary_length); // TODO jai mis ca juste comme un placeholder mais je suis pas sur de Sigma
+    InitialiseVec(&sensDeLaForce, 0, -1);
+    force_avec_direction = VecteurAdition(force_avec_direction,  VectorTimesScalar(sensDeLaForce, force));
+    return force_avec_direction;
 }
 
 

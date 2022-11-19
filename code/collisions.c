@@ -28,6 +28,7 @@ typedef struct Objects{
     obj_t* l_objects;
 } objets_t;
 
+// Marhce sulement avec 2 spheres 
 // Calcul et modifie la vitesses comme si ils avait fait une collision inelastic parfait (m1+m2)*vf = m1*v1 + m2*v2 => vf = (m1*v1 + m2*v2) / (m1+m2)
 void PerfectInelasticCollision(cheerio_t* c1, cheerio_t* c2, int nb_cheerios){ // ptas = plusieurs tas tableau de tas
     double m1 = 0;
@@ -69,18 +70,35 @@ void PerfectInelasticCollision(cheerio_t* c1, cheerio_t* c2, int nb_cheerios){ /
     //InitialiseVec(&(c2->a), 0, 0);
 }
 
-void PerfectInelasticCollisionTest(cheerio_t* c1, cheerio_t* c2){
-    vec2_t cdm = VectorTimesScalar(SensEntreC1aC2(*c1, *c2), 
-                                        DistanceEntreDeuxCentreDeCheerios(*c1, *c2)/2.);
-    // vf cest la vitesse finale de un 
+// Ne marche pas 
+// void PerfectInelasticCollisionTest(cheerio_t* c1, cheerio_t* c2){
+//     vec2_t cdm = VectorTimesScalar(SensEntreC1aC2(*c1, *c2), 
+//                                         DistanceEntreDeuxCentreDeCheerios(*c1, *c2)/2.);
+//     // vf cest la vitesse finale de un 
+//     vec2_t vf = VectorDiviseScalaire(
+//                             VecteurAdition(VectorTimesScalar(c1->v, c1->m ) , VectorTimesScalar( c2->v, c2->m))
+//                             ,(c1->m + c2->m));
+//     // InitialiseVec(&(c1->v),0,0); c1->v = vf;
+//     // InitialiseVec(&(c2->v),0,0); c2->v = vf;
+// }
+
+void why(cheerio_t* c1, cheerio_t* c2){
     vec2_t vf = VectorDiviseScalaire(
-                            VecteurAdition(VectorTimesScalar(c1->v, c1->m ) , VectorTimesScalar( c2->v, c2->m))
-                            ,(c1->m + c2->m));
-    // InitialiseVec(&(c1->v),0,0); c1->v = vf;
-    // InitialiseVec(&(c2->v),0,0); c2->v = vf;
+                    VecteurAdition(VectorTimesScalar(c1->v, c1->m ) , VectorTimesScalar( c2->v, c2->m))
+                    ,(c1->m +c2->m));
+    c1->v = vf;
+    c2->v = vf;
 }
 
-void isThereCollision(cheerio_t* cheerios, int nb_cheerios, double dt){
+// Ne marche pas
+void TroisiemeLoiDeNewton(cheerio_t* c1, cheerio_t* c2){
+    vec2_t f1 = VectorTimesScalar(c1->a, c1->m);//c1->f_applique;
+    vec2_t f2 = VectorTimesScalar(c2->a, c2->m);//c2->f_applique;
+    c1->f_applique = VecteurAdition(c1->f_applique, f2);
+    c2->f_applique = VecteurAdition(c2->f_applique, f1);
+}
+
+void isThereCollision(cheerio_t* cheerios, int nb_cheerios){
     int i, c;
     for(i = 0; i < nb_cheerios; i++){
         for(c = i+1; c < nb_cheerios; c++){ // i+1 car les points de avant si ils collide on les prend on compte
@@ -88,7 +106,9 @@ void isThereCollision(cheerio_t* cheerios, int nb_cheerios, double dt){
             //printf("Distance entre %d et %d = %lf\n", i,c, DistanceEntreDeuxCheerios(cheerios[i], cheerios[c]));
             if (0 >= DistanceEntreDeuxCheerios(cheerios[i], cheerios[c])){
                 //PerfectInelasticCollision(cheerios+i, cheerios+c, nb_cheerios);
-                PerfectInelasticCollisionTest(cheerios+i, cheerios+c);
+                //PerfectInelasticCollisionTest(cheerios+i, cheerios+c);
+                //TroisiemeLoiDeNewton(cheerios + i, cheerios + c);
+                why(cheerios + i, cheerios + c);
                 if(PRINT_INFO) printf("COLLISION ENTRE %d et %d\n", i, c);
             }
         }

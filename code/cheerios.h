@@ -22,4 +22,10 @@ typedef struct Cheerio{
     double* masses_tas;
 } cheerio_t;     
 
+// Un struct qui definit un rectangle le que lon utilise le bord de notre systeme
+typedef struct Bords{
+    double haut, bas, droite, gauche;
+} bords_t;
+
+
 #endif // CHEERIOS_H
