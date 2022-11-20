@@ -33,7 +33,8 @@ styles = {'edgecolor': 'C0', 'linewidth': 2, 'fill': None}
 
 patches = []
 for p in range(nb_cheerios):
-    patches.append(Circle((X[0+p],Y[0+p]), radius=D[0+p]/2, fc='y'))
+    patches.append(Circle((X[0+p],Y[0+p]), radius=D[0+p]/2, color = "y" #fc='b')
+                                ))
 
 # patch1 = Circle((X_a[0],Y_a[0]), radius=radius, fc='y')
 # patch2 = Circle((X_b[0],Y_b[0]), radius=radius, fc='y')
@@ -57,9 +58,10 @@ def animate(i):
     for p in range(len(patches)):
         patches[p].center = (X[p+i], Y[p+i])
         patches[p].radius = D[p+i]/2
+        
     return patches
                                                                 #[i for i in range(0,NT, 10)] ou NT
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=NT#[i for i in range(0,NT, 10)]
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=[i for i in range(0,NT, 10)]
                                , interval=0.1, blit=True#, repeat = True 
                                )
 #anim.save('./5_6code/VisualisationTest/donnees_visualisation_matplot.gif', fps=400, dpi=200)

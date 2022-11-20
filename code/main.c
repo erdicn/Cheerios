@@ -46,9 +46,9 @@ int main(){
     long int NT = 300;                                                          // nombre de pas de temps 
     double dt = 1./600;                                                         // notre pas de temps  // TODO peut etre le metre en const ???
     
-    bords_t bords = {        .haut = 10./100.,
-                     .gauche = -1./100., .droite = 10./100.,
-                             .bas = -1./100.};
+    bords_t bords = {        .haut = 12./100.,
+                     .gauche = -4./100., .droite = 12./100.,
+                             .bas = -4./100.};
 
     int nb_cheerios = 0;
     cheerio_t *cheerios= NULL;                                                  // notre tableaux qui est remplie de cheerios
@@ -105,8 +105,8 @@ void Simulate(cheerio_t* cheerios, int nb_cheerios, double rho_liq,// double rho
     for(long int nt = 0; nt < NT; nt++){                                                    // on itere autant fois que le nombre de pas de temps 
         for(c_obj = 0; c_obj < nb_cheerios; c_obj++){                                       // on parcour chaque cheerio pour calculer les forces qui sont excerce sur lui
             InitialiseVec(&force_avec_direction, 0, 0);                                     // on mets 0 au debut car il ya pas de force pour linstant car on a pas fait de calcul 
-            // force des bords 
-            force_avec_direction = CalculForceDuBords(cheerios[c_obj], bords, surface_tension, R, B, Sigma, capilary_length);
+            // force des bords  TODO la fonction ne marche pas bien 
+            // force_avec_direction = CalculForceDuBords(cheerios[c_obj], bords, surface_tension, R, B, Sigma, capilary_length);
             for(c = 0; c < nb_cheerios; c++){                                               // on calcul tout les forces par rapport tous les autres cheerios
                 if(c != c_obj){                                                             // il exerce pas de force sur lui meme car sinon il essaye de prendre la distance entre lui meme et ca fait tel que l = 0 et l/L_c = 0 => et K1 ne marhe pas a 0
                     l = DistanceEntreDeuxCheerios(cheerios[c_obj], cheerios[c]);            // prints pour voir si ca marche bien// printf("longueur entre %d et %d = %g m = %g cm\n", c_obj, c, l ,l*100);//printf("l = %.16lf L_c = %lf\n", l, capilary_length);//printf("l = %lf L_c = %lf l/L_c = %lf\n", l, capilary_length, l/capilary_length);
