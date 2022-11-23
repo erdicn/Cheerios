@@ -45,8 +45,8 @@ void isThereCollision(cheerio_t* cheerios, int nb_cheerios){
             }
         }
     }
-    //UpdateAll(cheerios, nb_cheerios, dt); // on lapelle dans la fonction simulation dans le main
 }
+// pour les update on apelle update all dans simulation
 
 // O((n*(n-1)) / 2 )
 // for(i = 0; i < n; i++)
