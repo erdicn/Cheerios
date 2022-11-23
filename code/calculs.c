@@ -92,11 +92,6 @@ vec2_t SensEntreC1aC2(cheerio_t c1, cheerio_t c2){
     return NormaliseVector(sens);
 }
 
-// TODO je suis pas sur de ici 
-double AngleEntreDeuxCheerios(cheerio_t c1, cheerio_t c2){
-    return atan((c2.pos.y - c1.pos.y) / (c2.pos.x - c1.pos.x));  // lordre na pas de importance 
-}
-
 // Retourne la distance entre le centre de deux cheerios, c1 et c2.
 double DistanceEntreDeuxCheerios(cheerio_t c1, cheerio_t c2){
     return sqrt(sq(c1.pos.x - c2.pos.x) + sq(c1.pos.y - c2.pos.y)) - c1.d/2 - c2.d/2; // on enleve la distance de leur rayons
@@ -126,7 +121,7 @@ void UpdateAll(cheerio_t* cheerios, int nb_cheerios, double dt){
 }
 
 // gamma = tension de surface, R = longueur caractéristique de courbure, (par exemple les raypons de courbure d'une goutte)
-// B = Bond number = (rho * g * R * R) / gamma // le plus important, paramètre sans dimension // TODO source Cherrios 2005
+// B = Bond number = (rho * g * R * R) / gamma // le plus important, paramètre sans dimension // Cheerio 2005
 double CalculBondNumber(double rho_liquide, double rho_air, 
                             double R, double gamma ,double g,long long int* warning_counter){
     double delta_rho = fabs(rho_liquide-rho_air);   //fabs = valeur absolue pour les doubles 
@@ -325,25 +320,6 @@ vec2_t CalculForceDuBords(cheerio_t cher, bords_t bords, double surface_tension,
 //                                                                                                                                                                                                                         .7:                                                                                                                                                                     
 //                                                                                                                                                                                                                         ^:                                                                                                                                                                      
 
-
-// double ForcePerUnitLenght(double rho_liq, double g, double h1_0, double h2_0){
-//     // The value of the horizontal force per unit length, Fh , can be calculated by integrating the hydrostatic pressure along each of the wetted sides of one of the plates (say the one on the left in Fig. 4) and taking the difference as follows
-// // TODO Integral numerique
-//     // at the end we have
-//     return 0.5 * rho_liq * g * (h1_0*h1_0 - h2_0*h2_0);
-// }
-// OU
-
-
-
-// Gives the force per unit length given the surface tension between fluids, tha angle made by the liquid with the border, capilary lenght(L_c) and the distancse between borders
-// Return la force par unité de longueur compte tenu de la tension de surface entre les fluides, l'angle créé par le liquide avec les bords, la longueur capillaire (L_c) et la distance entre les bords.
-// double ForcePerUnitLenght(double surface_tension, double theta1, double theta2, double L_c, double d){
-//     return -(surface_tension/2.0) *
-//     ((( (cot(theta1)*cosh(d/L_c) + cot(theta2)) *
-//        (cot(theta1)*cosh(d/L_c) + cot(theta2))
-//       ) / (sinh(d/L_c)*sinh(d/L_c)))- cot(theta1)*cot(theta1) );
-// }
 // (ca date du debut quand je metais les fonctions tu veux que on le garde ? lol on peux le metre en commentaire et regarder apres ? )
 // cette fonction on la jamais utilise Ah... pourquoi l'as-tu mises ? oh très bien, on la garde ? mdr, oui voila au cas ou on ne aurait besoin
 // Retourne la force de flottabilité compte tenu de la masse volumique du liquide, de la gravité terrestre du rayon de z_c et phi_c.
@@ -352,22 +328,6 @@ vec2_t CalculForceDuBords(cheerio_t cher, bords_t bords, double surface_tension,
 //     return M_PI * rho_liquide * g * cb(R) * 
 //             ((z_c / R)*sin(phi_c) + (2/3.0) - cos(phi_c) + (1/3.0) * cb(cos(phi_c))); // TODO pas sur du -cos equation 7 
 // }
-
-// A single particle
-// see the ascii image or fig 7 for a single doubleing particle                                                                                                                                                                                                                                                                                                                                                                                                                 
-// Nicolson approximation ????? finite difference method ???
-// TODO Equation 7 8 
-// Describing the ratio of gravitational to capillary forces, the Eötvös or Bond number is given by the equation:[7]
-// TODO Source notre Cheerio 2008
-
-// TODO resultant weight in linearised aproximation est que on a besoin de qu cest nous qui le prouve ou on peux les utiliser celui de larticle on disant que ils sont prouve
-// 2*pi*gamma*z_c'*sin(fi_c) = 2*pi*gamma*R*B*Sigma
-// To calculate the interaction energy using the Nicolson approximation, we also must calculate the interfacial displacement caused by an isolated floating sphere, which is determined by the hydrostatic balance 
-//gamma*nabla*nabla*h=rho*g*h
-// the coordinate invariant statement of Eq. (1). With the assumption of cylindrical symmetry, this generalization of Eq. (1) becomes:
-// (1/r)(d/dt)(r*(dh/dr)) = h / (L_c*L_c)
-// equations (11)
-
 
 
 // Two interacting particles
@@ -379,6 +339,3 @@ vec2_t CalculForceDuBords(cheerio_t cher, bords_t bords, double surface_tension,
 // gsl_sf_result result; // c"est un struct avec resultat et erreur
 // int status = gsl_sf_bessel_K0_e (x, &result);
 // pour avoir lerreur sur le resultat aussi
-
-
-// TODO eq 14 et 15
