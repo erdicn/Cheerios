@@ -20,7 +20,7 @@ double cb(double x);
 /**
  * @brief Retourne le cotangeant d'un angle x.
  * 
- * @param x 
+ * @param x angle en radian
  * @return double 
  */
 double cot(double x);
@@ -28,8 +28,8 @@ double cot(double x);
 /**
  * @brief Retourne un nouveau vecteur à 2 coordonnées créé à partir de l'addition des coordonnées des vecteurs v1 et v2.
  * 
- * @param v1 
- * @param v2 
+ * @param v1 vecteur 
+ * @param v2 vecteur
  * @return vec2_t 
  */
 void EqualiseVector(vec2_t* vecObjectif, vec2_t vecEgal);
@@ -37,8 +37,8 @@ void EqualiseVector(vec2_t* vecObjectif, vec2_t vecEgal);
 /**
  * @brief Retourne le vecteur à 2 dimensions vec avec ses coordonnées initiales divisées par s.
  * 
- * @param vec 
- * @param s 
+ * @param vec vecteur
+ * @param s diviseur
  * @return vec2_t 
  */
 vec2_t VectorDiviseScalaire(vec2_t vec, double s);
@@ -46,8 +46,8 @@ vec2_t VectorDiviseScalaire(vec2_t vec, double s);
 /**
  * @brief Retourne le vecteur à 2 dimensions vec avec ses coordonnées initiales multipliées par s.
  * 
- * @param vec 
- * @param s 
+ * @param vec vecteur
+ * @param s multiplicateur
  * @return vec2_t 
  */
 vec2_t VectorTimesScalar(vec2_t vec, double s);
@@ -55,8 +55,8 @@ vec2_t VectorTimesScalar(vec2_t vec, double s);
 /**
  * @brief Retourne un nouveau vecteur à 2 coordonnées créé à partir de l'addition des coordonnées des vecteurs v1 et v2.
  * 
- * @param v1 
- * @param v2 
+ * @param v1 vecteur
+ * @param v2 vecteur
  * @return vec2_t 
  */
 vec2_t VecteurAdition(vec2_t v1, vec2_t v2);
