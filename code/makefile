@@ -30,7 +30,7 @@ $(EXEC) : $(OBJ)
 	$(CC)  -o $@ $^ $(LNAME)
 	chmod +x $(EXEC)
 	@echo compilation terminee
-	@echo "faitez \"./cheerio.exe && make visualisation\" pour visualiser le programme en temps reel et pour le sauvgarder en gif"
+	@echo "faites \"./cheerio.exe && make visualise\" pour visualiser le programme en temps reel et pour le sauvgarder en gif"
 # les @ sont ici pour silencer les appels. Comme ca on voix que les resultats de ces fonctions mais pas lappel avel le echo 
 
 clean:

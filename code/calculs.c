@@ -2,7 +2,7 @@
  * @file calculs.c
  * @authors Bapiste BRAUN-DELVOYE, Erdi Çan
  * @brief Fichier où toutes les fonctions de calculs sont.
- * @version 5.5
+ * @version 6.0
  * @date 2022-11-08
  * 
  * @copyright Copyright (c) 2022

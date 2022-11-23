@@ -1,23 +1,20 @@
 from matplotlib import pyplot as plt
-from celluloid import Camera
-from matplotlib.animation import FuncAnimation
 import matplotlib.animation as animation
 import numpy as np
 from matplotlib.patches import Circle
-from itertools import combinations
 
 Donnees = np.loadtxt(open("donnees.txt", 'rt').readlines())
 T   = Donnees[:, 0]
 X   = Donnees[:, 1]
 Y   = Donnees[:, 2]
 D   = Donnees[:, 3]
-V_x = Donnees[:, 4]
-V_y = Donnees[:, 5]
-A_x = Donnees[:, 6]
-A_y = Donnees[:, 7]
-F_x = Donnees[:, 8]
-F_y = Donnees[:, 9]
-M   = Donnees[:, 10]
+# V_x = Donnees[:, 4]
+# V_y = Donnees[:, 5]
+# A_x = Donnees[:, 6]
+# A_y = Donnees[:, 7]
+# F_x = Donnees[:, 8]
+# F_y = Donnees[:, 9]
+# M   = Donnees[:, 10]
 
 nb_cheerios = len([i for i in T if i == 0])
 print(nb_cheerios)
@@ -36,7 +33,8 @@ styles = {'edgecolor': 'C0', 'linewidth': 2, 'fill': None}
 
 patches = []
 for p in range(nb_cheerios):
-    patches.append(Circle((X[0+p],Y[0+p]), radius=D[0+p]/2, fc='y'))
+    patches.append(Circle((X[0+p],Y[0+p]), radius=D[0+p]/2, color = "y" #fc='b')
+                                ))
 
 # patch1 = Circle((X_a[0],Y_a[0]), radius=radius, fc='y')
 # patch2 = Circle((X_b[0],Y_b[0]), radius=radius, fc='y')
@@ -60,8 +58,11 @@ def animate(i):
     for p in range(len(patches)):
         patches[p].center = (X[p+i], Y[p+i])
         patches[p].radius = D[p+i]/2
+        
     return patches
-
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=NT, interval=1, blit=True#, repeat = True 
+                                                                #[i for i in range(0,NT, 10)] ou NT
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=[i for i in range(0,NT, 100)]
+                               , interval=0.1, blit=True#, repeat = True 
                                )
-anim.save('donnees_visualisation.gif', fps=100, dpi=100)
+anim.save('visualisation.gif', fps=100, dpi=200)
+plt.close()
