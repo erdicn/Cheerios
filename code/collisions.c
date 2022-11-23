@@ -38,13 +38,8 @@ void isThereCollision(cheerio_t* cheerios, int nb_cheerios){
     int i, c;
     for(i = 0; i < nb_cheerios; i++){
         for(c = i+1; c < nb_cheerios; c++){ // i+1 car les points de avant si ils collide on les prend on compte
-            // si la distance entre cheerios est plus petit que leur rayon combine on dis que il ya une collision
-            //printf("Distance entre %d et %d = %lf\n", i,c, DistanceEntreDeuxCheerios(cheerios[i], cheerios[c]));
             double l = DistanceEntreDeuxCheerios(cheerios[i], cheerios[c]);
             if (0 >= l){
-                //PerfectInelasticCollision(cheerios+i, cheerios+c, nb_cheerios);
-                //PerfectInelasticCollisionTest(cheerios+i, cheerios+c);
-                //TroisiemeLoiDeNewton(cheerios + i, cheerios + c);
                 why(cheerios + i, cheerios + c, l);
                 if(PRINT_INFO) printf("COLLISION ENTRE %d et %d\n", i, c);
             }
