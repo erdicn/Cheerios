@@ -10,6 +10,7 @@ typedef struct Vec2{
     double x, y;
 } vec2_t;
 
+// TODO peut etre metre des courbures differentes ?
 typedef struct Cheerio{
     vec2_t pos;           // position cheerio
     vec2_t v;             // vitesse cheerio

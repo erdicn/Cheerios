@@ -45,8 +45,10 @@ for s in ['top','bottom','left','right']:
     ax.set_aspect('equal', 'box')
     # ax.xaxis.set_ticks([])
     # ax.yaxis.set_ticks([])
-    ax.set_xlim([vmin - 0.05, vmax + 0.05])
-    ax.set_ylim([vmin - 0.05, vmax + 0.05])
+    ax.set_xlim([vmin-0.01, vmax+0.01])
+    ax.set_ylim([vmin-0.01, vmax+0.01])
+    #ax.set_xlim([vmin - 0.05, vmax + 0.05])
+    #ax.set_ylim([vmin - 0.05, vmax + 0.05])
 
 def init():
     for i in range(len(patches)):
@@ -61,7 +63,7 @@ def animate(i):
         
     return patches
                                                                 #[i for i in range(0,NT, 10)] ou NT
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=[i for i in range(0,NT, 10)]
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=NT#[i for i in range(0,NT, 10)]
                                , interval=0.1, blit=True#, repeat = True 
                                )
 #anim.save('./5_6code/VisualisationTest/donnees_visualisation_matplot.gif', fps=400, dpi=200)
