@@ -18,9 +18,9 @@ typedef struct Cheerio{
     vec2_t f_applique;    // force applique sur le cheerio
     double d;             // diametre cheerio
     double m;             // masse du cheerio
-    long int cher_id;     // identifiant du particule
-    long int tas_id;
-    double* masses_tas;
+    // long int cher_id;     // identifiant du particule
+    // long int tas_id;
+    // double* masses_tas;
 } cheerio_t;     
 
 // Un struct qui definit un rectangle le que lon utilise le bord de notre systeme

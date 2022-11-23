@@ -56,13 +56,13 @@ int main(){
     cheerios = LectureTouteCheerios("cheerio_donnees_test.txt", &nb_cheerios, &NT, &dt);  
     
     // Initialisation de masses_tas
-    double*  masses_tas = NULL;  
-    masses_tas = malloc(sizeof(double)*(nb_cheerios));
-    for(int i = 0; i < nb_cheerios; i++){
-        masses_tas[i] = -1;                   // on mets les masses du tas negatif car isl apartient pas dans un tas au debut
-        cheerios[i].masses_tas = masses_tas;
-        cheerios[i].tas_id = -1;
-    }
+    // double*  masses_tas = NULL;  
+    // masses_tas = malloc(sizeof(double)*(nb_cheerios));
+    // for(int i = 0; i < nb_cheerios; i++){
+    //     masses_tas[i] = -1;                   // on mets les masses du tas negatif car isl apartient pas dans un tas au debut
+    //     cheerios[i].masses_tas = masses_tas;
+    //     cheerios[i].tas_id = -1;
+    // }
 
     if(WARNING_MESAGES){
         printf("nb_cheerios = %d\nNT = %ld\ndt = %g\n", nb_cheerios, NT, dt);
@@ -78,7 +78,7 @@ int main(){
     if(WARNING_MESAGES) printf("total warnings = %lld\n", warning_counter); // on print le nombre de warnings pour voir si les conditions que on a choisi sont bien et si le program a bien fonctione
     
     free(cheerios);
-    free(masses_tas);
+    // free(masses_tas);
     return 0;
 }
 

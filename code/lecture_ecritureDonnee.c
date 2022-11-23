@@ -51,8 +51,8 @@ void LectureData(FILE* fichier, cheerio_t *cher, long int compteur_id){
 	cher->m = m;
 	cher->f_applique.x = f_x;
 	cher->f_applique.y = f_y;
-	cher->cher_id = compteur_id;
-	cher->tas_id = -1;
+	// cher->cher_id = compteur_id;
+	// cher->tas_id = -1;
     // The [] is the scanset character. [^\n] tells that while the input is not a newline ('\n') take input. 
     //Then with the %*c it reads the newline character from the input buffer (which is not read), and the * indicates 
     //that this read in input is discarded (assignment suppression), as you do not need it, and this newline in the 
