@@ -34,14 +34,6 @@ void why(cheerio_t* c1, cheerio_t* c2, double l){
     // c2->pos = VecteurAdition(c2->pos, VectorTimesScalar(decalement_par_masse, c2->m));
 }
 
-// Ne marche pas
-void TroisiemeLoiDeNewton(cheerio_t* c1, cheerio_t* c2){
-    vec2_t f1 = VectorTimesScalar(c1->a, c1->m);//c1->f_applique;
-    vec2_t f2 = VectorTimesScalar(c2->a, c2->m);//c2->f_applique;
-    c1->f_applique = VecteurAdition(c1->f_applique, f2);
-    c2->f_applique = VecteurAdition(c2->f_applique, f1);
-}
-
 void isThereCollision(cheerio_t* cheerios, int nb_cheerios){
     int i, c;
     for(i = 0; i < nb_cheerios; i++){
