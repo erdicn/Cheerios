@@ -45,10 +45,10 @@ for s in ['top','bottom','left','right']:
     ax.set_aspect('equal', 'box')
     # ax.xaxis.set_ticks([])
     # ax.yaxis.set_ticks([])
-    ax.set_xlim([vmin-0.01, vmax+0.01])
-    ax.set_ylim([vmin-0.01, vmax+0.01])
-    #ax.set_xlim([vmin - 0.05, vmax + 0.05])
-    #ax.set_ylim([vmin - 0.05, vmax + 0.05])
+    #ax.set_xlim([vmin-0.01, vmax+0.01])
+    #ax.set_ylim([vmin-0.01, vmax+0.01])
+    ax.set_xlim([vmin - 0.05, vmax + 0.05])
+    ax.set_ylim([vmin - 0.05, vmax + 0.05])
 
 def init():
     for i in range(len(patches)):

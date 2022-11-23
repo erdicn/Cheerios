@@ -46,9 +46,9 @@ int main(){
     long int NT = 300;                                                          // nombre de pas de temps 
     double dt = 1./600;                                                         // notre pas de temps  // TODO peut etre le metre en const ???
     
-    bords_t bords = {        .haut = 12./100.,
-                     .gauche = -4./100., .droite = 12./100.,
-                             .bas = -4./100.};
+    bords_t bords = {        .haut = 10./100.,
+                     .gauche = -2./100., .droite = 10./100.,
+                             .bas = -2./100.};
 
     int nb_cheerios = 0;
     cheerio_t *cheerios= NULL;                                                  // notre tableaux qui est remplie de cheerios
