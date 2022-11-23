@@ -90,14 +90,15 @@ void EcritureData(char* nom_fichier, cheerio_t* cheerios, int nb_cheerios, long 
 	} else{
 		// on parcour notre tableau et on mets chaque element du tableau dans le fichier 
 		for(int c = 0; c < nb_cheerios; c++){
-			fprintf(fichier_de_ecriture, "%ld %.16lf %.16lf %.16lf %.16lf %.16lf %.16lf %.16lf %.16lf %.16lf %.16lf\n", //"%ld %g %g %g %g %g %g %g %g %g %g\n",
+			fprintf(fichier_de_ecriture, "%ld %.16lf %.16lf %.16lf\n",//%.16lf %.16lf %.16lf %.16lf %.16lf %.16lf %.16lf\n", //"%ld %g %g %g %g %g %g %g %g %g %g\n",
 										nt,
 										cheerios[c].pos.x, cheerios[c].pos.y,
-										cheerios[c].d,
-										cheerios[c].v.x, cheerios[c].v.y,
-										cheerios[c].a.x, cheerios[c].a.y,
-										cheerios[c].f_applique.x, cheerios[c].f_applique.y,
-										cheerios[c].m);
+										cheerios[c].d
+										// ,cheerios[c].v.x, cheerios[c].v.y,
+										// cheerios[c].a.x, cheerios[c].a.y,
+										// cheerios[c].f_applique.x, cheerios[c].f_applique.y,
+										// cheerios[c].m
+										);
 		}
 		fclose(fichier_de_ecriture);
 	}
