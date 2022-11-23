@@ -97,6 +97,7 @@ vec2_t SensEntreC1aC2(cheerio_t c1, cheerio_t c2);
 
 /**
  * @brief Met à jour la position, la vitesse et l'accélération du cheerio en utilisant l'intégratioon de Verlet (TODO) et la force de trainée https://en.wikipedia.org/wiki/Verlet_integration 
+ * 
  * @param cheerio 
  * @param dt 
  */
