@@ -61,8 +61,8 @@ def animate(i):
         
     return patches
                                                                 #[i for i in range(0,NT, 10)] ou NT
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=[i for i in range(0,NT, 100)]
-                               , interval=0.1, blit=True#, repeat = True 
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=[i for i in range(0,NT, 1000)]
+                               , interval=1, blit=True#, repeat = True 
                                )
 anim.save('visualisation.gif', fps=100, dpi=200)
 plt.close()

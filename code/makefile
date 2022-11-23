@@ -35,6 +35,7 @@ $(EXEC) : $(OBJ)
 
 clean:
 	rm -rf *.o
+	rm -rf donnees.txt
 	ls
 
 vis: 
