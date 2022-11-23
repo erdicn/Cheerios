@@ -183,19 +183,19 @@ vec2_t CalculForceDuBords(cheerio_t cher, bords_t bords, double surface_tension,
     vec2_t force_avec_direction = {.x = 0, .y = 0}, sensDeLaForce;
     // droite
     force = ForceBetweenTwoInteractingParticles(surface_tension, R, B, -Sigma, fabs(cher.pos.x - bords.droite), capilary_length); // TODO jai mis ca juste comme un placeholder mais je suis pas sur de Sigma
-    InitialiseVec(&sensDeLaForce, -1, 0);
+    InitialiseVec(&sensDeLaForce, 1, 0);
     force_avec_direction = VecteurAdition(force_avec_direction,  VectorTimesScalar(sensDeLaForce, force));
     // gauche
     force = ForceBetweenTwoInteractingParticles(surface_tension, R, B, -Sigma, fabs(cher.pos.x - bords.gauche), capilary_length); // TODO jai mis ca juste comme un placeholder mais je suis pas sur de Sigma    
-    InitialiseVec(&sensDeLaForce, 1, 0);
+    InitialiseVec(&sensDeLaForce, -1, 0);
     force_avec_direction = VecteurAdition(force_avec_direction,  VectorTimesScalar(sensDeLaForce, force));
     // haut
     force = ForceBetweenTwoInteractingParticles(surface_tension, R, B, -Sigma, fabs(cher.pos.x - bords.bas), capilary_length); // TODO jai mis ca juste comme un placeholder mais je suis pas sur de Sigma
-    InitialiseVec(&sensDeLaForce, 0, -1);
+    InitialiseVec(&sensDeLaForce, 0, 1);
     force_avec_direction = VecteurAdition(force_avec_direction,  VectorTimesScalar(sensDeLaForce, force));
     // bas
     force = ForceBetweenTwoInteractingParticles(surface_tension, R, B, -Sigma, fabs(cher.pos.x - bords.haut), capilary_length); // TODO jai mis ca juste comme un placeholder mais je suis pas sur de Sigma
-    InitialiseVec(&sensDeLaForce, 0, 1);
+    InitialiseVec(&sensDeLaForce, 0, -1);
     force_avec_direction = VecteurAdition(force_avec_direction,  VectorTimesScalar(sensDeLaForce, force));
     return force_avec_direction;
 }
