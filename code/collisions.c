@@ -46,6 +46,10 @@ void isThereCollision(cheerio_t* cheerios, int nb_cheerios){
         }
     }
 }
+
+void isThereCollisionBord(cheerio_t* cheerios, bords_t* bords, int nb_cheerios){
+    int i;
+}
 // pour les update on apelle update all dans simulation
 
 // O((n*(n-1)) / 2 )
