@@ -125,7 +125,7 @@ void Simulate(cheerio_t* cheerios, int nb_cheerios, double rho_liq,// double rho
             }
             cheerios[c_obj].f_applique = force_avec_direction;                              // on mets la force applique dans notre structure //printf("Force aplique au %d cheerio = %g\n", c_obj, CalculNorme(force_avec_direction));
         } 
-        isThereCollision(cheerios, nb_cheerios);                                            // TODO faire un e fonction de check  colision pour voire si il ya des colisions il fait tel que il concerve son momentum totale et que ils reste ensemble ou pas si il ya il faux faire des choses (jsp encore) pour linstant ca print seulement si il ya des colllisions ou pas mais ca fait rien
+        isThereCollision(cheerios, nb_cheerios, &bords);                                            // TODO faire un e fonction de check  colision pour voire si il ya des colisions il fait tel que il concerve son momentum totale et que ils reste ensemble ou pas si il ya il faux faire des choses (jsp encore) pour linstant ca print seulement si il ya des colllisions ou pas mais ca fait rien
         UpdateAll(cheerios, nb_cheerios, dt);
         EcritureData("donnees.txt", cheerios, nb_cheerios, nt);                             // On fait l'ecriturechawue fois comme ca on a bas besoin de stocker toute les donnees passees. 
     }

@@ -34,7 +34,7 @@ void why(cheerio_t* c1, cheerio_t* c2, double l){
     // c2->pos = VecteurAdition(c2->pos, VectorTimesScalar(decalement_par_masse, c2->m));
 }
 
-void isThereCollision(cheerio_t* cheerios, int nb_cheerios){
+void isThereCollision(cheerio_t* cheerios, int nb_cheerios, bords_t* bords){
     int i, c;
     for(i = 0; i < nb_cheerios; i++){
         for(c = i+1; c < nb_cheerios; c++){ // i+1 car les points de avant si ils collide on les prend on compte
@@ -44,11 +44,22 @@ void isThereCollision(cheerio_t* cheerios, int nb_cheerios){
                 if(PRINT_INFO) printf("COLLISION ENTRE %d et %d\n", i, c);
             }
         }
+        CheckCollisionBord(cheerios+i, bords);
     }
 }
 
-void isThereCollisionBord(cheerio_t* cheerios, bords_t* bords, int nb_cheerios){
-    int i;
+void CheckCollisionBord(cheerio_t* cheerio, bords_t* bords){
+    if ((cheerio->pos.x)-(cheerio->d)/2 <= bords->gauche || (cheerio->pos.x)+(cheerio->d)/2 >= bords->droite)
+    {
+       cheerio->v.x = 0; 
+    }
+    if ((cheerio->pos.y)-(cheerio->d)/2 <= bords->bas || (cheerio->pos.y)+(cheerio->d) >= bords->haut)
+    {
+        cheerio->v.y = 0;
+    }
+    
+    
+    
 }
 // pour les update on apelle update all dans simulation
 
