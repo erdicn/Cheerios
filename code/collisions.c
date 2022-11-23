@@ -34,6 +34,7 @@ void why(cheerio_t* c1, cheerio_t* c2, double l){
     // c2->pos = VecteurAdition(c2->pos, VectorTimesScalar(decalement_par_masse, c2->m));
 }
 
+// Vérifie s'il y a une collision entre deux objets ou un objet et un bords. Pour tous les objets.
 void isThereCollision(cheerio_t* cheerios, int nb_cheerios, bords_t* bords){
     int i, c;
     for(i = 0; i < nb_cheerios; i++){
@@ -48,6 +49,7 @@ void isThereCollision(cheerio_t* cheerios, int nb_cheerios, bords_t* bords){
     }
 }
 
+// Vérifie si un objet a une collision avec un des bords et annule sa vitesse en fonction de celui-ci. TODO améliorer le réalisme de la chose
 void CheckCollisionBord(cheerio_t* cheerio, bords_t* bords){
     if ((cheerio->pos.x)-(cheerio->d)/2 <= bords->gauche || (cheerio->pos.x)+(cheerio->d)/2 >= bords->droite)
     {
