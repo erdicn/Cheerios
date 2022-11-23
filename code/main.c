@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2022
  * 
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -15,7 +16,6 @@
 #include "calculs.h"
 #include "cheerios.h"
 #include "collisions.h"
-
 // IMPORTANT!!! TO RUN THIS PROJECT THE GNU SCIENTIFIC LIBRARY IS NEEDED install it here: https://www.gnu.org/software/gsl/ and then suivez les instructions dans le fichier INSTALL pour linstaller si cest installe dans le path standart ca devrait fonctioner sans probleme si le pathe de instalation est change vous devrez besoin de changer le linker pour le makefile aussi
 #include <gsl/gsl_sf_bessel.h>
 #include <gsl/gsl_errno.h>
