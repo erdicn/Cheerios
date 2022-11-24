@@ -47,8 +47,10 @@ for s in ['top','bottom','left','right']:
     # ax.yaxis.set_ticks([])
     #ax.set_xlim([vmin-0.01, vmax+0.01])
     #ax.set_ylim([vmin-0.01, vmax+0.01])
-    ax.set_xlim([vmin - 0.05, vmax + 0.05])
-    ax.set_ylim([vmin - 0.05, vmax + 0.05])
+    #ax.set_xlim([vmin - 0.05, vmax + 0.05])
+    #ax.set_ylim([vmin - 0.05, vmax + 0.05])
+    ax.set_xlim([-0.02, 0.1])
+    ax.set_ylim([-0.02, 0.1])
 
 def init():
     for i in range(len(patches)):
@@ -56,15 +58,18 @@ def init():
         ax.add_patch(patches[i])
     return patches
 
+time_template = 'time = %.1f'
+time_text = ax.text(0.05, 0.9, '', transform=ax.transAxes)
+
 def animate(i):
     for p in range(len(patches)):
         patches[p].center = (X[p+i], Y[p+i])
         patches[p].radius = D[p+i]/2
-        
+    time_text.set_text(time_template % (i/2))
     return patches
                                                                 #[i for i in range(0,NT, 10)] ou NT
 anim = animation.FuncAnimation(fig, animate, init_func=init, frames=NT#[i for i in range(0,NT, 10)]
-                               , interval=0.1, blit=True#, repeat = True 
+                               , interval=0.1, blit=False#, repeat = True 
                                )
 #anim.save('./5_6code/VisualisationTest/donnees_visualisation_matplot.gif', fps=400, dpi=200)
 plt.show()

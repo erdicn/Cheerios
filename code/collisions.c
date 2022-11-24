@@ -17,7 +17,7 @@
 // TODO pour linstant ca nous print et ca change rien 
 // basic non optimised collision algorithm that checks one by one 
 
-void why(cheerio_t* c1, cheerio_t* c2, double l){
+void PerfectlyInelasticCollision2D(cheerio_t* c1, cheerio_t* c2, double l){
     vec2_t vf = VectorDiviseScalaire(
                     VecteurAdition(VectorTimesScalar(c1->v, c1->m ) , VectorTimesScalar( c2->v, c2->m))
                     ,(c1->m +c2->m));
@@ -34,14 +34,39 @@ void why(cheerio_t* c1, cheerio_t* c2, double l){
     // c2->pos = VecteurAdition(c2->pos, VectorTimesScalar(decalement_par_masse, c2->m));
 }
 
+void print(double nb){
+    printf("%lf\n",nb);
+}
+void printvec(vec2_t vec){
+    printf("x= %lf y= %lf\n", vec.x, vec.y);
+}
+
+void CorrectionDuEnfoncement(cheerio_t* c1, cheerio_t* c2, double l){
+    vec2_t sens12 = SensEntreC1aC2(*c1, *c2);
+    // on veux decaler c2 du sens de 12 et c1 du sens 21
+    double l_abs = fabs(l); // on veux la valeur absolue car on a deja le sens dans le vecteur
+    double l2 = l_abs/2.;
+    // print(l);
+    // print(sens12.x);
+    // print(sens12.y);
+    // print(l2);
+    // TODO 
+    // celui que a plus de energie se decale le moins et lautre se decale plus 
+    // pour linstant on les decale du meme facon
+    c1->pos = VecteurAdition(c1->pos, VectorTimesScalar(sens12, -l2));
+    c2->pos = VecteurAdition(c2->pos, VectorTimesScalar(sens12, l2));
+}
+
 // Vérifie s'il y a une collision entre deux objets ou un objet et un bords. Pour tous les objets.
 void isThereCollision(cheerio_t* cheerios, int nb_cheerios, bords_t* bords){
     int i, c;
+    double l;
     for(i = 0; i < nb_cheerios; i++){
         for(c = i+1; c < nb_cheerios; c++){ // i+1 car les points de avant si ils collide on les prend on compte
-            double l = DistanceEntreDeuxCheerios(cheerios[i], cheerios[c]);
+            l = DistanceEntreDeuxCheerios(cheerios[i], cheerios[c]);
             if (0 >= l){
-                why(cheerios + i, cheerios + c, l);
+                CorrectionDuEnfoncement(cheerios + i, cheerios + c, l);
+                PerfectlyInelasticCollision2D(cheerios + i, cheerios + c, l);
                 if(PRINT_INFO) printf("COLLISION ENTRE %d et %d\n", i, c);
             }
         }
