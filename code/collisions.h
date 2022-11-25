@@ -9,8 +9,9 @@
  * @param cheerios 
  * @param nb_cheerios 
  * @param bords 
+ * @param capilary_length
  */
-void isThereCollision(cheerio_t* cheerios, int nb_cheerios, bords_t* bords);
+void isThereCollision(cheerio_t* cheerios, int nb_cheerios, bords_t* bords, double capilary_length, double dt);
 
 /**
  * @brief Vérifie si un objet a une collision avec un des bords et annule sa vitesse en fonction de celui-ci. TODO améliorer le réalisme de la chose
