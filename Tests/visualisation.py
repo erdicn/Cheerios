@@ -68,7 +68,7 @@ def animate(i):
     time_text.set_text(time_template % (i))
     return patches
                                                                 #[i for i in range(0,NT, 10)] ou NT
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=[i for i in range(0,NT, 100)]
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=[i for i in range(0,NT, 1000)]
                                , interval=0.1, blit=False#, repeat = True 
                                )
 #anim.save('./5_6code/VisualisationTest/donnees_visualisation_matplot.gif', fps=400, dpi=200)

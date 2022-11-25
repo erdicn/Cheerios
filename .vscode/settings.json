@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "cheerios.h": "c"
+        "cheerios.h": "c",
+        "gsl_sf_bessel.h": "c"
     }
 }
