@@ -26,9 +26,9 @@ void PerfectlyInelasticCollision2D(cheerio_t* c1, cheerio_t* c2, double l){
 
     // TODO ici je pensais qu eca enlevrait le decalemnt mais ca marche pas
     // apres avoir mis les vitesse a jour il faux que on enleve les cheerios de entre eux car si on fait pas ca ils senfonce de plus en plus entre eux
-    vec2_t enfoncement = VectorTimesScalar(SensEntreC1aC2(*c1, *c2), l);
+    //vec2_t enfoncement = VectorTimesScalar(SensEntreC1aC2(*c1, *c2), l);
     // on va leur devale par rappor a leur masses celui qui a moins de masse ce decale plus 
-    vec2_t decalement_par_masse = VectorDiviseScalaire(enfoncement, (c1->m + c2->m));
+    //vec2_t decalement_par_masse = VectorDiviseScalaire(enfoncement, (c1->m + c2->m));
     // comme le vecteur enfoncement cest de c1  vers c2 c2 va se decaler du meme sens que enfoncement et c1 l'inverse
     // c1->pos = VecteurAdition(c1->pos, VectorTimesScalar(decalement_par_masse, c1->m));
     // c2->pos = VecteurAdition(c2->pos, VectorTimesScalar(decalement_par_masse, c2->m));
@@ -38,23 +38,32 @@ void print(double nb){
     printf("%lf\n",nb);
 }
 void printvec(vec2_t vec){
-    printf("x= %lf y= %lf\n", vec.x, vec.y);
+    printf("x= %.16lf y= %.16lf\n", vec.x, vec.y);
 }
+
+
 
 void CorrectionDuEnfoncement(cheerio_t* c1, cheerio_t* c2, double l){
     vec2_t sens12 = SensEntreC1aC2(*c1, *c2);
-    // on veux decaler c2 du sens de 12 et c1 du sens 21
-    double l_abs = fabs(l); // on veux la valeur absolue car on a deja le sens dans le vecteur
-    double l2 = l_abs/2.;
+    vec2_t sens21 = SensEntreC1aC2(*c2, *c1);
+    // on veux decaler c1 du sens 21 et c2 du sens de 12 et 
+    //print(-l);
+    //print(5/100000.);   // TODO  ici je sais pas de ou viens cette constante 
+    double l_abs = fabs(l)-5/100000.; // on veux la valeur absolue car on a deja le sens dans le vecteur
+    double l_2 = l_abs/2.;
     // print(l);
     // print(sens12.x);
     // print(sens12.y);
-    // print(l2);
+    // print(l_2);
+    // printvec(VectorTimesScalar(sens12, -l_2));
     // TODO 
     // celui que a plus de energie se decale le moins et lautre se decale plus 
     // pour linstant on les decale du meme facon
-    c1->pos = VecteurAdition(c1->pos, VectorTimesScalar(sens12, -l2));
-    c2->pos = VecteurAdition(c2->pos, VectorTimesScalar(sens12, l2));
+    c1->pos = VecteurAdition(c1->pos, VectorTimesScalar(sens21, l_2));
+    c2->pos = VecteurAdition(c2->pos, VectorTimesScalar(sens12, l_2));
+    //c1->pos = VecteurAdition(c1->pos, VectorTimesScalar(NormaliseVector(c1->v), -l_2));
+    //c2->pos = VecteurAdition(c2->pos, VectorTimesScalar(NormaliseVector(c2->v), -l_2));
+
 }
 
 // Vérifie s'il y a une collision entre deux objets ou un objet et un bords. Pour tous les objets.
@@ -65,8 +74,9 @@ void isThereCollision(cheerio_t* cheerios, int nb_cheerios, bords_t* bords){
         for(c = i+1; c < nb_cheerios; c++){ // i+1 car les points de avant si ils collide on les prend on compte
             l = DistanceEntreDeuxCheerios(cheerios[i], cheerios[c]);
             if (0 >= l){
+                //print(l);
                 CorrectionDuEnfoncement(cheerios + i, cheerios + c, l);
-                PerfectlyInelasticCollision2D(cheerios + i, cheerios + c, l);
+                //PerfectlyInelasticCollision2D(cheerios + i, cheerios + c, l);
                 if(PRINT_INFO) printf("COLLISION ENTRE %d et %d\n", i, c);
             }
         }
