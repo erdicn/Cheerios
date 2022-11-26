@@ -9,3 +9,7 @@ clean:
 	rm -rf *.out
 	rm -rf *.synctex.gz
 	rm -rf *.fdb_latexmk
+	rm -rf *.bbl
+	rm -rf *.bcf
+	rm -rf *.blg
+	rm -rf *run.xml

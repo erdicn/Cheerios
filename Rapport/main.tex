@@ -10,19 +10,77 @@
 \usepackage{graphicx}  % Pour images
 \graphicspath{{Figures/}}
 
-\newcommand{\comment}[1]{}%pour faire des comentaires a plusueures lignes 
+\usepackage[%backend=biber,
+style = ieee,
+sorting=none
+]{biblatex} %,bibstyle=ieeehttps://www.overleaf.com/project/624dc5f129c1767e8bb8de67
+\addbibresource{biblio.bib}
+\renewbibmacro*{date}{%
+  \iffieldundef{year}
+    {\bibstring{nodate}}
+    {\printdate}
+}
 
+\newcommand{\comment}[1]{}%pour faire des comentaires a plusueures lignes 
+\newcommand{\dd}[1]{\mathrm{d}#1}
+% TODO trouver une meilleure alternative que ca car ca enleve litalique et apres faire renewcommand \vb*{\}\(
+    
+\usepackage{physics} %pour \vb*{b}old vectors
+%\newcommand{\vb*}[1]{\boldsymbol{#1}}
+%\newcommand{\vb*}[][]{}
 \begin{document} 
 
 \newpage
 \section*{Introduction}
     Dire cest quoi leffet cheerios etc \ldots
 
-\section{nescescites}
+    \section{nescescites}
     \subsection{Effet Cheerios}
+    % jsp si on dis pris ou develope ? 
+    Les formules pour les calculs etait pris de \cite{cheerios_2005} 
     On mets les formules et peut etre demontrer ou ils viennes et sourtout les cas ou on peux utiliser ces formulles les cas ou ca marche pas etc\ldots
-    \subsection{integration de verlet}
-    On prouve lintegration de verlet et montre que on peux lutiliser pour notre probleme
+
+    % TODO citer cheerios 
+    \begin{equation}
+        \label{ForceEntreCheerios}
+        F(l) = -2\pi \gamma R B^{5/2} K_1 \left( \frac{l}{L_c}\right)
+    \end{equation}
+    % TODO est que on a besoin de metre les vecteurs dans les DL ??
+    \subsection{Integration de verlet}
+    %On prouve lintegration de verlet et montre que on peux lutiliser pour notre probleme
+    %Si on a plique le developement limite de x on peux deduir les positions suivant
+    Developement limite de Taylor Young de $f(x)$ au point $x_0$% TODO citer le livre de introduction a lanalyse complexe et numerique dans la mir 
+    \begin{equation}
+        DL_n f(x) = \sum_{i=0}^{n}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i+ o((x-x_0)^n)
+    \end{equation}
+    Si on applique le Developement limite de ordre 3 la position($\vb*{x}(t+\dd t)$) au point $t+\dd t$ on a:
+    On a ca avec le developement limilte a $t$ et $t_0$ cest le pas temps precedent
+    \[DL_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)+\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 +o((t-t_0)^3)\]
+    Si $t_0$ cest le pas de temps precedent et $\vb*{x}^{'}(t)$ vitesse et $\vb*{x}^{''}(t)$ lacceleration peux avoir.
+        \[DL_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)\]
+        \[\Longrightarrow DL_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+v(t)(\dd t)+\frac{a(t)}{2!}(\dd t)^2+o(\dd t^3)\]
+    L'erreur sur le temps $t_n$ cest de lordre $o(\exp^(Lt_n)\dd t^2)$ % TODO pas sur de ici
+    
+    Et comme notre acceleration ne depend pas de le changement de vitesse mais de l'equation \ref{ForceEntreCheerios} on peux calculer l'acceleration a partir du principe fondamentale de la dynamique avec masse constante. Cest important de faire ca apres le calcul de position et avant la vitesse car la position prend lacceleration precedent et la vitesse prend celui de avant et pendant le temps.
+    \begin{equation}
+        \label{PFD}
+        \sum  \vb*{F} = m\vb*{a} \Longrightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}
+    \end{equation}
+
+    Et maintenat comme on a la nouvelle position et lacelleration on peux calculer la nouvelle vitesse.
+    % TODO dire dou cette formule viens 
+    \begin{equation}
+        \label{veletVitesse}
+        \vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t 
+    \end{equation}
+    % est que on mets ca sur lanexe ?
+    % (voir lanexe pour le developement du calcul) 
+    %        \[DL_3 x(t+\dd t)= x(t)+x^{'}(t)(\dd t)+\frac{x^{''}(t)}{2!}(\dd t)^2\]
+    %= & x(t)+x^{'}(t)(t+\dd t-t)+\frac{x^{''}(t)}{2!}(t+\dd t-t)^2\\
+    %Essai avec $x(t)$\[DL x(t) = x(t_0)+x^{'}(t_0)(t-t_0)+\frac{x^{''}(t_0)(t-t_0)^2}{2!}\]
+
+
+
     \subsection{Collsisions}
     Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
 
@@ -34,4 +92,11 @@
         \item De la force en utilisant l'integration de verlet et le principe fondamentale de la dynamique somme forces = derive (masse*vitesse) on peux changer les positions des cheerios
     \end{itemize}
 \section*{Conclusion}
+
+\newpage
+\thispagestyle{empty}
+\nocite{*}
+\addcontentsline{toc}{section}{Bibliographie}
+\printbibliography[title = Bibliographie]
+
 \end{document}
