@@ -110,13 +110,6 @@ double sq(double x){
 double cb(double x){
     return x*x*x;
 }
-
-/**
- * @brief Retourne le cotangeant d'un angle x.
- */
-double cot(double x){
-    return cos(x)/sin(x);
-}
 double CalculLinearBondNumber( double R, double L_c,long long int* warning_counter){
     double B = sq(R)/sq(L_c);
     if (B > 0.3 ) {                                  // TODO pas sur de ici 
@@ -153,6 +146,7 @@ int main(){
     voirSiNotreLectureABienMarche(cheerios, nb_cheerios);
     InitialiseFichierDeEcriture("donnees.txt");                                 // ca efface tout le fichier donnees.txt pour que on a un fichier vide pour les nouvelles donnees 
     ////////////////////////////////////////////////////////////////////////////
+    // TODO faire tel que on lis ces donnees aussi dans un autre fichier
     double rho_liq = 1000., rho_air = 1.1, rho_cheerio = 24.;                  // TODO trouver la masse volumique des cheerios// masses volumiques en kg/m^3 source air https://www.thermexcel.com/french/tables/massair.htm
     long long int warning_counter = 0;                                          // TODO pour linstant les valeurs sont unpeut aliatore il faux les metres dans le meme unite et les bones valeures(peut etre faire tel que on lis les valeures de un fichier? )
     double surface_tension = 71.99 / 1000;                                      // tension de surface (gamma) pour l'eau gamma = 72 mN/m = 72/1000 N/m source (https://www.biolinscientific.com/blog/surface-tension-of-water-why-is-it-so-high#:~:text=The%20surface%20tension%20of%20water,highest%20surface%20tension%20for%20liquid.)
@@ -162,44 +156,38 @@ int main(){
     double B = CalculLinearBondNumber(R,capilary_length, &warning_counter); 
     double theta = fabs(B) < 0.63 ? asin(M_PI_2 * B) : asin(B);    //M_PI_2 *  // dans larticle ils mets ca mais si nous on le mets ca depase la limite de arcsin [-1,1]                                                  // TODO pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;                                                        // TODO faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
     double Sigma = CalculSigma(rho_cheerio, rho_liq, theta, &warning_counter);
+    printf("L_c = %lf Sigma = %lf B = %lf Theta = %lf°\n",capilary_length ,Sigma, B, theta);
     ////////////////////////////////////////////////////////////////////////////
     int i, j;
-    double distance_squared, speed, distance, impulse, l;
-    // O(NT*(nb*nb+nb*nb+nb))
+    double puissance_force, distance_squared, speed, distance, impulse, l;
+    vec2_t forceAvecDirection, vCollision, vCollisionNorm, vRelativeVelocity, sensij, new_pos, new_acc, new_vel;
+    // O(NT*(nb*nb+nb*nb+nb)) // pour linstant
     for(long int nt = 0; nt < NT; nt++){                                                    // on itere autant fois que le nombre de pas de temps 
         if (nt % (NT / 100) == 0) printf("%%%ld\n", nt/(NT/100)); // pour voir le progress
-        // forces sur la particule 
-        vec2_t forceAvecDirection;
-        double puissance_force;
         // TODO ici on peux le faire plus court on faisant telle que quand on calcule les deux cheerios en meme temps
         // test de collision
         for(i = 0; i < nb_cheerios; i++){
             for(j = 0; j < nb_cheerios; j++){
                 // multiplication est plus vite que sqrt
-                if(j != i && (cheerios[j].pos.x - cheerios[i].pos.x) * (cheerios[j].pos.x - cheerios[i].pos.x) + 
-                                    (cheerios[j].pos.y - cheerios[i].pos.y) * (cheerios[j].pos.y - cheerios[i].pos.y)  <= (cheerios[i].d/2 + cheerios[j].d/2)*(cheerios[i].d/2 + cheerios[j].d/2) ){
-                    vec2_t vCollision = {.x = cheerios[j].pos.x - cheerios[i].pos.x,
-                                         .y = cheerios[j].pos.y - cheerios[i].pos.y};
-                    distance = sqrt((cheerios[j].pos.x-cheerios[i].pos.x)*(cheerios[j].pos.x-cheerios[i].pos.x)+(cheerios[j].pos.y - cheerios[i].pos.y)*(cheerios[j].pos.y - cheerios[i].pos.y));  
-                    vec2_t vCollisionNorm    = {.x = vCollision.x/distance,
-                                                .y = vCollision.y/distance};
-                    vec2_t vRelativeVelocity = {.x = cheerios[i].v.x - cheerios[j].v.x,
-                                                .y = cheerios[i].v.y - cheerios[j].v.y};
-                    speed = vRelativeVelocity.x * vCollisionNorm.x + 
-                                   vRelativeVelocity.y * vCollisionNorm.y;
+                distance_squared = (cheerios[j].pos.x - cheerios[i].pos.x) * (cheerios[j].pos.x - cheerios[i].pos.x) + 
+                                            (cheerios[j].pos.y - cheerios[i].pos.y) * (cheerios[j].pos.y - cheerios[i].pos.y);
+                if(j != i && distance_squared  <= (cheerios[i].d/2 + cheerios[j].d/2)*(cheerios[i].d/2 + cheerios[j].d/2) ){
+                    vCollision.x = cheerios[j].pos.x - cheerios[i].pos.x;
+                    vCollision.y = cheerios[j].pos.y - cheerios[i].pos.y;
+                    distance = sqrt(distance_squared);//sqrt((cheerios[j].pos.x-cheerios[i].pos.x)*(cheerios[j].pos.x-cheerios[i].pos.x)+(cheerios[j].pos.y - cheerios[i].pos.y)*(cheerios[j].pos.y - cheerios[i].pos.y));  
+                    vCollisionNorm.x = vCollision.x/distance,
+                    vCollisionNorm.y = vCollision.y/distance;
+                    vRelativeVelocity.x = cheerios[i].v.x - cheerios[j].v.x;
+                    vRelativeVelocity.y = cheerios[i].v.y - cheerios[j].v.y;
+                    speed = vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
                     speed *= 0.2; // correction* ca depend plus de dt que ca mais quand meme il faux pas le metre trop bas ou trop haut// entre 0.5 et 0.8 car si on met plus haut ca rebondis pas mal et si on mets trop bas ils rentre entre eux// le coefficint qui fait tel que ca robondis pas NE PAS LE METRE TROP BAS CAR CA PEUX ENFONCER DEDANS OU REBONDIR TROP
                     if(speed > 0){
                         // Avec les moments 
-                        impulse = 2 * speed / (cheerios[i].m + cheerios[j].m);
-                        cheerios[i].v.x -= (impulse * cheerios[j].m* vCollisionNorm.x);
-                        cheerios[i].v.y -= (impulse * cheerios[j].m* vCollisionNorm.y);
-                        cheerios[j].v.x += (impulse * cheerios[i].m* vCollisionNorm.x);
-                        cheerios[j].v.y += (impulse * cheerios[i].m* vCollisionNorm.y);
-                        // Basic
-                        // che[i].v.x -= (speed * vCollisionNorm.x);
-                        // che[i].v.y -= (speed * vCollisionNorm.y);
-                        // che[j].v.x += (speed * vCollisionNorm.x);
-                        // che[j].v.y += (speed * vCollisionNorm.y);
+                        impulse = 2 * speed / (cheerios[i].m + cheerios[j].m);            // Basic
+                        cheerios[i].v.x -= (impulse * cheerios[j].m* vCollisionNorm.x);   // che[i].v.x -= (speed * vCollisionNorm.x);
+                        cheerios[i].v.y -= (impulse * cheerios[j].m* vCollisionNorm.y);   // che[i].v.y -= (speed * vCollisionNorm.y);
+                        cheerios[j].v.x += (impulse * cheerios[i].m* vCollisionNorm.x);   // che[j].v.x += (speed * vCollisionNorm.x);
+                        cheerios[j].v.y += (impulse * cheerios[i].m* vCollisionNorm.y);   // che[j].v.y += (speed * vCollisionNorm.y);
                     }
                 }
             }
@@ -214,26 +202,29 @@ int main(){
                 if(l > 0){
                     puissance_force = -ForceBetweenTwoInteractingParticles(surface_tension, R, B, Sigma, l, capilary_length);// enlever le - pour une force de attraction
                     // maintenant trouver le sens
-                    vec2_t sensij = {.x = cheerios[j].pos.x - cheerios[i].pos.x,
-                                     .y = cheerios[j].pos.y - cheerios[i].pos.y};
+                    sensij.x = cheerios[j].pos.x - cheerios[i].pos.x;
+                    sensij.y = cheerios[j].pos.y - cheerios[i].pos.y;
                     forceAvecDirection = VecteurAdition(forceAvecDirection, VectorTimesScalar(sensij, puissance_force));
                 }
             }
             cheerios[i].f_applique = forceAvecDirection;
         }
+
         // on peux pas metre cette boucle dans lautre car sinon ca changerait la position chaque cheerio un par un et les nouvelles positions changerait au cours du temps par rapport ou on comence a calculer 
         for(i = 0; i < nb_cheerios; i++){
-            vec2_t new_pos = VecteurAdition(VecteurAdition(cheerios[i].pos, VectorTimesScalar(cheerios[i].v, dt)), 
-                                                VectorTimesScalar(cheerios[i].a, dt*dt*0.5));
-            vec2_t new_acc = VectorTimesScalar(cheerios[i].f_applique, 1/cheerios[i].m);
-            vec2_t new_vel = VecteurAdition(cheerios[i].v, 
-                                                VectorTimesScalar(VecteurAdition(cheerios[i].a, new_acc),(dt*0.5)));
+            new_pos = VecteurAdition(VecteurAdition(cheerios[i].pos, VectorTimesScalar(cheerios[i].v, dt)), VectorTimesScalar(cheerios[i].a, dt*dt*0.5));
+            new_acc = VectorTimesScalar(cheerios[i].f_applique, 1/cheerios[i].m);
+            new_vel = VecteurAdition(cheerios[i].v, VectorTimesScalar(VecteurAdition(cheerios[i].a, new_acc),(dt*0.5)));
             cheerios[i].pos= new_pos;
             cheerios[i].v  = new_vel;
             cheerios[i].a  = new_acc;
         }
 
-        if(nt%100 == 0) EcritureData("donnees.txt", cheerios, nb_cheerios, nt);                             // On fait l'ecriturechawue fois comme ca on a bas besoin de stocker toute les donnees passees. 
+        // TODO a partir de quel moment on a plus de boost de vitesse pour lecriture 
+        // avec 11 1000000 0.001 => chaque iteration ~ 53s, 10 ~ 23s, 100 ~ 23s,  1000 ~ 21s, et si on ecris pas ca prend ~ 20s  
+        // mais en mem temps plus on a de iterations on a plus de donnes et ca prendplus de place par example on a eu avant de print seulement les 100 iterations des fichiers de 15 GB et comme on les lis 100 par 100 dans python ou plus on a pas besoin de autant de donnees 
+        if(nt%100 == 0) 
+            EcritureData("donnees.txt", cheerios, nb_cheerios, nt);                             // On fait l'ecriturechawue fois comme ca on a bas besoin de stocker toute les donnees passees. 
     }                  
     free(cheerios);
     return 0;
