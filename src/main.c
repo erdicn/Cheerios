@@ -124,6 +124,7 @@ double CalculLinearBondNumber( double R, double L_c){
     double B = sq(R)/sq(L_c);
     return B;
 }
+
 double CalculSigma(double rho_flottant, double rho_liquide, double theta, long long int* warning_counter){
     double D = rho_flottant/rho_liquide; // flottant cest notre objet
     if (theta > 2*M_PI){ // message de erreur car si  theta est plus grand que ca ca veux dire que soit la valeur nest pas en bone valeurs
@@ -133,6 +134,7 @@ double CalculSigma(double rho_flottant, double rho_liquide, double theta, long l
     }
     return ((2*D-1) / 3.0) - 0.5*cos(theta) + (1/6.0)*cb(cos(theta));
 }
+
 double ForceBetweenTwoInteractingParticles(double gamma, double R, double B, 
                                             double Sigma, double l, double L_c){
     // precondition l > 0 

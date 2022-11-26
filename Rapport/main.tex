@@ -56,9 +56,9 @@ sorting=none
     Si on applique le Developement limite de ordre 3 la position($\vb*{x}(t+\dd t)$) au point $t+\dd t$ on a:
     On a ca avec le developement limilte a $t$ et $t_0$ cest le pas temps precedent
     \[DL_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)+\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 +o((t-t_0)^3)\]
-    Si $t_0$ cest le pas de temps precedent et $\vb*{x}^{'}(t)$ vitesse et $\vb*{x}^{''}(t)$ lacceleration peux avoir.
+    Si $t_0$ cest le pas de temps precedent et $\vb*{x}^{'}(t)$ vitesse et $\vb*{x}^{''}(t)$ lacceleration on a:
         \[DL_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)\]
-        \[\Longrightarrow DL_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+v(t)(\dd t)+\frac{a(t)}{2!}(\dd t)^2+o(\dd t^3)\]
+        \[\Longrightarrow DL_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)\]
     L'erreur sur le temps $t_n$ cest de lordre $o(\exp^(Lt_n)\dd t^2)$ % TODO pas sur de ici
     
     Et comme notre acceleration ne depend pas de le changement de vitesse mais de l'equation \ref{ForceEntreCheerios} on peux calculer l'acceleration a partir du principe fondamentale de la dynamique avec masse constante. Cest important de faire ca apres le calcul de position et avant la vitesse car la position prend lacceleration precedent et la vitesse prend celui de avant et pendant le temps.
