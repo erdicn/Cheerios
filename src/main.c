@@ -110,15 +110,18 @@ double sq(double x){
 double cb(double x){
     return x*x*x;
 }
-double CalculLinearBondNumber( double R, double L_c,long long int* warning_counter){
+
+
+// TODO je sais pas si le bond number ca marche quand cest plus grand que 0.3
+double CalculBondNumber(double rho_liquide, double rho_air, 
+                            double R, double gamma ,double g){
+    double delta_rho = fabs(rho_liquide-rho_air);   //fabs = valeur absolue pour les doubles 
+    double B = (delta_rho * g * sq(R)) / gamma;
+    return B;
+}
+
+double CalculLinearBondNumber( double R, double L_c){
     double B = sq(R)/sq(L_c);
-    if (B > 0.3 ) {                                  // TODO pas sur de ici 
-        // if(PRINT_WARNING) {
-        //     printf("WARNING Bond Number = %lf > 0.3 et lequation 9 de Cherrios est valable seulement quand B << 1 ", B); // The expression for the slope of the interface in the vicinity of the spherical particle given in Eq. 共9兲 is valid for BⰆ1 共corresponding to a radius of ⬃1mm or smaller for a sphere at an air–water interface兲, in which case surface tension is very important.
-        //     printf("(WARNING de la fonction CalculLinearisedBondNumber(%g, %g)\n", R, L_c );
-        // }
-        (*warning_counter)++;
-    }
     return B;
 }
 double CalculSigma(double rho_flottant, double rho_liquide, double theta, long long int* warning_counter){
@@ -153,10 +156,11 @@ int main(){
     double g = 9.81;
     double capilary_length = sqrt(surface_tension/(fabs(rho_liq-rho_air)*g)) ;  // capilary lenght = L_c ≡ sqrt(γ/(𝜌*g))  γ = gamma = surface tension//2.7 / 1000; // L_c of water = 2.7 mm https://www.sciencedirect.com/topics/engineering/capillary-length#:~:text=As%20surface%20energy%20is%20related,will%20indeed%20have%20little%20effect.
     double R = 2.7 / 1000  ;                                                                // TODO trouver le R a partir de lobjet// ~ en mm /1000 = en m // The toroidal shape of a Cheerio complicates the notion of Bond number, but if we take the effective radius based on its volume R*⫽(R12R2)1/3⬇2.7 mm 共where R1⬇2 mm and R2⬇5 mm are the two radii of the torus兲 and Lc⫽2.7 mm for an air–water interface, then B⬇1. This value is within the regime where the gravitational energy of the particles dominates the capillary suction due to the meniscus between them, and so it is crucial that we account for the buoyancy effects to correctly interpret the attractive force.//= CalculCurvature
-    double B = CalculLinearBondNumber(R,capilary_length, &warning_counter); 
+    double B = CalculLinearBondNumber(R,capilary_length); 
+    B = CalculBondNumber(rho_liq, rho_air, R, surface_tension, g);
     double theta = fabs(B) < 0.63 ? asin(M_PI_2 * B) : asin(B);    //M_PI_2 *  // dans larticle ils mets ca mais si nous on le mets ca depase la limite de arcsin [-1,1]                                                  // TODO pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;                                                        // TODO faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
     double Sigma = CalculSigma(rho_cheerio, rho_liq, theta, &warning_counter);
-    printf("L_c = %lf Sigma = %lf B = %lf Theta = %lf°\n",capilary_length ,Sigma, B, theta);
+    printf("L_c = %lfm Sigma = %lf B = %lf B_lin = %lf Theta = %lf°\n",capilary_length ,Sigma, B, CalculLinearBondNumber(R,capilary_length), theta/M_PI * 180);
     ////////////////////////////////////////////////////////////////////////////
     int i, j;
     double puissance_force, distance_squared, speed, distance, impulse, l;
@@ -180,7 +184,8 @@ int main(){
                     vRelativeVelocity.x = cheerios[i].v.x - cheerios[j].v.x;
                     vRelativeVelocity.y = cheerios[i].v.y - cheerios[j].v.y;
                     speed = vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
-                    speed *= 0.2; // correction* ca depend plus de dt que ca mais quand meme il faux pas le metre trop bas ou trop haut// entre 0.5 et 0.8 car si on met plus haut ca rebondis pas mal et si on mets trop bas ils rentre entre eux// le coefficint qui fait tel que ca robondis pas NE PAS LE METRE TROP BAS CAR CA PEUX ENFONCER DEDANS OU REBONDIR TROP
+                    // TODO ttrouver cette constante 
+                    speed *= 0.4; // correction* ca depend plus de dt que ca mais quand meme il faux pas le metre trop bas ou trop haut// entre 0.5 et 0.8 car si on met plus haut ca rebondis pas mal et si on mets trop bas ils rentre entre eux// le coefficint qui fait tel que ca robondis pas NE PAS LE METRE TROP BAS CAR CA PEUX ENFONCER DEDANS OU REBONDIR TROP
                     if(speed > 0){
                         // Avec les moments 
                         impulse = 2 * speed / (cheerios[i].m + cheerios[j].m);            // Basic
@@ -200,6 +205,7 @@ int main(){
             for(j = 0; j < nb_cheerios; j++){
                 l = sqrt(sq(cheerios[j].pos.x - cheerios[i].pos.x) + sq(cheerios[j].pos.y - cheerios[i].pos.y));
                 if(l > 0){
+                    // TODO je sais pas pq ca se pousse (probablement de notre angle mais pq ?)
                     puissance_force = -ForceBetweenTwoInteractingParticles(surface_tension, R, B, Sigma, l, capilary_length);// enlever le - pour une force de attraction
                     // maintenant trouver le sens
                     sensij.x = cheerios[j].pos.x - cheerios[i].pos.x;
@@ -210,6 +216,9 @@ int main(){
             cheerios[i].f_applique = forceAvecDirection;
         }
 
+        // Integration de Verlet 
+        // On peux lutiliser cellui ci car notre acceleration depend seulement des interactions entre cheerios 
+        // et que notre acceleration ne depend pas de la vitesse 
         // on peux pas metre cette boucle dans lautre car sinon ca changerait la position chaque cheerio un par un et les nouvelles positions changerait au cours du temps par rapport ou on comence a calculer 
         for(i = 0; i < nb_cheerios; i++){
             new_pos = VecteurAdition(VecteurAdition(cheerios[i].pos, VectorTimesScalar(cheerios[i].v, dt)), VectorTimesScalar(cheerios[i].a, dt*dt*0.5));
