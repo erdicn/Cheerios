@@ -112,7 +112,7 @@ void Simulate(cheerio_t* cheerios, int nb_cheerios, double rho_liq,// double rho
             force_avec_direction = CalculForceDuBords(cheerios[c_obj], bords, surface_tension, R, B, Sigma, capilary_length);
             for(c = 0; c < nb_cheerios; c++){                                               // on calcul tout les forces par rapport tous les autres cheerios
                 if(c != c_obj){                                                             // il exerce pas de force sur lui meme car sinon il essaye de prendre la distance entre lui meme et ca fait tel que l = 0 et l/L_c = 0 => et K1 ne marhe pas a 0
-                    l = DistanceEntreDeuxCheerios(cheerios[c_obj], cheerios[c]);            // prints pour voir si ca marche bien// printf("longueur entre %d et %d = %g m = %g cm\n", c_obj, c, l ,l*100);//printf("l = %.16lf L_c = %lf\n", l, capilary_length);//printf("l = %lf L_c = %lf l/L_c = %lf\n", l, capilary_length, l/capilary_length);
+                    l = DistanceEntreDeuxCentreDeCheerios(cheerios[c_obj], cheerios[c]);            // prints pour voir si ca marche bien// printf("longueur entre %d et %d = %g m = %g cm\n", c_obj, c, l ,l*100);//printf("l = %.16lf L_c = %lf\n", l, capilary_length);//printf("l = %lf L_c = %lf l/L_c = %lf\n", l, capilary_length, l/capilary_length);
                     // TODO si on a l > epsilon de faireque il ya un pui pour que les cheerios se cogne
                     if( l > 0 + epsilon ){                                                              // car si cest 0 notre K1 est 0 et il est pas defini en 0 
                         force = ForceBetweenTwoInteractingParticles(surface_tension, R, B, Sigma, l, capilary_length);
