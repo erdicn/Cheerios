@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib.patches import Circle
 
 #lis le fichier de donnees initiales pour prendre le dt
-donees_initiales = list(map(float, open("cheerio_donnees_test.txt", 'rt').readline().strip().split()))
+donees_initiales = list(map(float, open("donnees_initiales.txt", 'rt').readline().strip().split()))
 dt = donees_initiales[2]
 
 #lis le fichier colonne par colonne 
