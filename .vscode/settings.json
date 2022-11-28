@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "cheerios.h": "c",
-        "gsl_sf_bessel.h": "c"
+        "gsl_sf_bessel.h": "c",
+        "stdlib.h": "c"
     }
 }
