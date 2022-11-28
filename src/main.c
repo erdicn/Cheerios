@@ -12,7 +12,6 @@ typedef struct Vec2{
     double x, y;
 } vec2_t;
 
-// TODO peut etre metre des courbures differentes ?
 typedef struct Cheerio{
     vec2_t pos;           // position cheerio
     vec2_t v;             // vitesse cheerio
@@ -38,6 +37,7 @@ void voirSiNotreLectureABienMarche(cheerio_t* cheerios, int nb_cheerios, long in
     }
 }
 
+// Permet de lire le fichier donnees_initiales.txt afin de récupérer les informations de nos objets.
 void LectureData(FILE* fichier, cheerio_t *cher){
 	double posx = 0,posy = 0 ,d = 0, v_x = 0, v_y = 0, a_x = 0, a_y = 0, m = 0, f_x = 0, f_y = 0;
 	fscanf(fichier,"%lf %lf %lf %lf %lf %lf %lf %lf", &posx, &posy, &d, &v_x, &v_y, &a_x, &a_y, &m);//, tmp);
@@ -53,6 +53,7 @@ void LectureData(FILE* fichier, cheerio_t *cher){
 	cher->f_applique.y = f_y;
     cher->R = d/2.;//1./(d/2.);  // TODO on est bien daccord ceci est le rayon de la courbure ? aparament non car ca marche que quand on prend R
 }
+
 cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* NT, double* dt,
                                     double* rho_liq, double* rho_air, double* rho_cheerio, double* surface_tension, double* g){
 	FILE* fichier_avec_donnees_initiales_cheerios = fopen(nom_fichier,"r");
