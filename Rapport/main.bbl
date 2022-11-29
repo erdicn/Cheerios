@@ -1,0 +1,1381 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{cheerios_2005}{article}{}
+      \name{author}{2}{}{%
+        {{hash=1936270b6eb1b095b4693c3336793cc3}{%
+           family={Vella},
+           familyi={V\bibinitperiod},
+           given={Dominic},
+           giveni={D\bibinitperiod}}}%
+        {{hash=449ad28c3a34dc0f99d209e3e18de0cf}{%
+           family={Mahadevan},
+           familyi={M\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{a8f76f57d926493ca32005f809ac6243}
+      \strng{fullhash}{a8f76f57d926493ca32005f809ac6243}
+      \strng{bibnamehash}{a8f76f57d926493ca32005f809ac6243}
+      \strng{authorbibnamehash}{a8f76f57d926493ca32005f809ac6243}
+      \strng{authornamehash}{a8f76f57d926493ca32005f809ac6243}
+      \strng{authorfullhash}{a8f76f57d926493ca32005f809ac6243}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0002-9505, 1943-2909}
+      \field{journaltitle}{American Journal of Physics}
+      \field{langid}{english}
+      \field{month}{9}
+      \field{number}{9}
+      \field{shortjournal}{American Journal of Physics}
+      \field{title}{The “{{Cheerios}} Effect”}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{73}
+      \field{year}{2005}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{817\bibrangedash 825}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1119/1.1898523
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/QUXXX2RT/Vella et Mahadevan - 2005 - The “Cheerios effect”.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://aapt.scitation.org/doi/10.1119/1.1898523
+      \endverb
+      \verb{url}
+      \verb http://aapt.scitation.org/doi/10.1119/1.1898523
+      \endverb
+    \endentry
+    \entry{benzi_introduction_1990}{incollection}{}
+      \name{author}{3}{}{%
+        {{hash=e9e108742ba398d63da02bc4c021c52c}{%
+           family={Benzi},
+           familyi={B\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=efaad0c59eae47eacbc2804a9752ee1f}{%
+           family={Succi},
+           familyi={S\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=a1a412457bd6b13e4b672d8a8bed8bae}{%
+           family={Vergassola},
+           familyi={V\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=ab2ed9f97e4c8a3ee2ed79eac17f23a4}{%
+           family={Campbell},
+           familyi={C\bibinitperiod},
+           given={Ian\bibnamedelima A.},
+           giveni={I\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=5b140ff2f26123ff1ee0ab02fab15d19}{%
+           family={Giovannella},
+           familyi={G\bibinitperiod},
+           given={Carlo},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Boston, MA}%
+      }
+      \list{publisher}{1}{%
+        {Springer US}%
+      }
+      \strng{namehash}{19b6658f6ff00128b734cd618bbbd25c}
+      \strng{fullhash}{19b6658f6ff00128b734cd618bbbd25c}
+      \strng{bibnamehash}{19b6658f6ff00128b734cd618bbbd25c}
+      \strng{authorbibnamehash}{19b6658f6ff00128b734cd618bbbd25c}
+      \strng{authornamehash}{19b6658f6ff00128b734cd618bbbd25c}
+      \strng{authorfullhash}{19b6658f6ff00128b734cd618bbbd25c}
+      \strng{editorbibnamehash}{ebf4c02f940d17b53703971046fa6b17}
+      \strng{editornamehash}{ebf4c02f940d17b53703971046fa6b17}
+      \strng{editorfullhash}{ebf4c02f940d17b53703971046fa6b17}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In a recent time, a new computational technique, based on the resolution of a Boltzmann Equation in a discrete lattice with appropriate symmetries, has been proposed as an alternative tool to investigate problems in the domain of two and three-dimensional fluid-dinamics. The Lattice Boltzmann Equation (LBE) is essentially the kinetic equation resulting from ensemble-averaging of the discrete dynamics of the Frisch-HasslacherPomeau (FHP) cellular automaton (and its generalitations) supplemented with the assumption of molecular chaos. The idea is that instead of solving the boolean equations which govern the microdynamical evolution of the cellular automaton (the equivalent of Hamilton equations in classical mechanics), one only aims to follow the evolution of the means populations living in the lattice. A definite advantage of the LBE formulation is the suppression of the large amount of noise which usually plagues cellular automata (CA) simulations.}
+      \field{booktitle}{Relaxation in {{Complex Systems}} and {{Related Topics}}}
+      \field{isbn}{978-1-4899-2136-9}
+      \field{langid}{english}
+      \field{series}{{{NATO ASI Series}}}
+      \field{title}{Introduction to the {{Lattice Boltzmann Equation}} for {{Fluid Dynamics}}}
+      \field{urlday}{3}
+      \field{urlmonth}{10}
+      \field{urlyear}{2022}
+      \field{year}{1990}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{329\bibrangedash 334}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1007/978-1-4899-2136-9_45
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/S5QU7DMM/Benzi et al. - 1990 - Introduction to the Lattice Boltzmann Equation for.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-1-4899-2136-9_45
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-1-4899-2136-9_45
+      \endverb
+      \keyw{Boolean Variable,Cellular Automaton,Collision Operator,Hydrodynamical Limit}
+    \endentry
+    \entry{chan_interaction_1981}{article}{}
+      \name{author}{3}{}{%
+        {{hash=87f4d15b15c3e07e806d9d24d5da83ab}{%
+           family={Chan},
+           familyi={C\bibinitperiod},
+           given={D.Y.C},
+           giveni={D\bibinitperiod}}}%
+        {{hash=8fe85fdf635488e9334fe60536ee52b4}{%
+           family={Henry},
+           familyi={H\bibinitperiod},
+           given={J.D},
+           giveni={J\bibinitperiod}}}%
+        {{hash=a50bdf3e58453fc1aa57bc09adba350f}{%
+           family={White},
+           familyi={W\bibinitperiod},
+           given={L.R},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{5d97afd5fce9c0341d127fb3aea7469d}
+      \strng{fullhash}{5d97afd5fce9c0341d127fb3aea7469d}
+      \strng{bibnamehash}{5d97afd5fce9c0341d127fb3aea7469d}
+      \strng{authorbibnamehash}{5d97afd5fce9c0341d127fb3aea7469d}
+      \strng{authornamehash}{5d97afd5fce9c0341d127fb3aea7469d}
+      \strng{authorfullhash}{5d97afd5fce9c0341d127fb3aea7469d}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00219797}
+      \field{journaltitle}{Journal of Colloid and Interface Science}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{number}{2}
+      \field{shortjournal}{Journal of Colloid and Interface Science}
+      \field{title}{The Interaction of Colloidal Particles Collected at Fluid Interfaces}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{79}
+      \field{year}{1981}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{410\bibrangedash 418}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1016/0021-9797(81)90092-8
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/ILMDN297/Chan et al. - 1981 - The interaction of colloidal particles collected a.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/0021979781900928
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/0021979781900928
+      \endverb
+    \endentry
+    \entry{charlton_drawing_nodate}{online}{}
+      \name{author}{1}{}{%
+        {{hash=fd55951e3e8e5c60181f44a6ac2efe0c}{%
+           family={Charlton},
+           familyi={C\bibinitperiod},
+           given={Nick},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{fd55951e3e8e5c60181f44a6ac2efe0c}
+      \strng{fullhash}{fd55951e3e8e5c60181f44a6ac2efe0c}
+      \strng{bibnamehash}{fd55951e3e8e5c60181f44a6ac2efe0c}
+      \strng{authorbibnamehash}{fd55951e3e8e5c60181f44a6ac2efe0c}
+      \strng{authornamehash}{fd55951e3e8e5c60181f44a6ac2efe0c}
+      \strng{authorfullhash}{fd55951e3e8e5c60181f44a6ac2efe0c}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{As well a being the best Python package for drawing plots, Matplotlib also has impressive primitive drawing capablities. In recent weeks, I’ve been using Matplotlib to provide the visualisations for a set of robot localisation projects, where we can use rectangles, circles and lines to demonstrate landmarks, robots and paths. Combined with NumPy and SciPy, this provides a quite capable simulation environment.}
+      \field{langid}{english}
+      \field{title}{Drawing and {{Animating Shapes}} with {{Matplotlib}}}
+      \field{urlday}{16}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/9DN3VWB9/drawing-animating-shapes-matplotlib.html
+      \endverb
+      \verb{urlraw}
+      \verb https://nickcharlton.net/posts/drawing-animating-shapes-matplotlib.html
+      \endverb
+      \verb{url}
+      \verb https://nickcharlton.net/posts/drawing-animating-shapes-matplotlib.html
+      \endverb
+    \endentry
+    \entry{danov_viscous_2000}{article}{}
+      \name{author}{3}{}{%
+        {{hash=d11f16aa37e5f57641478ad177a30979}{%
+           family={Danov},
+           familyi={D\bibinitperiod},
+           given={Krassimir\bibnamedelima D.},
+           giveni={K\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=3f89d9469a271ac5647a43b6efd0947a}{%
+           family={Dimova},
+           familyi={D\bibinitperiod},
+           given={Rumiana},
+           giveni={R\bibinitperiod}}}%
+        {{hash=52ea196c1b6f941211c8ad833f3d6e34}{%
+           family={Pouligny},
+           familyi={P\bibinitperiod},
+           given={Bernard},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{a83f75a1758c4dc1534cf61e97f3d41b}
+      \strng{fullhash}{a83f75a1758c4dc1534cf61e97f3d41b}
+      \strng{bibnamehash}{a83f75a1758c4dc1534cf61e97f3d41b}
+      \strng{authorbibnamehash}{a83f75a1758c4dc1534cf61e97f3d41b}
+      \strng{authornamehash}{a83f75a1758c4dc1534cf61e97f3d41b}
+      \strng{authorfullhash}{a83f75a1758c4dc1534cf61e97f3d41b}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{10706631}
+      \field{journaltitle}{Physics of Fluids}
+      \field{langid}{english}
+      \field{number}{11}
+      \field{shortjournal}{Phys. Fluids}
+      \field{title}{Viscous Drag of a Solid Sphere Straddling a Spherical or Flat Surface}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{12}
+      \field{year}{2000}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{2711}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1063/1.1289692
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/XW8FNX6Y/Danov et al. - 2000 - Viscous drag of a solid sphere straddling a spheri.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://scitation.aip.org/content/aip/journal/pof2/12/11/10.1063/1.1289692
+      \endverb
+      \verb{url}
+      \verb http://scitation.aip.org/content/aip/journal/pof2/12/11/10.1063/1.1289692
+      \endverb
+    \endentry
+    \entry{dixit_capillary_2012}{article}{}
+      \name{author}{2}{}{%
+        {{hash=7f86eb19efc61f7402c902b9e0af2cf0}{%
+           family={Dixit},
+           familyi={D\bibinitperiod},
+           given={Harish\bibnamedelima N.},
+           giveni={H\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=cc4071fc362be206c469f263771b2603}{%
+           family={Homsy},
+           familyi={H\bibinitperiod},
+           given={G.\bibnamedelimi M.},
+           giveni={G\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{b88083c3000d91bdff23b58b40d3abf6}
+      \strng{fullhash}{b88083c3000d91bdff23b58b40d3abf6}
+      \strng{bibnamehash}{b88083c3000d91bdff23b58b40d3abf6}
+      \strng{authorbibnamehash}{b88083c3000d91bdff23b58b40d3abf6}
+      \strng{authornamehash}{b88083c3000d91bdff23b58b40d3abf6}
+      \strng{authorfullhash}{b88083c3000d91bdff23b58b40d3abf6}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1070-6631, 1089-7666}
+      \field{journaltitle}{Physics of Fluids}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{number}{12}
+      \field{shortjournal}{Physics of Fluids}
+      \field{title}{Capillary Effects on Floating Cylindrical Particles}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{24}
+      \field{year}{2012}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{122102}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1063/1.4769758
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/XKQ8U3KE/Dixit et Homsy - 2012 - Capillary effects on floating cylindrical particle.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://aip.scitation.org/doi/10.1063/1.4769758
+      \endverb
+      \verb{url}
+      \verb http://aip.scitation.org/doi/10.1063/1.4769758
+      \endverb
+    \endentry
+    \entry{feng_contact_2017}{article}{}
+      \name{author}{2}{}{%
+        {{hash=5eb8c25ef1814e6a1decbcb05b99b9b0}{%
+           family={Feng},
+           familyi={F\bibinitperiod},
+           given={Dong-xia},
+           giveni={D\bibinithyphendelim x\bibinitperiod}}}%
+        {{hash=33bb3bf249888737fbecf9bc7922da5d}{%
+           family={Nguyen},
+           familyi={N\bibinitperiod},
+           given={Anh\bibnamedelima V.},
+           giveni={A\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+      }
+      \strng{namehash}{86b3874f80e3fb7ce24f00bd1e08eb6d}
+      \strng{fullhash}{86b3874f80e3fb7ce24f00bd1e08eb6d}
+      \strng{bibnamehash}{86b3874f80e3fb7ce24f00bd1e08eb6d}
+      \strng{authorbibnamehash}{86b3874f80e3fb7ce24f00bd1e08eb6d}
+      \strng{authornamehash}{86b3874f80e3fb7ce24f00bd1e08eb6d}
+      \strng{authorfullhash}{86b3874f80e3fb7ce24f00bd1e08eb6d}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The contact angle (CA) as a measure of surface hydrophobicity is of scientific and technological importance for many wetting and dewetting processes. CA hysteresis (i.e., the difference between the advancing and receding CAs) due to roughness on a flat surface has been recognized but is not considered in the stability analysis of floating particles. In this study, the CA of single floating spheres at the air-water interface was determined directly from the deformed meniscus by applying a new method recently developed by our team (Feng, D.-x. and Nguyen, A. V., 2016. A novel quantitative analysis of the local deformation of the air-water surface by a floating sphere. Colloids and Surfaces A: Physicochemical and Engineering Aspects, Vol. 504, pp. 407-413). The experiments for each of the single spheres were repeated to estimate the variation in the CA. The experimental results show a normal distribution of the CA. The CA hysteresis occurs randomly because of the dispersion of small-scale surface roughness. This random hysteresis substantially affects the stability analysis of floating spheres. The analysis also shows that the CA determined by the force balance method (valid for ideally smooth surfaces) yields higher values than those determined on the basis of the deformed meniscus around the particle. This difference is attributed to the effect of surface roughness on the CA hysteresis, which should be considered in analyses of the stability and detachment of floating particles.}
+      \field{issn}{09277757}
+      \field{journaltitle}{Colloids and Surfaces A: Physicochemical and Engineering Aspects}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{shortjournal}{Colloids and Surfaces A: Physicochemical and Engineering Aspects}
+      \field{title}{Contact Angle Variation on Single Floating Spheres and Its Impact on the Stability Analysis of Floating Particles}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{520}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{442\bibrangedash 447}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1016/j.colsurfa.2017.01.057
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/U2LZP42B/Feng et Nguyen - 2017 - Contact angle variation on single floating spheres.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0927775717300948
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0927775717300948
+      \endverb
+    \endentry
+    \entry{fortes_attraction_1982}{article}{}
+      \name{author}{1}{}{%
+        {{hash=6eff59542f886a63549a96db9f8f82c7}{%
+           family={Fortes},
+           familyi={F\bibinitperiod},
+           given={M.\bibnamedelimi A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{6eff59542f886a63549a96db9f8f82c7}
+      \strng{fullhash}{6eff59542f886a63549a96db9f8f82c7}
+      \strng{bibnamehash}{6eff59542f886a63549a96db9f8f82c7}
+      \strng{authorbibnamehash}{6eff59542f886a63549a96db9f8f82c7}
+      \strng{authornamehash}{6eff59542f886a63549a96db9f8f82c7}
+      \strng{authorfullhash}{6eff59542f886a63549a96db9f8f82c7}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The horizontal force that has to be applied to floating cylinders to equilibrate the capillary force is calculated for a general geometry with cylindrical symmetry and for any wetting characteristics of the cylinders. The force on a cylinder can be related to a single parameter of each of the two menisci that contact the cylinder. It is found that the force between parallel vertical plates or parallelipipeds can be repulsive if one of the contact angles is acute and the other obtuse. The force on cylinders between fixed walls is also calculated and the results suggest that it may be possible to separate floating particles with different wetting properties by placing them between two walls with different contact angles.}
+      \field{day}{1}
+      \field{issn}{0008-4042, 1480-3291}
+      \field{journaltitle}{Canadian Journal of Chemistry}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{number}{23}
+      \field{shortjournal}{Can. J. Chem.}
+      \field{title}{Attraction and Repulsion of Floating Particles}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{60}
+      \field{year}{1982}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{2889\bibrangedash 2895}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1139/v82-414
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/8A3XHU84/Fortes - 1982 - Attraction and repulsion of floating particles.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://www.nrcresearchpress.com/doi/10.1139/v82-414
+      \endverb
+      \verb{url}
+      \verb http://www.nrcresearchpress.com/doi/10.1139/v82-414
+      \endverb
+    \endentry
+    \entry{gifford_attraction_1971}{article}{}
+      \name{author}{2}{}{%
+        {{hash=91e314e939b2778d637dacf8c153cb0a}{%
+           family={Gifford},
+           familyi={G\bibinitperiod},
+           given={W.A.},
+           giveni={W\bibinitperiod}}}%
+        {{hash=4f83892fd062dca2c73ed815f4a1879b}{%
+           family={Scriven},
+           familyi={S\bibinitperiod},
+           given={L.E.},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{419b135b220db9d964fc86663cff5f1d}
+      \strng{fullhash}{419b135b220db9d964fc86663cff5f1d}
+      \strng{bibnamehash}{419b135b220db9d964fc86663cff5f1d}
+      \strng{authorbibnamehash}{419b135b220db9d964fc86663cff5f1d}
+      \strng{authornamehash}{419b135b220db9d964fc86663cff5f1d}
+      \strng{authorfullhash}{419b135b220db9d964fc86663cff5f1d}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Capillary attraction between floating particles, a phenomenon of everyday experience as well as technological importance, is caused by interfacial tension and buoyancy forces that have defied calculation so far owing to the complicated shape of the intervening meniscus.The one exception is treated here: parallel, stationary cylinders of infinite length. Computations show that the attractive force falls off nearly exponentially with separation. The parallel configurationis unstable until cylinders make contact, as experiments with finiterods confirm.}
+      \field{issn}{00092509}
+      \field{journaltitle}{Chemical Engineering Science}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{number}{3}
+      \field{shortjournal}{Chemical Engineering Science}
+      \field{title}{On the Attraction of Floating Particles}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{26}
+      \field{year}{1971}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{287\bibrangedash 297}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1016/0009-2509(71)83003-8
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/YVXIIQYA/Gifford et Scriven - 1971 - On the attraction of floating particles.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/0009250971830038
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/0009250971830038
+      \endverb
+    \endentry
+    \entry{keller_surface_1998}{article}{}
+      \name{author}{1}{}{%
+        {{hash=10e153cc539afa16ec9d8da7b202b0d4}{%
+           family={Keller},
+           familyi={K\bibinitperiod},
+           given={Joseph\bibnamedelima B.},
+           giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \strng{namehash}{10e153cc539afa16ec9d8da7b202b0d4}
+      \strng{fullhash}{10e153cc539afa16ec9d8da7b202b0d4}
+      \strng{bibnamehash}{10e153cc539afa16ec9d8da7b202b0d4}
+      \strng{authorbibnamehash}{10e153cc539afa16ec9d8da7b202b0d4}
+      \strng{authornamehash}{10e153cc539afa16ec9d8da7b202b0d4}
+      \strng{authorfullhash}{10e153cc539afa16ec9d8da7b202b0d4}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1070-6631, 1089-7666}
+      \field{journaltitle}{Physics of Fluids}
+      \field{langid}{english}
+      \field{month}{11}
+      \field{number}{11}
+      \field{shortjournal}{Physics of Fluids}
+      \field{title}{Surface Tension Force on a Partly Submerged Body}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{10}
+      \field{year}{1998}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{3009\bibrangedash 3010}
+      \range{pages}{2}
+      \verb{doi}
+      \verb 10.1063/1.869820
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/6RRHVTK3/Keller - 1998 - Surface tension force on a partly submerged body.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://aip.scitation.org/doi/10.1063/1.869820
+      \endverb
+      \verb{url}
+      \verb http://aip.scitation.org/doi/10.1063/1.869820
+      \endverb
+    \endentry
+    \entry{kralchevsky_capillary_2000}{article}{}
+      \name{author}{2}{}{%
+        {{hash=26cf41437ba9998c651d5f612f3b8752}{%
+           family={Kralchevsky},
+           familyi={K\bibinitperiod},
+           given={Peter\bibnamedelima A.},
+           giveni={P\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=443633830bd537b4f5b57d0ca5ff8fb3}{%
+           family={Nagayama},
+           familyi={N\bibinitperiod},
+           given={Kuniaki},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{ff5254aa9ef9426e79b73a3ab11a83ae}
+      \strng{fullhash}{ff5254aa9ef9426e79b73a3ab11a83ae}
+      \strng{bibnamehash}{ff5254aa9ef9426e79b73a3ab11a83ae}
+      \strng{authorbibnamehash}{ff5254aa9ef9426e79b73a3ab11a83ae}
+      \strng{authornamehash}{ff5254aa9ef9426e79b73a3ab11a83ae}
+      \strng{authorfullhash}{ff5254aa9ef9426e79b73a3ab11a83ae}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00018686}
+      \field{journaltitle}{Advances in Colloid and Interface Science}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{number}{2-3}
+      \field{shortjournal}{Advances in Colloid and Interface Science}
+      \field{title}{Capillary Interactions between Particles Bound to Interfaces, Liquid Films and Biomembranes}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{85}
+      \field{year}{2000}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{145\bibrangedash 192}
+      \range{pages}{48}
+      \verb{doi}
+      \verb 10.1016/S0001-8686(99)00016-0
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/7Z79QK52/Kralchevsky et Nagayama - 2000 - Capillary interactions between particles bound to .pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0001868699000160
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0001868699000160
+      \endverb
+    \endentry
+    \entry{loudet_drag_2020}{article}{}
+      \name{author}{4}{}{%
+        {{hash=c396cd1fa853f2c47932c19c7aec14f0}{%
+           family={Loudet},
+           familyi={L\bibinitperiod},
+           given={J.\bibnamedelimi -C.},
+           giveni={J\bibinitperiod\bibinitdelim \bibinithyphendelim \bibinitperiod}}}%
+        {{hash=70a854559f3c3215be053d7567b5f90d}{%
+           family={Qiu},
+           familyi={Q\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d5eb565ab6e866b77992600ea101d1f0}{%
+           family={Hemauer},
+           familyi={H\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c20acfe6249a8c626b470a7e1634ed06}{%
+           family={Feng},
+           familyi={F\bibinitperiod},
+           given={J.\bibnamedelimi J.},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{d0b0c30b7b06d6986c0ca327ad2360c0}
+      \strng{fullhash}{8c778c8ba0967ae077d4a353046940a7}
+      \strng{bibnamehash}{8c778c8ba0967ae077d4a353046940a7}
+      \strng{authorbibnamehash}{8c778c8ba0967ae077d4a353046940a7}
+      \strng{authornamehash}{d0b0c30b7b06d6986c0ca327ad2360c0}
+      \strng{authorfullhash}{8c778c8ba0967ae077d4a353046940a7}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{We numerically investigate the influence of interfacial deformations on the drag force exerted on a particle straddling a fluid interface. We perform finite element simulations of the two-phase flow system in a bounded two-dimensional geometry. The fluid interface is modeled with a phase-field method which is coupled to the Navier-Stokes equations to solve for the flow dynamics. The interfacial deformations are caused by the buoyant weight of the particle, which results in curved menisci. We compute drag coefficients as a function of the three-phase contact angle, the viscosity ratio of the two fluids, and the particle density. Our results show that, for some parameter values, large drag forces are not necessarily correlated with large interfacial distortions and that a lower drag may actually be achieved with non-flat interfaces rather than with unperturbed ones.}
+      \field{issn}{1292-8941, 1292-895X}
+      \field{journaltitle}{The European Physical Journal E}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{number}{2}
+      \field{shortjournal}{Eur. Phys. J. E}
+      \field{shorttitle}{Drag Force on a Particle Straddling a Fluid Interface}
+      \field{title}{Drag Force on a Particle Straddling a Fluid Interface: {{Influence}} of Interfacial Deformations}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{43}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{13}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1140/epje/i2020-11936-1
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/L5M484UJ/Loudet et al. - 2020 - Drag force on a particle straddling a fluid interf.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://link.springer.com/10.1140/epje/i2020-11936-1
+      \endverb
+      \verb{url}
+      \verb http://link.springer.com/10.1140/epje/i2020-11936-1
+      \endverb
+    \endentry
+    \entry{mansfield_equilibrium_1997}{article}{}
+      \name{author}{3}{}{%
+        {{hash=26e2b053de20fc409dbc53ae3124de27}{%
+           family={Mansfield},
+           familyi={M\bibinitperiod},
+           given={E.\bibnamedelimi H.},
+           giveni={E\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=e6394b0b441c5fa121d764c2db38cbdc}{%
+           family={Sepangi},
+           familyi={S\bibinitperiod},
+           given={H.\bibnamedelimi R.},
+           giveni={H\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=cc5b85d9db66911bc7b84f61688c46b5}{%
+           family={Eastwood},
+           familyi={E\bibinitperiod},
+           given={E.\bibnamedelimi A.},
+           giveni={E\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{70996cec5c04147763e13065df51de0e}
+      \strng{fullhash}{70996cec5c04147763e13065df51de0e}
+      \strng{bibnamehash}{70996cec5c04147763e13065df51de0e}
+      \strng{authorbibnamehash}{70996cec5c04147763e13065df51de0e}
+      \strng{authornamehash}{70996cec5c04147763e13065df51de0e}
+      \strng{authorfullhash}{70996cec5c04147763e13065df51de0e}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{15}
+      \field{issn}{1364-503X, 1471-2962}
+      \field{journaltitle}{Philosophical Transactions of the Royal Society of London. Series A: Mathematical, Physical and Engineering Sciences}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{number}{1726}
+      \field{shortjournal}{Philosophical Transactions of the Royal Society of London. Series A: Mathematical, Physical and Engineering Sciences}
+      \field{title}{Equilibrium and Mutual Attraction or Repulsion of Objects Supported by Surface Tension}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{355}
+      \field{year}{1997}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{869\bibrangedash 919}
+      \range{pages}{51}
+      \verb{doi}
+      \verb 10.1098/rsta.1997.0049
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/MFX7D7AV/Mansfield et al. - 1997 - Equilibrium and mutual attraction or repulsion of .pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://royalsocietypublishing.org/doi/10.1098/rsta.1997.0049
+      \endverb
+      \verb{url}
+      \verb https://royalsocietypublishing.org/doi/10.1098/rsta.1997.0049
+      \endverb
+    \endentry
+    \entry{marchand_why_2011}{article}{}
+      \name{author}{4}{}{%
+        {{hash=e7e437bf467dde416e88a53e3f3620b0}{%
+           family={Marchand},
+           familyi={M\bibinitperiod},
+           given={Antonin},
+           giveni={A\bibinitperiod}}}%
+        {{hash=707c09e2e08cae98b050824b5eebea32}{%
+           family={Weijs},
+           familyi={W\bibinitperiod},
+           given={Joost\bibnamedelima H.},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=09559ba3685ee08b83dc94c3a2c93fca}{%
+           family={Snoeijer},
+           familyi={S\bibinitperiod},
+           given={Jacco\bibnamedelima H.},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=ec85d58c57bf0448b4dd52a4916583b1}{%
+           family={Andreotti},
+           familyi={A\bibinitperiod},
+           given={Bruno},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{ff11527c2ed9a90ff746a20277b83845}
+      \strng{fullhash}{a52b76c4e6f74ff0ccfec8f3ca95e52f}
+      \strng{bibnamehash}{a52b76c4e6f74ff0ccfec8f3ca95e52f}
+      \strng{authorbibnamehash}{a52b76c4e6f74ff0ccfec8f3ca95e52f}
+      \strng{authornamehash}{ff11527c2ed9a90ff746a20277b83845}
+      \strng{authorfullhash}{a52b76c4e6f74ff0ccfec8f3ca95e52f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0002-9505, 1943-2909}
+      \field{journaltitle}{American Journal of Physics}
+      \field{langid}{english}
+      \field{month}{10}
+      \field{number}{10}
+      \field{shortjournal}{American Journal of Physics}
+      \field{title}{Why Is Surface Tension a Force Parallel to the Interface?}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{79}
+      \field{year}{2011}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{999\bibrangedash 1008}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1119/1.3619866
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/JJQHZTD6/Why is surface tension a force parallel to the interface.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://aapt.scitation.org/doi/10.1119/1.3619866
+      \endverb
+      \verb{url}
+      \verb http://aapt.scitation.org/doi/10.1119/1.3619866
+      \endverb
+    \endentry
+    \entry{maxwell_scientific_2011}{book}{}
+      \name{author}{1}{}{%
+        {{hash=2ae389e06ba2d0f0f32ee7f909b8e672}{%
+           family={Maxwell},
+           familyi={M\bibinitperiod},
+           given={James\bibnamedelima Clerk},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=483ecf85e54b219d26b949edd25c785d}{%
+           family={Niven},
+           familyi={N\bibinitperiod},
+           given={W.\bibnamedelimi D.},
+           giveni={W\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{2ae389e06ba2d0f0f32ee7f909b8e672}
+      \strng{fullhash}{2ae389e06ba2d0f0f32ee7f909b8e672}
+      \strng{bibnamehash}{2ae389e06ba2d0f0f32ee7f909b8e672}
+      \strng{authorbibnamehash}{2ae389e06ba2d0f0f32ee7f909b8e672}
+      \strng{authornamehash}{2ae389e06ba2d0f0f32ee7f909b8e672}
+      \strng{authorfullhash}{2ae389e06ba2d0f0f32ee7f909b8e672}
+      \strng{editorbibnamehash}{483ecf85e54b219d26b949edd25c785d}
+      \strng{editornamehash}{483ecf85e54b219d26b949edd25c785d}
+      \strng{editorfullhash}{483ecf85e54b219d26b949edd25c785d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The publication in 1890 of the two-volume Scientific Papers of James Clerk Maxwell, edited by W. D. Niven, was one of the two objects of a committee formed 'for the purpose of securing a fitting memorial of him' (the other object being the commissioning of a marble bust for the Cavendish Laboratory). Before his death in 1879 at the age of 48, Clerk Maxwell had made major contributions to many areas of theoretical physics and mathematics, not least his discoveries in the fields of electromagnetism and of the kinetic theory of gases, which have been regarded as laying the foundations of all modern physics. He is generally considered the third most important physicist of all time, after Newton and Einstein. These collected shorter works, beginning with a paper written at the age of 15, show the wide range of Clerk Maxwell's interests across mathematics, physics and chemistry.}
+      \field{day}{20}
+      \field{edition}{1}
+      \field{isbn}{978-1-108-01538-7 978-0-511-71037-7}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{title}{The {{Scientific Papers}} of {{James Clerk Maxwell}}}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{year}{2011}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.1017/CBO9780511710377
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/N9KTXIF9/Maxwell - 2011 - The Scientific Papers of James Clerk Maxwell.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.cambridge.org/core/product/identifier/9780511710377/type/book
+      \endverb
+      \verb{url}
+      \verb https://www.cambridge.org/core/product/identifier/9780511710377/type/book
+      \endverb
+    \endentry
+    \entry{nicolson_interaction_1949}{article}{}
+      \name{author}{1}{}{%
+        {{hash=de5ecd8296fa486516a5e803d3aa2470}{%
+           family={Nicolson},
+           familyi={N\bibinitperiod},
+           given={M.\bibnamedelimi M.},
+           giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{de5ecd8296fa486516a5e803d3aa2470}
+      \strng{fullhash}{de5ecd8296fa486516a5e803d3aa2470}
+      \strng{bibnamehash}{de5ecd8296fa486516a5e803d3aa2470}
+      \strng{authorbibnamehash}{de5ecd8296fa486516a5e803d3aa2470}
+      \strng{authornamehash}{de5ecd8296fa486516a5e803d3aa2470}
+      \strng{authorfullhash}{de5ecd8296fa486516a5e803d3aa2470}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A quantitative study of the law of force between bubbles floating on a fluid has been made and the results exhibited in the form of a potential energy-distance curve. The main approximations made are that the inclination of the surface of the fluid is small (so that the equations for the surface become linear), and that the submerged portion of the bubble remains spherical. The latter assumption restricts the validity of the results to small bubbles of about 3·0 mm. diameter and less. One object of the work was to determine the size of bubble which simulated most nearly a typical atomic interaction curve. This application arises in connexion with Prof. Bragg's ‘bubble’ model of crystal lattices. Exact simulation cannot be expected, for the bubble model is two-dimensional, and also does not exert forces analogous either to Coulomb repulsion or to the metallic bond. It can be shown, however, that the law of force between bubbles of a particular size is a remarkably close fit to the law of force between inert gas atoms, that is, to an interaction consisting of a van der Waals attraction and a short-range or ‘overlap’ repulsion. Fig. 4 illustrates this point. The two full curves are the energy-distance curves for krypton and argon atoms (plotted from Fowler, Statistical Mechanics , 2nd ed., Chapter x, Table 29). The circles mark the corresponding curve for bubbles with α = 1·0 (i.e. of diameter 3 mm. in soap solution). The units of energy and distance are chosen so as to bring the minimum of each curve to the point (1, − 50). It will be seen that the curves are remarkably similar over the range shown.}
+      \field{issn}{0305-0041, 1469-8064}
+      \field{journaltitle}{Mathematical Proceedings of the Cambridge Philosophical Society}
+      \field{langid}{english}
+      \field{month}{4}
+      \field{number}{2}
+      \field{shortjournal}{Math. Proc. Camb. Phil. Soc.}
+      \field{title}{The Interaction between Floating Particles}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{45}
+      \field{year}{1949}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{288\bibrangedash 295}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1017/S0305004100024841
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/CWL8LYIR/Nicolson - 1949 - The interaction between floating particles.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.cambridge.org/core/product/identifier/S0305004100024841/type/journal_article
+      \endverb
+      \verb{url}
+      \verb https://www.cambridge.org/core/product/identifier/S0305004100024841/type/journal_article
+      \endverb
+    \endentry
+    \entry{noauthor_calculateur_nodate}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{title}{Calculateur de Tension Superficielle d’une Aiguille « Flottante » • {{Hydraulique}} – {{Fluides}} • {{Convertisseurs}} d’unités En Ligne}
+      \field{urlday}{7}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.translatorscafe.com/unit-converter/fr-FR/calculator/surface-tension/
+      \endverb
+      \verb{url}
+      \verb https://www.translatorscafe.com/unit-converter/fr-FR/calculator/surface-tension/
+      \endverb
+    \endentry
+    \entry{noauthor_compressible_nodate}{online}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{title}{Compressible {{Lattice Boltzmann Method}} and {{Applications}} | {{SpringerLink}}}
+      \field{urlday}{1}
+      \field{urlmonth}{10}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/8UDP462M/978-3-642-11842-5_3.html
+      \endverb
+      \verb{urlraw}
+      \verb https://link.springer.com/chapter/10.1007/978-3-642-11842-5_3
+      \endverb
+      \verb{url}
+      \verb https://link.springer.com/chapter/10.1007/978-3-642-11842-5_3
+      \endverb
+    \endentry
+    \entry{ondarcuhu_specific_1990}{article}{}
+      \name{author}{4}{}{%
+        {{hash=afca385828235e6e4581b741f103fd7d}{%
+           family={Ondarçuhu},
+           familyi={O\bibinitperiod},
+           given={T.},
+           giveni={T\bibinitperiod}}}%
+        {{hash=eb9dd73d8adb6e118ad9a8744808b7ee}{%
+           family={Fabre},
+           familyi={F\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+        {{hash=39df0131476ff2d91a7b95aa881d8f03}{%
+           family={Raphaël},
+           familyi={R\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+        {{hash=5502bf31bd177b970289c3943fbdaa67}{%
+           family={Veyssié},
+           familyi={V\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{5d722f65f96f713d3b2b3a0b8fa2763a}
+      \strng{fullhash}{6cfe350398c23738772ebe66de77ba4f}
+      \strng{bibnamehash}{6cfe350398c23738772ebe66de77ba4f}
+      \strng{authorbibnamehash}{6cfe350398c23738772ebe66de77ba4f}
+      \strng{authornamehash}{5d722f65f96f713d3b2b3a0b8fa2763a}
+      \strng{authorfullhash}{6cfe350398c23738772ebe66de77ba4f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We present a theoretical and experimental study of amphiphilic particles : these are small solid spheres treated so that one part of the solid is hydrophilic whereas the other is hydrophobic. These beads have a specific behaviour at the interface between two fluids of different polarities since they are anchored at the interface along the border line between the two parts, in a large range of values for the ratio between the areas of the hydrophilic and hydrophobic sides. In addition to the intrinsic interest of the study of the wetting of mixed surfaces, these amphiphilic particles may be considered useful in technological processes such as emulsification.}
+      \field{issn}{0302-0738}
+      \field{journaltitle}{Journal de Physique}
+      \field{langid}{english}
+      \field{number}{14}
+      \field{shortjournal}{J. Phys. France}
+      \field{title}{Specific Properties of Amphiphilic Particles at Fluid Interfaces}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{51}
+      \field{year}{1990}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{1527\bibrangedash 1536}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1051/jphys:0199000510140152700
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/ZF5J7WSM/Ondarçuhu et al. - 1990 - Specific properties of amphiphilic particles at fl.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://www.edpsciences.org/10.1051/jphys:0199000510140152700
+      \endverb
+      \verb{url}
+      \verb http://www.edpsciences.org/10.1051/jphys:0199000510140152700
+      \endverb
+    \endentry
+    \entry{onishi_lattice_2008}{article}{}
+      \name{author}{4}{}{%
+        {{hash=10a06656a487963cfe83635e69e0d4ab}{%
+           family={Onishi},
+           familyi={O\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=702f36d4bec21c2d86d324e028c95776}{%
+           family={Kawasaki},
+           familyi={K\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=ff38b98d2dc65002f66d028a85b9d58d}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Y.},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=71fa1aa5f965e40eebbf46dabe6efba8}{%
+           family={Ohashi},
+           familyi={O\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{2670f4c6ff4442fd01297fe67bf5a26d}
+      \strng{fullhash}{39bcf5ffcd5cf4dceac84a153cbb3afa}
+      \strng{bibnamehash}{39bcf5ffcd5cf4dceac84a153cbb3afa}
+      \strng{authorbibnamehash}{39bcf5ffcd5cf4dceac84a153cbb3afa}
+      \strng{authornamehash}{2670f4c6ff4442fd01297fe67bf5a26d}
+      \strng{authorfullhash}{39bcf5ffcd5cf4dceac84a153cbb3afa}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We present a numerical model for dynamic simulation of colloidal particles attached to a fluid interface. A new coupling method is proposed for combining Newtonian dynamics for colloidal particles and the lattice Boltzmann method for fluid phases so as to account for the wetting properties of particle surfaces. With this feature, capillary interaction of colloidal particles, in addition to electrostatic and hydrodynamic interactions, can be simulated.}
+      \field{issn}{08981221}
+      \field{journaltitle}{Computers \& Mathematics with Applications}
+      \field{langid}{english}
+      \field{month}{4}
+      \field{number}{7}
+      \field{shortjournal}{Computers \& Mathematics with Applications}
+      \field{title}{Lattice {{Boltzmann}} Simulation of Capillary Interactions among Colloidal Particles}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{55}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{1541\bibrangedash 1553}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1016/j.camwa.2007.08.027
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/DFUNJBBF/Onishi et al. - 2008 - Lattice Boltzmann simulation of capillary interact.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0898122107006463
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0898122107006463
+      \endverb
+    \endentry
+    \entry{reducible_building_2021}{video}{}
+      \name{editor}{1}{}{%
+        {{hash=746efcb480a9b538d33da5f0c9b0003a}{%
+           family={{Reducible}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{746efcb480a9b538d33da5f0c9b0003a}
+      \strng{fullhash}{746efcb480a9b538d33da5f0c9b0003a}
+      \strng{bibnamehash}{746efcb480a9b538d33da5f0c9b0003a}
+      \strng{editorbibnamehash}{746efcb480a9b538d33da5f0c9b0003a}
+      \strng{editornamehash}{746efcb480a9b538d33da5f0c9b0003a}
+      \strng{editorfullhash}{746efcb480a9b538d33da5f0c9b0003a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{editor}
+      \field{labeltitlesource}{shorttitle}
+      \field{day}{19}
+      \field{editortype}{director}
+      \field{month}{1}
+      \field{shorttitle}{Building {{Collision Simulations}}}
+      \field{title}{Building {{Collision Simulations}}: {{An Introduction}} to {{Computer Graphics}}}
+      \field{urlday}{3}
+      \field{urlmonth}{10}
+      \field{urlyear}{2022}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.youtube.com/watch?app=desktop&v=eED4bSkYCB8&ab_channel=Reducible
+      \endverb
+      \verb{url}
+      \verb https://www.youtube.com/watch?app=desktop&v=eED4bSkYCB8&ab_channel=Reducible
+      \endverb
+    \endentry
+    \entry{vargaftik_international_1983}{article}{}
+      \name{author}{3}{}{%
+        {{hash=aaffe5958ee871c9194013564ef8b6a6}{%
+           family={Vargaftik},
+           familyi={V\bibinitperiod},
+           given={N.\bibnamedelimi B.},
+           giveni={N\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=61c1c5e61766da8a56b90e22080f3207}{%
+           family={Volkov},
+           familyi={V\bibinitperiod},
+           given={B.\bibnamedelimi N.},
+           giveni={B\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=2a5a38e73dacf71594f1e51862dbfa67}{%
+           family={Voljak},
+           familyi={V\bibinitperiod},
+           given={L.\bibnamedelimi D.},
+           giveni={L\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{93528047867198a907daf0b6eaa977be}
+      \strng{fullhash}{93528047867198a907daf0b6eaa977be}
+      \strng{bibnamehash}{93528047867198a907daf0b6eaa977be}
+      \strng{authorbibnamehash}{93528047867198a907daf0b6eaa977be}
+      \strng{authornamehash}{93528047867198a907daf0b6eaa977be}
+      \strng{authorfullhash}{93528047867198a907daf0b6eaa977be}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0047-2689, 1529-7845}
+      \field{journaltitle}{Journal of Physical and Chemical Reference Data}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{number}{3}
+      \field{shortjournal}{Journal of Physical and Chemical Reference Data}
+      \field{title}{International {{Tables}} of the {{Surface Tension}} of {{Water}}}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{12}
+      \field{year}{1983}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{817\bibrangedash 820}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1063/1.555688
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/FKQCH2FX/Vargaftik et al. - 1983 - International Tables of the Surface Tension of Wat.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://aip.scitation.org/doi/10.1063/1.555688
+      \endverb
+      \verb{url}
+      \verb http://aip.scitation.org/doi/10.1063/1.555688
+      \endverb
+    \endentry
+    \entry{vassileva_capillary_2005}{article}{useprefix=true}
+      \name{author}{4}{}{%
+        {{hash=a27fe4fb31d0822bfe01dfe1794413e3}{%
+           family={Vassileva},
+           familyi={V\bibinitperiod},
+           given={Nikolina\bibnamedelima D.},
+           giveni={N\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=3ad6d44d561de585d7ca602f882c03b2}{%
+           family={Ende},
+           familyi={E\bibinitperiod},
+           given={Dirk},
+           giveni={D\bibinitperiod},
+           prefix={van\bibnamedelima den},
+           prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+        {{hash=d421d66e16fb70871ada086810243699}{%
+           family={Mugele},
+           familyi={M\bibinitperiod},
+           given={Frieder},
+           giveni={F\bibinitperiod}}}%
+        {{hash=4da94528dc31e29caa046f80ca23b61e}{%
+           family={Mellema},
+           familyi={M\bibinitperiod},
+           given={Jorrit},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{d86ea3f09e7b3e1af7226b7cdd10be3c}
+      \strng{fullhash}{4da923cc3c5cee9a32ea607ac27e87bb}
+      \strng{bibnamehash}{4da923cc3c5cee9a32ea607ac27e87bb}
+      \strng{authorbibnamehash}{4da923cc3c5cee9a32ea607ac27e87bb}
+      \strng{authornamehash}{d86ea3f09e7b3e1af7226b7cdd10be3c}
+      \strng{authorfullhash}{4da923cc3c5cee9a32ea607ac27e87bb}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{1}
+      \field{issn}{0743-7463, 1520-5827}
+      \field{journaltitle}{Langmuir}
+      \field{langid}{english}
+      \field{month}{11}
+      \field{number}{24}
+      \field{shortjournal}{Langmuir}
+      \field{title}{Capillary {{Forces}} between {{Spherical Particles Floating}} at a {{Liquid}}−{{Liquid Interface}}}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{21}
+      \field{year}{2005}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{11190\bibrangedash 11200}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1021/la051186o
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/UNMH8GGX/Vassileva et al. - 2005 - Capillary Forces between Spherical Particles Float.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://pubs.acs.org/doi/10.1021/la051186o
+      \endverb
+      \verb{url}
+      \verb https://pubs.acs.org/doi/10.1021/la051186o
+      \endverb
+    \endentry
+    \entry{vella_cheerios_2005-1}{article}{}
+      \name{author}{2}{}{%
+        {{hash=1936270b6eb1b095b4693c3336793cc3}{%
+           family={Vella},
+           familyi={V\bibinitperiod},
+           given={Dominic},
+           giveni={D\bibinitperiod}}}%
+        {{hash=449ad28c3a34dc0f99d209e3e18de0cf}{%
+           family={Mahadevan},
+           familyi={M\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{a8f76f57d926493ca32005f809ac6243}
+      \strng{fullhash}{a8f76f57d926493ca32005f809ac6243}
+      \strng{bibnamehash}{a8f76f57d926493ca32005f809ac6243}
+      \strng{authorbibnamehash}{a8f76f57d926493ca32005f809ac6243}
+      \strng{authornamehash}{a8f76f57d926493ca32005f809ac6243}
+      \strng{authorfullhash}{a8f76f57d926493ca32005f809ac6243}
+      \field{extraname}{2}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Objects that float at the interface between a liquid and a gas interact because of interfacial deformation and the effect of gravity. We highlight the crucial role of buoyancy in this interaction, which, for small particles, prevails over the capillary suction that is often assumed to be the dominant effect. We emphasize this point using a simple classroom demonstration, and then derive the physical conditions leading to mutual attraction or repulsion. We also quantify the force of interaction in some particular instances and present a simple dynamical model of this interaction. The results obtained from this model are then validated by comparison to experimental results for the mutual attraction of two identical spherical particles. We conclude by looking at some of the applications of the effect that can be found in the natural and manmade worlds.}
+      \field{eprinttype}{arxiv}
+      \field{issn}{0002-9505, 1943-2909}
+      \field{journaltitle}{American Journal of Physics}
+      \field{langid}{english}
+      \field{month}{9}
+      \field{number}{9}
+      \field{shortjournal}{American Journal of Physics}
+      \field{title}{The '{{Cheerios}} Effect'}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{73}
+      \field{year}{2005}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{817\bibrangedash 825}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1119/1.1898523
+      \endverb
+      \verb{eprint}
+      \verb cond-mat/0411688
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/3A3AMKBE/Vella et Mahadevan - 2005 - The 'Cheerios effect'.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/cond-mat/0411688
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/cond-mat/0411688
+      \endverb
+      \keyw{Condensed Matter - Soft Condensed Matter,Physics - Fluid Dynamics}
+    \endentry
+    \entry{vella_equilibrium_2006}{article}{}
+      \name{author}{3}{}{%
+        {{hash=1936270b6eb1b095b4693c3336793cc3}{%
+           family={Vella},
+           familyi={V\bibinitperiod},
+           given={Dominic},
+           giveni={D\bibinitperiod}}}%
+        {{hash=20ebfc54dccf647545510adf93393b7b}{%
+           family={Metcalfe},
+           familyi={M\bibinitperiod},
+           given={Paul\bibnamedelima D.},
+           giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=fecbe75d069d9eb3ff199330102ee1a4}{%
+           family={Whittaker},
+           familyi={W\bibinitperiod},
+           given={Robert\bibnamedelima J.},
+           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{e34d549e71caa619436b23bfcf860a13}
+      \strng{fullhash}{e34d549e71caa619436b23bfcf860a13}
+      \strng{bibnamehash}{e34d549e71caa619436b23bfcf860a13}
+      \strng{authorbibnamehash}{e34d549e71caa619436b23bfcf860a13}
+      \strng{authornamehash}{e34d549e71caa619436b23bfcf860a13}
+      \strng{authorfullhash}{e34d549e71caa619436b23bfcf860a13}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{8}
+      \field{issn}{0022-1120, 1469-7645}
+      \field{issue}{-1}
+      \field{journaltitle}{Journal of Fluid Mechanics}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{shortjournal}{J. Fluid Mech.}
+      \field{title}{Equilibrium Conditions for the Floating of Multiple Interfacial Objects}
+      \field{urlday}{29}
+      \field{urlmonth}{11}
+      \field{urlyear}{2022}
+      \field{volume}{549}
+      \field{year}{2006}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{215}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1017/S0022112005008013
+      \endverb
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/G8DPR9PC/Vella et al. - 2006 - Equilibrium conditions for the floating of multipl.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://www.journals.cambridge.org/abstract_S0022112005008013
+      \endverb
+      \verb{url}
+      \verb http://www.journals.cambridge.org/abstract_S0022112005008013
+      \endverb
+    \endentry
+    \entry{vella_fluid_nodate}{article}{}
+      \name{author}{1}{}{%
+        {{hash=99500734803477976062d928b3e32f56}{%
+           family={Vella},
+           familyi={V\bibinitperiod},
+           given={Dominic\bibnamedelimb Joseph\bibnamedelima Robert},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{99500734803477976062d928b3e32f56}
+      \strng{fullhash}{99500734803477976062d928b3e32f56}
+      \strng{bibnamehash}{99500734803477976062d928b3e32f56}
+      \strng{authorbibnamehash}{99500734803477976062d928b3e32f56}
+      \strng{authornamehash}{99500734803477976062d928b3e32f56}
+      \strng{authorfullhash}{99500734803477976062d928b3e32f56}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{english}
+      \field{title}{The {{Fluid Mechanics}} of {{Floating}} and {{Sinking}}}
+      \true{nocite}
+      \field{pages}{143}
+      \range{pages}{1}
+      \verb{file}
+      \verb /Users/pascalbraun/Zotero/storage/JVJAKXA2/Vella - The Fluid Mechanics of Floating and Sinking.pdf
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

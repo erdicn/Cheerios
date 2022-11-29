@@ -1,6 +1,17 @@
+/**
+ * @file main.c
+ * @authors Baptiste BRAUN-DELVOYE, Erdi ÇAN
+ * @brief Version source de notre projet.
+ * @version 8.0
+ * @date 2022-11-29
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 // faire 
 // gcc -Wall -Wextra from_scratch.c -lm -lgsl -lgslcblas  && ./a.out && python3 visualisation.py
 // car pour linstant il nes t pas dans le main
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -75,7 +86,7 @@ cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* N
 	}
 }
 
-
+// Initialise le fichier où les coordonnées des Cheerios seront transmises.
 void InitialiseFichierDeEcriture(char* nom_fichier){
 	FILE* fichier_de_ecriture= fopen(nom_fichier,"w"); //When you open a file with "w" flag it creates an empty file for writing. If a file with the same name already exists its contents are erased and the file is treated as an empty new file. source: https://stackoverflow.com/questions/4815251/how-do-i-clear-the-whole-contents-of-a-file-in-c#:~:text=If%20a%20file%20with%20the,was%20in%20the%20file%20previously. 
 	if (fichier_de_ecriture== NULL){
@@ -86,6 +97,7 @@ void InitialiseFichierDeEcriture(char* nom_fichier){
 	}
 }
 
+// Écrit les données des cheerios dans le fichier d'écriture.
 void EcritureData(char* nom_fichier, cheerio_t* cheerios, int nb_cheerios, long int nt){
 	FILE* fichier_de_ecriture= fopen(nom_fichier,"a"); 
 	if (fichier_de_ecriture== NULL){
@@ -101,6 +113,7 @@ void EcritureData(char* nom_fichier, cheerio_t* cheerios, int nb_cheerios, long 
 	}
 }
 
+// Retourne un nouveau vecteur qui est l'addition des 2 vecteurs v1 et v2.
 vec2_t VecteurAdition(vec2_t v1, vec2_t v2){
     vec2_t new_vec;
     new_vec.x = v1.x + v2.x;
@@ -108,6 +121,7 @@ vec2_t VecteurAdition(vec2_t v1, vec2_t v2){
     return new_vec;
 }
 
+// Retourne le vecteur vec avec ses coordonnées multipliés par la valeur s.
 vec2_t VectorTimesScalar(vec2_t vec, double s){
     vec2_t new_vec;
     new_vec.x = vec.x * s;
