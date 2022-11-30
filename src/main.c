@@ -249,19 +249,18 @@ void UpdatePositions(cheerio_t* cheerios, int nb_cheerios, double dt){
 }
 
 // Applique aux objets l'effet de la collision en changenat les vitesses.
-void AppliqueCollision(double distance, cheerio_t* cheerios, int i, int j){
+void AppliqueCollision(double distance, cheerio_t* cheerios, int i, int j, double dt){
     double speed, impulse;
     vec2_t vCollision, vCollisionNorm, vRelativeVelocity;
     vCollision.x = cheerios[j].pos.x - cheerios[i].pos.x;
     vCollision.y = cheerios[j].pos.y - cheerios[i].pos.y;
-    //distance = sqrt(distance_squared);//sqrt((cheerios[j].pos.x-cheerios[i].pos.x)*(cheerios[j].pos.x-cheerios[i].pos.x)+(cheerios[j].pos.y - cheerios[i].pos.y)*(cheerios[j].pos.y - cheerios[i].pos.y));  
     vCollisionNorm.x = vCollision.x/distance,
     vCollisionNorm.y = vCollision.y/distance;
     vRelativeVelocity.x = cheerios[i].v.x - cheerios[j].v.x;
     vRelativeVelocity.y = cheerios[i].v.y - cheerios[j].v.y;
     speed = vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
     // TODO trouver cette constante 
-    speed *= 0.7; // correction* ca depend plus de dt que ca mais quand meme il faux pas le metre trop bas ou trop haut// entre 0.5 et 0.8 car si on met plus haut ca rebondis pas mal et si on mets trop bas ils rentre entre eux// le coefficint qui fait tel que ca robondis pas NE PAS LE METRE TROP BAS CAR CA PEUX ENFONCER DEDANS OU REBONDIR TROP
+    speed *= 7*dt*100;//0.7; // correction* ca depend plus de dt que ca mais quand meme il faux pas le metre trop bas ou trop haut// entre 0.5 et 0.8 car si on met plus haut ca rebondis pas mal et si on mets trop bas ils rentre entre eux// le coefficint qui fait tel que ca robondis pas NE PAS LE METRE TROP BAS CAR CA PEUX ENFONCER DEDANS OU REBONDIR TROP
     if(speed > 0){
         // Avec le conservation de momentum
         impulse = 2 * speed / (cheerios[i].m + cheerios[j].m);            // Basic
@@ -321,13 +320,12 @@ int main(){
     InitialiseFichierDeEcriture("donnees.txt");                                 // ca efface tout le fichier donnees.txt pour que on a un fichier vide pour les nouvelles donnees 
     printf("L_c = %lf \n",capilary_length);
     int i, j;
-    double puissance_force, distance, energie_totale_dans_le_systeme = 0;                      
+    double puissance_force, distance;                      
     vec2_t forceAvecDirection, sensji;
     // O(NT*(nb*nb+nb*nb+nb)) => O(NT*nb*nb)// pour linstant
     for(long int nt = 0; nt < NT; nt++){                                                    // on itere autant fois que le nombre de pas de temps 
         if (nt % (NT / 100) == 0){
-            printf("\r%%%ld energie dans le systeme = %lf",nt/(NT/100), energie_totale_dans_le_systeme);
-            //printf("\r%%%ld", nt/(NT/100)); // pour voir le progress
+            printf("\r%%%ld", nt/(NT/100)); // pour voir le progress
             fflush(stdout); // le \r ca overwrite la ligne et ne pas metre \n car ca fai tun flush implicitement mais nous on a besoin de flush apres pour reecrir
         }
         // printf("\renergie dans le systeme = %lf", energie_totale_dans_le_systeme); fflush(stdout); 
@@ -336,9 +334,7 @@ int main(){
         // en pensant que on pourait reduire la complexite de la fonction collisions a nlog(n) mais comme on a besoin de calculer linteraction entre kes 
         // cheerios on a besoin de calculer en n*n donc notre complexite ne dimunait pas 
         // TODO faire une test de collision en nlogn et en meme temps upload les cheerios en nlogn aussi
-        energie_totale_dans_le_systeme = 0;
         for(i = 0; i < nb_cheerios; i++){
-            cheerios[i].E.Ep = 0;
             forceAvecDirection.x = 0;// initialise chaque fois a 0 pour chaque cheerio
             forceAvecDirection.y = 0;
             puissance_force = 0;
@@ -347,19 +343,17 @@ int main(){
                     distance = CalculDistance(cheerios[i].pos, cheerios[j].pos);
                     // On applique les collisions 
                     if( Collision(distance, cheerios[i].R,cheerios[j].R) ){
-                        AppliqueCollision(distance, cheerios, i, j);
+                        //if(distance >= cheerios[0].R) printf("ATENTION d = %lf\n", distance);
+                        AppliqueCollision(distance, cheerios, i, j, dt);
                     } else { // les cheerios ne se intersect pas donc on applique les forces 
                         // On prend les forces de j qui applique sur i
                         puissance_force = ForceBetweenTwoInteractingParticles(surface_tension_liq_air, cheerios[j].R, cheerios[j].Bo, cheerios[j].Sigma, distance, capilary_length);// enlever le - pour une force de attraction
                         sensji = SensEntre1et2(cheerios[j].pos, cheerios[i].pos, distance); // maintenant trouver le sens
                         forceAvecDirection = VecteurAdition(forceAvecDirection, VectorTimesScalar(sensji, puissance_force));
                     }
-                    cheerios[i].E.Ep += EnergiePotentielleEntreDeuxParicles(surface_tension_liq_air, cheerios[j].R, cheerios[j].Bo, cheerios[j].Sigma, distance, capilary_length);
                 }
             }
-            cheerios[i].E.Ec = CalculEnergieCinetique(cheerios + i);
             cheerios[i].f_applique = forceAvecDirection;
-            energie_totale_dans_le_systeme += CalculEnergieMecanique(cheerios + i);
         }
 
         // Integration de Verlet  // On peux lutiliser cellui ci car notre acceleration depend seulement des interactions entre cheerios  // et que notre acceleration ne depend pas de la vitesse  // on peux pas metre cette boucle dans lautre car sinon ca changerait la position chaque cheerio un par un et les nouvelles positions changerait au cours du temps par rapport ou on comence a calculer 

@@ -5,6 +5,8 @@ from matplotlib.patches import Circle
 
 #lis le fichier de donnees initiales pour prendre le dt
 donees_initiales = list(map(float, open("donnees_initiales.txt", 'rt').readline().strip().split()))
+nb_cheerios = int(donees_initiales[0])
+NT = int(donees_initiales[1])
 dt = donees_initiales[2]
 
 #lis le fichier colonne par colonne 
@@ -20,10 +22,6 @@ D   = Donnees[:, 3]
 # F_x = Donnees[:, 8]
 # F_y = Donnees[:, 9]
 # M   = Donnees[:, 10]
-
-nb_cheerios = len([i for i in T if i == 0])
-print(nb_cheerios)
-NT = int(max(T) + 1)
 
 vmin = min(min(X[0:nb_cheerios]),min(Y[0:nb_cheerios]))
 vmax = max(max(X[0:nb_cheerios]),max(Y[0:nb_cheerios]))
@@ -60,7 +58,7 @@ def animate(i):
     time_text.set_text(time_template % (T[i]*dt))
     return patches
                                                                 #[i for i in range(0,NT, 10)] ou NT
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=[i for i in range(0, NT, 100)]# TODO  ici si on decide de upload seulement tout les 1/100 dans le programme c ca va pas jusque a la fin
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=[i for i in range(0, len(T), 100)]# TODO  ici si on decide de upload seulement tout les 1/100 dans le programme c ca va pas jusque a la fin
                                , interval=0.1, blit=False#, repeat = True 
                                )
 #anim.save('./5_6code/VisualisationTest/donnees_visualisation_matplot.gif', fps=400, dpi=200)
