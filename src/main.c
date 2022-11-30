@@ -5,7 +5,7 @@
  * @version 8.0
  * @date 2022-11-29
  * 
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 // TODO le faire une vrai licence MIT our GNU ca laire de etre pas mal // TODO demander au profle quel et meilleur 
  * 
  */
 
@@ -32,13 +32,14 @@ int main(){
     double capilary_length = sqrt(surface_tension_liq_air/(fabs(rho_liq-rho_air)*g)) ;  // capilary lenght = L_c ≡ sqrt(γ/(𝜌*g))  γ = gamma = surface tension//2.7 / 1000; // L_c of water = 2.7 mm https://www.sciencedirect.com/topics/engineering/capillary-length#:~:text=As%20surface%20energy%20is%20related,will%20indeed%20have%20little%20effect.
     
     InitialiseBondEtSigma(cheerios, nb_cheerios, capilary_length, rho_liq, rho_cheerio);
-
+    
     voirSiNotreLectureABienMarche(cheerios, nb_cheerios, NT, dt, rho_liq, rho_air, rho_cheerio, surface_tension_liq_air, g);
     InitialiseFichierDeEcriture("donnees.txt");                                 // ca efface tout le fichier donnees.txt pour que on a un fichier vide pour les nouvelles donnees 
     printf("L_c = %lf \n",capilary_length);
+    
     int i, j;
     double puissance_force, distance;                      
-    vec2_t forceAvecDirection, sensji;
+    vec2_t forceAvecDirection, sens;
     // O(NT*(nb*nb+nb*nb+nb)) => O(NT*nb*nb)// pour linstant
     for(long int nt = 0; nt < NT; nt++){                                                    // on itere autant fois que le nombre de pas de temps 
         if (nt % (NT / 100) == 0){
@@ -54,19 +55,17 @@ int main(){
         for(i = 0; i < nb_cheerios; i++){
             forceAvecDirection.x = 0;// initialise chaque fois a 0 pour chaque cheerio
             forceAvecDirection.y = 0;
-            puissance_force = 0;
             for(j = 0; j < nb_cheerios; j++){
                 if (j != i){ // si cest pas le meme objet car si lobjet ne applique pas de force sur lui meme
                     distance = CalculDistance(cheerios[i].pos, cheerios[j].pos);
                     // On applique les collisions 
                     if( Collision(distance, cheerios[i].R,cheerios[j].R) ){
-                        //if(distance >= cheerios[0].R) printf("ATENTION d = %lf\n", distance);
                         AppliqueCollision(distance, cheerios, i, j, dt);
                     } else { // les cheerios ne se intersect pas donc on applique les forces 
-                        // On prend les forces de j qui applique sur i
+                        // On prend les forces de j qui applique sur i le 
                         puissance_force = ForceBetweenTwoInteractingParticles(surface_tension_liq_air, cheerios[j].R, cheerios[j].Bo, cheerios[j].Sigma, distance, capilary_length);// enlever le - pour une force de attraction
-                        sensji = SensEntre1et2(cheerios[j].pos, cheerios[i].pos, distance); // maintenant trouver le sens
-                        forceAvecDirection = VecteurAdition(forceAvecDirection, VectorTimesScalar(sensji, puissance_force));
+                        sens = SensEntre1et2(cheerios[j].pos, cheerios[i].pos, distance); // maintenant trouver le sens
+                        forceAvecDirection = VecteurAdition(forceAvecDirection, VectorTimesScalar(sens, puissance_force)); // on ajoute la nouvelle force a la precedente
                     }
                 }
             }
