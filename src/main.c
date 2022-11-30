@@ -18,6 +18,7 @@
 #include <gsl/gsl_sf_bessel.h>
 #include <gsl/gsl_errno.h>
 
+// Structure de vecteur à 2 dimensions.
 typedef struct Vec2{
     double x, y; // coordonnées en x et y.
 } vec2_t;
@@ -28,6 +29,8 @@ typedef struct Energie{
     double Ep;
     double Ec;
 }energie_t;
+
+// Structure de nos objets movibles.
 typedef struct Cheerio{
     vec2_t pos;           // position cheerio
     vec2_t v;             // vitesse cheerio
@@ -42,6 +45,7 @@ typedef struct Cheerio{
     energie_t E;            // Energie mecanique du cheerio
 } cheerio_t;   
 
+// Structure contenant les informations de nos bords.
 typedef struct Bord{
     vec2_t centre;       // position du centre des Bords
     double rayon;        // rayon entre le centre et les bords.
@@ -82,6 +86,7 @@ void LectureData(FILE* fichier, cheerio_t *cher){
     cher->R = d/2.;//1./(d/2.);  // TODO on est bien daccord ceci est le rayon de la courbure ? aparament non car ca marche que quand on prend R
 }
 
+// Retourne un tableau de cheerio avec à l'intérieur chaque cheerio avec leurs caractéristique données dans le fichier donnees_initiales.txt
 cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* NT, double* dt,
                                     double* rho_liq, double* rho_air, double* rho_cheerio, double* surface_tension, double* g){
 	FILE* fichier_avec_donnees_initiales_cheerios = fopen(nom_fichier,"r");
@@ -146,7 +151,6 @@ vec2_t VectorTimesScalar(vec2_t vec, double s){
     return new_vec;
 }
 
-
 // Retourne le carré de x.
 double sq(double x){
     return x*x;
@@ -170,16 +174,19 @@ double CalculBondNumber(double rho_liquide, double rho_air,
     return B;
 }
 
+// Retourne le Bond Number calculé de façon linéaire.
 double CalculLinearBondNumber( double R, double L_c){
     double B = sq(R)/sq(L_c);
     return B;
 }
 
+// Retourne le calcul appelé Sigma.
 double CalculSigma(double rho_flottant, double rho_liquide, double theta){
     double D = rho_flottant/rho_liquide; // flottant cest notre objet
     return ((2*D-1) / 3.0) - 0.5*cos(theta) + (1/6.0)*cb(cos(theta));
 }
 
+// Retourne l'énergie potentielle entre deux objets.
 double EnergiePotentielleEntreDeuxParicles(double gamma, double R, double B, 
                                             double Sigma, double l, double L_c){
     return -2*M_PI*gamma*R*sqrt(pow(B,5))*sq(Sigma)*gsl_sf_bessel_K0(l/L_c);
@@ -202,18 +209,19 @@ double ForceBetweenTwoInteractingParticles(double gamma, double R, double B,
     return -2*M_PI*gamma*R*sqrt(pow(B,5))*sq(Sigma)*gsl_sf_bessel_K1(l/L_c);
 }
 
-// retourne le vecteur uniteire du sens entre 12
+// retourne le vecteur unitaire du sens entre 1 et 2
 vec2_t SensEntre1et2(vec2_t pos1, vec2_t pos2, double distance){
     vec2_t sens12 = {.x = (pos2.x - pos1.x)/distance,
                      .y = (pos2.y - pos1.y)/distance};
     return sens12;
 }
 
+// Retourne la distance entre deux objets.
 double CalculDistance(vec2_t pos1, vec2_t pos2){
     return sqrt(sq(pos2.x - pos1.x) + sq(pos2.y - pos1.y)) ;
 }
 
-// Retourne la force émise par les bords sur une particule
+// Retourne la force émise par les bords sur une particule. // TODO Actuellement pas utilisée, à vérifier si cela est utile.
 double ForceBord(bord_t bord, cheerio_t cheerio, double gamma, double lc, double rho_l, double rho_air, double g){
     double distCh_Ce = CalculDistance(cheerio.pos, bord.centre);
     double BN = CalculBondNumber(rho_l, rho_air, bord.R, gamma, g);
@@ -222,6 +230,7 @@ double ForceBord(bord_t bord, cheerio_t cheerio, double gamma, double lc, double
     return Force;
 }
 
+// Utilise l'intégration de Verlet pour calculer la nouvelle position, vitesse et accélération d'un objet.
 void IntegrationDeVerlet(cheerio_t* cheerio, double dt){
     vec2_t new_pos, new_acc, new_vel;
     new_pos = VecteurAdition(VecteurAdition(cheerio->pos, VectorTimesScalar(cheerio->v, dt)), VectorTimesScalar(cheerio->a, dt*dt*0.5));
@@ -232,12 +241,14 @@ void IntegrationDeVerlet(cheerio_t* cheerio, double dt){
     cheerio->a  = new_acc;
 }
 
+// Met à jour la position des objets en utilisant l'intégration de Verlet.
 void UpdatePositions(cheerio_t* cheerios, int nb_cheerios, double dt){
     for(int i = 0; i < nb_cheerios; i++){
         IntegrationDeVerlet(cheerios + i, dt);
     }
 }
 
+// Applique aux objets l'effet de la collision en changenat les vitesses.
 void AppliqueCollision(double distance, cheerio_t* cheerios, int i, int j){
     double speed, impulse;
     vec2_t vCollision, vCollisionNorm, vRelativeVelocity;
@@ -261,20 +272,24 @@ void AppliqueCollision(double distance, cheerio_t* cheerios, int i, int j){
     }
 }
 
+// Return autre chose que 0 si la distance entre deux objets est inférieure à l'addition de leurs rayons.
 int Collision(double distance, double r1, double r2 ){
     return distance  <= r1+r2;
 }
 
+// Retourne l'énergie cinétique d'un objet
 double CalculEnergieCinetique(cheerio_t* cheerio){
     cheerio->E.Ec = 0.5*cheerio->m*sq(CalculNorme(cheerio->v));
     return cheerio->E.Ec;
 }
 
+// Retourne l'énergie mécanique d'un objet.
 double CalculEnergieMecanique(cheerio_t* cheerio){
     cheerio->E.Em = cheerio->E.Ec + cheerio->E.Ep;
     return cheerio->E.Em;
 }
 
+// Initialise les valeurs de Bond Number et de Sigma pour tous les objets.
 void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary_length, double rho_liq, double rho_cheerio){
     double tmp_B, tmp_theta;
     // on mets les donnees calcule dans les cheerios 
