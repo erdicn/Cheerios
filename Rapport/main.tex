@@ -74,7 +74,7 @@ sorting=none
     Et maintenat comme on a la nouvelle position et lacelleration on peux calculer la nouvelle vitesse.
     % TODO dire dou cette formule viens 
     \begin{equation}
-        \label{veletVitesse}
+        \label{verletVitesse}
         \vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t 
     \end{equation}
     % est que on mets ca sur lanexe ?
@@ -87,6 +87,27 @@ sorting=none
 
     \subsection{Collsisions}
     Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
+    Pour les collisions on a partie sur un modele asses simple qui itere chaque objet et regarde si la distance entre eux cest plus petit que leur rayons ajoute on dis que il ya une collision et on applique les collisions et la conservation de momentum.
+    \begin{itemize}
+        \item Dabord on prend le vecteur norme collisions qui est le sens de 1 a 2 $\vb*{c} \longrightarrow ||\vb*{c}|| = 1$ 
+        \item Apres on trouve la vitesse relative pour voir comment les cheerios vont saffecter
+        \item Et on calcule la vitesse avec le produit scalaire de vitesse relative et la norme de collision ceci ca va nous etre utile quand on calcule m'impulse des objets $\vb*{v_collision}=\vb*{v_relative}\vb*{c} $
+        \item et on aplique un coefficient entre 0.2 et 0.7 car notre experience nest pas des collisions elastique parfaite. Par contre il faux faire aatention a cette constante car si on le mets trop petit ca fait tel que les cheerios na pas le rebond nescesaire et comence a entrer dans eux et si on le mets trop eleve ca fait tel que ca rebondit beaucoup mais tout ces effects negative diminue plus on prend notre pas de temps petit
+        \item si la vitesse de collision est plus grand que 0 ca veux dire ils vont vers eux meme donc une collision ???? ca veux dire que autremenet meme si ils sont entre eux il ya pas de collision ???? revoir applique collision et le if
+        \item on calcule limpulse $i = 2\frac{v}{m_1 m_2}$
+        \item et on soustrait la vitesse du cheerio 1 par $\vb*{v_1} -= i*m_2*\vb*{c}$
+        \item et on ajoute pour lautre $\vb*{v_2} -= i*m_1*\vb*{c}$
+    \end{itemize} 
+    \section{Le bord}
+    \subsection{collision des bords}
+    Et aussi on fait des collisions de bord aussi.
+    \subsection{force des bords}
+    pour la force des bords on utilise la symetrie.
+    % \begin{equation}
+        
+    % \end{equation}
+    % TODO 
+
 
 \section{Comment on a concue notre probleme}
     \begin{itemize}
@@ -97,10 +118,11 @@ sorting=none
     \end{itemize}
 \section*{Conclusion}
 
-\newpage
-\thispagestyle{empty}
-\nocite{*}
-\addcontentsline{toc}{section}{Bibliographie}
-\printbibliography[title = Bibliographie]
+% TODO pq la bibliographie ne marche pas ?
+% \newpage
+% \thispagestyle{empty}
+% \nocite{*}
+% \addcontentsline{toc}{section}{Bibliographie}
+% \printbibliography[title = Bibliographie]
 
 \end{document}

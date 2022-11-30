@@ -21,24 +21,24 @@ void UpdatePositions(cheerio_t* cheerios, int nb_cheerios, double dt){
 
 // Applique aux objets l'effet de la collision en changenat les vitesses.
 void AppliqueCollision(double distance, cheerio_t* cheerios, int i, int j, double dt){
-    double speed, impulse;
-    vec2_t vCollision, vCollisionNorm, vRelativeVelocity;
-    vCollision.x = cheerios[j].pos.x - cheerios[i].pos.x;
-    vCollision.y = cheerios[j].pos.y - cheerios[i].pos.y;
-    vCollisionNorm.x = vCollision.x/distance,
-    vCollisionNorm.y = vCollision.y/distance;
-    vRelativeVelocity.x = cheerios[i].v.x - cheerios[j].v.x;
-    vRelativeVelocity.y = cheerios[i].v.y - cheerios[j].v.y;
-    speed = vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
+    double vitesse_collision, impulse;
+    vec2_t vecteur_collision, norme_collision, vitesse_relative;
+    norme_collision = SensEntre1et2(cheerios[i].pos, cheerios[j].pos, distance);
+    vitesse_relative = VecteurSubstraction(cheerios[i].v, cheerios[j].v);
+    vitesse_collision = CalculProduitScalaire(vitesse_relative, norme_collision);//vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
     // TODO trouver cette constante 
-    speed *= 7*dt*100;//0.7; // correction* ca depend plus de dt que ca mais quand meme il faux pas le metre trop bas ou trop haut// entre 0.5 et 0.8 car si on met plus haut ca rebondis pas mal et si on mets trop bas ils rentre entre eux// le coefficint qui fait tel que ca robondis pas NE PAS LE METRE TROP BAS CAR CA PEUX ENFONCER DEDANS OU REBONDIR TROP
-    if(speed > 0){
+    vitesse_collision *= 0.7;//0.7; // correction* ca depend plus de dt que ca mais quand meme il faux pas le metre trop bas ou trop haut// entre 0.5 et 0.8 car si on met plus haut ca rebondis pas mal et si on mets trop bas ils rentre entre eux// le coefficint qui fait tel que ca robondis pas NE PAS LE METRE TROP BAS CAR CA PEUX ENFONCER DEDANS OU REBONDIR TROP
+    // TODO je sais pas pq ici on a ca 
+    if(vitesse_collision > 0){
         // Avec le conservation de momentum
-        impulse = 2 * speed / (cheerios[i].m + cheerios[j].m);            // Basic
-        cheerios[i].v.x -= (impulse * cheerios[j].m* vCollisionNorm.x);   // che[i].v.x -= (speed * vCollisionNorm.x);
-        cheerios[i].v.y -= (impulse * cheerios[j].m* vCollisionNorm.y);   // che[i].v.y -= (speed * vCollisionNorm.y);
-        cheerios[j].v.x += (impulse * cheerios[i].m* vCollisionNorm.x);   // che[j].v.x += (speed * vCollisionNorm.x);
-        cheerios[j].v.y += (impulse * cheerios[i].m* vCollisionNorm.y);   // che[j].v.y += (speed * vCollisionNorm.y);
+        impulse = 2 * vitesse_collision / (cheerios[i].m + cheerios[j].m);                                                               // Basic
+        cheerios[i].v.x -= (impulse * cheerios[j].m* norme_collision.x);                                                     // che[i].v.x -= (speed * vCollisionNorm.x);
+        cheerios[i].v.y -= (impulse * cheerios[j].m* norme_collision.y);                                                     // che[i].v.y -= (speed * vCollisionNorm.y);
+        cheerios[j].v.x += (impulse * cheerios[i].m* norme_collision.x);                                                     // che[j].v.x += (speed * vCollisionNorm.x);
+        cheerios[j].v.y += (impulse * cheerios[i].m* norme_collision.y);                                                     // che[j].v.y += (speed * vCollisionNorm.y);
+        // On peux aussi utiliser ces fonctions mais ca diminue la lisibilite sans faire gagner quelque chose 
+        // cheerios[i].v = VecteurSubstraction(cheerios[i].v, VectorTimesScalar(norme_collision, impulse*cheerios[j].m));
+        // cheerios[j].v = VecteurSubstraction(cheerios[j].v, VectorTimesScalar(norme_collision, impulse*cheerios[i].m));
     }
 }
 

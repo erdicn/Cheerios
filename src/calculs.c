@@ -12,25 +12,34 @@ double sq(double x){
 double cb(double x){
     return x*x*x;
 }
+
 // Retourne un nouveau vecteur qui est l'addition des 2 vecteurs v1 et v2.
 vec2_t VecteurAdition(vec2_t v1, vec2_t v2){
-    vec2_t new_vec;
-    new_vec.x = v1.x + v2.x;
-    new_vec.y = v1.y + v2.y;
+    vec2_t new_vec = { .x = v1.x + v2.x,
+                       .y = v1.y + v2.y};
+    return new_vec;
+}
+
+vec2_t VecteurSubstraction(vec2_t v1, vec2_t v2){
+    vec2_t new_vec = { .x = v1.x - v2.x,
+                       .y = v1.y - v2.y};
     return new_vec;
 }
 
 // Retourne le vecteur vec avec ses coordonnées multipliés par la valeur s.
 vec2_t VectorTimesScalar(vec2_t vec, double s){
-    vec2_t new_vec;
-    new_vec.x = vec.x * s;
-    new_vec.y = vec.y * s;
+    vec2_t new_vec = { .x = vec.x * s,
+                       .y = vec.y * s};
     return new_vec;
 }
 
 // Retourne la norme du vecteur à 2 dimensions vec.
 double CalculNorme(vec2_t vec){
     return sqrt(sq(vec.x) + sq(vec.y));
+}
+
+double CalculProduitScalaire(vec2_t v1, vec2_t v2){
+    return v1.x*v2.x + v1.y*v2.y;
 }
 
 // retourne le vecteur unitaire du sens entre 1 et 2

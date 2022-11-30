@@ -6,8 +6,10 @@
 double sq(double x);
 double cb(double x);
 vec2_t VecteurAdition(vec2_t v1, vec2_t v2);
+vec2_t VecteurSubstraction(vec2_t v1, vec2_t v2);
 vec2_t VectorTimesScalar(vec2_t vec, double s);
 double CalculNorme(vec2_t vec);
+double CalculProduitScalaire(vec2_t v1, vec2_t v2);
 vec2_t SensEntre1et2(vec2_t pos1, vec2_t pos2, double distance);
 double CalculDistance(vec2_t pos1, vec2_t pos2);
 double CalculBondNumber(double rho_liquide, double rho_air, 
