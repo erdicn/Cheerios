@@ -15,7 +15,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 #include <gsl/gsl_sf_bessel.h>
 #include <gsl/gsl_errno.h>
 
@@ -288,7 +287,6 @@ void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary
     }
 }
 
-
 int main(){
     gsl_set_error_handler_off();
     // Initialisation des variables en lisant le fichier 
@@ -308,21 +306,24 @@ int main(){
     InitialiseFichierDeEcriture("donnees.txt");                                 // ca efface tout le fichier donnees.txt pour que on a un fichier vide pour les nouvelles donnees 
     printf("L_c = %lf \n",capilary_length);
     int i, j;
-    double puissance_force, distance, energie_totale_dans_le_systeme;                      
+    double puissance_force, distance, energie_totale_dans_le_systeme = 0;                      
     vec2_t forceAvecDirection, sensji;
     // O(NT*(nb*nb+nb*nb+nb)) => O(NT*nb*nb)// pour linstant
     for(long int nt = 0; nt < NT; nt++){                                                    // on itere autant fois que le nombre de pas de temps 
         if (nt % (NT / 100) == 0){
-            printf("\r%%%ld", nt/(NT/100)); // pour voir le progress
+            printf("\r%%%ld energie dans le systeme = %lf",nt/(NT/100), energie_totale_dans_le_systeme);
+            //printf("\r%%%ld", nt/(NT/100)); // pour voir le progress
             fflush(stdout); // le \r ca overwrite la ligne et ne pas metre \n car ca fai tun flush implicitement mais nous on a besoin de flush apres pour reecrir
         }
+        // printf("\renergie dans le systeme = %lf", energie_totale_dans_le_systeme); fflush(stdout); 
         // TODO ici on peux le faire plus court on faisant telle que quand on calcule les deux cheerios en meme temps ?
         // test de collision et update des forces applique avant on calculait les collisions et apres les forces 
         // en pensant que on pourait reduire la complexite de la fonction collisions a nlog(n) mais comme on a besoin de calculer linteraction entre kes 
         // cheerios on a besoin de calculer en n*n donc notre complexite ne dimunait pas 
         // TODO faire une test de collision en nlogn et en meme temps upload les cheerios en nlogn aussi
+        energie_totale_dans_le_systeme = 0;
         for(i = 0; i < nb_cheerios; i++){
-            energie_totale_dans_le_systeme = 0;
+            cheerios[i].E.Ep = 0;
             forceAvecDirection.x = 0;// initialise chaque fois a 0 pour chaque cheerio
             forceAvecDirection.y = 0;
             puissance_force = 0;
@@ -338,7 +339,7 @@ int main(){
                         sensji = SensEntre1et2(cheerios[j].pos, cheerios[i].pos, distance); // maintenant trouver le sens
                         forceAvecDirection = VecteurAdition(forceAvecDirection, VectorTimesScalar(sensji, puissance_force));
                     }
-                    // TODO energie potentiel 
+                    cheerios[i].E.Ep += EnergiePotentielleEntreDeuxParicles(surface_tension_liq_air, cheerios[j].R, cheerios[j].Bo, cheerios[j].Sigma, distance, capilary_length);
                 }
             }
             cheerios[i].E.Ec = CalculEnergieCinetique(cheerios + i);
