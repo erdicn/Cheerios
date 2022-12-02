@@ -10,7 +10,7 @@ void ProgressBar(long int nt, long int NT){
 }
 
 // Print les 10 premières valeurs de nos objets pour vérifier que notre lecture fut fonctionnelle.
-void voirSiNotreLectureABienMarche(cheerio_t* cheerios, int nb_cheerios, long int NT, 
+void VoirSiNotreLectureABienMarche(cheerio_t* cheerios, int nb_cheerios, long int NT, 
                                      double dt, double rho_liq, double rho_air, 
                                         double rho_cheerio, double surface_tension, double g,
 											bord_t *bord){
@@ -41,6 +41,7 @@ void LectureData(FILE* fichier, cheerio_t *cher){
 	cher->f_applique.x = f_x;
 	cher->f_applique.y = f_y;
     cher->rayon_courbure = d/2.;//1./(d/2.);  // TODO on est bien daccord ceci est le rayon de la courbure ? aparament non car ca marche que quand on prend R
+	// TODO les different formes a des differentes courbures // TODO calculer les courbures par rapport aux autre s 
 }
 
 // Retourne un tableau de cheerio avec à l'intérieur chaque cheerio avec leurs caractéristique données dans le fichier donnees_initiales.txt
