@@ -41,8 +41,8 @@ patches.append(Circle( bord_centre, rayon_bord, color = "k", alpha = 0.1))
 
 fig, ax = plt.subplots()
 ax.set_aspect('equal', 'box')
-ax.set_xlim([bord_centre[0]-rayon_bord, bord_centre[0]+rayon_bord])
-ax.set_ylim([bord_centre[1]-rayon_bord, bord_centre[1]+rayon_bord])
+ax.set_xlim([bord_centre[0]-1.1*rayon_bord, bord_centre[0]+1.1*rayon_bord])
+ax.set_ylim([bord_centre[1]-1.1*rayon_bord, bord_centre[1]+1.1*rayon_bord])
 
 def init():
     for i in range(len(patches)-1):
