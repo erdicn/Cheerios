@@ -27,13 +27,13 @@ int main(){
     long int NT;                                                          // nombre de pas de temps 
     double dt;                     // TODO trouver la masse volumique des cheerios// masses volumiques en kg/m^3 source air https://www.thermexcel.com/french/tables/massair.htm
     int nb_cheerios;
+    bord_t bord;
     cheerio_t *cheerios= NULL;                                                  // notre tableaux qui est remplie de cheerios
-    cheerios = LectureTouteCheerios("donnees_initiales.txt", &nb_cheerios, &NT, &dt, &rho_liq, &rho_air, &rho_cheerio, &surface_tension_liq_air, &g);  
+    cheerios = LectureTouteCheerios("donnees_initiales.txt", &nb_cheerios, &NT, &dt, &rho_liq, &rho_air, &rho_cheerio, &surface_tension_liq_air, &g, &bord);  
     double capilary_length = sqrt(surface_tension_liq_air/(fabs(rho_liq-rho_air)*g)) ;  // capilary lenght = L_c ≡ sqrt(γ/(𝜌*g))  γ = gamma = surface tension//2.7 / 1000; // L_c of water = 2.7 mm https://www.sciencedirect.com/topics/engineering/capillary-length#:~:text=As%20surface%20energy%20is%20related,will%20indeed%20have%20little%20effect.
-    
     InitialiseBondEtSigma(cheerios, nb_cheerios, capilary_length, rho_liq, rho_cheerio);
     
-    voirSiNotreLectureABienMarche(cheerios, nb_cheerios, NT, dt, rho_liq, rho_air, rho_cheerio, surface_tension_liq_air, g);
+    voirSiNotreLectureABienMarche(cheerios, nb_cheerios, NT, dt, rho_liq, rho_air, rho_cheerio, surface_tension_liq_air, g, &bord);
     InitialiseFichierDeEcriture("donnees.txt");                                 // ca efface tout le fichier donnees.txt pour que on a un fichier vide pour les nouvelles donnees 
     printf("L_c = %lf \n",capilary_length);
     
@@ -67,6 +67,10 @@ int main(){
                         sens = SensEntre1et2(cheerios[j].pos, cheerios[i].pos, distance); // maintenant trouver le sens
                         forceAvecDirection = VecteurAdition(forceAvecDirection, VectorTimesScalar(sens, puissance_force)); // on ajoute la nouvelle force a la precedente
                     }
+                }
+                if( CollisionBord(cheerios+i, bord) ){
+                    //printf("Collision bord\n");
+                    AppliqueCollisionBord(cheerios+i, bord);
                 }
             }
             cheerios[i].f_applique = forceAvecDirection;

@@ -4,10 +4,15 @@ import numpy as np
 from matplotlib.patches import Circle
 
 #lis le fichier de donnees initiales pour prendre le dt
-donees_initiales = list(map(float, open("donnees_initiales.txt", 'rt').readline().strip().split()))
-nb_cheerios = int(donees_initiales[0])
-NT = int(donees_initiales[1])
-dt = donees_initiales[2]
+donnees_initiales = list(map(str, open("donnees_initiales.txt", 'rt').readlines()))#list(map(float, open("donnees_initiales.txt", 'rt').readline().strip().split()))
+donnees_initiales_temps = [i for i in donnees_initiales[0].split()]
+nb_cheerios = int(donnees_initiales_temps[0])
+NT          = int(donnees_initiales_temps[1])
+dt          = float(donnees_initiales_temps[2])
+
+donnees_bord = [float(i) for i in donnees_initiales[2].split()]#list(map(str, open("donnees_initiales.txt", 'rt').readline().strip().split()))
+rayon_bord =  donnees_bord[0]#0.06 # donnees_initiales[2][0]
+bord_centre = (donnees_bord[1], donnees_bord[2])    # [donnees_initiales[2][1], donnees_initiales[2][2]]
 
 #lis le fichier colonne par colonne 
 Donnees = np.loadtxt(open("donnees.txt", 'rt').readlines())
@@ -32,27 +37,27 @@ patches = []
 for p in range(nb_cheerios):
     patches.append(Circle((X[0+p],Y[0+p]), radius=D[0+p]/2, color = "y" #fc='b')
                                 ))
-
+patches.append(Circle( bord_centre, rayon_bord, color = "k", alpha = 0.1))
 
 fig, ax = plt.subplots()
-for s in ['top','bottom','left','right']:
-    # ax.spines[s].set_linewidth(2)
-    ax.set_aspect('equal', 'box')
-    # TODO faire ici tel que ca prend les dords automatiquement 
-    ax.set_xlim([-0.02, 0.1])
-    ax.set_ylim([-0.02, 0.1])
+ax.set_aspect('equal', 'box')
+ax.set_xlim([bord_centre[0]-rayon_bord, bord_centre[0]+rayon_bord])
+ax.set_ylim([bord_centre[1]-rayon_bord, bord_centre[1]+rayon_bord])
 
 def init():
-    for i in range(len(patches)):
+    for i in range(len(patches)-1):
         patches[i].center = (X[0+i],Y[0+i])
         ax.add_patch(patches[i])
+    patches[-1].center = bord_centre
+    ax.add_patch(patches[-1])
+    # ax.add_patch(Circle((bord_centre[0], bord_centre[1]), radius=rayon_bord, color = "y"))
     return patches
 
 time_template = 'time = %.1fs'
 time_text = ax.text(0.05, 0.9, '', transform=ax.transAxes)
 
 def animate(i):
-    for p in range(len(patches)):
+    for p in range(len(patches)-1):
         patches[p].center = (X[p+i], Y[p+i])
         patches[p].radius = D[p+i]/2
     time_text.set_text(time_template % (T[i]*dt))

@@ -33,10 +33,10 @@ typedef struct Bord{
     vec2_t centre;       // position du centre des Bords
     double rayon;        // rayon entre le centre et les bords.
     double rho;          // Masse volumique du bord
-    double Bo;           // Bond Number du bord.
+    double R;            // Rayon de courbure du bord
     double theta;        // Angle entre le bord et le liquide.
     double sigma;        // Sigma du Bord.
-    double R;            // Rayon de courbure du bord
+    double Bo;           // Bond Number du bord.
 } bord_t;
 
 #endif // CHEERIOS_H

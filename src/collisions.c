@@ -45,5 +45,13 @@ void AppliqueCollision(double distance, cheerio_t* cheerios, int i, int j, doubl
 
 // Return autre chose que 0 si la distance entre deux objets est inférieure à l'addition de leurs rayons.
 int Collision(double distance, double r1, double r2 ){
-    return distance  <= r1+r2;
+    return distance <= r1+r2;
+}
+
+int CollisionBord(cheerio_t* cheerio, bord_t bord){
+    return CalculDistance(cheerio->pos, bord.centre) + cheerio->d/2 >=  bord.rayon; 
+}
+
+void AppliqueCollisionBord(cheerio_t* cheerio, bord_t bord){
+    cheerio->v = VectorTimesScalar(cheerio->v, -1);
 }
