@@ -43,12 +43,12 @@ void LectureData(FILE* fichier, cheerio_t *cher, long int compteur_id){
 	//printf("%lf %lf %lf %lf %lf\n", x,y,d,v,a);
 	cher->pos.x = posx; // si on mets cela dans le fscanf ca bug meme si on prends les adresses cest pour ca que cest en dehors
 	cher->pos.y = posy;
-	cher->d = d;
+	cher->diametre_cheerio = d;
 	cher->v.x = v_x;
 	cher->v.y = v_y;
 	cher->a.x = a_x;
 	cher->a.x = a_y;
-	cher->m = m;
+	cher->masse = m;
 	cher->f_applique.x = f_x;
 	cher->f_applique.y = f_y;
 	// cher->cher_id = compteur_id;
@@ -93,7 +93,7 @@ void EcritureData(char* nom_fichier, cheerio_t* cheerios, int nb_cheerios, long 
 			fprintf(fichier_de_ecriture, "%ld %.16lf %.16lf %.16lf\n",//%.16lf %.16lf %.16lf %.16lf %.16lf %.16lf %.16lf\n", //"%ld %g %g %g %g %g %g %g %g %g %g\n",
 										nt,
 										cheerios[c].pos.x, cheerios[c].pos.y,
-										cheerios[c].d
+										cheerios[c].diametre_cheerio
 										// ,cheerios[c].v.x, cheerios[c].v.y,
 										// cheerios[c].a.x, cheerios[c].a.y,
 										// cheerios[c].f_applique.x, cheerios[c].f_applique.y,

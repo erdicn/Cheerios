@@ -17,11 +17,11 @@ typedef struct Cheerio{
     vec2_t v;             // vitesse cheerio
     vec2_t a;             // acceleration cheerio
     vec2_t f_applique;    // force applique sur le cheerio
-    double d;             // diametre cheerio
-    double m;             // masse du cheerio
-    double R;             // rayon de courbure  cree par cheerio
-    double Bo;            // Bond number acorded to the cheerios 
-    double theta;         // Angle que le cheerio fait avec le liquide
+    double diametre_cheerio;             // diametre cheerio
+    double masse;             // masse du cheerio
+    double rayon_courbure;             // rayon de courbure  cree par cheerio
+    double Bond_nb;            // Bond number acorded to the cheerios 
+    double angle_contact;         // Angle que le cheerio fait avec le liquide
     double Sigma;         // le Sigma du cheerio
 } cheerio_t;     
 
@@ -32,8 +32,8 @@ void voirSiNotreLectureABienMarche(cheerio_t* cheerios, int nb_cheerios, long in
     printf("%lf %lf %lf %lf %lf\n", rho_liq, rho_air, rho_cheerio, surface_tension, g);
     int nb_print = nb_cheerios > 10 ? 10 : nb_cheerios; // comme ca si on a beaucour de cherios on afiche pas tout on check maximum les 10 premiers et on assume que si les 10 premiers sont bien fonctione les autres marche aussi
     for(int i = 0; i < nb_print; i++){
-        printf("%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].d, cheerios[i].v.x, cheerios[i].a.x,
-                                                    cheerios[i].m, cheerios[i].R, cheerios[i].Bo, cheerios[i].theta, cheerios[i].Sigma);
+        printf("%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].diametre_cheerio, cheerios[i].v.x, cheerios[i].a.x,
+                                                    cheerios[i].masse, cheerios[i].rayon_courbure, cheerios[i].Bond_nb, cheerios[i].angle_contact, cheerios[i].Sigma);
     }
 }
 
@@ -43,15 +43,15 @@ void LectureData(FILE* fichier, cheerio_t *cher){
 	fscanf(fichier,"%lf %lf %lf %lf %lf %lf %lf %lf", &posx, &posy, &d, &v_x, &v_y, &a_x, &a_y, &m);//, tmp);
 	cher->pos.x = posx; // si on mets cela dans le fscanf ca bug meme si on prends les adresses cest pour ca que cest en dehors
 	cher->pos.y = posy;
-	cher->d = d;
+	cher->diametre_cheerio = d;
 	cher->v.x = v_x;
 	cher->v.y = v_y;
 	cher->a.x = a_x;
 	cher->a.x = a_y;
-	cher->m = m;
+	cher->masse = m;
 	cher->f_applique.x = f_x;
 	cher->f_applique.y = f_y;
-    cher->R = d/2.;//1./(d/2.);  // TODO on est bien daccord ceci est le rayon de la courbure ? aparament non car ca marche que quand on prend R
+    cher->rayon_courbure = d/2.;//1./(d/2.);  // TODO on est bien daccord ceci est le rayon de la courbure ? aparament non car ca marche que quand on prend R
 }
 
 cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* NT, double* dt,
@@ -95,7 +95,7 @@ void EcritureData(char* nom_fichier, cheerio_t* cheerios, int nb_cheerios, long 
 		// on parcour notre tableau et on mets chaque element du tableau dans le fichier 
 		for(int c = 0; c < nb_cheerios; c++){
 			fprintf(fichier_de_ecriture, "%ld %.16lf %.16lf %.16lf\n",//%.16lf %.16lf %.16lf %.16lf %.16lf %.16lf %.16lf\n", //"%ld %g %g %g %g %g %g %g %g %g %g\n",
-										nt, cheerios[c].pos.x, cheerios[c].pos.y, cheerios[c].d);
+										nt, cheerios[c].pos.x, cheerios[c].pos.y, cheerios[c].diametre_cheerio);
 		}
 		fclose(fichier_de_ecriture);
 	}
@@ -166,10 +166,10 @@ int main(){
     double tmp_B, tmp_theta;
     // on mets les donnees calcule dans les cheerios 
     for(int i = 0; i < nb_cheerios; i++){
-        cheerios[i].Bo = CalculLinearBondNumber(cheerios[i].R, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
-        tmp_B = cheerios[i].Bo;
-        cheerios[i].theta = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);    //M_PI_2 *  // dans larticle ils mets ca mais si nous on le mets ca depase la limite de arcsin [-1,1]                                                  // TODO pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;                                                        // TODO faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
-        tmp_theta = cheerios[i].theta;
+        cheerios[i].Bond_nb = CalculLinearBondNumber(cheerios[i].rayon_courbure, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
+        tmp_B = cheerios[i].Bond_nb;
+        cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);    //M_PI_2 *  // dans larticle ils mets ca mais si nous on le mets ca depase la limite de arcsin [-1,1]                                                  // TODO pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;                                                        // TODO faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
+        tmp_theta = cheerios[i].angle_contact;
         cheerios[i].Sigma = CalculSigma(rho_cheerio, rho_liq, tmp_theta);
     }
     voirSiNotreLectureABienMarche(cheerios, nb_cheerios, NT, dt, rho_liq, rho_air, rho_cheerio, surface_tension, g);
@@ -198,7 +198,7 @@ int main(){
                 distance = sqrt((cheerios[j].pos.x - cheerios[i].pos.x) * (cheerios[j].pos.x - cheerios[i].pos.x) + 
                                             (cheerios[j].pos.y - cheerios[i].pos.y) * (cheerios[j].pos.y - cheerios[i].pos.y));
                 // On applique les collisions 
-                if(j != i && distance  <= (cheerios[i].R + cheerios[j].R) ){
+                if(j != i && distance  <= (cheerios[i].rayon_courbure + cheerios[j].rayon_courbure) ){
                     vCollision.x = cheerios[j].pos.x - cheerios[i].pos.x;
                     vCollision.y = cheerios[j].pos.y - cheerios[i].pos.y;
                     //distance = sqrt(distance_squared);//sqrt((cheerios[j].pos.x-cheerios[i].pos.x)*(cheerios[j].pos.x-cheerios[i].pos.x)+(cheerios[j].pos.y - cheerios[i].pos.y)*(cheerios[j].pos.y - cheerios[i].pos.y));  
@@ -211,16 +211,16 @@ int main(){
                     speed *= 0.7; // correction* ca depend plus de dt que ca mais quand meme il faux pas le metre trop bas ou trop haut// entre 0.5 et 0.8 car si on met plus haut ca rebondis pas mal et si on mets trop bas ils rentre entre eux// le coefficint qui fait tel que ca robondis pas NE PAS LE METRE TROP BAS CAR CA PEUX ENFONCER DEDANS OU REBONDIR TROP
                     if(speed > 0){
                         // Avec le conservation de momentum
-                        impulse = 2 * speed / (cheerios[i].m + cheerios[j].m);            // Basic
-                        cheerios[i].v.x -= (impulse * cheerios[j].m* vCollisionNorm.x);   // che[i].v.x -= (speed * vCollisionNorm.x);
-                        cheerios[i].v.y -= (impulse * cheerios[j].m* vCollisionNorm.y);   // che[i].v.y -= (speed * vCollisionNorm.y);
-                        cheerios[j].v.x += (impulse * cheerios[i].m* vCollisionNorm.x);   // che[j].v.x += (speed * vCollisionNorm.x);
-                        cheerios[j].v.y += (impulse * cheerios[i].m* vCollisionNorm.y);   // che[j].v.y += (speed * vCollisionNorm.y);
+                        impulse = 2 * speed / (cheerios[i].masse + cheerios[j].masse);            // Basic
+                        cheerios[i].v.x -= (impulse * cheerios[j].masse* vCollisionNorm.x);   // che[i].v.x -= (speed * vCollisionNorm.x);
+                        cheerios[i].v.y -= (impulse * cheerios[j].masse* vCollisionNorm.y);   // che[i].v.y -= (speed * vCollisionNorm.y);
+                        cheerios[j].v.x += (impulse * cheerios[i].masse* vCollisionNorm.x);   // che[j].v.x += (speed * vCollisionNorm.x);
+                        cheerios[j].v.y += (impulse * cheerios[i].masse* vCollisionNorm.y);   // che[j].v.y += (speed * vCollisionNorm.y);
                     }
                 } else if (j != i){ // les cheerios ne se intersect pas donc on applique les forces 
                     // TODO je sais pas pq ca se pousse (probablement de notre angle mais pq ?)
                     l = distance;
-                    puissance_force = -ForceBetweenTwoInteractingParticles(surface_tension, cheerios[i].R, cheerios[i].Bo, cheerios[i].Sigma, l, capilary_length);// enlever le - pour une force de attraction
+                    puissance_force = -ForceBetweenTwoInteractingParticles(surface_tension, cheerios[i].rayon_courbure, cheerios[i].Bond_nb, cheerios[i].Sigma, l, capilary_length);// enlever le - pour une force de attraction
                     // maintenant trouver le sens
                     // TODO je sais pas si ici il faux le normailiser ou pas ??? Je pense il faux normaliser mais autrement ca faisait que on avait des vecteurs plus petits donc une simulation plus stable mais maintenant il faux diminuer le dt pour avoir qqchose plus stable
                     sensij.x = (cheerios[j].pos.x - cheerios[i].pos.x)/l;
@@ -238,7 +238,7 @@ int main(){
         // on peux pas metre cette boucle dans lautre car sinon ca changerait la position chaque cheerio un par un et les nouvelles positions changerait au cours du temps par rapport ou on comence a calculer 
         for(i = 0; i < nb_cheerios; i++){
             new_pos = VecteurAdition(VecteurAdition(cheerios[i].pos, VectorTimesScalar(cheerios[i].v, dt)), VectorTimesScalar(cheerios[i].a, dt*dt*0.5));
-            new_acc = VectorTimesScalar(cheerios[i].f_applique, 1/cheerios[i].m);
+            new_acc = VectorTimesScalar(cheerios[i].f_applique, 1/cheerios[i].masse);
             new_vel = VecteurAdition(cheerios[i].v, VectorTimesScalar(VecteurAdition(cheerios[i].a, new_acc),(dt*0.5)));
             cheerios[i].pos= new_pos;
             cheerios[i].v  = new_vel;

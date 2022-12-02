@@ -15,14 +15,14 @@ typedef struct Cheerio{
     vec2_t v;             // vitesse cheerio
     vec2_t a;             // acceleration cheerio
     vec2_t f_applique;    // force applique sur le cheerio
-    double d;             // diametre cheerio
-    double m;             // masse du cheerio
+    double diametre_cheerio;             // diametre cheerio
+    double masse;             // masse du cheerio
 } cheerio_t;     
 
 void voirSiNotreLectureABienMarche(cheerio_t* cheerios, int nb_cheerios){
     int nb_print = nb_cheerios > 10 ? 10 : nb_cheerios; // comme ca si on a beaucour de cherios on afiche pas tout on check maximum les 10 premiers et on assume que si les 10 premiers sont bien fonctione les autres marche aussi
     for(int i = 0; i < nb_print; i++){
-        printf("%lf %lf %lf %lf %lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].d, cheerios[i].v.x, cheerios[i].a.x);
+        printf("%lf %lf %lf %lf %lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].diametre_cheerio, cheerios[i].v.x, cheerios[i].a.x);
     }
 }
 
@@ -31,12 +31,12 @@ void LectureData(FILE* fichier, cheerio_t *cher){
 	fscanf(fichier,"%lf %lf %lf %lf %lf %lf %lf %lf", &posx, &posy, &d, &v_x, &v_y, &a_x, &a_y, &m);//, tmp);
 	cher->pos.x = posx; // si on mets cela dans le fscanf ca bug meme si on prends les adresses cest pour ca que cest en dehors
 	cher->pos.y = posy;
-	cher->d = d;
+	cher->diametre_cheerio = d;
 	cher->v.x = v_x;
 	cher->v.y = v_y;
 	cher->a.x = a_x;
 	cher->a.x = a_y;
-	cher->m = m;
+	cher->masse = m;
 	cher->f_applique.x = f_x;
 	cher->f_applique.y = f_y;
 }
@@ -78,7 +78,7 @@ void EcritureData(char* nom_fichier, cheerio_t* cheerios, int nb_cheerios, long 
 		// on parcour notre tableau et on mets chaque element du tableau dans le fichier 
 		for(int c = 0; c < nb_cheerios; c++){
 			fprintf(fichier_de_ecriture, "%ld %.16lf %.16lf %.16lf\n",//%.16lf %.16lf %.16lf %.16lf %.16lf %.16lf %.16lf\n", //"%ld %g %g %g %g %g %g %g %g %g %g\n",
-										nt, cheerios[c].pos.x, cheerios[c].pos.y, cheerios[c].d);
+										nt, cheerios[c].pos.x, cheerios[c].pos.y, cheerios[c].diametre_cheerio);
 		}
 		fclose(fichier_de_ecriture);
 	}
@@ -114,7 +114,7 @@ int main(){
             for(int j = 0; j < nb_cheerios; j++){
                 if(j != i && 
                             (che[j].pos.x - che[i].pos.x) * (che[j].pos.x - che[i].pos.x) + 
-                                    (che[j].pos.y - che[i].pos.y) * (che[j].pos.y - che[i].pos.y)  <= (che[i].d/2 + che[j].d/2)*(che[i].d/2 + che[j].d/2) ){
+                                    (che[j].pos.y - che[i].pos.y) * (che[j].pos.y - che[i].pos.y)  <= (che[i].diametre_cheerio/2 + che[j].diametre_cheerio/2)*(che[i].diametre_cheerio/2 + che[j].diametre_cheerio/2) ){
                     vec2_t vCollision = {.x = che[j].pos.x - che[i].pos.x,
                                          .y = che[j].pos.y - che[i].pos.y};
                     double distance = sqrt((che[j].pos.x-che[i].pos.x)*(che[j].pos.x-che[i].pos.x)+
@@ -126,11 +126,11 @@ int main(){
                     double speed = vRelativeVelocity.x * vCollisionNorm.x + 
                                    vRelativeVelocity.y * vCollisionNorm.y;
                     if(speed > 0){
-                        double impulse = 2 * speed / (che[i].m + che[j].m);
-                        che[i].v.x -= (impulse * che[j].m* vCollisionNorm.x);
-                        che[i].v.y -= (impulse * che[j].m* vCollisionNorm.y);
-                        che[j].v.x += (impulse * che[i].m* vCollisionNorm.x);
-                        che[j].v.y += (impulse * che[i].m* vCollisionNorm.y);
+                        double impulse = 2 * speed / (che[i].masse + che[j].masse);
+                        che[i].v.x -= (impulse * che[j].masse* vCollisionNorm.x);
+                        che[i].v.y -= (impulse * che[j].masse* vCollisionNorm.y);
+                        che[j].v.x += (impulse * che[i].masse* vCollisionNorm.x);
+                        che[j].v.y += (impulse * che[i].masse* vCollisionNorm.y);
                         // Basic
                         // che[i].v.x -= (speed * vCollisionNorm.x);
                         // che[i].v.y -= (speed * vCollisionNorm.y);

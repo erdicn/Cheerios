@@ -94,7 +94,7 @@ vec2_t SensEntreC1aC2(cheerio_t c1, cheerio_t c2){
 
 // Retourne la distance entre le centre de deux cheerios, c1 et c2.
 double DistanceEntreDeuxCheerios(cheerio_t c1, cheerio_t c2){
-    return sqrt(sq(c1.pos.x - c2.pos.x) + sq(c1.pos.y - c2.pos.y)) - c1.d/2 - c2.d/2; // on enleve la distance de leur rayons
+    return sqrt(sq(c1.pos.x - c2.pos.x) + sq(c1.pos.y - c2.pos.y)) - c1.diametre_cheerio/2 - c2.diametre_cheerio/2; // on enleve la distance de leur rayons
 }
 
 double DistanceEntreDeuxCentreDeCheerios(cheerio_t c1, cheerio_t c2){
@@ -103,7 +103,7 @@ double DistanceEntreDeuxCentreDeCheerios(cheerio_t c1, cheerio_t c2){
 
 // Met à jour la position, la vitesse et l'accélération du cheerio en utilisant l'intégratioon de Verlet (TODO) et la force de trainée https://en.wikipedia.org/wiki/Verlet_integration 
 void UpdateCheerio(cheerio_t* cheerio, double dt){
-    vec2_t new_acc = VectorDiviseScalaire(cheerio->f_applique, cheerio->m); // F = ma => a = F/m
+    vec2_t new_acc = VectorDiviseScalaire(cheerio->f_applique, cheerio->masse); // F = ma => a = F/m
     // TODO faire tel que on prend en compte la force de drag aussi
     vec2_t new_pos = VecteurAdition(VecteurAdition(cheerio->pos, VectorTimesScalar(cheerio->v, dt)), VectorTimesScalar(cheerio->a, (dt * dt * 0.5))); // new_pos = pos + V*dt + A*dt*dt*0.5 // si on etait en C++ on pourait faire des operator overloading et specialiser quand on utilise loperateur + entre deux vecteur qu ca ais ca automatiqueent sans ecrire les fonctions
     vec2_t new_vel = VecteurAdition(cheerio->v, VectorTimesScalar(VecteurAdition(cheerio->a, new_acc), dt*0.5));  // new_vel = V + (A+newA)*dt*0.5

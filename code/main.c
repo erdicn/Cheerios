@@ -148,7 +148,7 @@ void voirSiNotreLectureABienMarche(cheerio_t* cheerios, int nb_cheerios){
     int nb_print = nb_cheerios > 10 ? 10 : nb_cheerios; // comme ca si on a beaucour de cherios on afiche pas tout on check maximum les 10 premiers et on assume que si les 10 premiers sont bien fonctione les autres marche aussi
     //          (ternary operator)  ^ ceci est egale a: // if(nb_cheerios > 10) nb_print = 10 ;else  nb_print = nb_cheerios; 
     for(int i = 0; i < nb_print; i++){
-        printf("%lf %lf %lf %lf %lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].d, cheerios[i].v.x, cheerios[i].a.x);
+        printf("%lf %lf %lf %lf %lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].diametre_cheerio, cheerios[i].v.x, cheerios[i].a.x);
     }
 }
 

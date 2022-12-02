@@ -42,10 +42,7 @@ int main(){
     vec2_t forceAvecDirection, sens;
     // O(NT*(nb*nb+nb*nb+nb)) => O(NT*nb*nb)// pour linstant
     for(long int nt = 0; nt < NT; nt++){                                                    // on itere autant fois que le nombre de pas de temps 
-        if (nt % (NT / 100) == 0){
-            printf("\r%%%ld", nt/(NT/100)); // pour voir le progress
-            fflush(stdout); // le \r ca overwrite la ligne et ne pas metre \n car ca fai tun flush implicitement mais nous on a besoin de flush apres pour reecrir
-        }
+        ProgressBar(nt, NT);
         // printf("\renergie dans le systeme = %lf", energie_totale_dans_le_systeme); fflush(stdout); 
         // TODO ici on peux le faire plus court on faisant telle que quand on calcule les deux cheerios en meme temps ?
         // test de collision et update des forces applique avant on calculait les collisions et apres les forces 
@@ -59,11 +56,11 @@ int main(){
                 if (j != i){ // si cest pas le meme objet car si lobjet ne applique pas de force sur lui meme
                     distance = CalculDistance(cheerios[i].pos, cheerios[j].pos);
                     // On applique les collisions 
-                    if( Collision(distance, cheerios[i].R,cheerios[j].R) ){
-                        AppliqueCollision(distance, cheerios, i, j, dt);
+                    if( Collision(distance, cheerios[i].rayon_courbure,cheerios[j].rayon_courbure) ){
+                        AppliqueCollision(distance, cheerios, i, j);
                     } else { // les cheerios ne se intersect pas donc on applique les forces 
                         // On prend les forces de j qui applique sur i le 
-                        puissance_force = ForceBetweenTwoInteractingParticles(surface_tension_liq_air, cheerios[j].R, cheerios[j].Bo, cheerios[j].Sigma, distance, capilary_length);// enlever le - pour une force de attraction
+                        puissance_force = ForceBetweenTwoInteractingParticles(surface_tension_liq_air, cheerios[j].rayon_courbure, cheerios[j].Bond_nb, cheerios[j].Sigma, distance, capilary_length);// enlever le - pour une force de attraction
                         sens = SensEntre1et2(cheerios[j].pos, cheerios[i].pos, distance); // maintenant trouver le sens
                         forceAvecDirection = VecteurAdition(forceAvecDirection, VectorTimesScalar(sens, puissance_force)); // on ajoute la nouvelle force a la precedente
                     }
@@ -82,7 +79,7 @@ int main(){
         // TODO a partir de quel moment on a plus de boost de vitesse pour lecriture 
         // avec 11 1000000 0.001 => chaque iteration ~ 53s, 10 ~ 23s, 100 ~ 23s,  1000 ~ 21s, et si on ecris pas ca prend ~ 20s  
         // mais en mem temps plus on a de iterations on a plus de donnes et ca prendplus de place par example on a eu avant de print seulement les 100 iterations des fichiers de 15 GB et comme on les lis 100 par 100 dans python ou plus on a pas besoin de autant de donnees 
-        if(nt%25 == 0) 
+        if(nt%10 == 0) 
             EcritureData("donnees.txt", cheerios, nb_cheerios, nt);                             // On fait l'ecriturechawue fois comme ca on a bas besoin de stocker toute les donnees passees. 
     }                  
     free(cheerios);

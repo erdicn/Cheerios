@@ -58,14 +58,12 @@ double CalculDistance(vec2_t pos1, vec2_t pos2){
 double CalculBondNumber(double rho_liquide, double rho_air, 
                             double R, double gamma ,double g){
     double delta_rho = fabs(rho_liquide-rho_air);   //fabs = valeur absolue pour les doubles 
-    double B = (delta_rho * g * sq(R)) / gamma;
-    return B;
+    return (delta_rho * g * sq(R)) / gamma;    
 }
 
 // Retourne le Bond Number calculé de façon linéaire.
 double CalculLinearBondNumber( double R, double L_c){
-    double B = sq(R)/sq(L_c);
-    return B;
+    return sq(R)/sq(L_c);
 }
 
 // Retourne le calcul appelé Sigma.
@@ -74,14 +72,15 @@ double CalculSigma(double rho_flottant, double rho_liquide, double theta){
     return ((2*D-1) / 3.0) - 0.5*cos(theta) + (1/6.0)*cb(cos(theta));
 }
 
+// Pour linstant on lutilise pas
 // Retourne l'énergie potentielle entre deux objets.
-double EnergiePotentielleEntreDeuxParicles(double gamma, double R, double B, 
-                                            double Sigma, double l, double L_c){
-    return -2*M_PI*gamma*R*sqrt(pow(B,5))*sq(Sigma)*gsl_sf_bessel_K0(l/L_c);
+double EnergiePotentielleEntreDeuxParicles(double surface_tension, double rayon_courbure, double Bond_nb, 
+                                            double Sigma, double distance, double capilary_length){
+    return -2*M_PI*surface_tension*rayon_courbure*sqrt(pow(Bond_nb,5))*sq(Sigma)*gsl_sf_bessel_K0(distance/capilary_length);
 }
 
 /**
- * @brief Retourne la valeur de la force d'intéraction entre deux particules. -dE/dl
+ * @brief Force dun cheerio Retourne la valeur de la force d'intéraction entre deux particules. -dE/dl
  * 
  * @param gamma Tension de Surface
  * @param R Rayon de courbure
@@ -91,19 +90,19 @@ double EnergiePotentielleEntreDeuxParicles(double gamma, double R, double B,
  * @param L_c Longueur Capillaire
  * @return double: la force entre deux particles 
  */
-double ForceBetweenTwoInteractingParticles(double gamma, double R, double B, 
-                                            double Sigma, double l, double L_c){
+double ForceBetweenTwoInteractingParticles(double surface_tension, double rayon_courbure, double Bond_nb, 
+                                            double Sigma, double distance, double capilary_length){
     // precondition l > 0 
-    return -2*M_PI*gamma*R*sqrt(pow(B,5))*sq(Sigma)*gsl_sf_bessel_K1(l/L_c);
+    return -2*M_PI*surface_tension*rayon_courbure*sqrt(pow(Bond_nb,5))*sq(Sigma)*gsl_sf_bessel_K1(distance/capilary_length);
 }
 
 
 // Retourne la force émise par les bords sur une particule. // TODO Actuellement pas utilisée, à vérifier si cela est utile.
-double ForceBord(bord_t bord, cheerio_t cheerio, double gamma, double lc, double rho_l, double rho_air, double g){
+double ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length, double rho_liq, double rho_air, double g){
     double distCh_Ce = CalculDistance(cheerio.pos, bord.centre);
-    double BN = CalculBondNumber(rho_l, rho_air, bord.R, gamma, g);
-    double Sigma = CalculSigma(bord.rho, rho_l, bord.theta);
-    double Force = ForceBetweenTwoInteractingParticles(gamma, bord.R, BN, Sigma, distCh_Ce, lc);
+    double BN = CalculBondNumber(rho_liq, rho_air, bord.rayon_courbure, surface_tension, g);
+    double Sigma = CalculSigma(bord.rho, rho_liq, bord.angle_contact);
+    double Force = ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, BN, Sigma, distCh_Ce, capilary_length);
     return Force;
 }
 
@@ -126,10 +125,10 @@ void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary
     double tmp_B, tmp_theta;
     // on mets les donnees calcule dans les cheerios 
     for(int i = 0; i < nb_cheerios; i++){
-        cheerios[i].Bo = CalculLinearBondNumber(cheerios[i].R, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
-        tmp_B = cheerios[i].Bo;
-        cheerios[i].theta = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);    //M_PI_2 *  // dans larticle ils mets ca mais si nous on le mets ca depase la limite de arcsin [-1,1]                                                  // TODO pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;                                                        // TODO faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
-        tmp_theta = cheerios[i].theta;
+        cheerios[i].Bond_nb = CalculLinearBondNumber(cheerios[i].rayon_courbure, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
+        tmp_B = cheerios[i].Bond_nb;
+        cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);    //M_PI_2 *  // dans larticle ils mets ca mais si nous on le mets ca depase la limite de arcsin [-1,1]                                                  // TODO pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;                                                        // TODO faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
+        tmp_theta = cheerios[i].angle_contact;
         cheerios[i].Sigma = CalculSigma(rho_cheerio, rho_liq, tmp_theta);
     }
 }

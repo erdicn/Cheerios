@@ -16,8 +16,8 @@ typedef struct Cheerio{
     vec2_t v;             // vitesse cheerio
     vec2_t a;             // acceleration cheerio
     vec2_t f_applique;    // force applique sur le cheerio
-    double d;             // diametre cheerio
-    double m;             // masse du cheerio
+    double diametre_cheerio;             // diametre cheerio
+    double masse;             // masse du cheerio
     // long int cher_id;     // identifiant du particule
     // long int tas_id;
     // double* masses_tas;

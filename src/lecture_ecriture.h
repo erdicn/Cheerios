@@ -3,6 +3,7 @@
 #include "cheerios.h"
 #include "stdio.h"
 #include "stdlib.h"
+void ProgressBar(long int nt, long int NT);
 void voirSiNotreLectureABienMarche(cheerio_t* cheerios, int nb_cheerios, long int NT, 
                                      double dt, double rho_liq, double rho_air, 
                                         double rho_cheerio, double surface_tension, double g,

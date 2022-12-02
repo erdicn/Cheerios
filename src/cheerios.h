@@ -19,13 +19,13 @@ typedef struct Cheerio{
     vec2_t v;             // vitesse cheerio
     vec2_t a;             // acceleration cheerio
     vec2_t f_applique;    // force applique sur le cheerio
-    double d;             // diametre cheerio
-    double m;             // masse du cheerio
-    double R;             // rayon de courbure  cree par cheerio
-    double Bo;            // Bond number acorded to the cheerios 
-    double theta;         // Angle que le cheerio fait avec le liquide
+    double diametre_cheerio;             // diametre cheerio
+    double masse;             // masse du cheerio
+    double rayon_courbure;             // rayon de courbure  cree par cheerio
+    double Bond_nb;            // Bond number acorded to the cheerios 
+    double angle_contact;         // Angle que le cheerio fait avec le liquide
     double Sigma;         // le Sigma du cheerio
-    energie_t E;            // Energie mecanique du cheerio
+    // energie_t E;            // Energie mecanique du cheerio
 } cheerio_t;   
 
 // Structure contenant les informations de nos bords.
@@ -33,10 +33,10 @@ typedef struct Bord{
     vec2_t centre;       // position du centre des Bords
     double rayon;        // rayon entre le centre et les bords.
     double rho;          // Masse volumique du bord
-    double R;            // Rayon de courbure du bord
-    double theta;        // Angle entre le bord et le liquide.
-    double sigma;        // Sigma du Bord.
-    double Bo;           // Bond Number du bord.
+    double rayon_courbure;            // Rayon de courbure du bord
+    double angle_contact;        // Angle entre le bord et le liquide.
+    double Sigma;        // Sigma du Bord.
+    double Bond_nb;           // Bond Number du bord.
 } bord_t;
 
 #endif // CHEERIOS_H

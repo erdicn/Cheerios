@@ -20,8 +20,8 @@
 void PerfectlyInelasticCollision2D(cheerio_t* c1, cheerio_t* c2){
 
     vec2_t vf = VectorDiviseScalaire(
-                    VecteurAdition(VectorTimesScalar(c1->v, c1->m ) , VectorTimesScalar( c2->v, c2->m))
-                    ,(c1->m +c2->m));
+                    VecteurAdition(VectorTimesScalar(c1->v, c1->masse ) , VectorTimesScalar( c2->v, c2->masse))
+                    ,(c1->masse +c2->masse));
     c1->v = vf;
     c2->v = vf;
 
@@ -72,7 +72,7 @@ void SpicyYogurt(cheerio_t* c1, cheerio_t* c2){
     vec2_t relative_velocity = {.x = c1->v.x - c2->v.x, 
                                .y = c1->v.y - c2->v.y};
     double vitesse = relative_velocity.x * collision_norm.x + relative_velocity.y + collision_norm.y;
-    double impulse = 2 * vitesse / (c1->m + c2->m);
+    double impulse = 2 * vitesse / (c1->masse + c2->masse);
     if (vitesse > 0)
         return;
     else{
@@ -112,11 +112,11 @@ void isThereCollision(cheerio_t* cheerios, int nb_cheerios, bords_t* bords, doub
 
 // Vérifie si un objet a une collision avec un des bords et annule sa vitesse en fonction de celui-ci. TODO améliorer le réalisme de la chose
 void CheckCollisionBord(cheerio_t* cheerio, bords_t* bords){
-    if ((cheerio->pos.x)-(cheerio->d)/2 <= bords->gauche || (cheerio->pos.x)+(cheerio->d)/2 >= bords->droite)
+    if ((cheerio->pos.x)-(cheerio->diametre_cheerio)/2 <= bords->gauche || (cheerio->pos.x)+(cheerio->diametre_cheerio)/2 >= bords->droite)
     {
        cheerio->v.x = 0; 
     }
-    if ((cheerio->pos.y)-(cheerio->d)/2 <= bords->bas || (cheerio->pos.y)+(cheerio->d) >= bords->haut)
+    if ((cheerio->pos.y)-(cheerio->diametre_cheerio)/2 <= bords->bas || (cheerio->pos.y)+(cheerio->diametre_cheerio) >= bords->haut)
     {
         cheerio->v.y = 0;
     }
