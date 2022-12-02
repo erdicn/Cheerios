@@ -4,10 +4,14 @@ import numpy as np
 from matplotlib.patches import Circle
 
 #lis le fichier de donnees initiales pour prendre le dt
-donees_initiales = list(map(float, open("donnees_initiales.txt", 'rt').readline().strip().split()))
-nb_cheerios = int(donees_initiales[0])
-NT = int(donees_initiales[1])
-dt = donees_initiales[2]
+donnees_initiales = list(map(float, open("donnees_initiales.txt", 'rt').readline().strip().split()))
+nb_cheerios = int(donnees_initiales[0])
+NT = int(donnees_initiales[1])
+dt = donnees_initiales[2]
+
+
+rayon_bord =  0.03# donnees_initiales[2][0]
+bord_centre = (0.03, 0.03)    # [donnees_initiales[2][1], donnees_initiales[2][2]]
 
 #lis le fichier colonne par colonne 
 Donnees = np.loadtxt(open("donnees.txt", 'rt').readlines())
@@ -32,9 +36,11 @@ patches = []
 for p in range(nb_cheerios):
     patches.append(Circle((X[0+p],Y[0+p]), radius=D[0+p]/2, color = "y" #fc='b')
                                 ))
-
+#TODO je sais pas pq ca camarche pas 
+patches.append(Circle( bord_centre, rayon_bord, color = "k", alpha = 0.1))
 
 fig, ax = plt.subplots()
+ax.scatter(bord_centre[0], bord_centre[1])
 for s in ['top','bottom','left','right']:
     # ax.spines[s].set_linewidth(2)
     ax.set_aspect('equal', 'box')
@@ -46,13 +52,14 @@ def init():
     for i in range(len(patches)):
         patches[i].center = (X[0+i],Y[0+i])
         ax.add_patch(patches[i])
+    # ax.add_patch(Circle((bord_centre[0], bord_centre[1]), radius=rayon_bord, color = "y"))
     return patches
 
 time_template = 'time = %.1fs'
 time_text = ax.text(0.05, 0.9, '', transform=ax.transAxes)
 
 def animate(i):
-    for p in range(len(patches)):
+    for p in range(len(patches)-1):
         patches[p].center = (X[p+i], Y[p+i])
         patches[p].radius = D[p+i]/2
     time_text.set_text(time_template % (T[i]*dt))
