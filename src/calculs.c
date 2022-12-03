@@ -97,12 +97,11 @@ double ForceBetweenTwoInteractingParticles(double surface_tension, double rayon_
 }
 
 
-// Retourne la force émise par les bords sur une particule. // TODO Actuellement pas utilisée, à vérifier si cela est utile.
-double ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length, double rho_liq, double rho_air, double g){
+// Retourne la force émise par les bords sur une particule. // TODO à vérifier si cela fonctionne correctement.
+double ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length){
     double distCh_Ce = CalculDistance(cheerio.pos, bord.centre);
-    double BN = CalculBondNumber(rho_liq, rho_air, bord.rayon_courbure, surface_tension, g);
-    double Sigma = CalculSigma(bord.rho, rho_liq, bord.angle_contact);
-    double Force = ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, BN, Sigma, distCh_Ce, capilary_length);
+    double Force1 = ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.bond_nb, bord.Sigma, bord.centre + distCh_Ce, capilary_length);
+    double Force2 = ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.bond_nb, bord.Sigma, bord.centre - distCh_Ce, capilary_length)
     return Force;
 }
 
@@ -121,9 +120,11 @@ double ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double 
 // }
 
 // Initialise les valeurs de Bond Number et de Sigma pour tous les objets.
-void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary_length, double rho_liq, double rho_cheerio){
+void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary_length, double rho_liq, double rho_cheerio, bord_t* bord){
     double tmp_B, tmp_theta;
     // on mets les donnees calcule dans les cheerios 
+    bord.Bond_nb = CalculLinearBondNumber(bord.rayon_courbure, capilary_length);
+    bord.Sigma = CalculSigma(bord.rho, rhol_liq, bord.theta);
     for(int i = 0; i < nb_cheerios; i++){
         cheerios[i].Bond_nb = CalculLinearBondNumber(cheerios[i].rayon_courbure, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
         tmp_B = cheerios[i].Bond_nb;
