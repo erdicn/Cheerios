@@ -66,9 +66,9 @@ int main(){
                         forceAvecDirection = VecteurAdition(forceAvecDirection, VectorTimesScalar(sens, puissance_force)); // on ajoute la nouvelle force a la precedente
                     }
                 }
-                if( CollisionBord(cheerios+i, bord) ){
-                    AppliqueCollisionBord(cheerios+i, bord);
-                }
+            }
+            if( CollisionBord(cheerios+i, bord) ){
+                AppliqueCollisionBord(cheerios+i, bord);
             }
             forceAvecDirection = VecteurAdition(forceAvecDirection, ForceBord(bord, cheerios[i], surface_tension_liq_air, capilary_length));
             cheerios[i].f_applique = forceAvecDirection;
