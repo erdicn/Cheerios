@@ -2,7 +2,7 @@
 #include "cheerios.h"
 #include "calculs.h"
 
-#define COLLISION_ABSORBTION 0.3
+#define COLLISION_ABSORBTION 0.7
 
 // Utilise l'intégration de Verlet pour calculer la nouvelle position, vitesse et accélération d'un objet.
 void IntegrationDeVerlet(cheerio_t* cheerio, double dt){
@@ -63,7 +63,7 @@ void RotateVec(vec2_t* vec, double angle){
 
 void AppliqueCollisionBord(cheerio_t* cheerio, bord_t bord){
     double val = CalculProduitScalaire(cheerio->v, SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre))) / CalculNorme(cheerio->v);
-    cheerio->v = VectorTimesScalar(cheerio->v, COLLISION_ABSORBTION);
+    //cheerio->v = VectorTimesScalar(cheerio->v, COLLISION_ABSORBTION);
     if(val > 1 || val < -1){  // Si acos nest pas definie on fait seulement inverser le vecteur 
         cheerio->v = VectorTimesScalar(cheerio->v, -1);
     } else{
