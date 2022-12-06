@@ -100,8 +100,8 @@ double ForceBetweenTwoInteractingParticles(double surface_tension, double rayon_
 // Retourne la force émise par les bords sur une particule. // TODO à vérifier si cela fonctionne correctement.
 double ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length){
     double distCh_Ce = CalculDistance(cheerio.pos, bord.centre);
-    double Force1 = ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.bond_nb, bord.Sigma, bord.centre + distCh_Ce, capilary_length);
-    double Force2 = ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.bond_nb, bord.Sigma, bord.centre - distCh_Ce, capilary_length)
+    double Force1 = ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.Bond_nb, bord.Sigma, bord.centre + distCh_Ce, capilary_length);
+    double Force2 = ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.Bond_nb, bord.Sigma, bord.centre - distCh_Ce, capilary_length)
     return Force;
 }
 
