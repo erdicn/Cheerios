@@ -62,17 +62,18 @@ void RotateVec(vec2_t* vec, double angle){
 }
 
 void AppliqueCollisionBord(cheerio_t* cheerio, bord_t bord){
-    double val = CalculProduitScalaire(cheerio->v, SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre))) / CalculNorme(cheerio->v);
-    //cheerio->v = VectorTimesScalar(cheerio->v, COLLISION_ABSORBTION);
-    if(val > 1 || val < -1){  // Si acos nest pas definie on fait seulement inverser le vecteur 
-        cheerio->v = VectorTimesScalar(cheerio->v, -1);
-    } else{
-        double angle = val;
-        double angle2 = acos(CalculProduitScalaire(cheerio->v, SensEntre1et2(bord.centre, cheerio->pos,CalculDistance(cheerio->pos, bord.centre))) / (CalculNorme(cheerio->v)*COLLISION_ABSORBTION));
-        // TODO ici on a un proble pour vertains angles ca ne marche pas pour certaines ca marche
-        if(angle < angle2)
-            RotateVec(&(cheerio->v), -angle+angle2);
-        else
-            RotateVec(&(cheerio->v), angle-angle2);
-    }
+    cheerio->v = VectorTimesScalar(cheerio->v, -COLLISION_ABSORBTION);
+    // double val = CalculProduitScalaire(cheerio->v, SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre))) / CalculNorme(cheerio->v);
+    // //cheerio->v = VectorTimesScalar(cheerio->v, COLLISION_ABSORBTION);
+    // if(val > 1 || val < -1){  // Si acos nest pas definie on fait seulement inverser le vecteur 
+    //     cheerio->v = VectorTimesScalar(cheerio->v, -1);
+    // } else{
+    //     double angle = val;
+    //     double angle2 = acos(CalculProduitScalaire(cheerio->v, SensEntre1et2(bord.centre, cheerio->pos,CalculDistance(cheerio->pos, bord.centre))) / (CalculNorme(cheerio->v)*COLLISION_ABSORBTION));
+    //     // TODO ici on a un proble pour vertains angles ca ne marche pas pour certaines ca marche
+    //     if(angle < angle2)
+    //         RotateVec(&(cheerio->v), -angle+angle2);
+    //     else
+    //         RotateVec(&(cheerio->v), angle-angle2);
+    // }
 }
