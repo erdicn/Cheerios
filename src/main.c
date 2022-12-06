@@ -27,11 +27,11 @@ int main(){
     long int NT;                                                          // nombre de pas de temps 
     double dt;                     // TODO trouver la masse volumique des cheerios// masses volumiques en kg/m^3 source air https://www.thermexcel.com/french/tables/massair.htm
     int nb_cheerios;
-    bord_t bord;
+    bord_t bord; bord.angle_contact = M_PI/8; bord.rayon_courbure = 2.7/1000.0;
     cheerio_t *cheerios= NULL;                                                  // notre tableaux qui est remplie de cheerios
     cheerios = LectureTouteCheerios("donnees_initiales.txt", &nb_cheerios, &NT, &dt, &rho_liq, &rho_air, &rho_cheerio, &surface_tension_liq_air, &g, &bord);  
     double capilary_length = sqrt(surface_tension_liq_air/(fabs(rho_liq-rho_air)*g)) ;  // capilary lenght = L_c ≡ sqrt(γ/(𝜌*g))  γ = gamma = surface tension//2.7 / 1000; // L_c of water = 2.7 mm https://www.sciencedirect.com/topics/engineering/capillary-length#:~:text=As%20surface%20energy%20is%20related,will%20indeed%20have%20little%20effect.
-    InitialiseBondEtSigma(cheerios, nb_cheerios, capilary_length, rho_liq, rho_cheerio, bord);
+    InitialiseBondEtSigma(cheerios, nb_cheerios, capilary_length, rho_liq, rho_cheerio, &bord);
     
     VoirSiNotreLectureABienMarche(cheerios, nb_cheerios, NT, dt, rho_liq, rho_air, rho_cheerio, surface_tension_liq_air, g, &bord);
     InitialiseFichierDeEcriture("donnees.txt");                                 // ca efface tout le fichier donnees.txt pour que on a un fichier vide pour les nouvelles donnees 
@@ -70,6 +70,7 @@ int main(){
                     AppliqueCollisionBord(cheerios+i, bord);
                 }
             }
+            forceAvecDirection = VecteurAdition(forceAvecDirection, ForceBord(bord, cheerios[i], surface_tension_liq_air, capilary_length));
             cheerios[i].f_applique = forceAvecDirection;
         }
 
