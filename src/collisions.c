@@ -54,6 +54,10 @@ int CollisionBord(cheerio_t* cheerio, bord_t bord){
     return CalculDistance(cheerio->pos, bord.centre) + cheerio->diametre_cheerio/2 >=  bord.rayon; 
 }
 
+void RotateVec(cheerio_t* cheerio, double angle){
+     = cheerio->x * cos(angle) - cheerio
+}
+
 void AppliqueCollisionBord(cheerio_t* cheerio, bord_t bord){
     cheerio->v = VectorTimesScalar(cheerio->v, -COLLISION_ABSORBTION);
 }
