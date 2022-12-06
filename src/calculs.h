@@ -20,6 +20,6 @@ double EnergiePotentielleEntreDeuxParicles(double gamma, double R, double B,
                                             double Sigma, double l, double L_c);
 double ForceBetweenTwoInteractingParticles(double gamma, double R, double B, 
                                             double Sigma, double l, double L_c);
-double ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length);
+vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length);
 void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary_length, double rho_liq, double rho_cheerio, bord_t* bord);
 #endif // CALCULS_H
