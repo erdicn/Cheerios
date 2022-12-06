@@ -98,11 +98,13 @@ double ForceBetweenTwoInteractingParticles(double surface_tension, double rayon_
 
 
 // Retourne la force émise par les bords sur une particule. // TODO à vérifier si cela fonctionne correctement.
-double ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length){
-    double distCh_Ce = CalculDistance(cheerio.pos, bord.centre);
-    double Force1 = ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.bond_nb, bord.Sigma, bord.centre + distCh_Ce, capilary_length);
-    double Force2 = ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.bond_nb, bord.Sigma, bord.centre - distCh_Ce, capilary_length)
-    return Force;
+vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length){
+    double dist_cheerio_centre = CalculDistance(cheerio.pos, bord.centre);
+    vec2_t Force1 =VectorTimesScalar( SensEntre1et2(cheerio.pos, bord.centre, dist_cheerio_centre),
+                            ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.Bond_nb, bord.Sigma, bord.rayon + dist_cheerio_centre, capilary_length));
+    vec2_t Force2 =VectorTimesScalar( SensEntre1et2(bord.centre, cheerio.pos, dist_cheerio_centre),
+                            ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.Bond_nb, bord.Sigma, bord.rayon - dist_cheerio_centre, capilary_length));
+    return VecteurAdition(Force1, Force2);
 }
 
 
