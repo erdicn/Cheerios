@@ -42,7 +42,7 @@ sorting=none
     \section{nescescites}
     \subsection{Effet Cheerios}
     Les formules pour les calculs viennent principalement de \cite{cheerios_2005} 
-    On mets les formules et peut etre demontrer ou ils viennes et sourtout les cas ou on peux utiliser ces formulles les cas ou ca marche pas etc\ldots
+    % TODO On mets les formules et peut etre demontrer ou ils viennent et surtout les cas ou on peux utiliser ces formules les cas ou ca marche pas etc\ldots
 
     % TODO citer cheerios 
     \begin{equation}
@@ -52,26 +52,26 @@ sorting=none
     % TODO est que on a besoin de metre les vecteurs dans les DL ??
     \subsection{Integration de verlet}
     %On prouve lintegration de verlet et montre que on peux lutiliser pour notre probleme
-    %Si on a plique le developement limite de x on peux deduir les positions suivant
-    Developement limite de Taylor Young de $f(x)$ au point $x_0$% TODO citer le livre de introduction a lanalyse complexe et numerique dans la mir 
+    %Si on applique le developement limite de x on peux deduir les positions suivant
+    Développement limité de Taylor Young de $f(x)$ au point $x_0$ :% TODO citer le livre de introduction a lanalyse complexe et numerique dans la mir 
     \begin{equation}
         DL_n f(x) = \sum_{i=0}^{n}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i+ o((x-x_0)^n)
     \end{equation}
-    Si on applique le Developement limite de ordre 3 la position($\vb*{x}(t+\dd t)$) au point $t+\dd t$ on a:
-    On a ca avec le developement limilte a $t$ et $t_0$ cest le pas temps precedent
+    Si on applique le développement limité d'ordre 3 la position($\vb*{x}(t+\dd t)$) au point $t+\dd t$ on a l'équation suivante avec $t_0$ comme le pas de temps précédent :
+    % On a ca avec le developement limilte a $t$ et $t_0$ cest le pas temps precedent
     \[DL_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)+\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 +o((t-t_0)^3)\]
-    Si $t_0$ cest le pas de temps precedent et $\vb*{x}^{'}(t)$ vitesse et $\vb*{x}^{''}(t)$ lacceleration on a:
+    Si $t_0$ est le pas de temps précédent, $\vb*{x}^{'}(t)$ vitesse et $\vb*{x}^{''}(t)$ l'accélération, nous avons :
         \[DL_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)\]
         \[\Longrightarrow DL_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)\]
-    L'erreur sur le temps $t_n$ cest de lordre $o(\exp^(Lt_n)\dd t^2)$ % TODO pas sur de ici
+    L'erreur sur le temps $t_n$ est de l'ordre de $o(\exp^(Lt_n)\dd t^2)$ % TODO pas sur de ici
     
-    Et comme notre acceleration ne depend pas de le changement de vitesse mais de l'equation \ref{ForceEntreCheerios} on peux calculer l'acceleration a partir du principe fondamentale de la dynamique avec masse constante. Cest important de faire ca apres le calcul de position et avant la vitesse car la position prend lacceleration precedent et la vitesse prend celui de avant et pendant le temps.
+    Et comme notre accélération ne dépend pas du changement de vitesse mais de l'équation (\ref{ForceEntreCheerios}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant la vitesse car la position prend l'accélération précédente et la vitesse prend celui de avant et pendant le temps.
     \begin{equation}
         \label{PFD}
         \sum  \vb*{F} = m\vb*{a} \Longrightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}
     \end{equation}
 
-    Et maintenat comme on a la nouvelle position et lacelleration on peux calculer la nouvelle vitesse.
+    Maintenant comme nous avons la nouvelle position et l'accélération, nous pouvons calculer la nouvelle vitesse.
     % TODO dire dou cette formule viens 
     \begin{equation}
         \label{verletVitesse}
@@ -87,7 +87,7 @@ sorting=none
 
     \subsection{Collsisions}
     Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
-    Pour les collisions on a partie sur un modele asses simple qui itere chaque objet et regarde si la distance entre eux cest plus petit que leur rayons ajoute on dis que il ya une collision et on applique les collisions et la conservation de momentum.
+    Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre eux est plus petite que leur rayons additionnés on dis que il ya une collision et on applique les collisions et la conservation de momentum.
     \begin{itemize}
         \item Dabord on prend le vecteur norme collisions qui est le sens de 1 a 2 $\vb*{c} \longrightarrow ||\vb*{c}|| = 1$ 
         \item Apres on trouve la vitesse relative pour voir comment les cheerios vont saffecter
