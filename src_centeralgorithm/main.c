@@ -101,14 +101,14 @@ void EcritureData(char* nom_fichier, cheerio_t* cheerios, int nb_cheerios, long 
 	}
 }
 
-vec2_t VecteurAdition(vec2_t v1, vec2_t v2){
+vec2_t VecAdition(vec2_t v1, vec2_t v2){
     vec2_t new_vec;
     new_vec.x = v1.x + v2.x;
     new_vec.y = v1.y + v2.y;
     return new_vec;
 }
 
-vec2_t VectorTimesScalar(vec2_t vec, double s){
+vec2_t VecTimesScalar(vec2_t vec, double s){
     vec2_t new_vec;
     new_vec.x = vec.x * s;
     new_vec.y = vec.y * s;
@@ -226,7 +226,7 @@ int main(){
                     sensij.x = (cheerios[j].pos.x - cheerios[i].pos.x)/l;
                     sensij.y = (cheerios[j].pos.y - cheerios[i].pos.y)/l;
                     //printf("vec = %lf\n", sqrt(sq(sensij.x)+sq(sensij.y)));
-                    forceAvecDirection = VecteurAdition(forceAvecDirection, VectorTimesScalar(sensij, puissance_force));
+                    forceAvecDirection = VecAdition(forceAvecDirection, VecTimesScalar(sensij, puissance_force));
                 }
             }
             cheerios[i].f_applique = forceAvecDirection;
@@ -237,9 +237,9 @@ int main(){
         // et que notre acceleration ne depend pas de la vitesse 
         // on peux pas metre cette boucle dans lautre car sinon ca changerait la position chaque cheerio un par un et les nouvelles positions changerait au cours du temps par rapport ou on comence a calculer 
         for(i = 0; i < nb_cheerios; i++){
-            new_pos = VecteurAdition(VecteurAdition(cheerios[i].pos, VectorTimesScalar(cheerios[i].v, dt)), VectorTimesScalar(cheerios[i].a, dt*dt*0.5));
-            new_acc = VectorTimesScalar(cheerios[i].f_applique, 1/cheerios[i].masse);
-            new_vel = VecteurAdition(cheerios[i].v, VectorTimesScalar(VecteurAdition(cheerios[i].a, new_acc),(dt*0.5)));
+            new_pos = VecAdition(VecAdition(cheerios[i].pos, VecTimesScalar(cheerios[i].v, dt)), VecTimesScalar(cheerios[i].a, dt*dt*0.5));
+            new_acc = VecTimesScalar(cheerios[i].f_applique, 1/cheerios[i].masse);
+            new_vel = VecAdition(cheerios[i].v, VecTimesScalar(VecAdition(cheerios[i].a, new_acc),(dt*0.5)));
             cheerios[i].pos= new_pos;
             cheerios[i].v  = new_vel;
             cheerios[i].a  = new_acc;

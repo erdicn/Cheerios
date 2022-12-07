@@ -84,13 +84,13 @@ void EcritureData(char* nom_fichier, cheerio_t* cheerios, int nb_cheerios, long 
 	}
 }
 
-vec2_t VecteurAdition(vec2_t v1, vec2_t v2){
+vec2_t VecAdition(vec2_t v1, vec2_t v2){
     vec2_t new_vec = {.x = v1.x + v2.x,
                       .y = v1.y + v2.y};
     return new_vec;
 }
 
-vec2_t VectorTimesScalar(vec2_t vec, double s){
+vec2_t VecTimesScalar(vec2_t vec, double s){
     vec2_t new_vec = {.x = vec.x * s,
                       .y = vec.y * s};
     return new_vec;
@@ -144,7 +144,7 @@ int main(){
         }
         // changements de positions 
         for(i = 0; i < nb_cheerios; i++){
-            che[i].pos = VecteurAdition(che[i].pos, VectorTimesScalar(che[i].v, dt));
+            che[i].pos = VecAdition(che[i].pos, VecTimesScalar(che[i].v, dt));
         }
 
 

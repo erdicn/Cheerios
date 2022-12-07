@@ -7,9 +7,9 @@
 // Utilise l'intégration de Verlet pour calculer la nouvelle position, vitesse et accélération d'un objet.
 void IntegrationDeVerlet(cheerio_t* cheerio, double dt){
     vec2_t new_pos, new_acc, new_vel;
-    new_pos = VecteurAdition(VecteurAdition(cheerio->pos, VectorTimesScalar(cheerio->v, dt)), VectorTimesScalar(cheerio->a, dt*dt*0.5));
-    new_acc = VectorTimesScalar(cheerio->f_applique, 1/cheerio->masse);
-    new_vel = VecteurAdition(cheerio->v, VectorTimesScalar(VecteurAdition(cheerio->a, new_acc),(dt*0.5)));
+    new_pos = VecAdition(VecAdition(cheerio->pos, VecTimesScalar(cheerio->v, dt)), VecTimesScalar(cheerio->a, dt*dt*0.5));
+    new_acc = VecTimesScalar(cheerio->f_applique, 1/cheerio->masse);
+    new_vel = VecAdition(cheerio->v, VecTimesScalar(VecAdition(cheerio->a, new_acc),(dt*0.5)));
     cheerio->pos= new_pos;
     cheerio->v  = new_vel;
     cheerio->a  = new_acc;
@@ -27,8 +27,8 @@ void AppliqueCollision(double distance, cheerio_t* cheerios, int i, int j){
     double vitesse_collision, impulse;
     vec2_t norme_collision, vitesse_relative;
     norme_collision = SensEntre1et2(cheerios[i].pos, cheerios[j].pos, distance);
-    vitesse_relative = VecteurSubstraction(cheerios[i].v, cheerios[j].v);
-    vitesse_collision = CalculProduitScalaire(vitesse_relative, norme_collision);//vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
+    vitesse_relative = VecSubstraction(cheerios[i].v, cheerios[j].v);
+    vitesse_collision = ProduitScalaire(vitesse_relative, norme_collision);//vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
     // TODO trouver cette constante 
     vitesse_collision *= COLLISION_ABSORBTION;//0.7; // correction* ca depend plus de dt que ca mais quand meme il faux pas le metre trop bas ou trop haut// entre 0.5 et 0.8 car si on met plus haut ca rebondis pas mal et si on mets trop bas ils rentre entre eux// le coefficint qui fait tel que ca robondis pas NE PAS LE METRE TROP BAS CAR CA PEUX ENFONCER DEDANS OU REBONDIR TROP
     // TODO je sais pas pq ici on a ca 
@@ -65,10 +65,10 @@ void AppliqueCollisionBord(cheerio_t* cheerio, bord_t bord){
 
     vec2_t vec_normal  = SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre));
     vec2_t vec_tangent = CalculRotatedVec(vec_normal, M_PI_2);
-    cheerio->v = VectorTimesScalar( VecteurAdition(VectorTimesScalar(vec_normal , 
-                                                                    -CalculProduitScalaire(cheerio->v, vec_normal)), 
-                                                   VectorTimesScalar(vec_tangent, 
-                                                                     CalculProduitScalaire(cheerio->v, vec_tangent))),
+    cheerio->v = VecTimesScalar( VecAdition(VecTimesScalar(vec_normal , 
+                                                                    -ProduitScalaire(cheerio->v, vec_normal)), 
+                                                   VecTimesScalar(vec_tangent, 
+                                                                     ProduitScalaire(cheerio->v, vec_tangent))),
                                     COLLISION_ABSORBTION);
 
     // //cheerio->v = VectorTimesScalar(cheerio->v, -COLLISION_ABSORBTION);

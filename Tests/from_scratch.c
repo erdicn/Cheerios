@@ -87,14 +87,14 @@ void EcritureData(char* nom_fichier, cheerio_t* cheerios, int nb_cheerios, long 
 	}
 }
 
-vec2_t VecteurAdition(vec2_t v1, vec2_t v2){
+vec2_t VecAdition(vec2_t v1, vec2_t v2){
     vec2_t new_vec;
     new_vec.x = v1.x + v2.x;
     new_vec.y = v1.y + v2.y;
     return new_vec;
 }
 
-vec2_t VectorTimesScalar(vec2_t vec, double s){
+vec2_t VecTimesScalar(vec2_t vec, double s){
     vec2_t new_vec;
     new_vec.x = vec.x * s;
     new_vec.y = vec.y * s;
@@ -223,7 +223,7 @@ int main(){
                     // maintenant trouver le sens
                     vec2_t sensij = {.x = che[j].pos.x - che[i].pos.x,
                                     .y = che[j].pos.y - che[i].pos.y};
-                    forceAvecDirection = VecteurAdition(forceAvecDirection, VectorTimesScalar(sensij, puissance_force));
+                    forceAvecDirection = VecAdition(forceAvecDirection, VecTimesScalar(sensij, puissance_force));
                     //printf("%lf %lf\n", forceAvecDirection.x, forceAvecDirection.y);
                 }
             }
@@ -232,12 +232,12 @@ int main(){
         }
         for(i = 0; i < nb_cheerios; i++){
             //printf("%lf %lf %lf %lf\n",che[i].v.x,che[i].v.y ,VecteurAdition(VecteurAdition(che[i].pos, VectorTimesScalar(che[i].v, dt)), VectorTimesScalar(che[i].a, dt*dt*0.5)).x,VecteurAdition(VecteurAdition(che[i].pos, VectorTimesScalar(che[i].v, dt)), VectorTimesScalar(che[i].a, dt*dt*0.5)).y);
-            vec2_t new_pos = VecteurAdition(VecteurAdition(che[i].pos, VectorTimesScalar(che[i].v, dt)), 
-                                            VectorTimesScalar(che[i].a, dt*dt*0.5));
+            vec2_t new_pos = VecAdition(VecAdition(che[i].pos, VecTimesScalar(che[i].v, dt)), 
+                                            VecTimesScalar(che[i].a, dt*dt*0.5));
             //printf("%lf %lf %lf %lf\n",che[i].a.x,che[i].a.y, che[i].f_applique.x, che[i].f_applique.y);
-            vec2_t new_acc = VectorTimesScalar(che[i].f_applique, 1/che[i].masse);
-            vec2_t new_vel = VecteurAdition(che[i].v, 
-                                             VectorTimesScalar(VecteurAdition(che[i].a, new_acc),(dt*0.5)));
+            vec2_t new_acc = VecTimesScalar(che[i].f_applique, 1/che[i].masse);
+            vec2_t new_vel = VecAdition(che[i].v, 
+                                             VecTimesScalar(VecAdition(che[i].a, new_acc),(dt*0.5)));
             //printf("pos %lf %lf v %lf %lf a %lf %lf\n", new_pos.x, new_pos.y, new_vel.x, new_vel.y, new_acc.x, new_acc.y);
             che[i].pos = new_pos;
             che[i].v   = new_vel;

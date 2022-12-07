@@ -14,20 +14,20 @@ double cb(double x){
 }
 
 // Retourne un nouveau vecteur qui est l'addition des 2 vecteurs v1 et v2.
-vec2_t VecteurAdition(vec2_t v1, vec2_t v2){
+vec2_t VecAdition(vec2_t v1, vec2_t v2){
     vec2_t new_vec = { .x = v1.x + v2.x,
                        .y = v1.y + v2.y};
     return new_vec;
 }
 
-vec2_t VecteurSubstraction(vec2_t v1, vec2_t v2){
+vec2_t VecSubstraction(vec2_t v1, vec2_t v2){
     vec2_t new_vec = { .x = v1.x - v2.x,
                        .y = v1.y - v2.y};
     return new_vec;
 }
 
 // Retourne le vecteur vec avec ses coordonnées multipliés par la valeur s.
-vec2_t VectorTimesScalar(vec2_t vec, double s){
+vec2_t VecTimesScalar(vec2_t vec, double s){
     vec2_t new_vec = { .x = vec.x * s,
                        .y = vec.y * s};
     return new_vec;
@@ -38,7 +38,7 @@ double CalculNorme(vec2_t vec){
     return sqrt(sq(vec.x) + sq(vec.y));
 }
 
-double CalculProduitScalaire(vec2_t v1, vec2_t v2){
+double ProduitScalaire(vec2_t v1, vec2_t v2){
     return v1.x*v2.x + v1.y*v2.y;
 }
 
@@ -100,11 +100,11 @@ double ForceBetweenTwoInteractingParticles(double surface_tension, double rayon_
 // Retourne la force émise par les bords sur une particule. // TODO à vérifier si cela fonctionne correctement.
 vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length){
     double dist_cheerio_centre = CalculDistance(cheerio.pos, bord.centre);
-    vec2_t Force1 =VectorTimesScalar( SensEntre1et2(cheerio.pos, bord.centre, dist_cheerio_centre),
+    vec2_t Force1 =VecTimesScalar( SensEntre1et2(cheerio.pos, bord.centre, dist_cheerio_centre),
                             ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.Bond_nb, bord.Sigma, bord.rayon + dist_cheerio_centre, capilary_length));
-    vec2_t Force2 =VectorTimesScalar( SensEntre1et2(bord.centre, cheerio.pos, dist_cheerio_centre),
+    vec2_t Force2 =VecTimesScalar( SensEntre1et2(bord.centre, cheerio.pos, dist_cheerio_centre),
                             ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.Bond_nb, bord.Sigma, bord.rayon - dist_cheerio_centre, capilary_length));
-    return VecteurAdition(Force1, Force2);
+    return VecAdition(Force1, Force2);
 }
 
 

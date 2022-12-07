@@ -72,14 +72,14 @@ int main(){
                         // On prend les forces de j qui applique sur i le 
                         puissance_force = ForceBetweenTwoInteractingParticles(surface_tension_liq_air, cheerios[j].rayon_courbure, cheerios[j].Bond_nb, cheerios[j].Sigma, distance, capilary_length);// enlever le - pour une force de attraction
                         sens = SensEntre1et2(cheerios[j].pos, cheerios[i].pos, distance); // maintenant trouver le sens
-                        forceAvecDirection = VecteurAdition(forceAvecDirection, VectorTimesScalar(sens, puissance_force)); // on ajoute la nouvelle force a la precedente
+                        forceAvecDirection = VecAdition(forceAvecDirection, VecTimesScalar(sens, puissance_force)); // on ajoute la nouvelle force a la precedente
                     }
                 }
             }
             if( CollisionBord(cheerios+i, bord) ){
                 AppliqueCollisionBord(cheerios+i, bord);
             }
-            forceAvecDirection = VecteurAdition(forceAvecDirection, ForceBord(bord, cheerios[i], surface_tension_liq_air, capilary_length));
+            forceAvecDirection = VecAdition(forceAvecDirection, ForceBord(bord, cheerios[i], surface_tension_liq_air, capilary_length));
             cheerios[i].f_applique = forceAvecDirection;
         }
 
