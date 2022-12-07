@@ -35,8 +35,8 @@ void AppliqueCollision(double distance, cheerio_t* cheerios, int i, int j){
     if(vitesse_collision > 0){
         // Avec le conservation de momentum
         impulse = 2 * vitesse_collision / (cheerios[i].masse + cheerios[j].masse);                                                               // Basic
-        cheerios[i].v.x -= (impulse * cheerios[j].masse* norme_collision.x);                                                     // che[i].v.x -= (speed * vCollisionNorm.x);
         cheerios[i].v.y -= (impulse * cheerios[j].masse* norme_collision.y);                                                     // che[i].v.y -= (speed * vCollisionNorm.y);
+        cheerios[i].v.x -= (impulse * cheerios[j].masse* norme_collision.x);                                                     // che[i].v.x -= (speed * vCollisionNorm.x);
         cheerios[j].v.x += (impulse * cheerios[i].masse* norme_collision.x);                                                     // che[j].v.x += (speed * vCollisionNorm.x);
         cheerios[j].v.y += (impulse * cheerios[i].masse* norme_collision.y);                                                     // che[j].v.y += (speed * vCollisionNorm.y);
         // On peux aussi utiliser ces fonctions mais ca diminue la lisibilite sans faire gagner quelque chose 
@@ -55,18 +55,19 @@ int CollisionBord(cheerio_t* cheerio, bord_t bord){
 }
 
 // Ca rotate le vecteur de ange au sens trigonometrique
-void RotateVec(vec2_t* vec, double angle){
-    vec2_t new_vec = {.x = vec->x * cos(angle) - vec->y * sin(angle),
-                      .y = vec->x * sin(angle) + vec->y * cos(angle)};
-    *vec = new_vec;
+vec2_t CalculRotatedVec(vec2_t vec, double angle){
+    vec2_t new_vec = {.x = vec.x * cos(angle) - vec.y * sin(angle),
+                      .y = vec.x * sin(angle) + vec.y * cos(angle)};
+    return new_vec;
 }
 
 void AppliqueCollisionBord(cheerio_t* cheerio, bord_t bord){
 
-    vec2_t vec_normal = SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre));
-    if( cheerio->v.x/vec_normal.x >= 1 && cheerio->v.y/vec_normal.y >= 1 ){
-        
-    }
+    vec2_t vec_normal  = SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre));
+    vec2_t vec_tangent = CalculRotatedVec(vec_normal, M_PI_2);
+    cheerio->v = VecteurAdition(VectorTimesScalar(vec_normal , -CalculProduitScalaire(cheerio->v, vec_normal)), 
+                                VectorTimesScalar(vec_tangent, CalculProduitScalaire(cheerio->v, vec_tangent)));
+
     // //cheerio->v = VectorTimesScalar(cheerio->v, -COLLISION_ABSORBTION);
     // double val = CalculProduitScalaire(cheerio->v, SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre))) / CalculNorme(cheerio->v);
     // //cheerio->v = VectorTimesScalar(cheerio->v, COLLISION_ABSORBTION);
