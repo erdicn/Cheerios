@@ -41,7 +41,7 @@ sorting=none
 
     \section{nescescites}
     \subsection{Effet Cheerios}
-    Les formules pour les calculs viennent principalement de \cite{cheerios_2005} 
+    Les formules pour les calculs viennent principalement de \cite{vella_cheerios_2005} 
     % TODO On mets les formules et peut etre demontrer ou ils viennent et surtout les cas ou on peux utiliser ces formules les cas ou ca marche pas etc\ldots
 
     % TODO citer cheerios 
@@ -53,7 +53,7 @@ sorting=none
     \subsection{Integration de verlet}
     %On prouve lintegration de verlet et montre que on peux lutiliser pour notre probleme
     %Si on applique le developement limite de x on peux deduir les positions suivant
-    Développement limité de Taylor Young de $f(x)$ au point $x_0$ :% TODO citer le livre de introduction a lanalyse complexe et numerique dans la mir 
+    Développement limité de Taylor Young de $f(x)$ au point $x_0$\cite{agarwal_introduction_2011} :% TODO citer le livre de introduction a lanalyse complexe et numerique dans la mir 
     \begin{equation}
         DL_n f(x) = \sum_{i=0}^{n}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i+ o((x-x_0)^n)
     \end{equation}
@@ -91,7 +91,7 @@ sorting=none
     \begin{itemize}
         \item Dabord on prend le vecteur norme collisions qui est le sens de 1 a 2 $\vb*{c} \longrightarrow ||\vb*{c}|| = 1$ 
         \item Apres on trouve la vitesse relative pour voir comment les cheerios vont saffecter
-        \item Et on calcule la vitesse avec le produit scalaire de vitesse relative et la norme de collision ceci ca va nous etre utile quand on calcule m'impulse des objets $\vb*{v_collision}=\vb*{v_relative}\vb*{c} $
+        \item Et on calcule la vitesse avec le produit scalaire de vitesse relative et la norme de collision ceci ca va nous etre utile quand on calcule m'impulse des objets $\vb*{v_{collision}}=\vb*{v_{relative}}\vb*{c} $
         \item et on aplique un coefficient entre 0.2 et 0.7 car notre experience nest pas des collisions elastique parfaite. Par contre il faux faire aatention a cette constante car si on le mets trop petit ca fait tel que les cheerios na pas le rebond nescesaire et comence a entrer dans eux et si on le mets trop eleve ca fait tel que ca rebondit beaucoup mais tout ces effects negative diminue plus on prend notre pas de temps petit
         \item si la vitesse de collision est plus grand que 0 ca veux dire ils vont vers eux meme donc une collision ???? ca veux dire que autremenet meme si ils sont entre eux il ya pas de collision ???? revoir applique collision et le if
         \item on calcule limpulse $i = 2\frac{v}{m_1 m_2}$
