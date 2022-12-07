@@ -62,7 +62,12 @@ void RotateVec(vec2_t* vec, double angle){
 }
 
 void AppliqueCollisionBord(cheerio_t* cheerio, bord_t bord){
-    cheerio->v = VectorTimesScalar(cheerio->v, -COLLISION_ABSORBTION);
+
+    vec2_t vec_normal = SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre));
+    if( cheerio->v.x/vec_normal.x >= 1 && cheerio->v.y/vec_normal.y >= 1 ){
+        
+    }
+    // //cheerio->v = VectorTimesScalar(cheerio->v, -COLLISION_ABSORBTION);
     // double val = CalculProduitScalaire(cheerio->v, SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre))) / CalculNorme(cheerio->v);
     // //cheerio->v = VectorTimesScalar(cheerio->v, COLLISION_ABSORBTION);
     // if(val > 1 || val < -1){  // Si acos nest pas definie on fait seulement inverser le vecteur 
