@@ -65,8 +65,11 @@ void AppliqueCollisionBord(cheerio_t* cheerio, bord_t bord){
 
     vec2_t vec_normal  = SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre));
     vec2_t vec_tangent = CalculRotatedVec(vec_normal, M_PI_2);
-    cheerio->v = VecteurAdition(VectorTimesScalar(vec_normal , -CalculProduitScalaire(cheerio->v, vec_normal)), 
-                                VectorTimesScalar(vec_tangent, CalculProduitScalaire(cheerio->v, vec_tangent)));
+    cheerio->v = VectorTimesScalar( VecteurAdition(VectorTimesScalar(vec_normal , 
+                                                                    -CalculProduitScalaire(cheerio->v, vec_normal)), 
+                                                   VectorTimesScalar(vec_tangent, 
+                                                                     CalculProduitScalaire(cheerio->v, vec_tangent))),
+                                    COLLISION_ABSORBTION);
 
     // //cheerio->v = VectorTimesScalar(cheerio->v, -COLLISION_ABSORBTION);
     // double val = CalculProduitScalaire(cheerio->v, SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre))) / CalculNorme(cheerio->v);

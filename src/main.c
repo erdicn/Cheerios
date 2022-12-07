@@ -41,9 +41,10 @@ int main(){
     int i, j;
     double puissance_force, distance;                      
     vec2_t forceAvecDirection, sens;
+    int explosion_counter = 0;
     // O(NT*(nb*nb+nb*nb+nb)) => O(NT*nb*nb)// pour linstant
     for(long int nt = 0; nt < NT; nt++){                                                    // on itere autant fois que le nombre de pas de temps 
-        ProgressBar(nt, NT);
+        ProgressBar(nt, NT, dt);
         // printf("\renergie dans le systeme = %lf", energie_totale_dans_le_systeme); fflush(stdout); 
         // TODO ici on peux le faire plus court on faisant telle que quand on calcule les deux cheerios en meme temps ?
         // test de collision et update des forces applique avant on calculait les collisions et apres les forces 
@@ -56,6 +57,14 @@ int main(){
             for(j = 0; j < nb_cheerios; j++){
                 if (j != i){ // si cest pas le meme objet car si lobjet ne applique pas de force sur lui meme
                     distance = CalculDistance(cheerios[i].pos, cheerios[j].pos);
+                    
+                    // Si nos objets sont tres enfonce dans eux ca veux dire que apres un moment notre simulation nest plus stable donc on termine la simulation
+                    if (distance < fmin(cheerios[i].diametre_cheerio/4., cheerios[i].diametre_cheerio/4.) && explosion_counter == 0){
+                        printf("\nExplossion a pas temps %ld (%.2lfs)\n", nt, dt*nt);
+                        explosion_counter++;
+                        return 0;
+                    }
+                        
                     // On applique les collisions 
                     if( Collision(distance, cheerios[i].rayon_courbure,cheerios[j].rayon_courbure) ){
                         AppliqueCollision(distance, cheerios, i, j);

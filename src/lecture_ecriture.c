@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include "cheerios.h"
 
-void ProgressBar(long int nt, long int NT){
+void ProgressBar(long int nt, long int NT, double dt){
 	if (nt % (NT / 100) == 0){
-		printf("\r%%%ld", nt/(NT/100)); // pour voir le progress
+		printf("\r%%%ld nt = %ld (%.2lfs)", nt/(NT/100), nt, nt*dt); // pour voir le progress
 		fflush(stdout); // le \r ca overwrite la ligne et ne pas metre \n car ca fai tun flush implicitement mais nous on a besoin de flush apres pour reecrir
 	}
 }
