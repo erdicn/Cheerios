@@ -53,9 +53,12 @@ sorting=none
         
         
         
-        \subsection{Collsisions}
-        Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
-        Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre eux est plus petite que leur rayons additionnés on dis que il ya une collision et on applique les collisions et la conservation de momentum.
+    \subsection{Collsisions}
+        % Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
+        Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre leurs centres est plus petite que leurs rayons additionnés. Si c'est le cas, nous disons qu'il y a collision entre eux et nous appliquons la collision avec la conservation du momentum. Nous prenons dans un premier temps le vecteur normé de collision, dans le sens de 1 vers 2 
+        \begin{equation}
+            \vb*{c}\longrightarrow ||\vb*{c}|| = 1
+        \end{equation}
         \begin{itemize}
             \item Dabord on prend le vecteur norme collisions qui est le sens de 1 a 2 $\vb*{c} \longrightarrow ||\vb*{c}|| = 1$ 
             \item Apres on trouve la vitesse relative pour voir comment les cheerios vont saffecter
@@ -66,41 +69,41 @@ sorting=none
             \item et on soustrait la vitesse du cheerio 1 par $\vb*{v_1} -= i*m_2*\vb*{c}$
             \item et on ajoute pour lautre $\vb*{v_2} -= i*m_1*\vb*{c}$
         \end{itemize} 
-        \section{Méthodes numériques et algorithme}
-        \subsection{Integration de Verlet}
-            Pour déterminer nos coordonnées, vitesses et accélérations en fonction du temps nous avons opté pour l'intégration de Verlet. L'intégration de Verlet est un algorithme simple à mettre en place et qui permet de conserver l'énergie dans le système. L'algorithme utilise le développement limité de Taylor de notre vecteur position à l'ordre 3.
+\section{Méthodes numériques et algorithme}
+    \subsection{Integration de Verlet}
+        Pour déterminer nos coordonnées, vitesses et accélérations en fonction du temps nous avons opté pour l'intégration de Verlet. L'intégration de Verlet est un algorithme simple à mettre en place et qui permet de conserver l'énergie dans le système. L'algorithme utilise le développement limité de Taylor de notre vecteur position à l'ordre 3.
 
-            %On prouve lintegration de verlet et montre que on peux lutiliser pour notre probleme
-            %Si on applique le developement limite de x on peux deduir les positions suivant
-            Démonstration du développement limité de Taylor Young de $f(x)$ au point $x_0$\cite{agarwal_introduction_2011} :% TODO citer le livre de introduction a lanalyse complexe et numerique dans la mir 
-            \begin{equation}
-                DL_n f(x) = \sum_{i=0}^{n}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i+ o((x-x_0)^n)
-            \end{equation}
-            Si on applique le développement limité d'ordre 3 à la position($\vb*{x}(t+\dd t)$) au point $t+\dd t$ on a l'équation suivante avec $t_0$ comme le pas de temps précédent :
-            % On a ca avec le developement limilte a $t$ et $t_0$ cest le pas temps precedent
-            \[DL_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)+\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 +o((t-t_0)^3)\]
-            Si $t_0$ est le pas de temps précédent, $\vb*{x}^{'}(t)$ vitesse et $\vb*{x}^{''}(t)$ l'accélération, nous avons :
-                \[DL_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)\]
-                \[\Longrightarrow DL_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)\]
-            L'erreur sur le temps $t_n$ est de l'ordre de $o(\exp^(Lt_n)\dd t^2)$ % TODO pas sur de ici
-    
-            Notre accélération ne dépendant pas du changement de vitesse mais de l'équation (\ref{ForceEntreCheerios}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant la vitesse car la position prend l'accélération précédente et la vitesse prend celui de avant et pendant le temps.
-            \begin{equation}
-                \label{PFD}
-                \sum  \vb*{F} = m\vb*{a} \Longrightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}
-            \end{equation}
-    
-            Maintenant nous avons la nouvelle position et l'accélération, nous pouvons calculer la nouvelle vitesse.
-            % TODO dire dou cette formule viens 
-            \begin{equation}
-                \label{verletVitesse}
-                \vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t 
-            \end{equation}
-            % est que on mets ca sur lanexe ?
-            % (voir lanexe pour le developement du calcul) 
-            %        \[DL_3 x(t+\dd t)= x(t)+x^{'}(t)(\dd t)+\frac{x^{''}(t)}{2!}(\dd t)^2\]
-            %= & x(t)+x^{'}(t)(t+\dd t-t)+\frac{x^{''}(t)}{2!}(t+\dd t-t)^2\\
-            %Essai avec $x(t)$\[DL x(t) = x(t_0)+x^{'}(t_0)(t-t_0)+\frac{x^{''}(t_0)(t-t_0)^2}{2!}\]
+        %On prouve lintegration de verlet et montre que on peux lutiliser pour notre probleme
+        %Si on applique le developement limite de x on peux deduir les positions suivant
+        Démonstration du développement limité de Taylor Young de $f(x)$ au point $x_0$\cite{agarwal_introduction_2011} :% TODO citer le livre de introduction a lanalyse complexe et numerique dans la mir 
+        \begin{equation}
+            DL_n f(x) = \sum_{i=0}^{n}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i+ o((x-x_0)^n)
+        \end{equation}
+        Si on applique le développement limité d'ordre 3 à la position($\vb*{x}(t+\dd t)$) au point $t+\dd t$ on a l'équation suivante avec $t_0$ comme le pas de temps précédent :
+        % On a ca avec le developement limilte a $t$ et $t_0$ cest le pas temps precedent
+        \[DL_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)+\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 +o((t-t_0)^3)\]
+        Si $t_0$ est le pas de temps précédent, $\vb*{x}^{'}(t)$ vitesse et $\vb*{x}^{''}(t)$ l'accélération, nous avons :
+            \[DL_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)\]
+            \[\Longrightarrow DL_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)\]
+        L'erreur sur le temps $t_n$ est de l'ordre de $o(\exp^(Lt_n)\dd t^2)$ % TODO pas sur de ici
+
+        Notre accélération ne dépendant pas du changement de vitesse mais de l'équation (\ref{ForceEntreCheerios}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant la vitesse car la position prend l'accélération précédente et la vitesse prend celui de avant et pendant le temps.
+        \begin{equation}
+            \label{PFD}
+            \sum  \vb*{F} = m\vb*{a} \Longrightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}
+        \end{equation}
+
+        Maintenant nous avons la nouvelle position et l'accélération, nous pouvons calculer la nouvelle vitesse.
+        % TODO dire dou cette formule viens 
+        \begin{equation}
+            \label{verletVitesse}
+            \vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t 
+        \end{equation}
+        % est que on mets ca sur lanexe ?
+        % (voir lanexe pour le developement du calcul) 
+        %        \[DL_3 x(t+\dd t)= x(t)+x^{'}(t)(\dd t)+\frac{x^{''}(t)}{2!}(\dd t)^2\]
+        %= & x(t)+x^{'}(t)(t+\dd t-t)+\frac{x^{''}(t)}{2!}(t+\dd t-t)^2\\
+        %Essai avec $x(t)$\[DL x(t) = x(t_0)+x^{'}(t_0)(t-t_0)+\frac{x^{''}(t_0)(t-t_0)^2}{2!}\]
     \subsection{collision des bords}
         Et aussi on fait des collisions de bord aussi.
     \subsection{force des bords}
