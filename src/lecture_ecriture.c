@@ -2,10 +2,12 @@
 #include <stdlib.h>
 #include "cheerios.h"
 
+// Permet d'afficher une barre de progression lorsque le programme s'exécute. 
 void ProgressBar(long int nt, long int NT, double dt){
 	if (nt % (NT / 100) == 0){
-		printf("\r%%%ld nt = %ld (%.2lfs)", nt/(NT/100), nt, nt*dt); // pour voir le progress
-		fflush(stdout); // le \r ca overwrite la ligne et ne pas metre \n car ca fai tun flush implicitement mais nous on a besoin de flush apres pour reecrir
+		printf("\r%%%ld nt = %ld (%.2lfs)", nt/(NT/100), nt, nt*dt); // pour voir l'avancement
+		// TODO voir avec erdi "flush"
+		fflush(stdout); // le \r écrit par dessus la ligne et il ne faut pas mettre \n car ça fait tun flush implicitement mais nous on a besoin de flush apres pour reecrir
 	}
 }
 
@@ -17,7 +19,7 @@ void VoirSiNotreLectureABienMarche(cheerio_t* cheerios, int nb_cheerios, long in
     printf("%ld %d %lf\n", NT, nb_cheerios, dt);
     printf("%lf %lf %lf %lf %lf\n", rho_liq, rho_air, rho_cheerio, surface_tension, g);
 	printf("%lf %lf %lf %lf %lf %lf %lf %lf\n", bord->rayon, bord->centre.x, bord->centre.y, bord->rho, bord->angle_contact, bord->Bond_nb, bord->rayon_courbure, bord->Sigma);
-    int nb_print = nb_cheerios > 10 ? 10 : nb_cheerios; // comme ca si on a beaucoup de cherios on afiche pas tout on check maximum les 10 premiers et on assume que si les 10 premiers sont bien fonctione les autres marche aussi
+    int nb_print = nb_cheerios > 10 ? 10 : nb_cheerios; // Si on a beaucoup de cheerios on n'afiche pas tout, on check maximum les 10 premiers et on assume que si les 10 premiers ont bien fonctioné les autres fonctionnent aussi.
     for(int i = 0; i < nb_print; i++){
         printf("%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].diametre_cheerio, cheerios[i].v.x, cheerios[i].a.x,
                                                     cheerios[i].masse, cheerios[i].rayon_courbure, cheerios[i].Bond_nb, cheerios[i].angle_contact, cheerios[i].Sigma);
@@ -30,7 +32,7 @@ void LectureData(FILE* fichier, cheerio_t *cher){
 	double posx = 0,posy = 0 ,d = 0, v_x = 0, v_y = 0, a_x = 0, a_y = 0, m = 0, f_x = 0, f_y = 0;
 	success_scanning = fscanf(fichier,"%lf %lf %lf %lf %lf %lf %lf %lf", &posx, &posy, &d, &v_x, &v_y, &a_x, &a_y, &m);//, tmp);
 	if (!success_scanning) printf("Error scanning\n");
-	cher->pos.x = posx; // si on mets cela dans le fscanf ca bug meme si on prends les adresses cest pour ca que cest en dehors
+	cher->pos.x = posx; // si on met cela dans le fscanf ca bug même si on prends les adresses c'est pour ca que cela est en dehors.
 	cher->pos.y = posy;
 	cher->diametre_cheerio = d;
 	cher->v.x = v_x;
@@ -45,7 +47,7 @@ void LectureData(FILE* fichier, cheerio_t *cher){
 }
 
 // Retourne un tableau de cheerio avec à l'intérieur chaque cheerio avec leurs caractéristique données dans le fichier donnees_initiales.txt
-// Returne ladresse aloue pour le tableau cheerios
+// Returne l'adresse alouée pour le tableau de cheerios.
 cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* NT, double* dt,
                                     double* rho_liq, double* rho_air, double* rho_cheerio, double* surface_tension, double* g,
 									bord_t *bord){

@@ -20,6 +20,7 @@ vec2_t VecAdition(vec2_t v1, vec2_t v2){
     return new_vec;
 }
 
+// Retourne un nouveau vecteur qui est la soustraction des 2 vecteurs v1 et v2.
 vec2_t VecSubstraction(vec2_t v1, vec2_t v2){
     vec2_t new_vec = { .x = v1.x - v2.x,
                        .y = v1.y - v2.y};
@@ -42,7 +43,7 @@ double ProduitScalaire(vec2_t v1, vec2_t v2){
     return v1.x*v2.x + v1.y*v2.y;
 }
 
-// retourne le vecteur unitaire du sens entre 1 et 2
+// Retourne le vecteur unitaire du sens entre 1 et 2.
 vec2_t SensEntre1et2(vec2_t pos1, vec2_t pos2, double distance){
     vec2_t sens12 = {.x = (pos2.x - pos1.x)/distance,
                      .y = (pos2.y - pos1.y)/distance};
@@ -55,24 +56,48 @@ double CalculDistance(vec2_t pos1, vec2_t pos2){
 }
 
 // TODO je sais pas si le bond number ca marche quand cest plus grand que 0.3
+/**
+ * @brief Retourne le nombre de Bond.
+ * 
+ * @param rho_liquide Masse volumique du liquide
+ * @param rho_air Masse volumique de l'air
+ * @param R Rayon de courbure entre le liquide et l'objet // TODO vérifier avec Erdi
+ * @param gamma Tension de surface
+ * @param g Intensité de la pesanteur // TODO vérifier avec Erdi
+ * @return double
+ */
 double CalculBondNumber(double rho_liquide, double rho_air, 
                             double R, double gamma ,double g){
     double delta_rho = fabs(rho_liquide-rho_air);   //fabs = valeur absolue pour les doubles 
     return (delta_rho * g * sq(R)) / gamma;    
 }
 
-// Retourne le Bond Number calculé de façon linéaire.
+/**
+ * @brief Retourne le nombre de Bond calculé de façon linéaire.
+ * 
+ * @param R Rayon de courbure entre le liquide et l'objet
+ * @param L_c Longueur capillaire
+ * @return double 
+ */
 double CalculLinearBondNumber( double R, double L_c){
     return sq(R)/sq(L_c);
 }
 
 // Retourne le calcul appelé Sigma.
+/**
+ * @brief Retourne le calcul appelé Sigma. Ce calcul provient de l'article The ‘Cheerios effect’ par Dominic Vella and L. Mahadevan, équation 9. L'article est retrouvable dans notre bibliographie.
+ * 
+ * @param rho_flottant Masse volumique de l'objet
+ * @param rho_liquide Masse volumique du liquide
+ * @param theta Angle de courbure
+ * @return double 
+ */
 double CalculSigma(double rho_flottant, double rho_liquide, double theta){
-    double D = rho_flottant/rho_liquide; // flottant cest notre objet
+    double D = rho_flottant/rho_liquide; 
     return ((2*D-1) / 3.0) - 0.5*cos(theta) + (1/6.0)*cb(cos(theta));
 }
 
-// Pour linstant on lutilise pas
+// Pour linstant nous ne l'utilison pas
 // Retourne l'énergie potentielle entre deux objets.
 double EnergiePotentielleEntreDeuxParicles(double surface_tension, double rayon_courbure, double Bond_nb, 
                                             double Sigma, double distance, double capilary_length){
@@ -80,25 +105,26 @@ double EnergiePotentielleEntreDeuxParicles(double surface_tension, double rayon_
 }
 
 /**
- * @brief Force dun cheerio Retourne la valeur de la force d'intéraction entre deux particules. -dE/dl
+ * @brief 
  * 
- * @param gamma Tension de Surface
- * @param R Rayon de courbure
- * @param B Bond Number
+ * @param surface_tension 
+ * @param rayon_courbure 
+ * @param Bond_nb 
  * @param Sigma 
- * @param l Distance entre les deux particules
- * @param L_c Longueur Capillaire
- * @return double: la force entre deux particles 
+ * @param distance 
+ * @param capilary_length 
+ * @return double 
  */
 double ForceBetweenTwoInteractingParticles(double surface_tension, double rayon_courbure, double Bond_nb, 
                                             double Sigma, double distance, double capilary_length){
-    // precondition l > 0 
+    // précondition l > 0 
     return -2*M_PI*surface_tension*rayon_courbure*sqrt(pow(Bond_nb,5))*sq(Sigma)*gsl_sf_bessel_K1(distance/capilary_length);
 }
 
 
 // Retourne la force émise par les bords sur une particule. // TODO à vérifier si cela fonctionne correctement.
 vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length){
+
     double dist_cheerio_centre = CalculDistance(cheerio.pos, bord.centre);
     vec2_t Force1 =VecTimesScalar( SensEntre1et2(cheerio.pos, bord.centre, dist_cheerio_centre),
                             ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.Bond_nb, bord.Sigma, bord.rayon + dist_cheerio_centre, capilary_length));
@@ -121,12 +147,13 @@ vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double 
 //     return cheerio->E.Em;
 // }
 
-// Initialise les valeurs de Bond Number et de Sigma pour tous les objets.
+// Initialise les valeurs du nombre de Bond et de Sigma pour tous les objets.
 void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary_length, double rho_liq, double rho_cheerio, bord_t* bord){
     double tmp_B, tmp_theta;
-    // on mets les donnees calcule dans les cheerios 
+    // Nous calculons d'abord pour le bord.
     bord->Bond_nb = CalculLinearBondNumber(bord->rayon_courbure, capilary_length);
     bord->Sigma = CalculSigma(bord->rho, rho_liq, bord->angle_contact);
+    // Maintenant nous le faisons pour tous les cheerios.
     for(int i = 0; i < nb_cheerios; i++){
         cheerios[i].Bond_nb = CalculLinearBondNumber(cheerios[i].rayon_courbure, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
         tmp_B = cheerios[i].Bond_nb;

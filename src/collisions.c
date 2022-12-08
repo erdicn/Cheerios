@@ -6,7 +6,7 @@
 
 // Utilise l'intégration de Verlet pour calculer la nouvelle position, vitesse et accélération d'un objet.
 void IntegrationDeVerlet(cheerio_t* cheerio, double dt){
-    vec2_t new_pos, new_acc, new_vel;
+    vec2_t new_pos, new_acc, new_vel; // Nous créons des nouveaux vecteurs de positions, d'accélérations et de vitesse.
     new_pos = VecAdition(VecAdition(cheerio->pos, VecTimesScalar(cheerio->v, dt)), VecTimesScalar(cheerio->a, dt*dt*0.5));
     new_acc = VecTimesScalar(cheerio->f_applique, 1/cheerio->masse);
     new_vel = VecAdition(cheerio->v, VecTimesScalar(VecAdition(cheerio->a, new_acc),(dt*0.5)));
@@ -45,22 +45,24 @@ void AppliqueCollision(double distance, cheerio_t* cheerios, int i, int j){
     }
 }
 
-// Return autre chose que 0 si la distance entre deux objets est inférieure à l'addition de leurs rayons.
+// Retourne 0 si la distance entre deux objets est supérieure ou égale à l'addition de leurs rayons. Si cela retourne 0, alors il y a collision entre 2 cheerios.
 int Collision(double distance, double r1, double r2 ){
     return distance <= r1+r2;
 }
 
+// Retourne 0 si la distance entre la position du cheerio et celle du centre du bord est supérieure ou égale au rayon du bord. Si cela retourne 0, alors il y a collision entre le cheerio et le bord.
 int CollisionBord(cheerio_t* cheerio, bord_t bord){
     return CalculDistance(cheerio->pos, bord.centre) + cheerio->diametre_cheerio/2 >=  bord.rayon; 
 }
 
-// Ca rotate le vecteur de ange au sens trigonometrique
+// Retourne le vecteur vec tourné d'un angle "angle" en radian dans le sens trigonomètrique.
 vec2_t CalculRotatedVec(vec2_t vec, double angle){
     vec2_t new_vec = {.x = vec.x * cos(angle) - vec.y * sin(angle),
                       .y = vec.x * sin(angle) + vec.y * cos(angle)};
     return new_vec;
 }
 
+// Applique l'effet de la collision entre un cheerio et le bord.
 void AppliqueCollisionBord(cheerio_t* cheerio, bord_t bord){
 
     vec2_t vec_normal  = SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre));
