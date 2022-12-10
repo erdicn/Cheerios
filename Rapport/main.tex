@@ -5,6 +5,8 @@
 \usepackage[french]{babel}
 \usepackage{csquotes}
 
+\usepackage[twoside, margin=2.5cm, bindingoffset=0.0cm]{geometry}
+
 \usepackage{hyperref} %For hyperlinks 
 \hypersetup{pdfborder=0 0 0}
 
@@ -30,8 +32,9 @@ sorting=none
 %\newcommand{\vb*}[1]{\boldsymbol{#1}}
 %\newcommand{\vb*}[][]{}
 \begin{document} 
-
-\newpage
+\tableofcontents
+\listoffigures
+\listoftables
 \section*{Introduction}
     % Dire cest quoi leffet cheerios etc \ldots
     %What are cheerios? Is the cheerios effect really an effect or something we created in our reality to rationalise the sogyness of our cereals. Will we be able to eat cereals without making them soggy since we will be so foccused at the cheerios effect. Is the cheerios effect a conspiracy fro cheerios to make us eat soggy cereals or mayb ethey are thirsty and want more time in liquid or maybe they miss their friends inside the bag so the y curve the water to reach them but there was something that they didnt know; the fact that researchers would modelise it and one day two students would choose this effect do simulate it. Maybe that was the objective overall trying to put sense in our worthless lifes. Why would the cheerios be intersted in our lifes? Are we interested in our lifes? Who knows \ldots  
@@ -40,18 +43,7 @@ sorting=none
     Dans le cadre de l'UE Projet en Calcul Scientifique Numérique, nous devions travailler sur un projet, afin de nous apprendre plus en détail, la programmation et le calcul numérique avec un langage compilé, le C. Notre sujet était sur l'"Effet Cheerios", ou l’intéraction d'objets à la surface d'un liquide par l'effet de la gravité et la déformation interfaciale. Cet effet se caractérise par la tension d'une surface liquide sous le poids d'un objet, par exemple une punaise sur l'eau. Lorsque nous ajoutons plusieurs objets sur la même surface, à distance plus ou moins grande, les objets vont potentiellement s'attirer puis créer des tas mobiles. Ce phénomène est notamment visible avec des céréales dans du lait, d'où le nom de Cheerios, célèbre marque de céréales américaine. Pour réaliser à bien ce projet nous avons du faire de nombreuses recherches sur la mécanique des fluides, les collisions inélastiques et nous avons également du faire un travail conséquent sur l'optimisation de notre algorithme.
 
 \section{Le problème et notre modélisation}
-    \subsection{Effet Cheerios}
-        Les formules pour les calculs viennent principalement de \cite{vella_cheerios_2005} 
-        % TODO On mets les formules et peut etre demontrer ou ils viennent et surtout les cas ou on peux utiliser ces formules les cas ou ca marche pas etc\ldots
-
-        % TODO citer cheerios 
-        \begin{equation}
-            \label{ForceEntreCheerios}
-            F(l) = -2\pi \gamma R B^{5/2} K_1 \left( \frac{l}{L_c}\right)
-        \end{equation}
-        % TODO est que on a besoin de metre les vecteurs dans les DL ??
-        
-        
+    \include{effet_cheerios.tex}
         
         \subsection{Collsisions}
         Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
@@ -81,7 +73,7 @@ sorting=none
             \[DL_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)+\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 +o((t-t_0)^3)\]
             Si $t_0$ est le pas de temps précédent, $\vb*{x}^{'}(t)$ vitesse et $\vb*{x}^{''}(t)$ l'accélération, nous avons :
                 \[DL_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)\]
-                \[\Longrightarrow DL_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)\]
+                \[\Rightarrow DL_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)\]
             L'erreur sur le temps $t_n$ est de l'ordre de $o(\exp^(Lt_n)\dd t^2)$ % TODO pas sur de ici
     
             Notre accélération ne dépendant pas du changement de vitesse mais de l'équation (\ref{ForceEntreCheerios}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant la vitesse car la position prend l'accélération précédente et la vitesse prend celui de avant et pendant le temps.
@@ -123,6 +115,13 @@ sorting=none
         \item et de ca on deduis la force que reagis a chaque cheerios pour un pas de temps 
         \item Check si il ya des collisions ou pas et si il ya on change les proprietes des cheerios par rapport aux collisions
         \item De la force en utilisant l'integration de verlet et le principe fondamentale de la dynamique somme forces = derive (masse*vitesse) on peux changer les positions des cheerios
+    \end{itemize}
+
+\section{Les choses a ameliorer}
+    \begin{itemize}
+        \item Code en $O(NT\cdot n^2)$ et peux etre ameliorer enn$O(NT\cdot n\log n)$ en faisant le calcul de collisions plus inteligament a la place de une recherche exasthive et en calculant une seule fois le \textit{millieu} des forces de chaque particule pour avoir un centre de atraction et comme ca on calcule le centre de attraction regarde si on a des collisions ou pas et a la fin ajoute les forces du bords a chaque particule
+        \item pour linstant on utilise les equations \textit{aproximatives} on peux les essayer de les resoudres sans approximations en utilisant laproximation de Nicholson(fine difference method)
+        \item le code marche seulement pour les objets ronds faux ajouter une facon plus complexe pour plus de objets
     \end{itemize}
 \section*{Conclusion}
 
