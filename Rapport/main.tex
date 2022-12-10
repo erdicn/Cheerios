@@ -53,7 +53,6 @@ sorting=none
         \subsection{Collsisions}
         %Ce que Baptiste a fait 
 
-
         Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre leurs centres est plus petite que leurs rayons additionnés. Si c'est le cas, nous disons qu'il y a collision entre eux et nous appliquons la collision avec la conservation du momentum. Nous avons mis en place les collisions entre deux objets mais également entre un objet et les bords. Le fonctionnement des collisions entre ces deux cas est très différent. Pour les collisions entre objets, nous prenons dans un premier temps le vecteur normé de collision, dans le sens de 1 vers 2 :
         \begin{equation}
             \vb*{c}\longrightarrow ||\vb*{c}|| = 1

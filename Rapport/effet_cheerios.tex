@@ -1,7 +1,5 @@
 % TODO pas sur mais ca peux etre sympa si on se focus plus a cheerios que ceci est pour un cours peut etre ? je sais pas ? qui sais ? pas moi en tot cas. 
-On a tous mange des ceriales ou vu des objets flottant atirer vers ou pouse par eux; mais cest quoi la raison de cette force dans ce projet cree au sein de l'UE projet en calcul scientific on a fait la simulation des objets flottants.
-
-TODO faire un tableau de symboles que on utilise comme \(\gamma\) surface tension etc
+Nous avons tous mangé des céréales ou vu des objets flottant s'attirer ou se repousser entre eux, mais quel est la raison de cette force ? Nous avons essayé de décrire ces interactions dans ce projet.
 
 \begin{table}
     \centering
@@ -21,76 +19,87 @@ TODO faire un tableau de symboles que on utilise comme \(\gamma\) surface tensio
 \end{table}
 
 \subsection{Effet Cheerios}
-    %Ce que Baptiste avait écrit
-    Lorsque nous posons un objet sur la surface de l'eau (une aiguille, une punaise ou un cheerio), il est possible que l'objet reste à la surface de l'eau. L'eau va donc se courber, enveloppant une partie de l'objet, sous la masse de celui-ci. Cela se nomme la déformation interfaciale. Elle se retrouve dans la nature avec certains insectes pouvant marcher sur l'eau grâce à cette loi physique. Si nous mettons plusieurs objets de la sorte et qu'ils sont plus ou moins proche, la courbure de l'eau sous ces objets va créer une tension de surface qui attirera les objets jusqu'à qu'ils se touchent. De plus, si nous mettons ces objets dans un récipient, au fil du temps ils vont s'approcher des bords. Nous pouvons également expliquer cela par la tension de surface qui est créée entre le récipient et l'eau qui créera un ménisque.
-
-    Nous voulons déterminer comment ces objets réagissent entre eux et les bords d'un récipient et représenter nos résultats de façon numérique et animée. Nous devons, pour cela, calculer tout d'abord les forces intervenant dans ce phénomène. Les formules pour les calculs viennent principalement de \cite{vella_cheerios_2005}     
+%Ce que Baptiste avait écrit
+    \paragraph*{}{
+        Cette partie est plutôt faite pour l'intégrité du rapport. Le lecteur est fortement encouragé à lire "Cheerios Effect"\cite{vella_cheerios_2005} pour avoir une compréhension plus complète du sujet. Les calculs viennent principalement de cet article.
+    }
+    \paragraph*{}{
+        Lorsque nous posons un objet sur la surface de l'eau (une aiguille, une punaise ou un cheerio), il est possible que l'objet reste à la surface de l'eau. L'eau va donc se courber, enveloppant une partie de l'objet, sous la masse de celui-ci. Cela se nomme la déformation interfaciale. Elle se retrouve dans la nature avec certains insectes pouvant marcher sur l'eau grâce à cette loi physique. Si nous mettons plusieurs objets de la sorte et qu'ils sont plus ou moins proche, la courbure de l'eau sous ces objets va créer une tension de surface qui attirera les objets jusqu'à qu'ils se touchent. De plus, si nous mettons ces objets dans un récipient, au fil du temps ils vont s'approcher des bords. Nous pouvons également expliquer cela par la tension de surface qui est créée entre le récipient et l'eau qui créera un ménisque.
+        }
+        
+        \paragraph*{}{
+            Nous voulons déterminer comment ces objets réagissent entre eux et les bords d'un récipient et représenter nos résultats de façon numérique et animée. Nous devons, pour cela, calculer tout d'abord les forces intervenant dans ce phénomène.
+            } 
 
     %Ce que Erdi a écrit
-
-    Cette partie est plutot fait pour lintegrite du rapport le lecteur est fortement encourage a lire \cite{vella_cheerios_2005} pour avour une plus complete comprehension du sujet \textit{cheerios effect}
-    Les formules pour les calculs viennent principalement de \cite{vella_cheerios_2005}
     TODO expliquer de ou viens les forces des angles qui tord la surface ?
 
     \begin{figure}[!htb]
         \centering
         \includegraphics[width=0.5\textwidth]{schema_cheerios_objet_eau.tikz}
         \caption{Schéma d'un seul objet proche d'une parois, avec la définition de contact d'angle.}
-        \label{test}
+        \label{objet_seul}
     \end{figure}
 
     Expliquer leffet de cheerios.
     
     % TODO peut etre notre propre figure ?
-    \begin{figure}
-        \includegraphics[width = 0.9\textwidth]{boulleflotantedecheerios.png}
-        \caption{Geometry of a sphere lying at a liquid-gas interface. The shaded area represents the weight of liquid equivalent to the buoyancy force due to hydrostatic pressure acting on the sphere.\cite{vella_cheerios_2005}}
-    \end{figure}
+    % \begin{figure}
+    %     \includegraphics[width = 0.9\textwidth]{boulleflotantedecheerios.png}
+    %     \caption{Geometry of a sphere lying at a liquid-gas interface. The shaded area represents the weight of liquid equivalent to the buoyancy force due to hydrostatic pressure acting on the sphere.\cite{vella_cheerios_2005}}
+    % \end{figure}
     \begin{figure}[!htb]
         \centering
         \includegraphics[]{schema_geom_sphere_eau.tikz}
         \caption{Géométrie d'une sphère reposant sur une interface liquide-gaz. La partie rayée représente le poids de liquide équivalent à la force de flottabilité du à la pression hydrostatique appuyant sur la sphère. }
         \label{geom_sphere}
     \end{figure}
-    Une des raisons la quel les objets flotte cest due a la pusee de archimede et ces't un des cas majeurs dans notre probleme aussi. Comme on peux voir dans la figure TODO metre la citation de la figure en haut.
+    % Une des raisons la quel les objets flotte cest due a la pusee de archimede et ces't un des cas majeurs dans notre probleme aussi. Comme on peux voir dans la figure TODO metre la citation de la figure en haut.
+    Une des raisons pour laquelle les objets flottent est due à la poussée d'Archimède, comme nous pouvons le voir dans la figure \ref{objet_seul} ou \ref{geom_sphere}. Faut que tu me dises laquelle.
     
-    Pour que notre sphere reste sur linterface il a besoin que son poids \(\frac{4}{3}\pi\rho_{s}gR^3\) devrait etre en equilibre par la composante de pousee de archimede a lendroit de contact du liquide avec la sphere et la force de tension sur la surface ??? must be balanced by the component of surface tension acting along the (circular) contact line and the buoyancy force because of the displaced bulk fluid.
-
-    TODO expiquer dou ca viens moi ja pas comprie
+    % Pour que notre sphere reste sur linterface il a besoin que son poids \(\frac{4}{3}\pi\rho_{s}gR^3\) devrait etre en equilibre par la composante de pousee de archimede a lendroit de contact du liquide avec la sphere et la force de tension sur la surface ??? must be balanced by the component of surface tension acting along the (circular) contact line and the buoyancy force because of the displaced bulk fluid.
+    Pour que notre sphère reste sur l'interface liquide-gaz elle a besoin que la norme de son poids \(||\vb*{P}||=\frac{4}{3}\pi\rho_{s}gR^3\); doit être équilibrée par la composante de tension superficielle agissant le long de la ligne de contact (circulaire) et par la force de flottabilité due au déplacement du fluide en vrac. La première composante a pour équation :
     \begin{equation}
-        2\pi R \phi_c \gamma \sin(\arctan z_c^{'}) = 2\pi\gamma R \sin\phi_c z_c^{'}(1+z_c^{'2})^{-1/2}
-        \label{eq:wut}
+        2\pi\gamma R\sin{\phi_c}\frac{z_c'}{\sqrt{1+z_c^{'2}}}
     \end{equation}
 
-    Buoyancy force
+    Et nous avons également la force de flottabilité par l'équation :
     \begin{equation}
-        \pi\rho_l g R^3 (\frac{z_c}{R}\sin^2 \phi_c + \frac{2}{3}-\cos\phi_c+\frac{1}{3}\cos^3 \phi_c)
+        \pi\rho_l g R^3 (\frac{z_c}{R}\sin^2{\phi_c} + \frac{2}{3}-\cos{\phi_c}+\frac{1}{3}\cos^3{\phi_c})
         \label{eq:buoyancyForce}
     \end{equation}
 
-    Balance of vertical forces
-    Alors on a
+    % TODO expiquer dou ca viens moi ja pas comprie
+    % \begin{equation}
+    %     2\pi R \phi_c \gamma \sin(\arctan z_c^{'}) = 2\pi\gamma R \sin\phi_c z_c^{'}(1+z_c^{'2})^{-1/2}
+    %     \label{eq:wut}
+    % \end{equation}
+
+    Nous avons donc l'équilibre des forces donné par :
     \begin{equation}
-        \Rightarrow \frac{4}{3}\pi\rho_{s}gR^3 =2\pi\gamma R \sin\phi_c \frac{z_c^{'}}{\sqrt{(1+z_c^{'2})}} + \pi\rho_l g R^3 (\frac{z_c}{R}\sin^2 \phi_c + \frac{2}{3}-\cos\phi_c+\frac{1}{3}\cos^3 \phi_c)
+        \frac{4}{3}\pi\rho_{s}gR^3 =2\pi\gamma R \sin\phi_c \frac{z_c^{'}}{\sqrt{(1+z_c^{'2})}} + \pi\rho_l g R^3 (\frac{z_c}{R}\sin^2 \phi_c + \frac{2}{3}-\cos\phi_c+\frac{1}{3}\cos^3 \phi_c)
     \end{equation}
 
-    TODO cest quoi $z_c^{'}$???
+    % TODO cest quoi $z_c^{'}$??? Un point de contact apparemment 
 
-    Si on substitue \(\phi_c = \pi - \theta + \arctan z_c^{'}\) et garde seulement les termes linear en \(z_c^{'}\) on retrouve l'expression pour \(z_c^{'}\sin \phi_c\) qui est precis a \textit{linear order in the Bond number} \(B \equiv R^2/L_c^2\) 
+    Si nous substituons \(\phi_c = \pi - \theta + \arctan z_c^{'}\) et gardons uniquement les termes linéaires en \(z_c^{'}\), nous retrouvons l'expression pour \(z_c^{'}\sin \phi_c\) qui est précis par rapport \textit{à l'ordre linéaire du nombre de Bond}, \(B \equiv R^2/L_c^2\) 
 
-    Alors on a:
+    Nous avons donc:
     \begin{equation}
         z_c^{'}\sin \phi_c = B(\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta) \equiv B\Sigma
         \label{eq:bondsigma}
     \end{equation}
-    Avec \(D \equiv \rho_s / \rho\) On peux voir ceci est bien le cas car on observe bien que \(z_c^{'} = 0\) quand \(\theta = \pi/2\) et \(D = 1/2\) cest ce que on satendais car dans ce cas la pousee de archimede seul lui meme est assez pour equilibrer le poids de la sphere sans deformations du liquide.
+    Avec \(D \equiv \frac{\rho_s}{\rho}\).
+    
+    % On peux voir ceci est bien le cas car on observe bien que \(z_c^{'} = 0\) quand \(\theta = \pi/2\) et \(D = 1/2\) cest ce que on satendais car dans ce cas la pousee de archimede seul lui meme est assez pour equilibrer le poids de la sphere sans deformations du liquide.
 
-    L'equation\ref{eq:bondsigma}contient deux parametres sans dimensions; \textit{Bond number}$B$ et $\Sigma$ tres importants pour notre modélisation.
+    L'équation [\ref{eq:bondsigma}] contient deux paramètres sans dimensions; \textit{le nombre de Bond}$B$ et $\Sigma$, qui sont très importants pour notre modélisation.
 
+    Le nombre de Bond vaut:
     \begin{equation}
         B = \frac{(\rho_l-\rho_{a})gR^2}{\gamma}
     \end{equation}
-    Le nomre de Bond nous donne la mesure relative de limportance des effets de gravite et tension de surface; si $B$ est tres grande ca correspond a des particules grandes ou une tension de surface petit. 
+    Il nous donne la mesure relative de l'importance des effets de gravité et de la tension de surface; si $B$ est tres grand, cela correspond à des particules grandes ou à une tension de surface petite. 
 
     WUT ????
 
