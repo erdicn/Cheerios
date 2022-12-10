@@ -1,0 +1,174 @@
+% TODO pas sur mais ca peux etre sympa si on se focus plus a cheerios que ceci est pour un cours peut etre ? je sais pas ? qui sais ? pas moi en tot cas. 
+Nous avons tous mangé des céréales ou vu des objets flottant s'attirer ou se repousser entre eux, mais quel est la raison de cette force ? Nous avons essayé de décrire ces interactions dans ce projet.
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        \hline
+        Nom                & Abréviation & Dimension\\
+        \hline
+        Rayon de courbure  & $R$         & [$L$]\\
+        Surface de tension & $\gamma$    & [$MT^{-2}$]\\ 
+        Densité du solide  & $\rho_s$    & [$ML^{-3}$]\\
+        Densité du liquide & $\rho_l$    & [$ML^{-3}$]\\
+        Densité de l'air   & $\rho_a$    & [$ML^{-3}$]\\
+        Nombre de Bond     & $B$         & $1$\\
+        \hline
+    \end{tabular}
+    \caption{Table des variables}
+\end{table}
+
+\subsection{Effet Cheerios}
+% Ce que Baptiste avait écrit
+    \paragraph*{}{
+        Cette partie est plutôt faite pour l'intégrité du rapport. Le lecteur est fortement encouragé à lire "Cheerios Effect"\cite{vella_cheerios_2005} pour avoir une compréhension plus complète du sujet. Les calculs viennent principalement de cet article.
+    }
+
+    \paragraph*{}{
+        Lorsque nous posons un objet sur la surface de l'eau (une aiguille, une punaise ou un cheerio), il est possible que l'objet reste à la surface de l'eau. L'eau va donc se courber, enveloppant une partie de l'objet, sous la masse de celui-ci. Cela se nomme la déformation interfaciale. Elle se retrouve dans la nature avec certains insectes pouvant marcher sur l'eau grâce à cette loi physique. Si nous mettons plusieurs objets de la sorte et qu'ils sont plus ou moins proche, la courbure de l'eau sous ces objets va créer une tension de surface qui attirera les objets jusqu'à qu'ils se touchent. De plus, si nous mettons ces objets dans un récipient, au fil du temps ils vont s'approcher des bords. Nous pouvons également expliquer cela par la tension de surface qui est créée entre le récipient et l'eau qui créera un ménisque.
+        }
+        
+    \paragraph*{}{
+        Nous voulons déterminer comment ces objets réagissent entre eux et les bords d'un récipient et représenter nos résultats de façon numérique et animée. Nous devons, pour cela, calculer tout d'abord les forces intervenant dans ce phénomène.
+    } 
+
+    % Ce que Erdi a écrit
+    % TODO expliquer de ou viens les forces des angles qui tord la surface ?
+
+    % \begin{figure}[!htb]
+    %     \centering
+    %     \includegraphics[width=0.5\textwidth]{schema_cheerios_objet_eau.tikz}
+    %     \caption{Schéma d'un seul objet proche d'une parois, avec la définition de contact d'angle.}
+    %     \label{objet_seul}
+    % \end{figure}
+
+    % Expliquer leffet de cheerios.
+    
+    % TODO peut etre notre propre figure ?
+    % \begin{figure}
+    %     \includegraphics[width = 0.9\textwidth]{boulleflotantedecheerios.png}
+    %     \caption{Geometry of a sphere lying at a liquid-gas interface. The shaded area represents the weight of liquid equivalent to the buoyancy force due to hydrostatic pressure acting on the sphere.\cite{vella_cheerios_2005}}
+    % \end{figure}
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[]{schema_geom_sphere_eau.tikz}
+        \caption{Géométrie d'une sphère reposant sur une interface liquide-gaz. La partie rayée représente le poids de liquide équivalent à la force de flottabilité du à la pression hydrostatique appuyant sur la sphère. }
+        \label{geom_sphere}
+    \end{figure}
+
+    Une des raisons pour laquelle les objets flottent est due à la poussée d'Archimède, comme nous pouvons le voir dans la figure \ref{geom_sphere}. Pour que notre sphère reste sur l'interface liquide-gaz elle a besoin que la norme de son poids \(||\vb*{P}||=\frac{4}{3}\pi\rho_{s}gR^3\); doit être équilibrée par la composante de tension superficielle agissant le long de la ligne de contact (circulaire) et par la force de flottabilité due au déplacement du fluide en vrac. La première composante a pour équation :
+
+    \begin{equation}
+        2\pi\gamma R\sin{\phi_c}\frac{z_c'}{\sqrt{1+z_c^{'2}}}
+        \label{eq:tensionSuperficielle}
+    \end{equation}
+
+    Et nous avons également la force de flottabilité par l'équation :
+    \begin{equation}
+        \pi\rho_l g R^3 (\frac{z_c}{R}\sin^2{\phi_c} + \frac{2}{3}-\cos{\phi_c}+\frac{1}{3}\cos^3{\phi_c})
+        \label{eq:buoyancyForce}
+    \end{equation}
+
+    % TODO expiquer dou ca viens moi ja pas comprie
+    % \begin{equation}
+    %     2\pi R \phi_c \gamma \sin(\arctan z_c^{'}) = 2\pi\gamma R \sin\phi_c z_c^{'}(1+z_c^{'2})^{-1/2}
+    %     \label{eq:wut}
+    % \end{equation}
+
+    Nous avons donc l'équilibre des forces donné par :
+    \begin{equation}
+        \frac{4}{3}\pi\rho_{s}gR^3 =2\pi\gamma R \sin\phi_c \frac{z_c^{'}}{\sqrt{(1+z_c^{'2})}} + \pi\rho_l g R^3 (\frac{z_c}{R}\sin^2 \phi_c + \frac{2}{3}-\cos\phi_c+\frac{1}{3}\cos^3 \phi_c)
+        \label{eq:BalanceOfForces}
+    \end{equation}
+
+    % TODO cest quoi $z_c^{'}$??? Un point de contact apparemment 
+
+    Si nous substituons \(\phi_c = \pi - \theta + \arctan z_c^{'}\) et gardons uniquement les termes linéaires en \(z_c^{'}\), nous retrouvons l'expression pour \(z_c^{'}\sin \phi_c\) qui est précis par rapport \textit{à l'ordre linéaire du nombre de Bond}, \(B \equiv R^2/L_c^2\) 
+
+    Nous avons donc:
+    \begin{equation}
+        z_c^{'}\sin \phi_c = B(\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta) \equiv B\Sigma
+        \label{eq:bondsigma}
+    \end{equation}
+    Avec \(D \equiv \frac{\rho_s}{\rho}\).
+    
+    % On peux voir ceci est bien le cas car on observe bien que \(z_c^{'} = 0\) quand \(\theta = \pi/2\) et \(D = 1/2\) cest ce que on satendais car dans ce cas la pousee de archimede seul lui meme est assez pour equilibrer le poids de la sphere sans deformations du liquide.
+
+    L'équation (\ref{eq:bondsigma}) contient deux paramètres sans dimensions; \textit{le nombre de Bond}$B$ et $\Sigma$, qui sont très importants pour notre modélisation.
+
+    Le nombre de Bond vaut:
+    \begin{equation}
+        B = \frac{(\rho_l-\rho_{a})gR^2}{\gamma}
+    \end{equation}
+    Il nous donne la mesure relative de l'importance des effets de gravité et de la tension de surface; si $B$ est tres grand, cela correspond à des particules grandes ou à une tension de surface petite. 
+
+    % WUT ????
+
+    % The expression for the slope of the interface in the vicinity of the spherical particle given in (9) is valid for B << 1 (corresponding to a radius of  1mm or smaller for a sphere at an air-water interface) in which case surface tension is very important. The other dimensionless parameter, , can be thought of as a (non-dimensional) resultant weight of the particle once the Archimedes upthrust has been subtracted out. This physical interpretation arises naturally from the vertical force balance condition (8) and (9) since the resultant weight of the object (in the linearised approximation) is simply 
+
+    % L'expression de la pente de l'interface au voisinage de la particule sphérique donnée dans (\ref{eq:bondsigma}) est valable pour B << 1 (correspondant à un rayon de 1mm ou moins pour une sphère à l'interface air-eau), auquel cas la tension superficielle est très importante. L'autre paramètre sans dimension, peut être considéré comme un poids résultant (non dimensionnel) de la particule une fois que la poussée d'Archimède a été soustraite. Cette interprétation physique découle naturellement de la condition d'équilibre de la force verticale (\ref{eq:BalanceOfForces}) et (\ref{eq:bondsigma}) puisque le poids résultant de l'objet (dans l'approximation linéarisée) est simplement 
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    JE TE LAISSE CETTE PARTIE MAIS FAIT AU PLUS SIMPLE, SURTOUT NIVEAU BESSEL, SULTAN LUI MEME A DIT QUE C'ETAIT POUR MASTER.
+    To calculate the interaction energy using the Nicolson approximation, we must also calculate the interfacial displacement caused by an isolated floating sphere, which is determined by the hydrostatic balance \(\gamma\nabla^2h = \rho gh -\) the co-ordinate invariant statement of equation (1). With the assumption of cylindrical symmetry, this becomes:
+    \begin{equation}
+        \gamma \frac{\dd^2h}{\dd x^2} = \rho_l g h
+    \end{equation}
+    Si on assume une symétrie sphérique
+    \begin{equation}
+        \Rightarrow \frac{1}{r} \frac{\dd}{\dd r} \left( r\frac{\dd h}{\dd r}\right) = \frac{h}{L_c^2}
+    \end{equation}
+    TODO developer bessel (Graph $K1_K0$ mit dans figures)
+    \cite{introtoBessel}
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    Pour déterminer, maintenant la force d'attraction entre deux objets nous partons du poids effectif d'une sphère sur une interface déformé, que nous donnons comme \(2\pi RB\Sigma\). Nous avons également calculé la déformation interfaciale causée
+    par la présence d'une seule sphère. Nous sommes donc capables de calculer l'énergie d'interaction entre deux sphères. Cette énergie est le produit du poids résultant d'une sphère et de son déplacement vertical causé par la présence d'une autre sphère dont le centre est éloigné de l'horizontale d'une distance horizontale $l$. Nous pouvons donc écrire l'énergie, $E(l)$, comme suit :
+    \begin{equation}
+        E(l)=-2\pi\gamma R^2b^2\Sigma^2K_0(\frac{l}{L_c})
+        \label{eq:energyInteraction}
+    \end{equation}
+    Avec $L_c$ la longueur capillaire.
+
+    Nous pouvons donc trouver la force d'interaction $F(l)=-\frac{dE}{dl}$, ce qui donne :
+    \begin{equation}
+        \boxed{F(l)=-2\pi\gamma RB^{5/2}\Sigma^2K_1\frac{l}{l_c}}
+        \label{eq:ForceInteraction}
+    \end{equation}
+
+
+    % TODO dans le code ajouter un buoyancy force qui calcule la ousee de archimede et dis si notre objet flotte ou pas si il flotte pas on peux metre un option tel quel il prend la valeur automatique ??? Ou on le neglige ????
+    % TODO On mets les formules et peut etre demontrer ou ils viennent et surtout les cas ou on peux utiliser ces formules les cas ou ca marche pas etc\ldots
+    % TODO SCHEMA deux cheeios et sur le schema on monre l Rayon de courbure etc...
+    % TODO graphique des foncions de bessel 
+    % TODO citer cheerios 
+
+\subsection{Collisions}
+    %Ce que Baptiste a fait 
+
+    Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre leurs centres est plus petite que leurs rayons additionnés. Si c'est le cas, nous disons qu'il y a collision entre eux et nous appliquons la collision avec la conservation du momentum. Nous avons mis en place les collisions entre deux objets mais également entre un objet et les bords. Le fonctionnement des collisions entre ces deux cas est très différent. Pour les collisions entre objets, nous prenons dans un premier temps le vecteur normé de collision, dans le sens de 1 vers 2 :
+    \begin{equation}
+        \vb*{c}\longrightarrow ||\vb*{c}|| = 1
+    \end{equation}
+    Puis nous calculons la vitesse relative pour comprendre comment les 2 objets vont s'affecter. Après cela, nous trouvons la vitesse des objets lors de la collision afin de nous être utile pour déterminer l'impulsion qui suivra la collision :
+    \begin{equation}
+        \vb*{v_{collision}}=\vb*{v_{relative}}\cdot\vb*{c}
+    \end{equation}
+    Nous ajoutons à cette vitesse un coefficient compris entre 0.2 et 0.7 car nous n'avons pas de collisions élastiques parfaites. Il faut cependant faire attention à cette constante; Si elle est trop basse, les objets n'auront pas le rebond nécessaire et vont commencer à s'entrer dedans. Si elle est trop haute, les objets vont, à l'inverse, beaucoup rebondir. Toutefois, plus notre pas de temps est petit, plus ces effets vont disparaître.
+
+    %Ce que Erdi a fait
+
+    Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
+    Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre eux est plus petite que leur rayons additionnés on dis que il ya une collision et on applique les collisions et la conservation de momentum.
+
+
+    \begin{itemize}
+        \item Dabord on prend le vecteur norme collisions qui est le sens de 1 a 2 $\vb*{c} \longrightarrow ||\vb*{c}|| = 1$ 
+        \item Apres on trouve la vitesse relative pour voir comment les cheerios vont saffecter
+        \item Et on calcule la vitesse avec le produit scalaire de vitesse relative et la norme de collision ceci ca va nous etre utile quand on calcule m'impulse des objets $\vb*{v_{collision}}=\vb*{v_{relative}}\vb*{c} $
+        \item et on aplique un coefficient entre 0.2 et 0.7 car notre experience nest pas des collisions elastique parfaite. Par contre il faux faire aatention a cette constante car si on le mets trop petit ca fait tel que les cheerios na pas le rebond nescesaire et comence a entrer dans eux et si on le mets trop eleve ca fait tel que ca rebondit beaucoup mais tout ces effects negative diminue plus on prend notre pas de temps petit
+        \item si la vitesse de collision est plus grand que 0 ca veux dire ils vont vers eux meme donc une collision ???? ca veux dire que autremenet meme si ils sont entre eux il ya pas de collision ???? revoir applique collision et le if
+        \item on calcule limpulse $i = 2\frac{v}{m_1 m_2}$
+        \item et on soustrait la vitesse du cheerio 1 par $\vb*{v_1} -= i*m_2*\vb*{c}$
+        \item et on ajoute pour lautre $\vb*{v_2} -= i*m_1*\vb*{c}$
+    \end{itemize} 
