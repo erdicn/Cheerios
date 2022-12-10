@@ -18,9 +18,7 @@
 #include "collisions.h"
 #include "lecture_ecriture.h"
 
-int main(){
-    gsl_set_error_handler_off(); // Car si on ne le désactive pas, on peux avoir des underflow et ça veux juste dire que notre résultat est plus précis que ce que nous pouvons afficher, mais pour notre application une précision double suffit donc on peux l'arrondir.
-     
+void Simulate(char* fichier_donnees_initiales, char* fichier_donnees){
     // Initialisation des variables 
     double rho_liq = 1000., rho_air = 1.1, rho_cheerio = 24.;                   // TODO trouver la masse volumique des cheerios // masses volumiques en kg/m^3 - source air https://www.thermexcel.com/french/tables/massair.htm
     double surface_tension_liq_air = 71.99 / 1000.;                             // tension de surface (gamma) pour l'eau : gamma = 72 mN/m = 72/1000 N/m - source (https://www.biolinscientific.com/blog/surface-tension-of-water-why-is-it-so-high#:~:text=The%20surface%20tension%20of%20water,highest%20surface%20tension%20for%20liquid.)
@@ -30,15 +28,16 @@ int main(){
     int nb_cheerios;
     bord_t bord;
     bord.rayon_courbure = 2.7/3000.0;
-    cheerio_t *cheerios= NULL;                                                  // notre tableaux de cheerios.
 
+    cheerio_t *cheerios= NULL;                                                  // notre tableaux de cheerios.
     // Lecture du fichier de données initiales, fichier de données finales et initialisation des cheerios.
-    cheerios = LectureTouteCheerios("donnees_initiales.txt", &nb_cheerios, &NT, &dt, &rho_liq, &rho_air, &rho_cheerio, &surface_tension_liq_air, &g, &bord);  
+    cheerios = LectureTouteCheerios(fichier_donnees_initiales, &nb_cheerios, &NT, &dt, &rho_liq, &rho_air, &rho_cheerio, &surface_tension_liq_air, &g, &bord);  
+    
     double capilary_length = sqrt(surface_tension_liq_air/(fabs(rho_liq-rho_air)*g)) ;  // capilary lenght = L_c ≡ sqrt(γ/(𝜌*g))  γ = gamma = surface tension//2.7 / 1000; // L_c of water = 2.7 mm - source https://www.sciencedirect.com/topics/engineering/capillary-length#:~:text=As%20surface%20energy%20is%20related,will%20indeed%20have%20little%20effect.
     InitialiseBondEtSigma(cheerios, nb_cheerios, capilary_length, rho_liq, rho_cheerio, &bord); // On initialise le nopmbre de Bond et Sigma pour le bord et les cheerios.
     
     VoirSiNotreLectureABienMarche(cheerios, nb_cheerios, NT, dt, rho_liq, rho_air, rho_cheerio, surface_tension_liq_air, g, &bord); // Test pour vérifier si la lecture a bien fonctionné.
-    InitialiseFichierDeEcriture("donnees.txt");                                 // Efface tout le fichier donnees.txt pour qu'on ait un fichier vide pour les nouvelles données.
+    InitialiseFichierDeEcriture(fichier_donnees);                                 // Efface tout le fichier donnees.txt pour qu'on ait un fichier vide pour les nouvelles données.
     printf("L_c = %lf \n",capilary_length);
     
     // Début du calcul de positions.
@@ -66,7 +65,7 @@ int main(){
                     if (distance < fmin(cheerios[i].diametre_cheerio/4., cheerios[i].diametre_cheerio/4.) && explosion_counter == 0){
                         printf("\nExplossion a pas temps %ld (%.2lfs)\n", nt, dt*nt);
                         explosion_counter++;
-                        return 0;
+                        return;
                     }
                         
                     // On applique les collisions s'il y en a.
@@ -95,8 +94,15 @@ int main(){
         // avec 11 1000000 0.001 => chaque iteration ~ 53s, 10 ~ 23s, 100 ~ 23s,  1000 ~ 21s, et si on ecris pas ca prend ~ 20s  
         // mais en mem temps plus on a de iterations on a plus de donnes et ca prendplus de place par example on a eu avant de print seulement les 100 iterations des fichiers de 15 GB et comme on les lis 100 par 100 dans python ou plus on a pas besoin de autant de donnees 
         if(nt%10 == 0) 
-            EcritureData("donnees.txt", cheerios, nb_cheerios, nt);                             // On fait l'ecriturechawue fois comme ca on a bas besoin de stocker toute les donnees passees. 
+            EcritureData(fichier_donnees, cheerios, nb_cheerios, nt);                             // On fait l'ecriturechawue fois comme ca on a bas besoin de stocker toute les donnees passees. 
     }                  
     free(cheerios);
+}
+
+int main(){
+    gsl_set_error_handler_off(); // Car si on ne le désactive pas, on peux avoir des underflow et ça veux juste dire que notre résultat est plus précis que ce que nous pouvons afficher, mais pour notre application une précision double suffit donc on peux l'arrondir.
+    char fichier_donnees_initiales[30] = "donnees_initiales.txt";
+    char fichier_donnees[30]            = "donnees.txt";
+    Simulate(fichier_donnees_initiales, fichier_donnees);
     return 0;
 }
