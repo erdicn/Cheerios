@@ -13,6 +13,10 @@
 \usepackage{graphicx}  % Pour images
 \graphicspath{{Figures/}}
 
+\usepackage{tikzit} % Pour les Tikz
+\usepackage{tikzscale}
+\input{Figures/sample.tikzstyles}
+
 \usepackage[%backend=biber,
 style = ieee,
 sorting=none
@@ -32,6 +36,7 @@ sorting=none
 %\newcommand{\vb*}[1]{\boldsymbol{#1}}
 %\newcommand{\vb*}[][]{}
 \begin{document} 
+% \usetickslibrary{patterns}
 \tableofcontents
 \listoffigures
 \listoftables
@@ -46,8 +51,25 @@ sorting=none
     \include{effet_cheerios.tex}
         
         \subsection{Collsisions}
+        %Ce que Baptiste a fait 
+
+
+        Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre leurs centres est plus petite que leurs rayons additionnés. Si c'est le cas, nous disons qu'il y a collision entre eux et nous appliquons la collision avec la conservation du momentum. Nous avons mis en place les collisions entre deux objets mais également entre un objet et les bords. Le fonctionnement des collisions entre ces deux cas est très différent. Pour les collisions entre objets, nous prenons dans un premier temps le vecteur normé de collision, dans le sens de 1 vers 2 :
+        \begin{equation}
+            \vb*{c}\longrightarrow ||\vb*{c}|| = 1
+        \end{equation}
+        Puis nous calculons la vitesse relative pour comprendre comment les 2 objets vont s'affecter. Après cela, nous trouvons la vitesse des objets lors de la collision afin de nous être utile pour déterminer l'impulsion qui suivra la collision :
+        \begin{equation}
+            \vb*{v_{collision}}=\vb*{v_{relative}}\cdot\vb*{c}
+        \end{equation}
+        Nous ajoutons à cette vitesse un coefficient compris entre 0.2 et 0.7 car nous n'avons pas de collisions élastiques parfaites. Il faut cependant faire attention à cette constante; Si elle est trop basse, les objets n'auront pas le rebond nécessaire et vont commencer à s'entrer dedans. Si elle est trop haute, les objets vont, à l'inverse, beaucoup rebondir. Toutefois, plus notre pas de temps est petit, plus ces effets vont disparaître.
+
+        %Ce que Erdi a fait
+
         Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
         Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre eux est plus petite que leur rayons additionnés on dis que il ya une collision et on applique les collisions et la conservation de momentum.
+
+
         \begin{itemize}
             \item Dabord on prend le vecteur norme collisions qui est le sens de 1 a 2 $\vb*{c} \longrightarrow ||\vb*{c}|| = 1$ 
             \item Apres on trouve la vitesse relative pour voir comment les cheerios vont saffecter
@@ -97,7 +119,7 @@ sorting=none
         Et aussi on fait des collisions de bord aussi.
     \subsection{force des bords}
         pour la force appliquée par les bords sur les objets nous avons décidé de ne pas calculer les forces de chaque point du bord, au lieu de cela nous avons utilisé la symétrie d'un cercle (nos bords étant un cercle). Seulement deux forces de bords vont s'appliquer sur un objet, les autres s'annulant par symétrie, comme le montre la figure \ref{Force_Bord_schéma}
-        \begin{figure}
+        \begin{figure}[!htb]
             \centering
             \includegraphics{Figure_Force_Bord.pdf}
             \caption{Schéma des forces des bords.}

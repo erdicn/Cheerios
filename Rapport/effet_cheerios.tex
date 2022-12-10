@@ -7,23 +7,37 @@ TODO faire un tableau de symboles que on utilise comme \(\gamma\) surface tensio
     \centering
     \begin{tabular}{ccc}
         \hline
-        abraviation & nom & dimension\\
+        Nom                & Abréviation & Dimension\\
         \hline
-        $R$      & Rayon de courbure & TODO\\
-        $\gamma$ & surface tension   & TODO\\ 
-        $\rho_s$ & densite solide    & TODO\\
-        $\rho_l$ & densite liquide   & TODO\\
-        $\rho_a$ & densite air       & TODO\\
-        $B$      & nombre de Bond    & TODO\\
+        Rayon de courbure  & $R$         & [$L$]\\
+        Surface de tension & $\gamma$    & [$MT^{-2}$]\\ 
+        Densité du solide  & $\rho_s$    & [$ML^{-3}$]\\
+        Densité du liquide & $\rho_l$    & [$ML^{-3}$]\\
+        Densité de l'air   & $\rho_a$    & [$ML^{-3}$]\\
+        Nombre de Bond     & $B$         & $1$\\
         \hline
     \end{tabular}
     \caption{Table des variables}
 \end{table}
 
 \subsection{Effet Cheerios}
+    %Ce que Baptiste avait écrit
+    Lorsque nous posons un objet sur la surface de l'eau (une aiguille, une punaise ou un cheerio), il est possible que l'objet reste à la surface de l'eau. L'eau va donc se courber, enveloppant une partie de l'objet, sous la masse de celui-ci. Cela se nomme la déformation interfaciale. Elle se retrouve dans la nature avec certains insectes pouvant marcher sur l'eau grâce à cette loi physique. Si nous mettons plusieurs objets de la sorte et qu'ils sont plus ou moins proche, la courbure de l'eau sous ces objets va créer une tension de surface qui attirera les objets jusqu'à qu'ils se touchent. De plus, si nous mettons ces objets dans un récipient, au fil du temps ils vont s'approcher des bords. Nous pouvons également expliquer cela par la tension de surface qui est créée entre le récipient et l'eau qui créera un ménisque.
+
+    Nous voulons déterminer comment ces objets réagissent entre eux et les bords d'un récipient et représenter nos résultats de façon numérique et animée. Nous devons, pour cela, calculer tout d'abord les forces intervenant dans ce phénomène. Les formules pour les calculs viennent principalement de \cite{vella_cheerios_2005}     
+
+    %Ce que Erdi a écrit
+
     Cette partie est plutot fait pour lintegrite du rapport le lecteur est fortement encourage a lire \cite{vella_cheerios_2005} pour avour une plus complete comprehension du sujet \textit{cheerios effect}
     Les formules pour les calculs viennent principalement de \cite{vella_cheerios_2005}
     TODO expliquer de ou viens les forces des angles qui tord la surface ?
+
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=0.5\textwidth]{schema_cheerios_objet_eau.tikz}
+        \caption{Schéma d'un seul objet proche d'une parois, avec la définition de contact d'angle.}
+        \label{test}
+    \end{figure}
 
     Expliquer leffet de cheerios.
     
@@ -31,6 +45,12 @@ TODO faire un tableau de symboles que on utilise comme \(\gamma\) surface tensio
     \begin{figure}
         \includegraphics[width = 0.9\textwidth]{boulleflotantedecheerios.png}
         \caption{Geometry of a sphere lying at a liquid-gas interface. The shaded area represents the weight of liquid equivalent to the buoyancy force due to hydrostatic pressure acting on the sphere.\cite{vella_cheerios_2005}}
+    \end{figure}
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[]{schema_geom_sphere_eau.tikz}
+        \caption{Géométrie d'une sphère reposant sur une interface liquide-gaz. La partie rayée représente le poids de liquide équivalent à la force de flottabilité du à la pression hydrostatique appuyant sur la sphère. }
+        \label{geom_sphere}
     \end{figure}
     Une des raisons la quel les objets flotte cest due a la pusee de archimede et ces't un des cas majeurs dans notre probleme aussi. Comme on peux voir dans la figure TODO metre la citation de la figure en haut.
     
