@@ -43,6 +43,13 @@ double ProduitScalaire(vec2_t v1, vec2_t v2){
     return v1.x*v2.x + v1.y*v2.y;
 }
 
+// Retourne le vecteur vec tourné d'un angle "angle" en radian dans le sens trigonomètrique.
+vec2_t CalculRotatedVec(vec2_t vec, double angle){
+    vec2_t new_vec = {.x = vec.x * cos(angle) - vec.y * sin(angle),
+                      .y = vec.x * sin(angle) + vec.y * cos(angle)};
+    return new_vec;
+}
+
 // Retourne le vecteur unitaire du sens entre 1 et 2.
 vec2_t SensEntre1et2(vec2_t pos1, vec2_t pos2, double distance){
     vec2_t sens12 = {.x = (pos2.x - pos1.x)/distance,

@@ -4,27 +4,6 @@
 
 #define COLLISION_ABSORBTION 0.7
 
-// TODO Je sais pas si lintegration de verlet devrait rester ici ou pas.
-
-// Utilise l'intégration de Verlet pour calculer la nouvelle position, vitesse et accélération d'un objet.
-void IntegrationDeVerlet(cheerio_t* cheerio, double dt){
-    vec2_t new_pos, new_acc, new_vel; // Nous créons des nouveaux vecteurs de positions, d'accélérations et de vitesse.
-    new_pos = VecAdition(VecAdition(cheerio->pos, VecTimesScalar(cheerio->v, dt)), VecTimesScalar(cheerio->a, dt*dt*0.5));
-    new_acc = VecTimesScalar(cheerio->f_applique, 1/cheerio->masse);
-    //new_vel = VecAdition(cheerio->v, VecTimesScalar(new_acc,(dt)));
-    new_vel = VecAdition(cheerio->v, VecTimesScalar(VecAdition(cheerio->a, new_acc),(dt*0.5)));
-    cheerio->pos= new_pos;
-    cheerio->v  = new_vel;
-    cheerio->a  = new_acc;
-}
-
-// Met à jour la position des objets en utilisant l'intégration de Verlet.
-void UpdatePositions(cheerio_t* cheerios, int nb_cheerios, double dt){
-    for(int i = 0; i < nb_cheerios; i++){
-        IntegrationDeVerlet(cheerios + i, dt);
-    }
-}
-
 // Applique aux objets l'effet de la collision en changenat les vitesses.
 void AppliqueCollision(double distance, cheerio_t* cheerios, int i, int j){
     double vitesse_collision, impulse;
@@ -58,16 +37,8 @@ int CollisionBord(cheerio_t* cheerio, bord_t bord){
     return CalculDistance(cheerio->pos, bord.centre) + cheerio->diametre_cheerio/2 >=  bord.rayon; 
 }
 
-// Retourne le vecteur vec tourné d'un angle "angle" en radian dans le sens trigonomètrique.
-vec2_t CalculRotatedVec(vec2_t vec, double angle){
-    vec2_t new_vec = {.x = vec.x * cos(angle) - vec.y * sin(angle),
-                      .y = vec.x * sin(angle) + vec.y * cos(angle)};
-    return new_vec;
-}
-
 // Applique l'effet de la collision entre un cheerio et le bord.
 void AppliqueCollisionBord(cheerio_t* cheerio, bord_t bord){
-
     vec2_t vec_normal  = SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre));
     vec2_t vec_tangent = CalculRotatedVec(vec_normal, M_PI_2);
     cheerio->v = VecTimesScalar( VecAdition(VecTimesScalar(vec_normal , 
@@ -75,19 +46,7 @@ void AppliqueCollisionBord(cheerio_t* cheerio, bord_t bord){
                                                    VecTimesScalar(vec_tangent, 
                                                                      ProduitScalaire(cheerio->v, vec_tangent))),
                                     COLLISION_ABSORBTION);
-
-    // //cheerio->v = VectorTimesScalar(cheerio->v, -COLLISION_ABSORBTION);
-    // double val = CalculProduitScalaire(cheerio->v, SensEntre1et2(cheerio->pos, bord.centre, CalculDistance(cheerio->pos, bord.centre))) / CalculNorme(cheerio->v);
-    // //cheerio->v = VectorTimesScalar(cheerio->v, COLLISION_ABSORBTION);
-    // if(val > 1 || val < -1){  // Si acos nest pas definie on fait seulement inverser le vecteur 
-    //     cheerio->v = VectorTimesScalar(cheerio->v, -1);
-    // } else{
-    //     double angle = val;
-    //     double angle2 = acos(CalculProduitScalaire(cheerio->v, SensEntre1et2(bord.centre, cheerio->pos,CalculDistance(cheerio->pos, bord.centre))) / (CalculNorme(cheerio->v)*COLLISION_ABSORBTION));
-    //     // TODO ici on a un proble pour vertains angles ca ne marche pas pour certaines ca marche
-    //     if(angle < angle2)
-    //         RotateVec(&(cheerio->v), -angle+angle2);
-    //     else
-    //         RotateVec(&(cheerio->v), angle-angle2);
-    // }
+    // On fait que decomposer le vecteur vitesse au vecteur tangent et normal au bord (la normal est vers le centre) 
+    // et apres oninverse le vecteur normal pour le faire 'rebondir' 
+    // v = (v.n)^n + (v.t)^t => v' = -(v.n)^n + (v.t)^t 
 }

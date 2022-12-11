@@ -5,6 +5,7 @@
         "stdlib.h": "c",
         "lecture_ecriture.h": "c",
         "*.tcc": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "calculs.h": "c"
     }
 }

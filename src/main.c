@@ -17,6 +17,7 @@
 #include "calculs.h"
 #include "collisions.h"
 #include "lecture_ecriture.h"
+#include "misc.h"
 
 void Simulate(char* fichier_donnees_initiales, char* fichier_donnees);
 
@@ -27,6 +28,8 @@ int main(){
     Simulate(fichier_donnees_initiales, fichier_donnees);
     return 0;
 }
+
+
 
 void Simulate(char* fichier_donnees_initiales, char* fichier_donnees){
     // Initialisation des variables 
@@ -54,7 +57,7 @@ void Simulate(char* fichier_donnees_initiales, char* fichier_donnees){
     int i, j;
     double puissance_force, distance;                      
     vec2_t forceAvecDirection, sens;
-    int explosion_counter = 0;
+    // int explosion_counter = 0;
     // O(NT*(nb*nb+nb*nb+nb)) => O(NT*nb*nb)// pour linstant
     for(long int nt = 0; nt < NT; nt++){                                                    // on itère autant fois que le nombre de pas de temps 
         ProgressBar(nt, NT, dt);
@@ -72,9 +75,8 @@ void Simulate(char* fichier_donnees_initiales, char* fichier_donnees){
                     distance = CalculDistance(cheerios[i].pos, cheerios[j].pos);
                     
                     // Si nos objets sont trop en contact(enfonce entre eux), cela veux dire qu'après un moment notre simulation n'est plus stable donc on termine la simulation
-                    if (distance < fmin(cheerios[i].diametre_cheerio/4., cheerios[i].diametre_cheerio/4.) && explosion_counter == 0){
+                    if (Explosion(cheerios[i], cheerios[j], distance)){
                         printf("\nExplossion a pas temps %ld (%.2lfs)\n", nt, dt*nt);
-                        explosion_counter++;
                         return;
                     }
                         
