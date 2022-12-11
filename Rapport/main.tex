@@ -1,11 +1,11 @@
-\documentclass[a4paper, 11pt, oneside]{article} % A4 paper size, default 11pt font size and oneside for equal margins
+\documentclass[a4paper, 10pt, oneside, twocolumn]{SelfArx} % A4 paper size, default 11pt font size and oneside for equal margins
                                     % , twocolumn
 \usepackage[utf8]{inputenc} % Required for inputting international characters
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 \usepackage[french]{babel}
 \usepackage{csquotes}
 
-\usepackage[twoside, margin=2cm, bindingoffset=0.0cm]{geometry}
+%\usepackage[twoside, margin=2cm, bindingoffset=0.0cm]{geometry}
 
 \usepackage{hyperref} %For hyperlinks 
 \hypersetup{pdfborder=0 0 0}
@@ -21,36 +21,45 @@
 \input{Figures/sample.tikzstyles}
 \usetikzlibrary{calc,patterns,angles,quotes}
 
-\author{
-  Erdi ÇAN\\
-  \texttt{erdi.can@etu.sorbonne-universite.fr}
-  \and
-  Baptiste BRAUN-DELVOYE\\
-  \texttt{baptiste.delvoye-braun@etu.sorbonne-universite.fr}
+
+\setlength{\columnsep}{0.55cm} % Distance between the two columns of text
+\setlength{\fboxrule}{0.75pt} % Width of the border around the abstract
+
+%----------------------------------------------------------------------------------------
+%	COLORS
+%----------------------------------------------------------------------------------------
+
+\definecolor{color1}{RGB}{0,0,90} % Color of the article title and sections
+\definecolor{color2}{RGB}{0,20,20} % Color of the boxes behind the abstract and headings
+
+
+\JournalInfo{Journal, Vol. XXI, No. 1, 1-5, 2013} % Journal information
+\Archive{Additional note} % Additional notes (e.g. copyright, DOI, review/research article)
+
+%\title{Numerical simulation of the \textit{Cheerios Effect}}
+\PaperTitle{Numerical simulation of the \textit{Cheerios Effect}} % Article title
+\Authors{Erdi ÇAN\textsuperscript{1}*, Baptiste BRAUN-DELVOYE\textsuperscript{2}} % Authors
+\affiliation{\textsuperscript{1}\textit{Departement de Ingenierie Mecanique, Sorbonn Universite}} % Author affiliation
+\affiliation{\textsuperscript{2}\textit{Departement de Ingenierie Mecanique, Sorbonn Universite}} % Author affiliation
+\affiliation{*\textbf{Corresponding author}: erdi.can@etu.sorbonne-universite.fr} % Corresponding author
+%  TODO corespondant author ???? 
+\Keywords{Keyword1 --- Keyword2 --- Keyword3} % Keywords - if you don't want any simply remove all the text between the curly brackets
+\newcommand{\keywordname}{Keywords} % Defines the keywords heading name
+\Abstract{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer id, vulputate a, magna. Donec vehicula augue eu neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris ut leo. Cras viverra metus rhoncus sem. Nulla et lectus vestibulum urna fringilla ultrices. Phasellus eu tellus sit amet tortor gravida placerat. Integer sapien est, iaculis in, pretium quis, viverra ac, nunc. Praesent eget sem vel leo ultrices bibendum. Aenean faucibus. Morbi dolor nulla, malesuada eu, pulvinar at, mollis ac, nulla. Curabitur auctor semper nulla. Donec varius orci eget risus. Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam. Duis eget orci sit amet orci dignissim rutrum.}
+\hypersetup{
+	hidelinks,
+	colorlinks,
+	breaklinks=true,
+	urlcolor=color2,
+	citecolor=color1,
+	linkcolor=color1,
+	bookmarksopen=false,
+	pdftitle={Title},
+	pdfauthor={Author},
 }
 
-\title{Numerical simulation of the \textit{Cheerios Effect}}
-% \PaperTitle{Numerical simulation of the \textit{Cheerios Effect}} % Article title
+\Abstract{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer id, vulputate a, magna. Donec vehicula augue eu neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris ut leo. Cras viverra metus rhoncus sem. Nulla et lectus vestibulum urna fringilla ultrices. Phasellus eu tellus sit amet tortor gravida placerat. Integer sapien est, iaculis in, pretium quis, viverra ac, nunc. Praesent eget sem vel leo ultrices bibendum. Aenean faucibus. Morbi dolor nulla, malesuada eu, pulvinar at, mollis ac, nulla. Curabitur auctor semper nulla. Donec varius orci eget risus. Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam. Duis eget orci sit amet orci dignissim rutrum.}
 
-% \Authors{Erdi ÇAN\textsuperscript{1}*, Baptiste BRAUN-DELVOYE\textsuperscript{2}} % Authors
-% \affiliation{\textsuperscript{1}\textit{Departement de Ingenierie Mecanique, Sorbonn Universite}} % Author affiliation
-% \affiliation{\textsuperscript{2}\textit{Departement de Ingenierie Mecanique, Sorbonn Universite}} % Author affiliation
-% \affiliation{*\textbf{Corresponding author}: erdi.can@etu.sorbonne-universite.fr} % Corresponding author
-% %  TODO corespondant author ???? 
-% \Keywords{Keyword1 --- Keyword2 --- Keyword3} % Keywords - if you don't want any simply remove all the text between the curly brackets
-% \newcommand{\keywordname}{Keywords} % Defines the keywords heading name
-% \Abstract{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer id, vulputate a, magna. Donec vehicula augue eu neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris ut leo. Cras viverra metus rhoncus sem. Nulla et lectus vestibulum urna fringilla ultrices. Phasellus eu tellus sit amet tortor gravida placerat. Integer sapien est, iaculis in, pretium quis, viverra ac, nunc. Praesent eget sem vel leo ultrices bibendum. Aenean faucibus. Morbi dolor nulla, malesuada eu, pulvinar at, mollis ac, nulla. Curabitur auctor semper nulla. Donec varius orci eget risus. Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam. Duis eget orci sit amet orci dignissim rutrum.}
-% \hypersetup{
-% 	hidelinks,
-% 	colorlinks,
-% 	breaklinks=true,
-% 	urlcolor=color2,
-% 	citecolor=color1,
-% 	linkcolor=color1,
-% 	bookmarksopen=false,
-% 	pdftitle={Title},
-% 	pdfauthor={Author},
-% }
 
 \usepackage[%backend=biber,
 style = ieee,
