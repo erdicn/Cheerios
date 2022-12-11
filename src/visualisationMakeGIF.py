@@ -50,7 +50,7 @@ def init():
     ax.add_patch(patches[-1])
     return patches
 
-time_template = 'time = %.1fs'
+time_template = 'time = %.2fs'
 time_text = ax.text(0.05, 0.9, '', transform=ax.transAxes)
 
 def animate(i):
