@@ -151,35 +151,23 @@ Quelque notations; dans ce papier les vecteurs sont annote en épais $\vb*{v}$:v
     % TODO dans le code ajouter un buoyancy force qui calcule la ousee de archimede et dis si notre objet flotte ou pas si il flotte pas on peux metre un option tel quel il prend la valeur automatique ??? Ou on le neglige ????
     % TODO On mets les formules et peut etre demontrer ou ils viennent et surtout les cas ou on peux utiliser ces formules les cas ou ca marche pas etc\ldots
     % TODO SCHEMA deux cheeios et sur le schema on monre l Rayon de courbure etc...
-    % TODO graphique des foncions de bessel 
-    % TODO citer cheerios 
 
-\subsection{Collisions}
-    %Ce que Baptiste a fait 
+    % TODO peut etre rephrase, lidee est la mais lexecution nest pas   
+    \newpage
+    \subsection{Force des bords}
+        \begin{wrapfigure}{r}{0.25\textwidth}
+        \centering
+            \includegraphics[width = 0.2\textwidth]{Figure_Force_Bord.pdf}
+            \caption{Schéma des forces des bords.}
+            \label{fig:Force_Bord_schéma}
+        \end{wrapfigure}
+        Maintenant que on a vue l'application des forces objet-objet laplicattion des forces bord-objet cest de la meme facon. Pour la force appliquée par les bords sur les objets nous avons a la place de calculer les forces a chaque points du cercle on a utilisé la symétrie dun cercle et nous avons remarque la plus part des forces s'annulant entre eux(en gris) et on reste avec seulement deux forces(en rouge) qui interagis comme le montre la figure\ref{fig:Force_Bord_schéma}.
 
-    Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre leurs centres est plus petite que leurs rayons additionnés. Si c'est le cas, nous disons qu'il y a collision entre eux et nous appliquons la collision avec la conservation du momentum. Nous avons mis en place les collisions entre deux objets mais également entre un objet et les bords. Le fonctionnement des collisions entre ces deux cas est très différent. Pour les collisions entre objets, nous prenons dans un premier temps le vecteur normé de collision, dans le sens de 1 vers 2 :
-    \begin{equation}
-        \vb*{c}\longrightarrow ||\vb*{c}|| = 1
-    \end{equation}
-    Puis nous calculons la vitesse relative pour comprendre comment les 2 objets vont s'affecter. Après cela, nous trouvons la vitesse des objets lors de la collision afin de nous être utile pour déterminer l'impulsion qui suivra la collision :
-    \begin{equation}
-        \vb*{v_{collision}}=\vb*{v_{relative}}\cdot\vb*{c}
-    \end{equation}
-    Nous ajoutons à cette vitesse un coefficient compris entre 0.2 et 0.7 car nous n'avons pas de collisions élastiques parfaites. Il faut cependant faire attention à cette constante; Si elle est trop basse, les objets n'auront pas le rebond nécessaire et vont commencer à s'entrer dedans. Si elle est trop haute, les objets vont, à l'inverse, beaucoup rebondir. Toutefois, plus notre pas de temps est petit, plus ces effets vont disparaître.
-
-    %Ce que Erdi a fait
-
-    Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
-    Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre eux est plus petite que leur rayons additionnés on dis que il ya une collision et on applique les collisions et la conservation de momentum.
-
-
-    \begin{itemize}
-        \item Dabord on prend le vecteur norme collisions qui est le sens de 1 a 2 $\vb*{c} \longrightarrow ||\vb*{c}|| = 1$ 
-        \item Apres on trouve la vitesse relative pour voir comment les cheerios vont saffecter
-        \item Et on calcule la vitesse avec le produit scalaire de vitesse relative et la norme de collision ceci ca va nous etre utile quand on calcule m'impulse des objets $\vb*{v_{collision}}=\vb*{v_{relative}}\vb*{c} $
-        \item et on aplique un coefficient entre 0.2 et 0.7 car notre experience nest pas des collisions elastique parfaite. Par contre il faux faire aatention a cette constante car si on le mets trop petit ca fait tel que les cheerios na pas le rebond nescesaire et comence a entrer dans eux et si on le mets trop eleve ca fait tel que ca rebondit beaucoup mais tout ces effects negative diminue plus on prend notre pas de temps petit
-        \item si la vitesse de collision est plus grand que 0 ca veux dire ils vont vers eux meme donc une collision ???? ca veux dire que autremenet meme si ils sont entre eux il ya pas de collision ???? revoir applique collision et le if
-        \item on calcule limpulse $i = 2\frac{v}{m_1 m_2}$
-        \item et on soustrait la vitesse du cheerio 1 par $\vb*{v_1} -= i*m_2*\vb*{c}$
-        \item et on ajoute pour lautre $\vb*{v_2} -= i*m_1*\vb*{c}$
-    \end{itemize} 
+        Pour les calcul des forces des bords on peux appliquer la meme formule utilisé pour les objets dans l'équation \ref{eq:ForceInteraction} sur les deux cotes extremite montre en rouge dans \ref{fig:Force_Bord_schéma} en adjutant l'angle de contact et le nombre de Bond respectivement a notre matériaux du bord. 
+        % Pour la force appliquée par les bords sur les objets nous avons décidé de ne pas calculer les forces de chaque point du bord, au lieu de cela nous avons utilisé la symétrie d'un cercle (nos bords étant un cercle). Seulement deux forces de bords vont s'appliquer sur un objet, les autres s'annulant par symétrie, comme le montre la figure \ref{fig:Force_Bord_schéma}
+        % \begin{figure}[H]%[!htb]
+        %     \centering
+        %     \includegraphics{Figure_Force_Bord.pdf}
+        %     \caption{Schéma des forces des bords.}
+        %     \label{fig:Force_Bord_schéma}
+        % \end{figure}

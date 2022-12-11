@@ -1,0 +1,21 @@
+
+\begin{tikzpicture}[scale=0.4]
+    \coordinate (b) at (5,5);
+    \coordinate (a) at (5,0);
+    \coordinate (c) at (2,2);
+    \coordinate (d) at (5,10);
+    \coordinate (e) at (2,8);
+    \draw[line width=2pt](5,0)--(5,10);
+    \draw[dashed,black,line width=1pt](1,1)--(5,5);
+    \draw[dashed,black,line width=1pt](1,9)--(5,5);
+    \draw[-latex,black,line width=1pt](5,5)--(3,5)node[below]{$\vb*{n}$};
+    \draw[-latex,red,line width=1.5pt](2,2)--(5,5);
+    \draw[-latex,red,line width=1.5pt](5,5)--(2,8);
+    \draw[-latex,black,line width=1.5pt](5,5)--(5,3)node[anchor=east]{$\vb*{t}$};
+    %\pic [draw, ->, "$\theta$", angle eccentricity=1.5] {angle = a--b--c};
+    % A LAIDE POURQUOI IL VEUX PAS METRE L'ANGLE ??????
+    \draw(5,5)node{$\bullet$};
+    \draw(3,2)node[red,below]{$\vb*{v}$};
+    \draw(3,9.5)node[red,below]{$\vb*{v}^{'}$};
+    \draw(5,10)node[black,right]{Bord};
+\end{tikzpicture}

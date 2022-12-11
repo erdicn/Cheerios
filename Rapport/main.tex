@@ -5,7 +5,7 @@
 \usepackage[french]{babel}
 \usepackage{csquotes}
 
-\usepackage[twoside, margin=2.5cm, bindingoffset=0.0cm]{geometry}
+\usepackage[twoside, margin=2cm, bindingoffset=0.0cm]{geometry}
 
 \usepackage{hyperref} %For hyperlinks 
 \hypersetup{pdfborder=0 0 0}
@@ -13,10 +13,13 @@
 \usepackage{graphicx}  % Pour images
 \graphicspath{{Figures/}}
 \usepackage{float}
+\usepackage{wrapfig}
 
 \usepackage{tikzit} % Pour les Tikz
 \usepackage{tikzscale}
 \input{Figures/sample.tikzstyles}
+\usetikzlibrary{calc,patterns,angles,quotes}
+
 
 \usepackage[%backend=biber,
 style = ieee,
@@ -100,22 +103,64 @@ sorting=none
         %        \[DL_3 x(t+\dd t)= x(t)+x^{'}(t)(\dd t)+\frac{x^{''}(t)}{2!}(\dd t)^2\]
         %= & x(t)+x^{'}(t)(t+\dd t-t)+\frac{x^{''}(t)}{2!}(t+\dd t-t)^2\\
         %Essai avec $x(t)$\[DL x(t) = x(t_0)+x^{'}(t_0)(t-t_0)+\frac{x^{''}(t_0)(t-t_0)^2}{2!}\]
+    \subsection{Collisions}
+        \subsubsection{Collisions Objet-Objet}
+            %Ce que Baptiste a fait 
+            Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre leurs centres est plus petite que leurs rayons additionnés. Si c'est le cas, nous disons qu'il y a collision entre eux et nous appliquons la collision avec la conservation du momentum. 
+            % TODO peut etre metre une partie de cela dans la subsection conclusions ? 
+            Nous avons mis en place les collisions entre deux objets mais également entre un objet et les bords. Le fonctionnement des collisions entre ces deux cas est très différent. Pour les collisions entre objets, nous prenons dans un premier temps le vecteur normé de collision, dans le sens de objet 1(A) vers objet 2(B):
+            % TODO peut etre preciser que cest pour le calcul de A et pour B il faux le refaire ? ou pas jsp ???
+            \begin{equation}
+                \vb*{c} = \frac{\vb*{AB}}{||\vb*{AB}||} \longrightarrow ||\vb*{c}|| = 1
+            \end{equation}
+            Puis nous calculons la vitesse relative $\vb*{v}_{rel} = \vb*{v}_A - \vb*{v}_B$ pour comprendre comment les 2 objets vont s'affecter. Après cela, nous trouvons la vitesse des objets lors de la collision afin de nous être utile pour déterminer l'impulsion qui suivra la collision :
+            % TODO peut etre preciser que la vitesse de collision nest pas un vecteur ?
+            \begin{equation}
+                v_{col}=\vb*{v_{rel}}\cdot\vb*{c}
+            \end{equation}
+            Nous ajoutons à cette vitesse un coefficient compris entre 0.2 et 0.7 car nous n'avons pas de collisions élastiques parfaites. Il faut cependant faire attention à cette constante; Si elle est trop basse, les objets n'auront pas le rebond nécessaire et vont commencer à s'entrer dedans. Si elle est trop haute, les objets vont, à l'inverse, beaucoup rebondir. Toutefois, plus notre pas de temps est petit, plus ces effets vont disparaître.
+            
+            % TODO pas sur de ici faut tester (note pour moi dans le futur)
+            Le signe de la vitesse de collision nous donne si les objets viens vers eux($v_{col} > 0$) ou se elloigne($v_{col} < 0$) car cest possible que quand on a fait la collision pour un objet que on a bien modifie lautre objet aussi donc parfoit on a besoin de faire ca une seule foir et parfois entre temps en faisant tout les collisions il peux revenir. % La phrase na pas de sens jsp ???
+            
+            % TODO peut etre faire un schema pour montrer les vecteurs que on parle ?
+            Si la vitesse de collision est plus grande que 0; on fais la conservation de momentum.
+            
+            Impulse ($I$)
+            \begin{equation}
+                I = \frac{2v_{col}}{m_A + m_B}
+            \end{equation}
+            \begin{equation}
+                \vb*{v}_A^{'} = \vb*{v}_A - Im_B\vb*{c}
+            \end{equation}
+            \begin{equation}
+                \vb*{v}_B^{'} = \vb*{v}_B + Im_A\vb*{c}
+            \end{equation}
+            %Ce que Erdi a fait
+            % Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
+            % Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre eux est plus petite que leur rayons additionnés on dis que il ya une collision et on applique les collisions et la conservation de momentum.
+            
 
-    \subsection{collision des bords}
-        Et aussi on fait des collisions de bord aussi.
-        
-    \subsection{force des bords}
-        Pour la force appliquée par les bords sur les objets nous avons a la place de calculer les forces a chaque points du cercle on a utilisé la symétrie dun cercle et nous avons remarque la plus part des forces s'annulant entre eux(en gris) et on reste avec seulement deux forces(en rouge) qui interagis comme le montre la figure\ref{fig:Force_Bord_schéma}.
-
-        Pour les calcul des forces des bords on peux appliquer la meme formule utilisé pour les objets dans l'équation \ref{eq:ForceInteraction} sur les deux cotes extremite montre en rouge dans \ref{fig:Force_Bord_schéma} en adjutant l'angle de contact et le nombre de Bond respectivement a notre matériaux du bord. 
-        % Pour la force appliquée par les bords sur les objets nous avons décidé de ne pas calculer les forces de chaque point du bord, au lieu de cela nous avons utilisé la symétrie d'un cercle (nos bords étant un cercle). Seulement deux forces de bords vont s'appliquer sur un objet, les autres s'annulant par symétrie, comme le montre la figure \ref{fig:Force_Bord_schéma}
-        \begin{figure}[H]%[!htb]
-            \centering
-            \includegraphics{Figure_Force_Bord.pdf}
-            \caption{Schéma des forces des bords.}
-            \label{fig:Force_Bord_schéma}
-        \end{figure}
-
+        \newpage
+        \subsubsection{Collision des bords}
+            % TODO mettre des angles, je voudrais bien les metres moi meme lmais jsp pq ca marche pas ???
+            \begin{wrapfigure}{r}{0.25\textwidth}
+                \centering
+                \includegraphics[width = 0.17\textwidth]{rebond.tikz}
+                \caption{TODO METRE CAPTION}
+            \end{wrapfigure}
+            Et aussi on fait des collisions de bord aussi.
+            Pour les collisions de bord on a fait tel que si notre objet dépassait le bord de tres peut on inverse le vecteur vitesse par rapport a la normale. Et apres multiplie ce vecteur par un coefficient de collision ($C_c$), $0 \leq C_c \leq 1$ qui simule l'absorbions de l'énergie a chaque collisions. 
+            % TODO la fiqure ici cest broullion objective de montrer la norme tangent et la vitesse
+            \begin{equation}
+                \vb*{v}^{'} = (\vb*{v}\cdot\vb*{n})\vb*{n} +(\vb*{v}\cdot\vb*{t})\vb*{t}
+            \end{equation}
+            On inverse le coefficent de la normale pour le faire `rebondir'
+            \begin{equation}
+                \Rightarrow\vb*{v}^{'} = -(\vb*{v}\cdot\vb*{n})\vb*{n} + (\vb*{v}\cdot\vb*{t})\vb*{t}
+            \end{equation}
+            
+            % TODO ca fait qqchose cheloue dans le rendu mais en socuprait de ca a la fin?
 \section{Comment on a concue notre probleme}
     \begin{itemize}
         \item On a pris l'interaction des forces totale sur chaque particule par la fonction dans l'article `Cheerios effect'
@@ -123,16 +168,27 @@ sorting=none
         \item Check si il ya des collisions ou pas et si il ya on change les proprietes des cheerios par rapport aux collisions
         \item De la force en utilisant l'integration de verlet et le principe fondamentale de la dynamique somme forces = derive (masse*vitesse) on peux changer les positions des cheerios
     \end{itemize}
-
+    % Je panse pas que on a besoin de inclure ca car si on fait bien notre taff dans le rapport ils devrait le comprendre et dans le code le code cest comme si cetait ecris en psuedo code 
+    % Psuedocode:
+    % Prends les donnees 
+    % Pour tout les pas de temps(NT)
+    %     Parcour chaque objets et compare entre eux si il ya collision.
+    %         Si oui 
+    %             Applique collisions comme TODO si on va utiliser ca citer lequation dans le quel on en parle
+    %         si non
+    %             applique force 
+    %     pour chaque objet applique force du bord
+    %     pour chaque objet integration de verlet
+    %     ecriture dans le fichier donnees 
+    
 \section{Les choses a ameliorer}
     \begin{itemize}
-        \item Code en $O(NT\cdot n^2)$ et peux etre ameliorer enn$O(NT\cdot n\log n)$ en faisant le calcul de collisions plus inteligament a la place de une recherche exasthive et en calculant une seule fois le \textit{millieu} des forces de chaque particule pour avoir un centre de atraction et comme ca on calcule le centre de attraction regarde si on a des collisions ou pas et a la fin ajoute les forces du bords a chaque particule
+        \item Code en $O(NT\,n^2)$ et peux etre ameliorer enn$O(NT\, n\log n)$ en faisant le calcul de collisions plus inteligament a la place de une recherche exasthive et en calculant une seule fois le \textit{millieu} des forces de chaque particule pour avoir un centre de atraction et comme ca on calcule le centre de attraction regarde si on a des collisions ou pas et a la fin ajoute les forces du bords a chaque particule
         \item pour linstant on utilise les equations \textit{aproximatives} on peux les essayer de les resoudres sans approximations en utilisant laproximation de Nicholson(fine difference method)
         \item le code marche seulement pour les objets ronds faux ajouter une facon plus complexe pour plus de objets
     \end{itemize}
 \section*{Conclusion}
 
-% TODO pq la bibliographie ne marche pas ?
 \newpage
 \thispagestyle{empty}
 \nocite{*}
