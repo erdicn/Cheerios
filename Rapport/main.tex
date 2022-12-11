@@ -12,6 +12,7 @@
 
 \usepackage{graphicx}  % Pour images
 \graphicspath{{Figures/}}
+\usepackage{float}
 
 \usepackage{tikzit} % Pour les Tikz
 \usepackage{tikzscale}
@@ -56,14 +57,20 @@ sorting=none
         %Si on applique le developement limite de x on peux deduir les positions suivant
         Démonstration du développement limité de Taylor Young de $f(x)$ au point $x_0$\cite{agarwal_introduction_2011} :% TODO citer le livre de introduction a lanalyse complexe et numerique dans la mir 
         \begin{equation}
-            DL_n f(x) = \sum_{i=0}^{n}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i+ o((x-x_0)^n)
+            \mathrm{DL}_n f(x) = \sum_{i=0}^{n}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i+ o((x-x_0)^n)
         \end{equation}
         Si on applique le développement limité d'ordre 3 à la position($\vb*{x}(t+\dd t)$) au point $t+\dd t$ on a l'équation suivante avec $t_0$ comme le pas de temps précédent :
         % On a ca avec le developement limilte a $t$ et $t_0$ cest le pas temps precedent
-        \[DL_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)+\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 +o((t-t_0)^3)\]
+        \begin{equation}
+            \Rightarrow\mathrm{DL}_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)+\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 +o((t-t_0)^3)
+        \end{equation}
         Si $t_0$ est le pas de temps précédent, $\vb*{x}^{'}(t)$ vitesse et $\vb*{x}^{''}(t)$ l'accélération, nous avons :
-            \[DL_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)\]
-            \[\Rightarrow DL_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)\]
+        \begin{equation}
+            \Rightarrow\mathrm{DL}_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)
+        \end{equation}
+        \begin{equation}
+            \Rightarrow \mathrm{DL}_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)
+        \end{equation}
         L'erreur sur le temps $t_n$ est de l'ordre de $o(\exp^(Lt_n)\dd t^2)$ % TODO pas sur de ici
 
         Notre accélération ne dépendant pas du changement de vitesse mais de l'équation (\ref{eq:ForceInteraction}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant la vitesse car la position prend l'accélération précédente et la vitesse prend celui de avant et pendant le temps.
@@ -72,10 +79,20 @@ sorting=none
             \sum  \vb*{F} = m\vb*{a} \Longrightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}
         \end{equation}
 
-        Maintenant nous avons la nouvelle position et l'accélération, nous pouvons calculer la nouvelle vitesse.
-        % TODO dire dou cette formule viens 
+        Maintenant nous avons la nouvelle position et l'accélération, nous pouvons calculer la nouvelle vitesse de la meme facon en utilisant les developements limite de Taylor Young a ordre 2 car apres l'acceleration on connais pas le \textit{jerk}(changement de l'acceleration par rapport au temps).
         \begin{equation}
-            \label{verletVitesse}
+            \mathrm{DL}_2\vb*{v}(t) = \vb*{v}(t_0) + \vb*{v}^{'}(t_0)(t-t_0) + o((t-t_0)^2)
+        \end{equation}
+        %Si $t_0$ cest le pas de temps precedent ($t_0 = $) et $\vb'{v}(t)$ l'acceleration, nous avons:
+        De la meme façon que on a fait notre position ($\vb*{x}(t+dt)$) nous pouvons l'appliquer a la vitesse aussi, nous avons:
+        \begin{equation}
+            \mathrm{DL}_2\vb*{v}(t+\dd t) = \vb*{v}(t) + \vb*{a}(t)(\dd t) + o(\dd t^2)
+        \end{equation}
+
+        % TODO jai limpression que la formule de bas viens de qqpart mais je sais pas de ou ? peut etre une meilleur approwximation ???????
+        Comme nous connaissons l'accélération au pas de temps suivant et precedent en meme temps on peux avoir une meilleur approximation de notre vitesse en utilisant le théorème des accroissements fini. TODO ICI JE SUIS PAS DU TOUT SUR ????
+        \begin{equation}
+            \label{eq:verletVitesse}
             \vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t 
         \end{equation}
         % est que on mets ca sur lanexe ?
@@ -86,14 +103,17 @@ sorting=none
 
     \subsection{collision des bords}
         Et aussi on fait des collisions de bord aussi.
-
+        
     \subsection{force des bords}
-        pour la force appliquée par les bords sur les objets nous avons décidé de ne pas calculer les forces de chaque point du bord, au lieu de cela nous avons utilisé la symétrie d'un cercle (nos bords étant un cercle). Seulement deux forces de bords vont s'appliquer sur un objet, les autres s'annulant par symétrie, comme le montre la figure \ref{Force_Bord_schéma}
-        \begin{figure}[!htb]
+        Pour la force appliquée par les bords sur les objets nous avons a la place de calculer les forces a chaque points du cercle on a utilisé la symétrie dun cercle et nous avons remarque la plus part des forces s'annulant entre eux(en gris) et on reste avec seulement deux forces(en rouge) qui interagis comme le montre la figure\ref{fig:Force_Bord_schéma}.
+
+        Pour les calcul des forces des bords on peux appliquer la meme formule utilisé pour les objets dans l'équation \ref{eq:ForceInteraction} sur les deux cotes extremite montre en rouge dans \ref{fig:Force_Bord_schéma} en adjutant l'angle de contact et le nombre de Bond respectivement a notre matériaux du bord. 
+        % Pour la force appliquée par les bords sur les objets nous avons décidé de ne pas calculer les forces de chaque point du bord, au lieu de cela nous avons utilisé la symétrie d'un cercle (nos bords étant un cercle). Seulement deux forces de bords vont s'appliquer sur un objet, les autres s'annulant par symétrie, comme le montre la figure \ref{fig:Force_Bord_schéma}
+        \begin{figure}[H]%[!htb]
             \centering
             \includegraphics{Figure_Force_Bord.pdf}
             \caption{Schéma des forces des bords.}
-            \label{Force_Bord_schéma}
+            \label{fig:Force_Bord_schéma}
         \end{figure}
 
 \section{Comment on a concue notre probleme}
