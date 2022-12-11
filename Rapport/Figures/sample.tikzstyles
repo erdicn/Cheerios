@@ -7,7 +7,7 @@
 \tikzstyle{point}=[fill=none, draw=black, shape=circle]
 \tikzstyle{point_fill}=[fill=black, draw=black, shape=circle]
 \tikzstyle{point_blanc}=[fill=white, draw=black, shape=circle]
-\tikzstyle{cercle}=[fill=none, draw=black, shape=circle, minimum size=2cm]
+\tikzstyle{cercle}=[fill=none, draw=black, shape=circle, minimum size=4cm]
 
 % Edge styles
 \tikzstyle{edge_epais}=[-, ultra thick, fill=none]
@@ -18,5 +18,5 @@
 \tikzstyle{flecheg_epais}=[<-, thick]
 \tikzstyle{fleched_epais}=[->, thick]
 \tikzstyle{edge_fine}=[-, ultra thin]
-\tikzstyle{edge_fill_rayure}=[-, draw=none, tikzit draw=none, pattern=north east lines]
+\tikzstyle{edge_fill_rayure}=[-, draw=none, tikzit draw=none, pattern={Lines[angle=45,distance=4mm]}]
 \tikzstyle{double_arrow}=[<->, draw={rgb,255: red,64; green,64; blue,64}]
