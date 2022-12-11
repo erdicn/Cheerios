@@ -1,21 +1,35 @@
-
-\begin{tikzpicture}[scale=0.4]
-    \coordinate (b) at (5,5);
-    \coordinate (a) at (5,0);
-    \coordinate (c) at (2,2);
-    \coordinate (d) at (5,10);
-    \coordinate (e) at (2,8);
-    \draw[line width=2pt](5,0)--(5,10);
-    \draw[dashed,black,line width=1pt](1,1)--(5,5);
-    \draw[dashed,black,line width=1pt](1,9)--(5,5);
-    \draw[-latex,black,line width=1pt](5,5)--(3,5)node[below]{$\vb*{n}$};
-    \draw[-latex,red,line width=1.5pt](2,2)--(5,5);
-    \draw[-latex,red,line width=1.5pt](5,5)--(2,8);
-    \draw[-latex,black,line width=1.5pt](5,5)--(5,3)node[anchor=east]{$\vb*{t}$};
-    %\pic [draw, ->, "$\theta$", angle eccentricity=1.5] {angle = a--b--c};
-    % A LAIDE POURQUOI IL VEUX PAS METRE L'ANGLE ??????
-    \draw(5,5)node{$\bullet$};
-    \draw(3,2)node[red,below]{$\vb*{v}$};
-    \draw(3,9.5)node[red,below]{$\vb*{v}^{'}$};
-    \draw(5,10)node[black,right]{Bord};
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 4) {};
+		\node [style=none] (1) at (0, -4) {};
+		\node [style=none] (3) at (-1, 0) {};
+		\node [style=none] (4) at (0, -1) {};
+		\node [style=none] (5) at (-2, -2) {};
+		\node [style=none] (6) at (-1.5, -1.5) {};
+		\node [style=none] (7) at (-2, 2) {};
+		\node [style=none] (8) at (-1.5, 1.5) {};
+		\node [style=none] (9) at (1, 3) {\small{Bord}};
+		\node [style={point_fill}] (10) at (0, 0) {};
+		\node [style=none] (11) at (-1.5, 0) {\color{blue} $\overrightarrow{n}$};
+		\node [style=none] (12) at (0.5, -1) {\color{blue} $\overrightarrow{t}$};
+		\node [style=none] (13) at (-1, 2) {\color{red} $\overrightarrow{v'}$};
+		\node [style=none] (14) at (-1.75, -1.25) {\color{red} $\overrightarrow{v}$};
+		\node [style=none] (15) at (-0.75, 0.75) {};
+		\node [style=none] (16) at (0, 1.25) {};
+		\node [style=none] (17) at (-1, -1) {};
+		\node [style=none] (18) at (0, -1.25) {};
+		\node [style=none] (19) at (-0.75, -1.5) {$\theta$};
+		\node [style=none] (20) at (-0.5, 1.5) {$\theta$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style={edge_epais}] (0.center) to (1.center);
+		\draw [style={fleche_rouge_d}] (6.center) to (10);
+		\draw [style={fleche_rouge_d}] (10) to (8.center);
+		\draw [style=pointille] (5.center) to (6.center);
+		\draw [style=pointille] (8.center) to (7.center);
+		\draw [style={fleche_bleu}] (10) to (3.center);
+		\draw [style={fleche_bleu}] (10) to (4.center);
+		\draw [bend left=45] (15.center) to (16.center);
+		\draw [bend right=45, looseness=0.75] (17.center) to (18.center);
+	\end{pgfonlayer}
 \end{tikzpicture}

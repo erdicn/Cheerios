@@ -5,7 +5,7 @@
 
 % Node styles
 \tikzstyle{point}=[fill=none, draw=black, shape=circle]
-\tikzstyle{point_fill}=[fill=black, draw=black, shape=circle]
+\tikzstyle{point_fill}=[fill=black, draw=black, shape=circle, minimum size=1mm]
 \tikzstyle{point_blanc}=[fill=white, draw=black, shape=circle]
 \tikzstyle{cercle}=[fill=none, draw=black, shape=circle, minimum size=4cm]
 
@@ -20,3 +20,5 @@
 \tikzstyle{edge_fine}=[-, ultra thin]
 \tikzstyle{edge_fill_rayure}=[-, draw=none, tikzit draw=none, pattern={Lines[angle=45,distance=4mm]}]
 \tikzstyle{double_arrow}=[<->, draw={rgb,255: red,64; green,64; blue,64}]
+\tikzstyle{fleche_rouge_d}=[->, draw=red, thick]
+\tikzstyle{fleche_bleu}=[draw=blue, thick, ->]

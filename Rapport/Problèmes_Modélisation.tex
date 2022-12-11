@@ -1,7 +1,7 @@
 % TODO pas sur mais ca peux etre sympa si on se focus plus a cheerios que ceci est pour un cours peut etre ? je sais pas ? qui sais ? pas moi en tot cas. 
 Nous avons tous mangé des céréales ou vu des objets flottant s'attirer ou se repousser entre eux, mais quel est la raison de cette force ? Nous avons essayé de décrire ces interactions dans ce projet.
 
-Quelque notations; dans ce papier les vecteurs sont annote en épais $\vb*{v}$:vecteur $v$:pas vecteur.
+Quelque notations : dans ce rapport les vecteurs sont annotés en gras $\vb*{v}$:vecteur $v$
 \begin{table}[H]
     \centering
     \begin{tabular}{ccc}
@@ -23,8 +23,8 @@ Quelque notations; dans ce papier les vecteurs sont annote en épais $\vb*{v}$:v
 % Ce que Baptiste avait écrit 
 % TODO en parler entre nous pour voir si on fait toute les preuves ou juste decrit le probleme car jai limpression le truc qu on va faire cest tres similaire a celui dans cheerios
     \paragraph*{}{
-        Cette partie est plutôt faite pour l'intégrité du rapport. Le lecteur est fortement encouragé à lire "Cheerios Effect"\cite{vella_cheerios_2005} pour avoir une compréhension plus complète du sujet. Les calculs viennent principalement de cet article.
-    }    %    TODO      ^ les calculs ou les equations ???
+        Cette partie est plutôt faite pour l'intégrité du rapport. Le lecteur est fortement encouragé à lire "Cheerios Effect"\cite{vella_cheerios_2005} pour avoir une compréhension plus complète du sujet. Les équations viennent principalement de cet article.
+    }
 
     \paragraph*{}{
         Lorsque nous posons un objet sur la surface de l'eau (une aiguille, une punaise ou un cheerio), il est possible que l'objet reste à la surface de l'eau. L'eau va donc se courber, enveloppant une partie de l'objet, sous la masse de celui-ci. Cela se nomme la déformation interfaciale. Elle se retrouve dans la nature avec certains insectes pouvant marcher sur l'eau grâce à cette loi physique. Si nous mettons plusieurs objets de la sorte et qu'ils sont plus ou moins proche, la courbure de l'eau sous ces objets va créer une tension de surface qui attirera les objets jusqu'à qu'ils se touchent. De plus, si nous mettons ces objets dans un récipient, au fil du temps ils vont s'approcher des bords. Nous pouvons également expliquer cela par la tension de surface qui est créée entre le récipient et l'eau qui créera un ménisque.
@@ -117,16 +117,16 @@ Quelque notations; dans ce papier les vecteurs sont annote en épais $\vb*{v}$:v
     \begin{equation}
         \gamma \frac{\dd^2h}{\dd x^2} = \rho_l g h
     \end{equation}
-    Si on assume une symétrie sphérique
+    Si nous prenons en compte que l'objet a une symétrie sphérique
     \begin{equation}
         \Rightarrow \frac{1}{r} \frac{\dd}{\dd r} \left( r\frac{\dd h}{\dd r}\right) = \frac{h}{L_c^2}
     \end{equation}
-    Et on peux deduir une sollution a cette equation on forme de la Fonction de bessel modifie a ordre 0 $(K_0)$\cite{introtoBessel}
+    Nous pouvons déduire une solution de cette équation avec la fonction de Bessel modifié à l'ordre 0 $(K_0)$\cite{introtoBessel}.
 
     \begin{figure}[H]
         \centering
         \includegraphics[height = 0.5\textwidth]{Besselk1_K0.pdf}
-        \caption{Fonctions de bessels visualise}
+        \caption{Graphique représentant les fonctions de Bessel modifié à l'ordre 0 et 1}
     \end{figure}
     % TODO faire tel que on aligne a 0 le y et peut etre aller jusq a 6 en x ?
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -161,9 +161,7 @@ Quelque notations; dans ce papier les vecteurs sont annote en épais $\vb*{v}$:v
             \caption{Schéma des forces des bords.}
             \label{fig:Force_Bord_schéma}
         \end{wrapfigure}
-        Maintenant que on a vue l'application des forces objet-objet laplicattion des forces bord-objet cest de la meme facon. Pour la force appliquée par les bords sur les objets nous avons a la place de calculer les forces a chaque points du cercle on a utilisé la symétrie dun cercle et nous avons remarque la plus part des forces s'annulant entre eux(en gris) et on reste avec seulement deux forces(en rouge) qui interagis comme le montre la figure\ref{fig:Force_Bord_schéma}.
-
-        Pour les calcul des forces des bords on peux appliquer la meme formule utilisé pour les objets dans l'équation \ref{eq:ForceInteraction} sur les deux cotes extremite montre en rouge dans \ref{fig:Force_Bord_schéma} en adjutant l'angle de contact et le nombre de Bond respectivement a notre matériaux du bord. 
+        Maintenant que nous avons vu l'application des forces entre objets, nous allons expliquer les forces entre les bords et les objets. La force se calcule de la même manière qu'entre deux objets (\ref{eq:ForceInteraction}). Pour la force appliquée par les bords sur les objets nous avons, à la place de calculer les forces à chaque point du cercle, opté d'utiliser la symétrie dun cercle. Nous avons remarqué que la plupart des forces s'annulent entre elles (en gris) et il nous reste seulement deux forces (en rouge) qui interagissent comme le montre la figure\ref{fig:Force_Bord_schéma}. Les seuls paramètres à changer sont le nombre de Bond et l'angle de contact, que nous prenons à 45 degré, angle du ménisque formé par l'eau dans un récipient en verre. 
         % Pour la force appliquée par les bords sur les objets nous avons décidé de ne pas calculer les forces de chaque point du bord, au lieu de cela nous avons utilisé la symétrie d'un cercle (nos bords étant un cercle). Seulement deux forces de bords vont s'appliquer sur un objet, les autres s'annulant par symétrie, comme le montre la figure \ref{fig:Force_Bord_schéma}
         % \begin{figure}[H]%[!htb]
         %     \centering

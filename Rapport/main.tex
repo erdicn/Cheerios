@@ -14,6 +14,7 @@
 \graphicspath{{Figures/}}
 \usepackage{float}
 \usepackage{wrapfig}
+\usepackage{xcolor}
 
 \usepackage{tikzit} % Pour les Tikz
 \usepackage{tikzscale}
@@ -74,7 +75,7 @@ sorting=none
         \begin{equation}
             \Rightarrow \mathrm{DL}_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)
         \end{equation}
-        L'erreur sur le temps $t_n$ est de l'ordre de $o(\exp^(Lt_n)\dd t^2)$ % TODO pas sur de ici
+        L'erreur sur le temps $t_n$ est de l'ordre de $o(\exp(Lt_n)\dd t^2)$ % TODO pas sur de ici
 
         Notre accélération ne dépendant pas du changement de vitesse mais de l'équation (\ref{eq:ForceInteraction}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant la vitesse car la position prend l'accélération précédente et la vitesse prend celui de avant et pendant le temps.
         \begin{equation}
@@ -82,7 +83,7 @@ sorting=none
             \sum  \vb*{F} = m\vb*{a} \Longrightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}
         \end{equation}
 
-        Maintenant nous avons la nouvelle position et l'accélération, nous pouvons calculer la nouvelle vitesse de la meme facon en utilisant les developements limite de Taylor Young a ordre 2 car apres l'acceleration on connais pas le \textit{jerk}(changement de l'acceleration par rapport au temps).
+        Maintenant nous avons la nouvelle position et l'accélération, nous pouvons calculer la nouvelle vitesse de la même façon en utilisant le développement limité de Taylor Young à l'ordre 2 car après l'accélération nous ne connaissons pas le \textit{jerk} (changement de l'accélération par rapport au temps).
         \begin{equation}
             \mathrm{DL}_2\vb*{v}(t) = \vb*{v}(t_0) + \vb*{v}^{'}(t_0)(t-t_0) + o((t-t_0)^2)
         \end{equation}
@@ -143,11 +144,10 @@ sorting=none
 
         \newpage
         \subsubsection{Collision des bords}
-            % TODO mettre des angles, je voudrais bien les metres moi meme lmais jsp pq ca marche pas ???
             \begin{wrapfigure}{r}{0.25\textwidth}
                 \centering
-                \includegraphics[width = 0.17\textwidth]{rebond.tikz}
-                \caption{TODO METRE CAPTION}
+                \includegraphics[width = 0.15\textwidth]{rebond.tikz}
+                \caption{Schéma d'un rebond d'un objet sur un bord}
             \end{wrapfigure}
             Et aussi on fait des collisions de bord aussi.
             Pour les collisions de bord on a fait tel que si notre objet dépassait le bord de tres peut on inverse le vecteur vitesse par rapport a la normale. Et apres multiplie ce vecteur par un coefficient de collision ($C_c$), $0 \leq C_c \leq 1$ qui simule l'absorbions de l'énergie a chaque collisions. 
