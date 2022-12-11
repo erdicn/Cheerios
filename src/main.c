@@ -81,7 +81,8 @@ void Simulate(char* fichier_donnees_initiales, char* fichier_donnees){
                         AppliqueCollision(distance, cheerios, i, j);
                     } else { // les cheerios ne se touchent pas pas donc on applique les forces. 
                         // On prend les forces de j qui 'appliquent sur i.
-                        puissance_force = ForceBetweenTwoInteractingParticles(surface_tension_liq_air, cheerios[j].rayon_courbure, cheerios[j].Bond_nb, cheerios[j].Sigma, distance, capilary_length);
+                        puissance_force = ForceBetweenTwoInteractingParticles(surface_tension_liq_air, cheerios[j].rayon_courbure,
+                                                                                 cheerios[j].Bond_nb, cheerios[j].Sigma, distance, capilary_length);
                         sens = SensEntre1et2(cheerios[j].pos, cheerios[i].pos, distance);  // maintenant trouver le sens
                         forceAvecDirection = VecAdition(forceAvecDirection, VecTimesScalar(sens, puissance_force)); // on ajoute la nouvelle force a la précédente
                     }
