@@ -4,6 +4,8 @@
 
 #define COLLISION_ABSORBTION 0.7
 
+// TODO Je sais pas si lintegration de verlet devrait rester ici ou pas.
+
 // Utilise l'intégration de Verlet pour calculer la nouvelle position, vitesse et accélération d'un objet.
 void IntegrationDeVerlet(cheerio_t* cheerio, double dt){
     vec2_t new_pos, new_acc, new_vel; // Nous créons des nouveaux vecteurs de positions, d'accélérations et de vitesse.
