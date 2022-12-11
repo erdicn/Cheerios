@@ -184,7 +184,6 @@ tout en unite SI  sauf la tension de surface le quelle est dans mN/m
 
 2 100000 0.0001
 posx   posy   d      v_x    v_y    a_x  a_y  m      en unite si
-TODO test  conservation moment cinetique
 
 
 3 100000 0.0001

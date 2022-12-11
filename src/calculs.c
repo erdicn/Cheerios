@@ -63,15 +63,20 @@ double CalculDistance(vec2_t pos1, vec2_t pos2){
     return sqrt(sq(pos2.x - pos1.x) + sq(pos2.y - pos1.y)) ;
 }
 
+// retourne la longueur capilaire du liquide 
+double CalculLongeurCapilaire(double surface_tension_liq_air, double rho_liq, double rho_air, double g){
+    return sqrt(surface_tension_liq_air/(fabs(rho_liq-rho_air)*g));
+}
+
 // TODO je sais pas si le bond number ca marche quand cest plus grand que 0.3
 /**
  * @brief Retourne le nombre de Bond.
  * 
  * @param rho_liquide Masse volumique du liquide
  * @param rho_air Masse volumique de l'air
- * @param R Rayon de courbure entre le liquide et l'objet // TODO vérifier avec Erdi
+ * @param R Rayon de courbure entre le liquide et l'objet
  * @param gamma Tension de surface
- * @param g Intensité de la pesanteur // TODO vérifier avec Erdi
+ * @param g acceleration de la pesanteur 
  * @return double
  */
 double CalculBondNumber(double rho_liquide, double rho_air, 
@@ -140,10 +145,10 @@ void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary
     bord->Bond_nb = CalculLinearBondNumber(bord->rayon_courbure, capilary_length);
     bord->Sigma = CalculSigma(bord->rho, rho_liq, bord->angle_contact);
     // Maintenant nous le faisons pour tous les cheerios.
-    for(int i = 0; i < nb_cheerios; i++){
+    for(int i = 0; i < nb_cheerios; i++){                                                         // TODO peut etre utiliser le normal bond number
         cheerios[i].Bond_nb = CalculLinearBondNumber(cheerios[i].rayon_courbure, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
         tmp_B = cheerios[i].Bond_nb;
-        cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);    //M_PI_2 *  // dans larticle ils mets ca mais si nous on le mets ca depase la limite de arcsin [-1,1]                                                  // TODO pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;                                                        // TODO faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
+        cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);     // TODO expliquer pq on prends comme ca pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;    faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
         tmp_theta = cheerios[i].angle_contact;
         cheerios[i].Sigma = CalculSigma(rho_cheerio, rho_liq, tmp_theta);
     }

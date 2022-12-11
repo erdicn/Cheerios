@@ -13,6 +13,7 @@ double ProduitScalaire(vec2_t v1, vec2_t v2);
 vec2_t CalculRotatedVec(vec2_t vec, double angle);
 vec2_t SensEntre1et2(vec2_t pos1, vec2_t pos2, double distance);
 double CalculDistance(vec2_t pos1, vec2_t pos2);
+double CalculLongeurCapilaire(double surface_tension_liq_air, double rho_liq, double rho_air, double g);
 double CalculBondNumber(double rho_liquide, double rho_air, 
                             double R, double gamma ,double g);
 double CalculLinearBondNumber( double R, double L_c);
