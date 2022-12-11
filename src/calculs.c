@@ -39,6 +39,7 @@ double CalculNorme(vec2_t vec){
     return sqrt(sq(vec.x) + sq(vec.y));
 }
 
+// Retourne le produit scalaire de v1 avec v2
 double ProduitScalaire(vec2_t v1, vec2_t v2){
     return v1.x*v2.x + v1.y*v2.y;
 }
@@ -104,15 +105,8 @@ double CalculSigma(double rho_flottant, double rho_liquide, double theta){
     return ((2*D-1) / 3.0) - 0.5*cos(theta) + (1/6.0)*cb(cos(theta));
 }
 
-// Pour linstant nous ne l'utilison pas
-// Retourne l'énergie potentielle entre deux objets.
-double EnergiePotentielleEntreDeuxParicles(double surface_tension, double rayon_courbure, double Bond_nb, 
-                                            double Sigma, double distance, double capilary_length){
-    return -2*M_PI*surface_tension*rayon_courbure*sqrt(pow(Bond_nb,5))*sq(Sigma)*gsl_sf_bessel_K0(distance/capilary_length);
-}
-
 /**
- * @brief 
+ * @brief Retourne fa puissance de la force applique par l'objet
  * 
  * @param surface_tension 
  * @param rayon_courbure 
@@ -128,7 +122,6 @@ double ForceBetweenTwoInteractingParticles(double surface_tension, double rayon_
     return -2*M_PI*surface_tension*rayon_courbure*sqrt(pow(Bond_nb,5))*sq(Sigma)*gsl_sf_bessel_K1(distance/capilary_length);
 }
 
-
 // Retourne la force émise par les bords sur une particule. // TODO à vérifier si cela fonctionne correctement.
 vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length){
 
@@ -139,20 +132,6 @@ vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double 
                             ForceBetweenTwoInteractingParticles(surface_tension, bord.rayon_courbure, bord.Bond_nb, bord.Sigma, bord.rayon - dist_cheerio_centre, capilary_length));
     return VecAdition(Force1, Force2);
 }
-
-
-
-// // Retourne l'énergie cinétique d'un objet
-// double CalculEnergieCinetique(cheerio_t* cheerio){
-//     cheerio->E.Ec = 0.5*cheerio->m*sq(CalculNorme(cheerio->v));
-//     return cheerio->E.Ec;
-// }
-
-// // Retourne l'énergie mécanique d'un objet.
-// double CalculEnergieMecanique(cheerio_t* cheerio){
-//     cheerio->E.Em = cheerio->E.Ec + cheerio->E.Ep;
-//     return cheerio->E.Em;
-// }
 
 // Initialise les valeurs du nombre de Bond et de Sigma pour tous les objets.
 void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary_length, double rho_liq, double rho_cheerio, bord_t* bord){
@@ -168,4 +147,11 @@ void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary
         tmp_theta = cheerios[i].angle_contact;
         cheerios[i].Sigma = CalculSigma(rho_cheerio, rho_liq, tmp_theta);
     }
+}
+
+// Pour linstant nous ne l'utilison pas
+// Retourne l'énergie potentielle entre deux objets.
+double EnergiePotentielleEntreDeuxParicles(double surface_tension, double rayon_courbure, double Bond_nb, 
+                                            double Sigma, double distance, double capilary_length){
+    return -2*M_PI*surface_tension*rayon_courbure*sqrt(pow(Bond_nb,5))*sq(Sigma)*gsl_sf_bessel_K0(distance/capilary_length);
 }

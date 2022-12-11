@@ -73,13 +73,11 @@ void Simulate(char* fichier_donnees_initiales, char* fichier_donnees){
             for(j = 0; j < nb_cheerios; j++){
                 if (j != i){ // si ce n'est pas le même objet car lobjet n'applique pas de force sur lui même.
                     distance = CalculDistance(cheerios[i].pos, cheerios[j].pos);
-                    
                     // Si nos objets sont trop en contact(enfonce entre eux), cela veux dire qu'après un moment notre simulation n'est plus stable donc on termine la simulation
                     if (Explosion(cheerios[i], cheerios[j], distance)){
                         printf("\nExplossion a pas temps %ld (%.2lfs)\n", nt, dt*nt);
                         return;
                     }
-                        
                     // On applique les collisions s'il y en a.
                     if( Collision(distance, cheerios[i].rayon_courbure,cheerios[j].rayon_courbure) ){
                         AppliqueCollision(distance, cheerios, i, j);
