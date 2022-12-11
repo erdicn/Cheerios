@@ -28,6 +28,11 @@ D   = Donnees[:, 3]
 # F_y = Donnees[:, 9]
 # M   = Donnees[:, 10]
 
+# plt.scatter(X,Y)
+# plt.ylim([bord_centre[1]-1.1*rayon_bord, bord_centre[1]+1.1*rayon_bord])
+# plt.xlim([bord_centre[0]-1.1*rayon_bord, bord_centre[0]+1.1*rayon_bord])
+# plt.show()
+
 vmin = min(min(X[0:nb_cheerios]),min(Y[0:nb_cheerios]))
 vmax = max(max(X[0:nb_cheerios]),max(Y[0:nb_cheerios]))
 
