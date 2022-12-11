@@ -68,7 +68,7 @@ sorting=none
         \begin{equation}
             \Rightarrow\mathrm{DL}_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)+\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 +o((t-t_0)^3)
         \end{equation}
-        Si $t_0$ est le pas de temps précédent, $\vb*{x}^{'}(t)$ vitesse et $\vb*{x}^{''}(t)$ l'accélération, nous avons :
+        Si $t_0$ est le pas de temps précédent, $\vb*{x}^{'}(t)$ la vitesse et $\vb*{x}^{''}(t)$ l'accélération, nous avons :
         \begin{equation}
             \Rightarrow\mathrm{DL}_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)
         \end{equation}
@@ -77,24 +77,24 @@ sorting=none
         \end{equation}
         L'erreur sur le temps $t_n$ est de l'ordre de $o(\exp(Lt_n)\dd t^2)$ % TODO pas sur de ici
 
-        Notre accélération ne dépendant pas du changement de vitesse mais de l'équation (\ref{eq:ForceInteraction}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant la vitesse car la position prend l'accélération précédente et la vitesse prend celui de avant et pendant le temps.
+        Notre accélération ne dépendant pas du changement de vitesse mais de l'équation (\ref{eq:ForceInteraction}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant celui de la vitesse car la position prend l'accélération précédente mais la vitesse prend celle précédente et au même moment.
         \begin{equation}
             \label{PFD}
             \sum  \vb*{F} = m\vb*{a} \Longrightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}
         \end{equation}
 
-        Maintenant nous avons la nouvelle position et l'accélération, nous pouvons calculer la nouvelle vitesse de la même façon en utilisant le développement limité de Taylor Young à l'ordre 2 car après l'accélération nous ne connaissons pas le \textit{jerk} (changement de l'accélération par rapport au temps).
+        Maintenant nous avons la nouvelle position et l'accélération, nous pouvons calculer la nouvelle vitesse de la même façon en utilisant le développement limité de Taylor Young à l'ordre 2.% car après l'accélération nous ne connaissons pas le \textit{jerk} (changement de l'accélération par rapport au temps).
         \begin{equation}
             \mathrm{DL}_2\vb*{v}(t) = \vb*{v}(t_0) + \vb*{v}^{'}(t_0)(t-t_0) + o((t-t_0)^2)
         \end{equation}
         %Si $t_0$ cest le pas de temps precedent ($t_0 = $) et $\vb'{v}(t)$ l'acceleration, nous avons:
-        De la meme façon que on a fait notre position ($\vb*{x}(t+dt)$) nous pouvons l'appliquer a la vitesse aussi, nous avons:
+        De la meme façon que nous avons déterminer la position position ($\vb*{x}(t+dt)$), nous l''appliquons à la vitesse et nous avons:
         \begin{equation}
             \mathrm{DL}_2\vb*{v}(t+\dd t) = \vb*{v}(t) + \vb*{a}(t)(\dd t) + o(\dd t^2)
         \end{equation}
 
         % TODO jai limpression que la formule de bas viens de qqpart mais je sais pas de ou ? peut etre une meilleur approwximation ???????
-        Comme nous connaissons l'accélération au pas de temps suivant et precedent en meme temps on peux avoir une meilleur approximation de notre vitesse en utilisant le théorème des accroissements fini. TODO ICI JE SUIS PAS DU TOUT SUR ????
+        Comme nous connaissons l'accélération au pas de temps suivant et précédent en meme temps, nous pouvons avoir une meilleur approximation de notre vitesse en utilisant le théorème des accroissements fini. TODO ICI JE SUIS PAS DU TOUT SUR ????
         \begin{equation}
             \label{eq:verletVitesse}
             \vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t 
@@ -122,10 +122,11 @@ sorting=none
             Nous ajoutons à cette vitesse un coefficient compris entre 0.2 et 0.7 car nous n'avons pas de collisions élastiques parfaites. Il faut cependant faire attention à cette constante; Si elle est trop basse, les objets n'auront pas le rebond nécessaire et vont commencer à s'entrer dedans. Si elle est trop haute, les objets vont, à l'inverse, beaucoup rebondir. Toutefois, plus notre pas de temps est petit, plus ces effets vont disparaître.
             
             % TODO pas sur de ici faut tester (note pour moi dans le futur)
-            Le signe de la vitesse de collision nous donne si les objets viens vers eux($v_{col} > 0$) ou se elloigne($v_{col} < 0$) car cest possible que quand on a fait la collision pour un objet que on a bien modifie lautre objet aussi donc parfoit on a besoin de faire ca une seule foir et parfois entre temps en faisant tout les collisions il peux revenir. % La phrase na pas de sens jsp ???
+            % Le signe de la vitesse de collision nous donne si les objets viens vers eux($v_{col} > 0$) ou si elle s'éloigne($v_{col} < 0$) car cest possible que quand on a fait la collision pour un objet que on a bien modifie lautre objet aussi donc parfoit on a besoin de faire ca une seule foir et parfois entre temps en faisant tout les collisions il peux revenir. % La phrase na pas de sens jsp ??? J'ai rien compris à cette phrase
+            Le signe de la vitesse de la collision nous précise si les objets s'attirent ($v_{col} > 0$) ou s'ils s'éloignent ($v_{col} < 0$). Il est possible
             
             % TODO peut etre faire un schema pour montrer les vecteurs que on parle ?
-            Si la vitesse de collision est plus grande que 0; on fais la conservation de momentum.
+            Si la vitesse de collision est plus grande que 0; nous appliquons la conservation de momentum.
             
             Impulse ($I$)
             \begin{equation}
@@ -149,8 +150,7 @@ sorting=none
                 \includegraphics[width = 0.15\textwidth]{rebond.tikz}
                 \caption{Schéma d'un rebond d'un objet sur un bord}
             \end{wrapfigure}
-            Et aussi on fait des collisions de bord aussi.
-            Pour les collisions de bord on a fait tel que si notre objet dépassait le bord de tres peut on inverse le vecteur vitesse par rapport a la normale. Et apres multiplie ce vecteur par un coefficient de collision ($C_c$), $0 \leq C_c \leq 1$ qui simule l'absorbions de l'énergie a chaque collisions. 
+            Pour les collisions de bord on a fait tel que si notre objet dépassait le bord de très peut nous inversions le vecteur vitesse par rapport a la normale. Et apres nous multiplions ce vecteur par un coefficient de collision, $0 \leq C_c \leq 1$, qui simule l’absorption de l'énergie a chaque collision. 
             % TODO la fiqure ici cest broullion objective de montrer la norme tangent et la vitesse
             \begin{equation}
                 \vb*{v}^{'} = (\vb*{v}\cdot\vb*{n})\vb*{n} +(\vb*{v}\cdot\vb*{t})\vb*{t}
@@ -162,24 +162,21 @@ sorting=none
             
             % TODO ca fait qqchose cheloue dans le rendu mais en socuprait de ca a la fin?
 \section{Comment on a concue notre probleme}
-    \begin{itemize}
-        \item On a pris l'interaction des forces totale sur chaque particule par la fonction dans l'article `Cheerios effect'
-        \item et de ca on deduis la force que reagis a chaque cheerios pour un pas de temps 
-        \item Check si il ya des collisions ou pas et si il ya on change les proprietes des cheerios par rapport aux collisions
-        \item De la force en utilisant l'integration de verlet et le principe fondamentale de la dynamique somme forces = derive (masse*vitesse) on peux changer les positions des cheerios
-    \end{itemize}
-    % Je panse pas que on a besoin de inclure ca car si on fait bien notre taff dans le rapport ils devrait le comprendre et dans le code le code cest comme si cetait ecris en psuedo code 
-    % Psuedocode:
-    % Prends les donnees 
-    % Pour tout les pas de temps(NT)
-    %     Parcour chaque objets et compare entre eux si il ya collision.
-    %         Si oui 
-    %             Applique collisions comme TODO si on va utiliser ca citer lequation dans le quel on en parle
-    %         si non
-    %             applique force 
-    %     pour chaque objet applique force du bord
-    %     pour chaque objet integration de verlet
-    %     ecriture dans le fichier donnees 
+    % \begin{itemize}
+    %     \item On a pris l'interaction des forces totale sur chaque particule par la fonction dans l'article `Cheerios effect'
+    %     \item et de ca on deduis la force que reagis a chaque cheerios pour un pas de temps 
+    %     \item Check si il ya des collisions ou pas et si il ya on change les proprietes des cheerios par rapport aux collisions
+    %     \item De la force en utilisant l'integration de verlet et le principe fondamentale de la dynamique somme forces = derive (masse*vitesse) on peux changer les positions des cheerios
+    % \end{itemize}
+    Voici un diagramme du fonctionnement de notre algorithme (\ref{diag:algorithme}).
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=0.5\textwidth]{Diagramme.pdf}
+        \caption{Diagramme de notre algorithme}
+        \label{diag:algorithme}
+    \end{figure} 
+
+    Nous avons essayé d'être le plus efficace dans notre programme et de limiter le nombre d'itération. Les données initiales sont à mettre dans un fichier texte, les données finales sont également mises dans un fichier texte. Ce dernier est lu par un script Python afin de créer l'animation avec matplotlib et sa classe \textit{animate}. Pour représenter nos objets nous utilisons la classe \textit{circle} de matplotlib également. Cela nous permet de définir des cercles avec des rayons précis.
     
 \section{Les choses a ameliorer}
     \begin{itemize}
