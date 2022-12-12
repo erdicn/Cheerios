@@ -1,8 +1,13 @@
-\documentclass[a4paper, 10pt, oneside, twocolumn]{article} % A4 paper size, default 11pt font size and oneside for equal margins
+\documentclass[
+    a4paper, 
+    10pt, 
+    oneside, 
+    twocolumn
+]{article} % A4 paper size, default 11pt font size and oneside for equal margins
                                     % , twocolumn
 \usepackage[utf8]{inputenc} % Required for inputting international characters
 \usepackage[T1]{fontenc} % Output font encoding for international characters
-\usepackage[french]{babel}
+\usepackage[english,french]{babel}
 \usepackage{csquotes}
 
 \usepackage[twoside, margin=2cm, bindingoffset=0.0cm]{geometry}
@@ -56,16 +61,20 @@ sorting=none
 
 
 
-%\maketitle
-\twocolumn[
-    \begin{@twocolumnfalse}
-        \maketitle
-        \begin{abstract}
-            \normalsize Dans ce papier on explique comment nous avons simule \textit{l'effet de cheerios} numeriquement.
-        \end{abstract}
-    \end{@twocolumnfalse}
-]
-
+\maketitle
+%\twocolumn[
+%     \begin{@twocolumnfalse}
+%         \maketitle
+%         \begin{abstract}
+%             \normalsize Dans ce papier on explique comment nous avons simule \textit{l'effet de cheerios} numeriquement.
+%         \end{abstract}
+%         \selectlanguage{english} 
+%         \begin{abstract}
+%             \normalsize In this paper we explain and develop how to simulate the cheerios effect numericaly.
+%         \end{abstract}
+%     \end{@twocolumnfalse}
+% ]
+\selectlanguage{french} 
 % \thispagestyle{empty}
 \tableofcontents
 \listoffigures
@@ -76,31 +85,7 @@ sorting=none
 \input{Problèmes_Modélisation.tex}
 \input{methodes.tex}      
             % TODO ca fait qqchose cheloue dans le rendu mais en socuprait de ca a la fin?
-\section{Comment on a concue notre probleme}
-    % \begin{itemize}
-    %     \item On a pris l'interaction des forces totale sur chaque particule par la fonction dans l'article `Cheerios effect'
-    %     \item et de ca on deduis la force que reagis a chaque cheerios pour un pas de temps 
-    %     \item Check si il ya des collisions ou pas et si il ya on change les proprietes des cheerios par rapport aux collisions
-    %     \item De la force en utilisant l'integration de verlet et le principe fondamentale de la dynamique somme forces = derive (masse*vitesse) on peux changer les positions des cheerios
-    % \end{itemize}
-    Voici un diagramme du fonctionnement de notre algorithme (\ref{diag:algorithme}).
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=0.5\textwidth]{Diagramme.pdf}
-        \caption{Diagramme de notre algorithme}
-        \label{diag:algorithme}
-    \end{figure} 
-
-    Nous avons essayé d'être le plus efficace dans notre programme et de limiter le nombre d'itération. Les données initiales sont à mettre dans un fichier texte, les données finales sont également mises dans un fichier texte. Ce dernier est lu par un script Python afin de créer l'animation avec matplotlib et sa classe \textit{animate}. Pour représenter nos objets nous utilisons la classe \textit{circle} de matplotlib également. Cela nous permet de définir des cercles avec des rayons précis.
-    
-\section{Les choses a ameliorer}
-    \begin{itemize}
-        \item Code en $O(NT\,n^2)$ et peux etre ameliorer en $O(NT\, n\log n)$ en faisant le calcul de collisions plus inteligament a la place de une recherche exasthive et en calculant une seule fois le \textit{millieu} des forces de chaque particule pour avoir un centre de atraction et comme ca on calcule le centre de attraction regarde si on a des collisions ou pas et a la fin ajoute les forces du bords a chaque particule
-        \item pour linstant on utilise les equations \textit{aproximatives} on peux les essayer de les resoudres sans approximations en utilisant laproximation de Nicholson(fine difference method)
-        \item le code marche seulement pour les objets ronds faux ajouter une facon plus complexe pour plus de objets
-    \end{itemize}
-\section*{Conclusion}
-
+\input{fin.tex}
 \newpage
 \thispagestyle{empty}
 \nocite{*}

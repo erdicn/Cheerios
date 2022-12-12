@@ -34,7 +34,7 @@
         \paragraph*{}{
             Nous voulons déterminer comment ces objets réagissent entre eux et les bords d'un récipient et représenter nos résultats de façon numérique et animée. Nous devons, pour cela, calculer tout d'abord les forces intervenant dans ce phénomène.
         } 
-
+        POUR LES PREUVES DES CALCULS LE LECTEUR EST FORTEMENT ENCOURAGE A LIRE LE PAPIER \textit{Cheerios effect}\cite{vella_cheerios_2005} 
 
         % Ce que Erdi a écrit
         % TODO expliquer de ou viens les forces des angles qui tord la surface ?
@@ -103,9 +103,12 @@
 
         Le nombre de Bond vaut:
         \begin{equation}
-            B = \frac{(\rho_l-\rho_{a})gR^2}{\gamma}
+            B = \frac{(\rho_l-\rho_{a})gR^2}{\gamma} \simeq \frac{R^2}{L_c^2}
         \end{equation}
+
         Il nous donne la mesure relative de l'importance des effets de gravité et de la tension de surface; si $B$ est tres grand, cela correspond à des particules grandes ou à une tension de surface petite. 
+
+
 
         % WUT ????
 
@@ -114,7 +117,8 @@
         % L'expression de la pente de l'interface au voisinage de la particule sphérique donnée dans (\ref{eq:bondsigma}) est valable pour B << 1 (correspondant à un rayon de 1mm ou moins pour une sphère à l'interface air-eau), auquel cas la tension superficielle est très importante. L'autre paramètre sans dimension, peut être considéré comme un poids résultant (non dimensionnel) de la particule une fois que la poussée d'Archimède a été soustraite. Cette interprétation physique découle naturellement de la condition d'équilibre de la force verticale (\ref{eq:BalanceOfForces}) et (\ref{eq:bondsigma}) puisque le poids résultant de l'objet (dans l'approximation linéarisée) est simplement 
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        JE TE LAISSE CETTE PARTIE MAIS FAIT AU PLUS SIMPLE, SURTOUT NIVEAU BESSEL, SULTAN LUI MEME A DIT QUE C'ETAIT POUR MASTER. MDR 
+        COMMENT DIRE ICI QUE LA FORMULE VIENS DE ICI SANS FAIRE TOUT CA ????? LE BAS
+        JE TE LAISSE CETTE PARTIE MAIS FAIT AU PLUS SIMPLE, SURTOUT NIVEAU BESSEL, SULTAN LUI MEME A DIT QUE C'ETAIT POUR MASTER. MDR MERCIE D ELAVOIR LAISSE MAIS JE PENSE PAS QUE ON PEUX LEXPLIQUER DONC PEUT ETRE ENLEVER ET METTRE LE GRAPHIQUE EN MEME TEMPS QUE LENERGIE POTENTIELLE ET LA FORCE ????
         To calculate the interaction energy using the Nicolson approximation, we must also calculate the interfacial displacement caused by an isolated floating sphere, which is determined by the hydrostatic balance \(\gamma\nabla^2h = \rho gh -\) the co-ordinate invariant statement of equation (1). With the assumption of cylindrical symmetry, this becomes:
         \begin{equation}
             \gamma \frac{\dd^2h}{\dd x^2} = \rho_l g h
@@ -144,11 +148,13 @@
         Nous pouvons donc trouver la force d'interaction $F(l)=-\frac{dE}{dl}$, ce qui donne :
         \begin{equation}
             \boxed{
-                F(l)=-2\pi\gamma RB^{5/2}\Sigma^2K_1\frac{l}{l_c}
+                F(l)=-2\pi\gamma RB^{5/2}\Sigma^2K_1\left(\frac{l}{l_c}\right)
             }
             \label{eq:ForceInteraction}
         \end{equation}
 
+        
+        
 
         % TODO dans le code ajouter un buoyancy force qui calcule la ousee de archimede et dis si notre objet flotte ou pas si il flotte pas on peux metre un option tel quel il prend la valeur automatique ??? Ou on le neglige ????
         % TODO On mets les formules et peut etre demontrer ou ils viennent et surtout les cas ou on peux utiliser ces formules les cas ou ca marche pas etc\ldots
