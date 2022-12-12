@@ -1,6 +1,7 @@
-#include "cheerios.h"
+#include <stdio.h>
 #include <math.h>
 #include <gsl/gsl_sf_bessel.h>
+#include "cheerios.h"
 
 
 // Retourne le carré de x.
@@ -140,7 +141,7 @@ vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double 
 
 // Initialise les valeurs du nombre de Bond et de Sigma pour tous les objets.
 void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary_length, double rho_liq, double rho_cheerio, bord_t* bord){
-    double tmp_B, tmp_theta;
+    double tmp_B, tmp_theta, tmp_abs_B, error = 0;
     // Nous calculons d'abord pour le bord.
     bord->Bond_nb = CalculLinearBondNumber(bord->rayon_courbure, capilary_length);
     bord->Sigma = CalculSigma(bord->rho, rho_liq, bord->angle_contact);
@@ -148,9 +149,21 @@ void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary
     for(int i = 0; i < nb_cheerios; i++){                                                         // TODO peut etre utiliser le normal bond number
         cheerios[i].Bond_nb = CalculLinearBondNumber(cheerios[i].rayon_courbure, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
         tmp_B = cheerios[i].Bond_nb;
-        cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);     // TODO expliquer pq on prends comme ca pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;    faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
+        tmp_abs_B = fabs(tmp_B);
+        //cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);     // TODO expliquer pq on prends comme ca pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;    faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
+        if ( tmp_abs_B < 1 ){  
+            cheerios[i].angle_contact = asin(tmp_B);
+            if (tmp_abs_B < 0.63) // sinon angle de contact nest pas officelement definie
+                cheerios[i].angle_contact = asin(M_PI_2 * tmp_B);
+        } else { // si cest plus grand que 0.63 angle de contact nest pas definie et les objets ne bouge pas => pour cela on a mis une valeur normalise pour avoir de laction
+            cheerios[i].angle_contact = asin(fmod(tmp_B, 1));
+            error++;
+        }
         tmp_theta = cheerios[i].angle_contact;
         cheerios[i].Sigma = CalculSigma(rho_cheerio, rho_liq, tmp_theta);
+    }
+    if(error){
+        printf("Warning angle de contact experimental\n");
     }
 }
 

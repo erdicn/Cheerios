@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <math.h>
 #include "cheerios.h"
+
 
 // Permet d'afficher une barre de progression lorsque le programme s'exécute. 
 void ProgressBar(long int nt, long int NT, double dt){
@@ -21,8 +25,8 @@ void VoirSiNotreLectureABienMarche(cheerio_t* cheerios, int nb_cheerios, long in
 	printf("%lf %lf %lf %lf %lf %lf %lf %lf\n", bord->rayon, bord->centre.x, bord->centre.y, bord->rho, bord->angle_contact, bord->Bond_nb, bord->rayon_courbure, bord->Sigma);
     int nb_print = nb_cheerios > 10 ? 10 : nb_cheerios; // Si on a beaucoup de cheerios on n'afiche pas tout, on check maximum les 10 premiers et on assume que si les 10 premiers ont bien fonctioné les autres fonctionnent aussi.
     for(int i = 0; i < nb_print; i++){
-        printf("%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].diametre_cheerio, cheerios[i].v.x, cheerios[i].a.x,
-                                                    cheerios[i].masse, cheerios[i].rayon_courbure, cheerios[i].Bond_nb, cheerios[i].angle_contact, cheerios[i].Sigma);
+        printf("%lf %lf dia=%lf %lf %lf %lf R_c=%lf B=%lf %lf° S=%lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].diametre_cheerio, cheerios[i].v.x, cheerios[i].a.x,
+                                                    cheerios[i].masse, cheerios[i].rayon_courbure, cheerios[i].Bond_nb, cheerios[i].angle_contact*180/M_PI, cheerios[i].Sigma);
     }
 }
 
@@ -31,7 +35,10 @@ void LectureData(FILE* fichier, cheerio_t *cher){
 	int success_scanning = 0;
 	double posx = 0,posy = 0 ,d = 0, v_x = 0, v_y = 0, a_x = 0, a_y = 0, m = 0, f_x = 0, f_y = 0;
 	success_scanning = fscanf(fichier,"%lf %lf %lf %lf %lf %lf %lf %lf", &posx, &posy, &d, &v_x, &v_y, &a_x, &a_y, &m);//, tmp);
-	if (!success_scanning) printf("Error scanning\n");
+	if (!success_scanning){
+		printf("Error scanning\n");
+		exit(1);
+	}
 	cher->pos.x = posx; // si on met cela dans le fscanf ca bug même si on prends les adresses c'est pour ca que cela est en dehors.
 	cher->pos.y = posy;
 	cher->diametre_cheerio = d;
@@ -43,7 +50,39 @@ void LectureData(FILE* fichier, cheerio_t *cher){
 	cher->f_applique.x = f_x;
 	cher->f_applique.y = f_y;
     cher->rayon_courbure = d/2.;//1./(d/2.);  // TODO on est bien daccord ceci est le rayon de la courbure ? aparament non car ca marche que quand on prend R
-	// TODO les different formes a des differentes courbures // TODO calculer les courbures par rapport aux autre s 
+	// TODO les different formes a des differentes courbures // TODO calculer les courbures par rapport aux autres ? 
+}
+
+// returne un double random dans linterval [min, max]
+double RandomAtAInterval( double min, double max ){
+    double echelle = rand() / (double) RAND_MAX; 
+    return min + echelle * ( max - min );   
+}
+
+typedef struct rectangle{
+	double xmin, ymin, xmax, ymax;
+}rectangle_t;
+                                 
+// ca mets des cheerios randomise a partir dun cheerios exemple avec une deviation de ce cheerios de +-0.5 masse, diametre du cheerio
+void PutRandomData(bord_t bord,cheerio_t cheerio_moyenne , cheerio_t *cheerios, int nb_cheerios){
+	// on prend le plus grand carree qui poeux rentrer dans notre cercle et on randomise dedans.
+	rectangle_t carre = {.xmin = bord.centre.x - (bord.rayon/sqrt(2) + cheerio_moyenne.diametre_cheerio),
+						 .xmax = bord.centre.x + (bord.rayon/sqrt(2) - cheerio_moyenne.diametre_cheerio),
+						 .ymin = bord.centre.y - (bord.rayon/sqrt(2) + cheerio_moyenne.diametre_cheerio),
+						 .ymax = bord.centre.y + (bord.rayon/sqrt(2) - cheerio_moyenne.diametre_cheerio)};
+	time_t t1;				
+	vec2_t vec_nulle = {.x = 0, .y = 0};     
+	srand((unsigned) time (&t1));
+	for(int i = 0; i < nb_cheerios; i++){
+		cheerios[i].diametre_cheerio = cheerio_moyenne.diametre_cheerio;//RandomAtAInterval(cheerio_moyenne.diametre_cheerio/2, cheerio_moyenne.diametre_cheerio+ cheerio_moyenne.diametre_cheerio/2);
+		cheerios[i].rayon_courbure = cheerios[i].diametre_cheerio/2;
+		cheerios[i].masse = RandomAtAInterval(cheerio_moyenne.masse/2, cheerio_moyenne.masse + cheerio_moyenne.masse/2);
+		cheerios[i].pos.x = RandomAtAInterval(carre.xmin, carre.xmax);
+		cheerios[i].pos.y = RandomAtAInterval(carre.ymin, carre.ymax); 
+		cheerios[i].v          = vec_nulle;//cheerio_moyenne.v;//vec_nulle;
+		cheerios[i].a          = vec_nulle;//cheerio_moyenne.a;//vec_nulle;
+		cheerios[i].f_applique = vec_nulle;//cheerio_moyenne.f_applique;//vec_nulle;
+	}
 }
 
 // Retourne un tableau de cheerio avec à l'intérieur chaque cheerio avec leurs caractéristique données dans le fichier donnees_initiales.txt
@@ -53,15 +92,20 @@ cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* N
 									bord_t *bord){
 	FILE* fichier_avec_donnees_initiales_cheerios = fopen(nom_fichier,"r");
 	int success_scanning = 0;
-	if (fichier_avec_donnees_initiales_cheerios == NULL){
+	char typeSimulation[100];	// si on va prendre les cheerios aleatoires ou celles que on a mis si on a mis Random ou Standard
+	if (fichier_avec_donnees_initiales_cheerios == NULL) {
 		printf("Error opening file!\n");
 		exit(1);
-	} else{
+	} else {
+		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%s", typeSimulation);
 		double tmp_bord_rayon, tmp_bord_x, tmp_bord_y, tmp_bord_rho, tmp_bord_angle_radian; // TODO ajouter lecture bord 
 		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%d %ld %lf", nb_cheerios, NT, dt); // la premiere ligne sur le fichier indique le nombre de cheerios(objets flottants)
 		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%lf %lf %lf %lf %lf", rho_liq, rho_air, rho_cheerio, surface_tension, g);
         success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%lf %lf %lf %lf %lf", &tmp_bord_rayon, &tmp_bord_x, &tmp_bord_y, &tmp_bord_rho, &tmp_bord_angle_radian);
-		if (!success_scanning) printf("Error scanning\n");
+		if (!success_scanning){ 
+			printf("Error scanning\n");
+			exit(1);
+		}
 		bord->rayon = tmp_bord_rayon; 
 		bord->centre.x = tmp_bord_x; 
 		bord->centre.y = tmp_bord_y; 
@@ -70,8 +114,15 @@ cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* N
 		*surface_tension = *surface_tension/1000.; // car on prend les valeurs mN/m
         cheerio_t *cheerios = NULL;
 		cheerios = malloc(sizeof(cheerio_t)* *nb_cheerios);
-		for(int i = 0; i < *nb_cheerios; i++){
-			LectureData(fichier_avec_donnees_initiales_cheerios, &cheerios[i]);
+		if (typeSimulation[0] == 'R' || typeSimulation[0] == 'r') {
+			cheerio_t cheerio_moyenne;
+			LectureData(fichier_avec_donnees_initiales_cheerios, &cheerio_moyenne);
+			PutRandomData(*bord, cheerio_moyenne, cheerios, *nb_cheerios);
+			
+		} else {
+			for(int i = 0; i < *nb_cheerios; i++){
+				LectureData(fichier_avec_donnees_initiales_cheerios, &cheerios[i]);
+			}
 		}
 		fclose(fichier_avec_donnees_initiales_cheerios);
 		printf("Lecture data fin\n");

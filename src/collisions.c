@@ -2,7 +2,7 @@
 #include "cheerios.h"
 #include "calculs.h"
 
-#define COLLISION_ABSORBTION 0.7
+#define COLLISION_ABSORBTION 0.5
 
 // Applique aux objets l'effet de la collision en changenat les vitesses.
 void AppliqueCollision(double distance, cheerio_t* cheerios, int i, int j){

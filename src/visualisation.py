@@ -5,14 +5,14 @@ from matplotlib.patches import Circle
 
 #lis le fichier de donnees initiales pour prendre le dt
 donnees_initiales = list(map(str, open("donnees_initiales.txt", 'rt').readlines()))
-donnees_initiales_temps = [i for i in donnees_initiales[0].split()]
-nb_cheerios = int(donnees_initiales_temps[0])
-NT          = int(donnees_initiales_temps[1])
+donnees_initiales_temps = [i for i in donnees_initiales[1].split()]
+nb_cheerios = int  (donnees_initiales_temps[0])
+NT          = int  (donnees_initiales_temps[1])
 dt          = float(donnees_initiales_temps[2])
 
-donnees_bord = [float(i) for i in donnees_initiales[2].split()]
+donnees_bord = [float(i) for i in donnees_initiales[3].split()]
 rayon_bord =  donnees_bord[0]
-bord_centre = (donnees_bord[1], donnees_bord[2])    
+bord_centre = (donnees_bord[1], donnees_bord[2])   
 
 
 #lis le fichier colonne par colonne 
@@ -42,6 +42,9 @@ ax.set_xlim([bord_centre[0]-1.1*rayon_bord, bord_centre[0]+1.1*rayon_bord])
 ax.set_ylim([bord_centre[1]-1.1*rayon_bord, bord_centre[1]+1.1*rayon_bord])
 ax.set_title("Positions des cheerios les axes sont en metre")
 
+# Frame 578
+ #ax.scatter([4.385e-2, 5.96e-2 , 8.85e-2], [4.785e-2, 4.040e-2, 5.5e-2]   , c = "k")
+
 def init():
     for i in range(len(patches)-1):
         patches[i].center = (X[0+i],Y[0+i])
@@ -54,13 +57,14 @@ time_template = 'time = %.2fs'
 time_text = ax.text(0.05, 0.9, '', transform=ax.transAxes)
 
 def animate(i):
-    for p in range(len(patches)-1):
-        patches[p].center = (X[p+i], Y[p+i])
-        patches[p].radius = D[p+i]/2
-    time_text.set_text(time_template % (T[i]*dt))
+    if i + len(patches) < len(X):
+        for p in range(len(patches)-1):
+            patches[p].center = (X[p+i], Y[p+i])
+            patches[p].radius = D[p+i]/2
+        time_text.set_text(time_template % (T[i]*dt))
     return patches
                                                                 #[i for i in range(0,NT, 10)] ou NT
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames= [i for i in range(0, len(T) ,  int(1/(dt*100))*10)]
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames= [i for i in range(0, len(T) ,  int(1/(dt*100)))]
                                , interval=1, blit=False#, repeat = True 
                                )
 #anim.save('visualisation.gif', fps=100, dpi=200)
