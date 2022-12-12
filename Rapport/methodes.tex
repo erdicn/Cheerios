@@ -10,19 +10,18 @@
         \end{equation}
         Si on applique le développement limité d'ordre 3 à la position($\vb*{x}(t+\dd t)$) au point $t+\dd t$ on a l'équation suivante avec $t_0$ comme le pas de temps précédent :
         % On a ca avec le developement limilte a $t$ et $t_0$ cest le pas temps precedent
-        \begin{multline}
-            \mathrm{DL}_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)
-            +\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 \\+o((t-t_0)^3)
-        \end{multline}
+        \begin{equation}
+            \mathrm{DL}_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)+\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 \\+o((t-t_0)^3)
+        \end{equation}
         Si $t_0$ est le pas de temps précédent, $\vb*{x}^{'}(t)$ la vitesse et $\vb*{x}^{''}(t)$ l'accélération, nous avons :
-        \begin{multline}
+        \begin{equation}
             \mathrm{DL}_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)
             \\+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)
-        \end{multline}
-        \begin{multline}
+        \end{equation}
+        \begin{equation}
              \mathrm{DL}_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2
              \\+o(\dd t^3)
-        \end{multline}
+        \end{equation}
         L'erreur sur le temps $t_n$ est de l'ordre de $o(\exp(Lt_n)\dd t^2)$ % TODO pas sur de ici
 
         Notre accélération ne dépendant pas du changement de vitesse mais de l'équation (\ref{eq:ForceInteraction}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant celui de la vitesse car la position prend l'accélération précédente mais la vitesse prend celle précédente et au même moment.

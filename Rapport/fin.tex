@@ -20,13 +20,16 @@
         Nous avons essayé d'être le plus efficace dans notre programme et de limiter le nombre d'itération. Les données initiales sont à mettre dans un fichier texte, les données finales sont également mises dans un fichier texte. Ce dernier est lu par un script Python afin de créer l'animation avec matplotlib et sa classe \textit{animate}. Pour représenter nos objets nous utilisons la classe \textit{circle} de matplotlib également. Cela nous permet de définir des cercles avec des rayons précis.
     
     \subsection{Améliorations possibles}
-        \begin{itemize}
-            \item Code en $O(NT\,n^2)$ et peux etre ameliorer en $O(NT\, n\log n)$ en faisant le calcul de collisions plus inteligament a la place de une recherche exasthive et en calculant une seule fois le \textit{millieu} des forces de chaque particule pour avoir un centre de atraction et comme ca on calcule le centre de attraction regarde si on a des collisions ou pas et a la fin ajoute les forces du bords a chaque particule
-            \item pour linstant on utilise les equations \textit{aproximatives} on peux les essayer de les resoudres sans approximations en utilisant laproximation de Nicholson(fine difference method)
-            \item le code marche seulement pour les objets ronds faux ajouter une facon plus complexe pour plus de objets
-        \end{itemize}
+        % \begin{itemize}
+        %     \item Code en $O(NT\,n^2)$ et peux etre ameliorer en $O(NT\, n\log n)$ en faisant le calcul de collisions plus inteligament a la place de une recherche exasthive et en calculant une seule fois le \textit{millieu} des forces de chaque particule pour avoir un centre de atraction et comme ca on calcule le centre de attraction regarde si on a des collisions ou pas et a la fin ajoute les forces du bords a chaque particule
+        %     \item pour linstant on utilise les equations \textit{aproximatives} on peux les essayer de les resoudres sans approximations en utilisant laproximation de Nicholson(fine difference method)
+        %     \item le code marche seulement pour les objets ronds faux ajouter une facon plus complexe pour plus de objets
+        % \end{itemize}
         Notre code, actuellement n'est pas optimisé pour déterminer s'il y a des collisions entre les objets. En effet, nous regardons pour chaque objet s'il est en collision avec tous les autres objets présents. Cela nous donne un algorithme qui s'effectue en $O(NT\,n^2)$, alors que nous pourrions l'effectuer en $O(NT\, n\log n)$. Nous pouvons potentiellement améliorer l'algorithme en calculant une seule fois la norme ERDI TU VAS DEVOIR MIEUX M4EXPLIQUER CELA C'EST INCOMPREHENSIBLE.
 
-        
+        Nous utilisons actuellement certaines équations qui sont approximatives, nous pourrions utiliser des équations plus précises avec l'approximation de Nicholson.
+
+        Enfin, notre code fonctionne uniquement avec des objets sphériques. Nous pourrons ajouter les calculs pour différentes formes géométrique. 
 \section{Nos Résultats}
 \section*{Conclusion}
+    Pour conclure, nous avons réussi à analyser un problème de mécanique afin de créer une simulation de cet effet. Nous avons analysé le problème physique et l'avons résolu. Notre algorithme est fonctionnel et donne des résultats concluants. Cependant, notre code est fonctionnel jusqu'à une certaine durée. Après un certain temps la simulation devient instable. Néanmoins, nous avons su surpasser beaucoup de problème durant ce projet et nous avons pu développer nos techniques en programmation et notre savoir en mécanique des fluides, notamment avec notre recherche bibliographique qui eut une place importante dans ce projet 
