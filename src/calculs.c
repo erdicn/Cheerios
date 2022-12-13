@@ -155,10 +155,10 @@ void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary
     for(int i = 0; i < nb_cheerios; i++){                                                         // linBondnb = BondNumber dans le cas de nos simulations, si ils sont pas egale ces cas sont hors du sujet de la simulation
         cheerios[i].Bond_nb = CalculLinearBondNumber(cheerios[i].rayon_courbure, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
         tmp_B = cheerios[i].Bond_nb;
-        cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);     // TODO expliquer pq on prends comme ca pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;    faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
-        if(isnan(cheerios[i].angle_contact)){
-            cheerios[i].angle_contact = 0;
-        }
+        cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : 0;//asin(tmp_B);     // TODO expliquer pq on prends comme ca pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;    faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
+        // if(isnan(cheerios[i].angle_contact)){
+        //     cheerios[i].angle_contact = 0;
+        // }
         cheerios[i].Sigma = CalculSigma(rho_cheerio, rho_liq, cheerios[i].angle_contact);
     }
     if(error){
