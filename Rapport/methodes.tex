@@ -16,14 +16,14 @@
         Si $t_0$ est le pas de temps précédent, $\vb*{x}^{'}(t)$ la vitesse et $\vb*{x}^{''}(t)$ l'accélération, nous avons :
         \begin{multline}
             \mathrm{DL}_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)
-            \\+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)
+            \\+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o((t+\dd t-t)^3)
             \label{eq:posx}
         \end{multline}
         \begin{equation}
              \mathrm{DL}_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2
              \\+o(\dd t^3)
         \end{equation}
-        L'erreur sur le temps $t_n$ est de l'ordre de $o(\exp(Lt_n)\dd t^2)$ % TODO pas sur de ici
+        L'erreur sur le temps $t_n$ est de l'ordre de $o(e^{Lt_n}\dd t^2)$ avec un ordre de 2\cite{crivelli_stormer-verlet_2008}. Avec $L$ la constante de Lipschitz qui est la mesure du changement maximum dune fonction dans une region dans le quel il est defini.
 
         Notre accélération ne dépendant pas du changement de vitesse mais de l'équation (\ref{eq:ForceInteraction}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant celui de la vitesse car la position prend l'accélération précédente mais la vitesse prend celle précédente et au même moment.
         \begin{equation}
