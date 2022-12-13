@@ -79,7 +79,8 @@ def animate(i):
             patches[p].radius = D[p+i]/2
         time_text.set_text(time_template % (T[i]*dt))
     return patches
-augmentation = 1000#int(1/(dt*10))                                       #[i for i in range(0,NT, 10)] ou NT
+augmentation = 10*int(1/(dt*100))                                       #[i for i in range(0,NT, 10)] ou NT
+if augmentation == 0: augmentation = 1
 anim = animation.FuncAnimation(fig, animate, init_func=init, frames= [i for i in range(0, len(T) , augmentation)]
                                , interval=1, blit=False#, repeat = True 
                                )

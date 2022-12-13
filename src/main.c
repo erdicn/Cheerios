@@ -23,8 +23,8 @@ void Simulate(char* fichier_donnees_initiales, char* fichier_donnees);
 
 int main(){
     gsl_set_error_handler_off(); // Car si on ne le désactive pas, on peux avoir des underflow et ça veux juste dire que notre résultat est plus précis que ce que nous pouvons afficher, mais pour notre application une précision double suffit donc on peux l'arrondir.
-    char fichier_donnees_initiales[30] =  "donnees_init_exp1.txt"; 
-    char fichier_donnees[30]           =  "Experience1.dat";       
+    char fichier_donnees_initiales[30] =  "donnees_initiales.txt";//"donnees_init_exp1.txt"; 
+    char fichier_donnees[30]           =  "donnees.txt";//"Experience1.dat";       
     Simulate(fichier_donnees_initiales, fichier_donnees);
     return 0;
 }
