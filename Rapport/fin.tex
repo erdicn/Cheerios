@@ -35,68 +35,49 @@
 \section{Nos Résultats}
     Pour tester notre programme nous avons fait l'expérience en vrai. Nous avons mis différents objets sphériques dans un bol rempli d'eau et nous avons filmer leurs mouvements. Nous avons ensuite analysé leurs coordonnées initiales avec Tracker et nous les avons implémentées dans notre code. Nous avons pu, après cela, analyser les différences entre la réalité et notre simulation. Voici sur les Figures suivantes nos comparaisons pour l'une d'elles.
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.4\textwidth]{visualisation3_1000_init.pdf}
-        \caption{Image de notre simulation lorsque les objets sont à leurs positions originales}
-        \label{fig:simul_init}
-    \end{figure}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.4\textwidth, angle = 270]{visualisation3_1000_pres.pdf}
-        \caption{Image de notre simulation lorsque les objets sont proches}
-        \label{fig:simul_pres}
-    \end{figure}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.4\textwidth, angle = 270]{visualisation3_1000_contact.pdf}
-        \caption{Image de notre simulation lorsque les objets se touchent}
-        \label{fig:simul_contact}
-    \end{figure}
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=0.4\textwidth]{visualisation3_1000_init.pdf}
+    %     \caption{Image de notre simulation lorsque les objets sont à leurs positions originales}
+    %     \label{fig:simul_init}
+    % \end{figure}
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=0.4\textwidth, angle = 270]{visualisation3_1000_pres.pdf}
+    %     \caption{Image de notre simulation lorsque les objets sont proches}
+    %     \label{fig:simul_pres}
+    % \end{figure}
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=0.4\textwidth, angle = 270]{visualisation3_1000_contact.pdf}
+    %     \caption{Image de notre simulation lorsque les objets se touchent}
+    %     \label{fig:simul_contact}
+    % \end{figure}
 
-    \begin{figure}
+    \begin{figure}%
         \centering
-        \begin{subfigure}{0.5\textwidth}
-            \centering
-            \includegraphics[width=.4\linewidth]{visualisation3_1000_init.pdf}
-            \caption{Image de notre simulation lorsque les objets sont à leurs positions originales}
-        \end{subfigure}%
-        \begin{subfigure}{.5\textwidth}
-            \centering
-            \includegraphics[width=.4\linewidth]{5sec.jpg}
-            \caption{Vraie vie en 5s}
-        \end{subfigure}
-        \caption{A figure with two subfigures}
+        \subfloat[\centering Simulation]{{\includegraphics[height=5.5cm]{visualisation3_1000_init.pdf}}}%
+        \qquad
+        \subfloat[\centering Vraie vie]{{\includegraphics[width=5cm]{5sec.png}}}%
+        \caption{A 5 secondes}%
+        \label{fig:example}%
     \end{figure}
-    
-    \begin{figure}
+    % Ca marche ? non
+    \begin{figure}%
         \centering
-        \begin{subfigure}{.5\textwidth}
-            \centering
-            \includegraphics[width=.4\linewidth]{visualisation3_1000_init.pdf}
-            \caption{Image de notre simulation lorsque les objets sont à leurs positions originales}
-        \end{subfigure}%
-        \begin{subfigure}{.5\textwidth}
-            \centering
-            \includegraphics[width=.4\linewidth]{millieu.jpg}
-            \caption{Vraie vie en 5s}
-        \end{subfigure}
-        \caption{A figure with two subfigures}
+        \subfloat[\centering Simulation]{{\includegraphics[height=5.5cm]{visualisation3_1000_pres.pdf}}}%
+        \qquad
+        \subfloat[\centering Vraie vie]{{\includegraphics[width=5cm]{2eme.png}}}%
+        \caption{A 40 secondes}%
+        \label{fig:examplee}%
     \end{figure}
-
-    \begin{figure}
+    \begin{figure}%
         \centering
-        \begin{subfigure}{.5\textwidth}
-            \centering
-            \includegraphics[width=.4\linewidth]{visualisation3_1000_contact.pdf}
-            \caption{Image de notre simulation lorsque les objets se touchent}
-        \end{subfigure}%
-        \begin{subfigure}{.5\textwidth}
-            \centering
-            \includegraphics[width=.4\linewidth]{45sec.jpg}
-            \caption{Vraie vie en 5s}
-        \end{subfigure}
-        \caption{A figure with two subfigures}
+        \subfloat[\centering Simulation]{{\includegraphics[height=5.5cm]{visualisation3_1000_contact.pdf}}}%
+        \qquad
+        \subfloat[\centering Vrai vie]{{\includegraphics[width=5cm]{45sec.png}}}%
+        \caption{A 45 secondes}%
+        \label{fig:examples}%
     \end{figure}
     
     Dans ces Figures, nous pouvons visualiser que la simulation n'est pas parfaite car il y a quelques différences avec les vidéos. L'une des raisons et que nous ne prenons pas en compte les légers écoulements d'air qu'il peut y avoir, qui ont des effets importants sur des objets flottants, de par leur faible stabilité. Néanmoins, nous pouvons être satisfait du résultat de nos simulations.
