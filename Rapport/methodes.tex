@@ -17,6 +17,7 @@
         \begin{equation}
             \mathrm{DL}_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)
             \\+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o(t+\dd t-t)
+            \label{eq:posx}
         \end{equation}
         \begin{equation}
              \mathrm{DL}_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2
@@ -35,17 +36,27 @@
             \mathrm{DL}_2\vb*{v}(t) = \vb*{v}(t_0) + \vb*{v}^{'}(t_0)(t-t_0) + o((t-t_0)^2)
         \end{equation}
         %Si $t_0$ cest le pas de temps precedent ($t_0 = $) et $\vb'{v}(t)$ l'acceleration, nous avons:
-        De la meme façon que nous avons déterminer la position position ($\vb*{x}(t+dt)$), nous l''appliquons à la vitesse et nous avons:
+        De la meme façon que nous avons déterminer la position position ($\vb*{x}(t+dt)$) equation \ref{eq:posx}, nous l''appliquons à la vitesse et nous avons:
         \begin{equation}
             \mathrm{DL}_2\vb*{v}(t+\dd t) = \vb*{v}(t) + \vb*{a}(t)(\dd t) + o(\dd t^2)
         \end{equation}
 
         % TODO jai limpression que la formule de bas viens de qqpart mais je sais pas de ou ? peut etre une meilleur approwximation ???????
-        Comme nous connaissons l'accélération au pas de temps suivant et précédent en meme temps, nous pouvons avoir une meilleur approximation de notre vitesse en utilisant le théorème des accroissements fini. TODO ICI JE SUIS PAS DU TOUT SUR ????
+        JE SAIS PAS SUR PQ ON DIVISE PAR 2
+        Comme nous connaissons l'accélération au pas de temps suivant et précédent en meme temps, nous pouvons avoir une meilleur approximation de notre vitesse en prenant le point au millieu a la place prendre lacceleration precedente. On utilise velocity Verlet a la place de Störmer-Verlet car avec Störmer-Verlet on a besoin des 2 positions davant et nous on stockait seulement un pas de temps a chaque fois et que avec velocity Verlet on etait autant precis sans avoir besoin des 2 positions davant.
         \begin{equation}
             \label{eq:verletVitesse}
             \vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t 
         \end{equation}
+        TODO CITER 
+        % https://www2.math.ethz.ch/education/bachelor/seminars/fs2008/nas/crivelli.pdf
+        DIRE QQPART QUE ON A PAS PRIS LES FORCES DE FROTTEMENTS CAR DE UN ILS SONT NEGLIGAABLES AU VITESSES QUE ON Y VAS ET DE DEUX SI ON PRENAIT DES FROTTEMENTS NOTRE ACCELERATION DEPENDRAIT DE LA VITESSE ET DANS CES CAS LES EQUATIONS ET LINTEGRATION DE VERLET DEVINES BEAUCOUP TROP COMPLIQUE.
+
+        La raison la quel on a pas utilise la methode de euler meme si on peux avoir limpression que ils sont similaire est que: avec la methode de euler on a pas notre energie conserve et que l'erreur sur les methodes de euler sont plus hautes que celles de verlet. Et a propos de Runge-Kutta la raison la quel on la pas utilise est que meme si la methode Runge-Kutta ordre 4 a un meilleur precission il peux etre discipative a certain cas et prendre plus de calculs  mais il pourait etre quand meme plus precis que lintegration de verlet. Et acote de cela pour limplimentation dans notre cas lintegration de verlet avait laire le plus facile
+        Verlet le seul a etre time recersible dans cela 
+        Euler \(O(h^2)\) order of 1\\
+        Verlet \(O(h^3)\) order of 2\\
+        RK4 \(O()\)
         % est que on mets ca sur lanexe ?
         % (voir lanexe pour le developement du calcul) 
         %        \[DL_3 x(t+\dd t)= x(t)+x^{'}(t)(\dd t)+\frac{x^{''}(t)}{2!}(\dd t)^2\]

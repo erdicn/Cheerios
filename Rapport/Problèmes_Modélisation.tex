@@ -117,7 +117,7 @@
         \begin{equation}
             \theta + \arctan z_c^{'} - \psi_{eq} = \pi 
         \end{equation}
-        Avec $\phi_c = \sin^{-1}\left(\frac{\pi}{2}B\right) $ \cite{lattice_boltzmann_caplilary_interaction}. EST QUE CA PREND LA MASSE EN COMPTE OU PAS ?????? LE BOND NUMBER A G ET THO DONC JE SUPOSSE OUI ???????
+        Avec $\phi_c = \sin^{-1}\left(\frac{\pi}{2}B\right) $ \cite{lattice_boltzmann_caplilary_interaction}. EST QUE CA PREND LA MASSE EN COMPTE OU PAS ?????? LE BOND NUMBER A G ET RHO DONC JE SUPOSSE OUI ???????
         \begin{equation}
             \phi_c = \sin^{-1}\left(\frac{\pi}{2}B\right) = \pi - \theta + \arctan z_c^{'}
             \label{eq:phi}
@@ -155,7 +155,14 @@
         \begin{equation}
             \Rightarrow \frac{\tan\phi_c + \tan\theta}{1-\tan\theta\tan\phi_c} = \frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta
         \end{equation}
-
+        PEUT ETRE ENLEVER CECI CAR CEST LA MEME QUE LEQUATION DU HAUT SEULEMENT ON A DEVELOPE????
+        %%%%%%%%% A Eenlever????%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        En developant:
+        \begin{equation}
+            0 = \frac{2D-1}{3} + \tan\phi_c(-\frac{2D-1}{3}\tan\theta + \frac{1}{6}\sin^3\theta) - \tan\phi_c+ \frac{1}{6}\cos^3\theta - \frac{1}{2}\cos\theta - \tan\theta
+        \end{equation}
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        Pour le reoudre a la main cest difficile mais numeriquement on peux avoir des solutions. On peux savoir la valeur de $\phi_c$ grace a l'equation \ref{eq:phi} et nous savons que \(D \equiv \frac{\rho_s}{\rho_l}\) alors on peux trouver $\theta$.
         % WUT ????
 
         % The expression for the slope of the interface in the vicinity of the spherical particle given in (9) is valid for B << 1 (corresponding to a radius of  1mm or smaller for a sphere at an air-water interface) in which case surface tension is very important. The other dimensionless parameter, , can be thought of as a (non-dimensional) resultant weight of the particle once the Archimedes upthrust has been subtracted out. This physical interpretation arises naturally from the vertical force balance condition (8) and (9) since the resultant weight of the object (in the linearised approximation) is simply 
@@ -165,19 +172,22 @@
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         JE SAIS PLUS CE QU4ON DEVAIT DIRE EXACTEMENT POUR JUSTE PARLER DE BESSEL SANS RACONTER TOUT CELA;
         % To calculate the interaction energy using the Nicolson approximation, we must also calculate the interfacial displacement caused by an isolated floating sphere, which is determined by the hydrostatic balance \(\gamma\nabla^2h = \rho gh -\) the co-ordinate invariant statement of equation (1). With the assumption of cylindrical symmetry, this becomes:
-        % \begin{equation}
-        %     \gamma \frac{\dd^2h}{\dd x^2} = \rho_l g h
-        % \end{equation}
-        % Si nous prenons en compte que l'objet a une symétrie sphérique
-        % \begin{equation}
-        %     \Rightarrow \frac{1}{r} \frac{\dd}{\dd r} \left( r\frac{\dd h}{\dd r}\right) = \frac{h}{L_c^2}
-        % \end{equation}
-        % Nous pouvons déduire une solution de cette équation avec la fonction de Bessel modifié à l'ordre 0 $(K_0)$\cite{introtoBessel}.
+        Nous savons le déplacement interfacial\cite{introfluidcambridge} qui est:
+        \begin{equation}
+            \gamma \frac{\dd^2h}{\dd x^2} = \rho_l g h
+        \end{equation}
+        Si nous prenons en compte que l'objet a une symétrie sphérique
+        \begin{equation}
+            \Rightarrow \frac{1}{r} \frac{\dd}{\dd r} \left( r\frac{\dd h}{\dd r}\right) = \frac{h}{L_c^2}
+        \end{equation}
+        EN FAITE LASSOCIATIONAU FONCTION BESSEL CA VA MAIS JE SAIS PAS COMMENT PARTIR DE EQUATIONAVEC GAMMA ET DEDUIR UNE SYMETHRIE SPHERIQUE????\\
+        Nous pouvons déduire une solution de cette équation avec la fonction de Bessel modifié à l'ordre 0 \cite{introbessel} $(K_0\left(\frac{l}{L_c}\right))$.
 
         \begin{figure}[H]
             \centering
             \includegraphics[width = 0.5\textwidth]{Besselk1_K0.pdf}
             \caption{Graphique représentant les fonctions de Bessel modifié à l'ordre 0 et 1}
+            \label{fig:bessel}
         \end{figure}
         % TODO faire tel que on aligne a 0 le y et peut etre aller jusq a 6 en x ?
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -198,6 +208,8 @@
             \label{eq:ForceInteraction}
         \end{equation}
 
+        Nous voyons ( voire ) ?????? bien grace a la figure \ref{fig:bessel} que des que $l/L_c>5$ notre force va etre tres faible et inversement quand $l/L_c << 1 $ la force de atraction va etre tres eleve. La force entre objets flottants depens de la distance entre eux exponentielement. A REPHRASER CE PARAGRAPH 
+
         
         
 
@@ -214,7 +226,8 @@
                 \caption{Schéma des forces des bords.}
                 \label{fig:Force_Bord_schéma}
             \end{wrapfigure}
-            Maintenant que nous avons vu l'application des forces entre objets, nous allons expliquer les forces entre les bords et les objets. La force se calcule de la même manière qu'entre deux objets (\ref{eq:ForceInteraction}). Pour la force appliquée par les bords sur les objets nous avons, à la place de calculer les forces à chaque point du cercle, opté d'utiliser la symétrie dun cercle. Nous avons remarqué que la plupart des forces s'annulent entre elles (en gris) et il nous reste seulement deux forces (en rouge) qui interagissent comme le montre la figure\ref{fig:Force_Bord_schéma}. Les seuls paramètres à changer sont le nombre de Bond et l'angle de contact, que nous prenons à 45 degré, angle du ménisque formé par l'eau dans un récipient en verre. 
+            TODO JAI AJOUTE DES CHOSES ICI MAIS PEUT ETRE REPHRASHER
+            Maintenant que nous avons vu l'application des forces entre objets, nous allons expliquer les forces entre les bords et les objets. La force se calcule de la même manière qu'entre deux objets (equation \ref{eq:ForceInteraction}) car la force depend du rayon de courbure($R$), nomre de Bond($B$), Sigma($\Sigma$), longueur capillaire($L_c$) et de la distance entre deux points($l$) de force et tout ces parametres peuvent etre trouver pour le bord. Pour la force appliquée par les bords sur les objets nous avons, à la place de calculer les forces à chaque point du cercle, opté d'utiliser la symétrie dun cercle. Nous avons remarqué que la plupart des forces s'annulent entre elles (en gris) et il nous reste seulement deux forces (en rouge) qui interagissent comme le montre la figure\ref{fig:Force_Bord_schéma}. Les seuls paramètres à changer sont le nombre de Bond et l'angle de contact, que nous prenons à 45 degré, angle du ménisque formé par l'eau dans un récipient en verre. 
             % Pour la force appliquée par les bords sur les objets nous avons décidé de ne pas calculer les forces de chaque point du bord, au lieu de cela nous avons utilisé la symétrie d'un cercle (nos bords étant un cercle). Seulement deux forces de bords vont s'appliquer sur un objet, les autres s'annulant par symétrie, comme le montre la figure \ref{fig:Force_Bord_schéma}
             % \begin{figure}[H]%[!htb]
             %     \centering
