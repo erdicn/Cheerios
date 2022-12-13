@@ -54,7 +54,7 @@
     %     \label{fig:simul_contact}
     % \end{figure}
 
-    \begin{figure}%
+    \begin{figure}[H]
         \centering
         \subfloat[\centering Simulation]{{\includegraphics[height=5.5cm]{visualisation3_1000_init.pdf}}}%
         \qquad
@@ -62,8 +62,8 @@
         \caption{A 5 secondes}%
         \label{fig:example}%
     \end{figure}
-    % Ca marche ? non
-    \begin{figure}%
+    % % Ca marche ? non
+    \begin{figure}[H]
         \centering
         \subfloat[\centering Simulation]{{\includegraphics[height=5.5cm]{visualisation3_1000_pres.pdf}}}%
         \qquad
@@ -71,18 +71,19 @@
         \caption{A 40 secondes}%
         \label{fig:examplee}%
     \end{figure}
-    \begin{figure}%
+    \begin{figure}[H]
         \centering
         \subfloat[\centering Simulation]{{\includegraphics[height=5.5cm]{visualisation3_1000_contact.pdf}}}%
         \qquad
         \subfloat[\centering Vrai vie]{{\includegraphics[width=5cm]{45sec.png}}}%
-        \caption{A 45 secondes}%
+        \caption{A 45 secondes, la collision en vrai vie se passe en 55 secondes}%
         \label{fig:examples}%
     \end{figure}
     
     Dans ces Figures, nous pouvons visualiser que la simulation n'est pas parfaite car il y a quelques différences avec les vidéos. L'une des raisons et que nous ne prenons pas en compte les légers écoulements d'air qu'il peut y avoir, qui ont des effets importants sur des objets flottants, de par leur faible stabilité. Néanmoins, nous pouvons être satisfait du résultat de nos simulations.
     
     %\includemovie{8cm}{6cm}{Figures/visualisationLongPrecis.gif}
-\twocolumn
 \section*{Conclusion}
     Pour conclure, nous avons réussi à analyser un problème de mécanique afin de créer une simulation de cet effet. Nous avons analysé le problème physique et l'avons résolu. Notre algorithme est fonctionnel et donne des résultats concluants. Cependant, notre code est fonctionnel jusqu'à une certaine durée. Après un certain temps la simulation devient instable. Néanmoins, nous avons su surpasser beaucoup de problème durant ce projet et nous avons pu développer nos techniques en programmation et notre savoir en mécanique des fluides, notamment avec notre recherche bibliographique qui eut une place importante dans ce projet. 
+
+
