@@ -6,6 +6,7 @@
         "lecture_ecriture.h": "c",
         "*.tcc": "c",
         "type_traits": "c",
-        "calculs.h": "c"
+        "calculs.h": "c",
+        "cmath": "c"
     }
 }

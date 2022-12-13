@@ -26,7 +26,7 @@ void VoirSiNotreLectureABienMarche(cheerio_t* cheerios, int nb_cheerios, long in
 	printf("%lf %lf %lf %lf %lf %lf %lf %lf\n", bord->rayon, bord->centre.x, bord->centre.y, bord->rho, bord->angle_contact, bord->Bond_nb, bord->rayon_courbure, bord->Sigma);
     int nb_print = nb_cheerios > 10 ? 10 : nb_cheerios; // Si on a beaucoup de cheerios on n'afiche pas tout, on check maximum les 10 premiers et on assume que si les 10 premiers ont bien fonctioné les autres fonctionnent aussi.
     for(int i = 0; i < nb_print; i++){
-        printf("%lf %lf dia=%lf %lf %lf %lf R_c=%lf B=%lf %lf° S=%lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].diametre_cheerio, cheerios[i].v.x, cheerios[i].a.x,
+        printf("%lf %lf dia=%lf %lf %lf %lf R_c=%lf B=%lf %lf° Sig=%lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].diametre_cheerio, cheerios[i].v.x, cheerios[i].a.x,
                                                     cheerios[i].masse, cheerios[i].rayon_courbure, cheerios[i].Bond_nb, cheerios[i].angle_contact*180/M_PI, cheerios[i].Sigma);
     }
 }

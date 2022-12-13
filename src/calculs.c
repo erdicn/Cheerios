@@ -156,16 +156,11 @@ void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary
         cheerios[i].Bond_nb = CalculLinearBondNumber(cheerios[i].rayon_courbure, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
         tmp_B = cheerios[i].Bond_nb;
         tmp_abs_B = fabs(tmp_B);
-        if ( tmp_abs_B < 1 ){  
-            cheerios[i].angle_contact = asin(tmp_B);
-            if (tmp_abs_B < 0.63) // sinon angle de contact nest pas officelement definie
-                cheerios[i].angle_contact = M_PI - asin(M_PI_2 * tmp_B);
-        } else { // si cest plus grand que 0.63 angle de contact nest pas definie
+        cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);     // TODO expliquer pq on prends comme ca pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;    faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
+        if(isnan(cheerios[i].angle_contact)){
             cheerios[i].angle_contact = 0;
-            error++;
         }
-        tmp_theta = cheerios[i].angle_contact;
-        cheerios[i].Sigma = CalculSigma(rho_cheerio, rho_liq, tmp_theta);
+        cheerios[i].Sigma = CalculSigma(rho_cheerio, rho_liq, cheerios[i].angle_contact);
     }
     if(error){
         printf("WARNING angle de contact experimental\n");
