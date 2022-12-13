@@ -112,13 +112,12 @@
             \label{eq:cos_angle_contact}
         \end{equation}
         Ou $\gamma_{SV,SL,LV}$ est la tension superficielle des interfaces Solide/Vapeur, Solide/Liquide et Liquide/Vapeur.
-        Avec $\arctan z_c^{'} = \sin^{-1}\left(\frac{\pi}{2}B\right)$ \cite{lattice_boltzmann_caplilary_interaction}. 
         
-        De ici on a besoin des tension superficielle expérimentale de chaque milieu ($\gamma_{SV, SL, LV}$) equation \ref{eq:cos_angle_contact} mais comme on a pas les valeurs expérimentale pour chaque objet par rapport aux milieux 
+        Avec $\arctan z_c^{'} = \sin^{-1}\left(\frac{\pi}{2}B\right)$ \cite{lattice_boltzmann_caplilary_interaction}. De là, nous avons besoin des tensions superficielles expérimentales de chaque milieu ($\gamma_{SV, SL, LV}$) equation \ref{eq:cos_angle_contact} mais comme nous n'avons pas les valeurs expérimentales pour chaque objet par rapport aux milieux nous avons déterminer $\theta$ avec le nombre de Bond, ce qui nous donne un approximation tel que :
         \begin{equation}
             \theta \simeq \pi - \arctan z_c^{'}
         \end{equation}
-        Qui nous donne un approximation
+        
         % \begin{equation}
         %     \phi_c = \sin^{-1}\left(\frac{\pi}{2}B\right) = \pi - \theta + \arctan z_c^{'}
         %     \label{eq:phi}
@@ -164,17 +163,22 @@
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % To calculate the interaction energy using the Nicolson approximation, we must also calculate the interfacial displacement caused by an isolated floating sphere, which is determined by the hydrostatic balance \(\gamma\nabla^2h = \rho gh -\) the co-ordinate invariant statement of equation (1). With the assumption of cylindrical symmetry, this becomes:
-        TODO EST QUEE CEST POSSIBLE DE METTRE UNE FIGURE ICI DUN TUBE AVEC DE LEAU QUE ON VOIS CEST QUOI H ET X ?
-        Nous savons le déplacement interfacial\cite{introfluidcambridge} qui est:
+        \begin{figure}[!htb]
+            \centering
+            \includegraphics[width=0.4\textwidth]{schéma_plaque_hx.tikz}
+            \caption{Schéma représentant deux plaques de longueur infinie dans un fluide semi-infinie.}
+            \label{fig:h_and_x}
+        \end{figure}
+         Ensuite nous avons le déplacement interfacial\cite{introfluidcambridge} qui est:
         \begin{equation}
             \gamma \frac{\dd^2h}{\dd x^2} = \rho_l g h
         \end{equation}
-        Si nous prenons en compte que l'objet a une symétrie sphérique
+        Si nous prenons en compte que l'objet a une symétrie sphérique nous obtenons :
         \begin{equation}
             \Rightarrow \frac{1}{r} \frac{\dd}{\dd r} \left( r\frac{\dd h}{\dd r}\right) = \frac{h}{L_c^2}
         \end{equation}
-        EN FAITE LASSOCIATIONAU FONCTION BESSEL CA VA MAIS JE SAIS PAS COMMENT PARTIR DE EQUATIONAVEC GAMMA ET DEDUIR UNE SYMETHRIE SPHERIQUE????\\
-        Nous pouvons déduire une solution de cette équation avec la fonction de Bessel modifié à l'ordre 0 \cite{introbessel} $(K_0\left(\frac{l}{L_c}\right))$.
+        % EN FAITE LASSOCIATIONAU FONCTION BESSEL CA VA MAIS JE SAIS PAS COMMENT PARTIR DE EQUATIONAVEC GAMMA ET DEDUIR UNE SYMETHRIE SPHERIQUE????\\
+        Nous pouvons en déduire une solution de cette équation avec la fonction de Bessel modifié à l'ordre 0 \cite{introbessel} $(K_0\left(\frac{l}{L_c}\right))$.
 
         \begin{figure}[H]
             \centering
