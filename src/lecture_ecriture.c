@@ -4,6 +4,7 @@
 #include <time.h>
 #include <math.h>
 #include "cheerios.h"
+#include "calculs.h"
 
 
 // Permet d'afficher une barre de progression lorsque le programme s'exécute. 
@@ -73,10 +74,11 @@ void PutRandomData(bord_t bord,cheerio_t cheerio_moyenne , cheerio_t *cheerios, 
 	time_t t1;				
 	vec2_t vec_nulle = {.x = 0, .y = 0};     
 	srand((unsigned) time (&t1));
+	double rho_cheerio = cheerio_moyenne.masse/CalculVolumeSphere(cheerio_moyenne.diametre_cheerio);
 	for(int i = 0; i < nb_cheerios; i++){
-		cheerios[i].diametre_cheerio = cheerio_moyenne.diametre_cheerio;//RandomAtAInterval(cheerio_moyenne.diametre_cheerio/2, cheerio_moyenne.diametre_cheerio+ cheerio_moyenne.diametre_cheerio/2);
+		cheerios[i].diametre_cheerio = cheerio_moyenne.diametre_cheerio;
 		cheerios[i].rayon_courbure = cheerios[i].diametre_cheerio/2;
-		cheerios[i].masse = RandomAtAInterval(cheerio_moyenne.masse/2, cheerio_moyenne.masse + cheerio_moyenne.masse/2);
+		cheerios[i].masse = rho_cheerio*CalculVolumeSphere(cheerios[i].diametre_cheerio);
 		cheerios[i].pos.x = RandomAtAInterval(carre.xmin, carre.xmax);
 		cheerios[i].pos.y = RandomAtAInterval(carre.ymin, carre.ymax); 
 		cheerios[i].v          = vec_nulle;//cheerio_moyenne.v;//vec_nulle;

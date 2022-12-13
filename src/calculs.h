@@ -23,6 +23,7 @@ double EnergiePotentielleEntreDeuxParicles(double surface_tension, double rayon_
 double ForceBetweenTwoInteractingParticles(double surface_tension, double rayon_courbure, double Bond_nb, 
                                             double Sigma, double distance, double capilary_length);
 vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length);
+double CalculVolumeSphere(double d);
 void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary_length, double rho_liq, double rho_cheerio, bord_t* bord);
 
 #endif // CALCULS_H

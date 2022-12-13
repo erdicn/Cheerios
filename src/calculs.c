@@ -139,9 +139,16 @@ vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double 
     return VecAdition(Force1, Force2);
 }
 
+// retourne le volume dun sphere avec un diametre d
+double CalculVolumeSphere(double d){
+    return 4./3. * M_PI * sq(d/2.);
+}
+
+
 // Initialise les valeurs du nombre de Bond et de Sigma pour tous les objets.
 void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary_length, double rho_liq, double rho_cheerio, bord_t* bord){
-    double tmp_B, tmp_theta, tmp_abs_B, error = 0;
+    double tmp_B, tmp_theta, tmp_abs_B;
+    int error = 0;
     // Nous calculons d'abord pour le bord.
     bord->Bond_nb = CalculLinearBondNumber(bord->rayon_courbure, capilary_length);
     bord->Sigma = CalculSigma(bord->rho, rho_liq, bord->angle_contact);
@@ -154,16 +161,16 @@ void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary
         if ( tmp_abs_B < 1 ){  
             cheerios[i].angle_contact = asin(tmp_B);
             if (tmp_abs_B < 0.63) // sinon angle de contact nest pas officelement definie
-                cheerios[i].angle_contact =M_PI - asin(M_PI_2 * tmp_B);
+                cheerios[i].angle_contact = M_PI - asin(M_PI_2 * tmp_B);
         } else { // si cest plus grand que 0.63 angle de contact nest pas definie et les objets ne bouge pas => pour cela on a mis une valeur normalise pour avoir de laction
-            cheerios[i].angle_contact =M_PI - asin(fmod(M_PI_2 *tmp_B, 1));
+            cheerios[i].angle_contact =M_PI -  asin(fmod(M_PI_2 *tmp_B, 1));
             error++;
         }
         tmp_theta = cheerios[i].angle_contact;
         cheerios[i].Sigma = CalculSigma(rho_cheerio, rho_liq, tmp_theta);
     }
     if(error){
-        printf("Warning angle de contact experimental\n");
+        printf("WARNING angle de contact experimental\n");
     }
 }
 
