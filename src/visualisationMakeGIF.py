@@ -46,20 +46,7 @@ ax.set_ylim([bord_centre[1]-1.1*rayon_bord, bord_centre[1]+1.1*rayon_bord])
 ax.set_title("Positions des cheerios au cours du temps")
 ax.set_xlabel("m")
 ax.set_ylabel("m")
-# Pour visualiser les debuts des experiences
 
-# exp4_x = [0.1069764575751341 , 0.09888094186674559,0.08442466381605179]
-# exp4_y = [0.11290353157591865,0.08283447323047555,0.13400969752993158]
-# ax.scatter(exp4_x, exp4_y)
-# exp3_x = [0.12598498666134594,0.10943857136250557]
-# exp3_y = [0.1087128513932582,0.1426765459540358]
-# ax.scatter(exp3_x, exp3_y)
-# exp2_x = [0.12459489027528355, 0.08089261749579967]
-# exp2_y = [0.10968981048625426, 0.14268357933963946]
-# ax.scatter(exp2_x, exp2_y)
-# exp1_x = [0.07656277690458123, 0.13247683786691467]
-# exp1_y = [0.11147932954905487, 0.0871436760732206 ]
-# ax.scatter(exp1_x, exp1_y)
 
 def init():
     for i in range(len(patches)-1):
@@ -84,5 +71,6 @@ if augmentation == 0: augmentation = 1
 anim = animation.FuncAnimation(fig, animate, init_func=init, frames= [i for i in range(0, len(T) , augmentation)]
                                , interval=1, blit=False#, repeat = True 
                                )
-anim.save("visualisationLongPasDutoutPreci" + fichier_donnees[-5]+"_"+str(augmentation)+".gif", fps=100, dpi=200)
+#anim.save("visualisationLongPasDutoutPreci" + fichier_donnees[-5]+"_"+str(augmentation)+".gif", fps=100, dpi=200)
+anim.save('visualisation.gif', fps=100, dpi=200)
 #plt.show()
