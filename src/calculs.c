@@ -1,6 +1,7 @@
-#include "cheerios.h"
+#include <stdio.h>
 #include <math.h>
 #include <gsl/gsl_sf_bessel.h>
+#include "cheerios.h"
 
 
 // Retourne le carré de x.
@@ -39,8 +40,16 @@ double CalculNorme(vec2_t vec){
     return sqrt(sq(vec.x) + sq(vec.y));
 }
 
+// Retourne le produit scalaire de v1 avec v2
 double ProduitScalaire(vec2_t v1, vec2_t v2){
     return v1.x*v2.x + v1.y*v2.y;
+}
+
+// Retourne le vecteur vec tourné d'un angle "angle" en radian dans le sens trigonomètrique.
+vec2_t CalculRotatedVec(vec2_t vec, double angle){
+    vec2_t new_vec = {.x = vec.x * cos(angle) - vec.y * sin(angle),
+                      .y = vec.x * sin(angle) + vec.y * cos(angle)};
+    return new_vec;
 }
 
 // Retourne le vecteur unitaire du sens entre 1 et 2.
@@ -55,15 +64,19 @@ double CalculDistance(vec2_t pos1, vec2_t pos2){
     return sqrt(sq(pos2.x - pos1.x) + sq(pos2.y - pos1.y)) ;
 }
 
-// TODO je sais pas si le bond number ca marche quand cest plus grand que 0.3
+// retourne la longueur capilaire du liquide 
+double CalculLongeurCapilaire(double surface_tension_liq_air, double rho_liq, double rho_air, double g){
+    return sqrt(surface_tension_liq_air/(fabs(rho_liq-rho_air)*g));
+}
+
 /**
  * @brief Retourne le nombre de Bond.
  * 
  * @param rho_liquide Masse volumique du liquide
  * @param rho_air Masse volumique de l'air
- * @param R Rayon de courbure entre le liquide et l'objet // TODO vérifier avec Erdi
+ * @param R Rayon de courbure entre le liquide et l'objet
  * @param gamma Tension de surface
- * @param g Intensité de la pesanteur // TODO vérifier avec Erdi
+ * @param g acceleration de la pesanteur 
  * @return double
  */
 double CalculBondNumber(double rho_liquide, double rho_air, 
@@ -97,15 +110,8 @@ double CalculSigma(double rho_flottant, double rho_liquide, double theta){
     return ((2*D-1) / 3.0) - 0.5*cos(theta) + (1/6.0)*cb(cos(theta));
 }
 
-// Pour linstant nous ne l'utilison pas
-// Retourne l'énergie potentielle entre deux objets.
-double EnergiePotentielleEntreDeuxParicles(double surface_tension, double rayon_courbure, double Bond_nb, 
-                                            double Sigma, double distance, double capilary_length){
-    return -2*M_PI*surface_tension*rayon_courbure*sqrt(pow(Bond_nb,5))*sq(Sigma)*gsl_sf_bessel_K0(distance/capilary_length);
-}
-
 /**
- * @brief 
+ * @brief Retourne fa puissance de la force applique par l'objet
  * 
  * @param surface_tension 
  * @param rayon_courbure 
@@ -121,8 +127,7 @@ double ForceBetweenTwoInteractingParticles(double surface_tension, double rayon_
     return -2*M_PI*surface_tension*rayon_courbure*sqrt(pow(Bond_nb,5))*sq(Sigma)*gsl_sf_bessel_K1(distance/capilary_length);
 }
 
-
-// Retourne la force émise par les bords sur une particule. // TODO à vérifier si cela fonctionne correctement.
+// Retourne la force émise par les bords sur une particule. 
 vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length){
 
     double dist_cheerio_centre = CalculDistance(cheerio.pos, bord.centre);
@@ -133,32 +138,37 @@ vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double 
     return VecAdition(Force1, Force2);
 }
 
+// retourne le volume dun sphere avec un diametre d
+double CalculVolumeSphere(double d){
+    return 4./3. * M_PI * sq(d/2.);
+}
 
-
-// // Retourne l'énergie cinétique d'un objet
-// double CalculEnergieCinetique(cheerio_t* cheerio){
-//     cheerio->E.Ec = 0.5*cheerio->m*sq(CalculNorme(cheerio->v));
-//     return cheerio->E.Ec;
-// }
-
-// // Retourne l'énergie mécanique d'un objet.
-// double CalculEnergieMecanique(cheerio_t* cheerio){
-//     cheerio->E.Em = cheerio->E.Ec + cheerio->E.Ep;
-//     return cheerio->E.Em;
-// }
 
 // Initialise les valeurs du nombre de Bond et de Sigma pour tous les objets.
 void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary_length, double rho_liq, double rho_cheerio, bord_t* bord){
-    double tmp_B, tmp_theta;
+    // int error = 0;
     // Nous calculons d'abord pour le bord.
     bord->Bond_nb = CalculLinearBondNumber(bord->rayon_courbure, capilary_length);
     bord->Sigma = CalculSigma(bord->rho, rho_liq, bord->angle_contact);
     // Maintenant nous le faisons pour tous les cheerios.
-    for(int i = 0; i < nb_cheerios; i++){
+    for(int i = 0; i < nb_cheerios; i++){                                                         // linBondnb = BondNumber dans le cas de nos simulations, si ils sont pas egale ces cas sont hors du sujet de la simulation
         cheerios[i].Bond_nb = CalculLinearBondNumber(cheerios[i].rayon_courbure, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
-        tmp_B = cheerios[i].Bond_nb;
-        cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);    //M_PI_2 *  // dans larticle ils mets ca mais si nous on le mets ca depase la limite de arcsin [-1,1]                                                  // TODO pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;                                                        // TODO faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
-        tmp_theta = cheerios[i].angle_contact;
-        cheerios[i].Sigma = CalculSigma(rho_cheerio, rho_liq, tmp_theta);
+        // U moment nous on essayez determiner langle de contact mais sans valeur experimentale precis cetati un echec
+        // tmp_B = cheerios[i].Bond_nb;
+        // cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : 0;//asin(tmp_B);     // TODO expliquer pq on prends comme ca pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;    faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
+        // if(isnan(cheerios[i].angle_contact)){
+        //     cheerios[i].angle_contact = 0;
+        // }
+        cheerios[i].Sigma = CalculSigma(rho_cheerio, rho_liq, cheerios[i].angle_contact);
     }
+    // if(error){
+    //     printf("WARNING angle de contact experimental\n");
+    // }
+}
+
+// Pour linstant nous ne l'utilison pas
+// Retourne l'énergie potentielle entre deux objets.
+double EnergiePotentielleEntreDeuxParicles(double surface_tension, double rayon_courbure, double Bond_nb, 
+                                            double Sigma, double distance, double capilary_length){
+    return -2*M_PI*surface_tension*rayon_courbure*sqrt(pow(Bond_nb,5))*sq(Sigma)*gsl_sf_bessel_K0(distance/capilary_length);
 }
