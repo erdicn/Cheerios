@@ -108,20 +108,21 @@
 
         Il nous donne la mesure relative de l'importance des effets de gravité et de la tension de surface; si $B$ est tres grand, cela correspond à des particules grandes ou à une tension de surface petite. 
 
-        Pour déterminer $\Sigma$, nous avons besoin de l'angle de contact $\theta$. Pour le trouver nous avons suivi l'article \textit{Lattice Boltzmann Simulation of Capillary Interactions among Colloidal Particles}\cite{lattice_boltzmann_caplilary_interaction} dans le quel ils utilise un angle de contact($\theta$) a satisfier la loi de Young-Dupré supososnt que les particules sont assez petit pour que on puisse negliger les effets de leurs poids sur langle de contact. TODO PAS DU TOUT SUR SI DANS LE NOTRE NOUS AVONS LE DROIT DE FAIRE COMME CA???? (EST QUE ON A UN AUTRE CHOIX ? NOPE :/ DONC ON FAIT TEL QUE CEST NEGLIGABLE DU COUP CEST POUR CA QUE IL NA PAS MARCHE AVEC LES PUNAISES???)
+        Pour déterminer $\Sigma$, nous avons besoin de l'angle de contact $\theta$. Pour le trouver nous avons suivi l'article \textit{Lattice Boltzmann Simulation of Capillary Interactions among Colloidal Particles}\cite{lattice_boltzmann_caplilary_interaction} dans le quel ils utilise un angle de contact($\theta$) a satisfier la loi de Young-Dupré supososnt que les particules sont assez petit pour que on puisse negliger les effets de leurs poids sur langle de contact. %TODO PAS DU TOUT SUR SI DANS LE NOTRE NOUS AVONS LE DROIT DE FAIRE COMME CA???? (EST QUE ON A UN AUTRE CHOIX ? NOPE :/ DONC ON FAIT TEL QUE CEST NEGLIGABLE DU COUP CEST POUR CA QUE IL NA PAS MARCHE AVEC LES PUNAISES???)
         \begin{equation}
             \cos \theta = \frac{\gamma_{SV}-\gamma_{SL}}{\gamma_{LV}}
         \end{equation}
         Ou $\gamma_{SV,SL,LV}$ est la tension superficielle des interfaces Solide/Vapeur, Solide/Liquide et Liquide/Vapeur.
-        et nous n'avons pas pris pour son calcul la masse de l'objet en compte. 
+        et nous n'avons pas pris pour son calcul la masse de l'objet en compte (on se mets a des masses negligables). 
         \begin{equation}
-            \theta + \arctan z_c^{'} - \psi_{eq} = \pi 
+            \theta + \arctan z_c^{'} - \phi_c = \pi 
         \end{equation}
-        Avec $\phi_c = \sin^{-1}\left(\frac{\pi}{2}B\right) $ \cite{lattice_boltzmann_caplilary_interaction}. EST QUE CA PREND LA MASSE EN COMPTE OU PAS ?????? LE BOND NUMBER A G ET RHO DONC JE SUPOSSE OUI ???????
-        \begin{equation}
-            \phi_c = \sin^{-1}\left(\frac{\pi}{2}B\right) = \pi - \theta + \arctan z_c^{'}
-            \label{eq:phi}
-        \end{equation}
+        Avec $\arctan z_c^{'} = \sin^{-1}\left(\frac{\pi}{2}B\right) $ \cite{lattice_boltzmann_caplilary_interaction}. 
+        De ici soit on a besoin de trouver des valeurs experimentale pour determiner langle de contact. Mais comme on peux le voir dans la \ref{eq:ForceInteraction} $\theta \simeq $
+        % \begin{equation}
+        %     \phi_c = \sin^{-1}\left(\frac{\pi}{2}B\right) = \pi - \theta + \arctan z_c^{'}
+        %     \label{eq:phi}
+        % \end{equation}
         % Si on combine les equations \ref{eq:bondsigma} et \ref{eq:phi} on a:
         % \begin{equation}
         %     z_c^{'} \sin \left(\sin^-1\left(\frac{\pi}{2}B\right)\right) = B \Sigma
