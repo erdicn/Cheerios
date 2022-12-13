@@ -154,9 +154,9 @@ void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary
         if ( tmp_abs_B < 1 ){  
             cheerios[i].angle_contact = asin(tmp_B);
             if (tmp_abs_B < 0.63) // sinon angle de contact nest pas officelement definie
-                cheerios[i].angle_contact = asin(M_PI_2 * tmp_B);
+                cheerios[i].angle_contact =M_PI - asin(M_PI_2 * tmp_B);
         } else { // si cest plus grand que 0.63 angle de contact nest pas definie et les objets ne bouge pas => pour cela on a mis une valeur normalise pour avoir de laction
-            cheerios[i].angle_contact = asin(fmod(tmp_B, 1));
+            cheerios[i].angle_contact =M_PI - asin(fmod(M_PI_2 *tmp_B, 1));
             error++;
         }
         tmp_theta = cheerios[i].angle_contact;
