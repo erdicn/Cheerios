@@ -23,7 +23,7 @@
              \mathrm{DL}_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2
              \\+o(\dd t^3)
         \end{equation}
-        L'erreur sur le temps $t_n$ est de l'ordre de $o(e^{Lt_n}\dd t^2)$ avec un ordre de 2\cite{crivelli_stormer-verlet_2008}. Avec $L$ la constante de Lipschitz qui est la mesure du changement maximum dune fonction dans une region dans le quel il est defini.
+        L'erreur sur le temps $t_n$ est de l'ordre de $o(e^{Lt_n}\dd t^2)$ avec un ordre de 2\cite{crivelli_stormer-verlet_2008}. Avec $L$ la constante de Lipschitz qui est la mesure du changement maximum d'une fonction dans une région dans laquelle il est défini.
 
         Notre accélération ne dépendant pas du changement de vitesse mais de l'équation (\ref{eq:ForceInteraction}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant celui de la vitesse car la position prend l'accélération précédente mais la vitesse prend celle précédente et au même moment.
         \begin{equation}
@@ -36,22 +36,19 @@
             \mathrm{DL}_2\vb*{v}(t) = \vb*{v}(t_0) + \vb*{v}^{'}(t_0)(t-t_0) + o((t-t_0)^2)
         \end{equation}
         %Si $t_0$ cest le pas de temps precedent ($t_0 = $) et $\vb'{v}(t)$ l'acceleration, nous avons:
-        De la meme façon que nous avons déterminer la position position ($\vb*{x}(t+dt)$) equation \ref{eq:posx}, nous l''appliquons à la vitesse et nous avons:
+        De la même façon que nous avons déterminer la position ($\vb*{x}(t+dt)$)(\ref{eq:posx}), nous l'appliquons à la vitesse et nous avons:
         \begin{equation}
             \mathrm{DL}_2\vb*{v}(t+\dd t) = \vb*{v}(t) + \vb*{a}(t)(\dd t) + o(\dd t^2)
         \end{equation}
 
         % TODO jai limpression que la formule de bas viens de qqpart mais je sais pas de ou ? peut etre une meilleur approwximation ???????
-        Comme nous connaissons l'accélération au pas de temps suivant et précédent en même temps, nous pouvons avoir une meilleure approximation de notre vitesse en prenant le point au milieu au lieu de prendre uniquement l'accélération précédente. On utilise la velocity-Verlet a la place de Störmer-Verlet car avec cette dernière nous avons besoin des 2 positions précédentes et nous gardions seulement un pas de temps à chaque fois. De plus, les deux méthodes ont une précision similaire.
+        Comme nous connaissons l'accélération au pas de temps suivant et précédent en même temps, nous pouvons avoir une meilleure approximation de notre vitesse en prenant le point au milieu au lieu de prendre uniquement l'accélération précédente. On utilise la \textit{velocity-Verlet} a la place de la \textit{Störmer-Verlet} car avec cette dernière nous avons besoin des 2 positions précédentes et nous gardions seulement un pas de temps à chaque fois. De plus, les deux méthodes ont une précision similaire.
         \begin{equation}
             \label{eq:verletVitesse}
             \vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t 
         \end{equation}
-        % DIRE QQPART QUE ON A PAS PRIS LES FORCES DE FROTTEMENTS CAR DE UN ILS SONT NEGLIGAABLES AU VITESSES QUE ON Y VAS ET DE DEUX SI ON PRENAIT DES FROTTEMENTS NOTRE ACCELERATION DEPENDRAIT DE LA VITESSE ET DANS CES CAS LES EQUATIONS ET LINTEGRATION DE VERLET DEVINES BEAUCOUP TROP COMPLIQUE. FAIT DANS PARTIE CHEERIOS.
 
-        % La raison la quel on a pas utilise la methode de euler meme si on peux avoir limpression que ils sont similaire est que: avec la methode de euler on a pas notre energie conserve et que l'erreur sur les methodes de euler sont plus hautes que celles de verlet. Et a propos de Runge-Kutta la raison la quel on la pas utilise est que meme si la methode Runge-Kutta ordre 4 a un meilleur precission il peux etre discipative a certain cas et prendre plus de calculs  mais il pourait etre quand meme plus precis que lintegration de verlet. Et acote de cela pour limplimentation dans notre cas lintegration de verlet avait laire le plus facile
-        % Verlet le seul a etre time recersible dans cela 
-        Même si la méthode d'Euler et de Verlet paraissent similaire, nous n'avons pas opté pour la méthode d'Euler car avec celle-ci notre énergie n'était pas conservé. De plus, les erreurs sont plus hautes avec la méthode d'Euler qu'avec l'intégration de Verlet. Nous avons également décidé de ne pas opter pour la méthode de Runge-Kutta car par, pouvant être dissipative, elle aurait demandé plus de calcul, malgré sa plus grande précision. Enfin, l'intégration de Verlet était la plus accessible et la seule à être réversible dans le temps\cite{crivelli_stormer-verlet_2008}.
+        Même si la méthode d'Euler et de Verlet paraissent similaire, nous n'avons pas opté pour la méthode d'Euler car avec celle-ci notre énergie n'était pas conservé. De plus, les erreurs sont plus hautes avec la méthode d'Euler qu'avec l'intégration de Verlet. Nous avons également décidé de ne pas opter pour la méthode de Runge-Kutta car, pouvant être dissipative, elle aurait demandé plus de calcul, malgré sa plus grande précision. Enfin, l'intégration de Verlet était la plus accessible et la seule à être réversible dans le temps\cite{crivelli_stormer-verlet_2008}.
         % Euler \(O(h^2)\) order of 1\\
         % Verlet \(O(h^3)\) order of 2\\
         % RK4 \(O()\)
@@ -92,7 +89,7 @@
             \begin{equation}
                 \vb*{v}_B^{'} = \vb*{v}_B + Im_A\vb*{c}
             \end{equation}
-            Avec les primes nos nouveau vitesses. On observe que quand les objets se touchent que ils rebondis pas de eux meme pour cela apres chaque rebond on multiplie la nouvelle vitesse avec un coefficient de collision ($C_{c} ,\;0 \leq C_{c} \leq  1$). Quand $C_{c}$ est egale a 1 on a des colisions elastique parfait et si cest 0 on a des collisions inelastique parfait. Pour determiner ce coefficent nous avons fait des essais et pris le meilleur qui marché. Et nous avons remarqué que plus notre pas de temps ($\dd t$) est petit moins le coefficient de collision est important. En general le $C_c$ peux etre pris entre 0.3 et  0.7.
+            Avec les dérivées de nos nouvelles vitesses. On observe que lorsque les objets se touchent, ils ne rebondissent pas entre eux, pour cela après chaque rebond on multiplie la nouvelle vitesse avec un coefficient de collision ($C_{c} ,\;0 \leq C_{c} \leq  1$). Quand $C_{c}$ est égal à 1 nous avons des collisions élastiques parfaites et s'il vaut 0 nous avons des collisions inélastiques parfaites. Pour determiner ce coefficient nous avons fait des essais et pris celui qui fonctionnait le mieux. Et nous avons remarqué que plus notre pas de temps ($\dd t$) est petit moins le coefficient de collision est important. Généralement, le $C_c$ peut être pris entre 0.3 et  0.7.
             %Ce que Erdi a fait
             % Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
             % Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre eux est plus petite que leur rayons additionnés on dis que il ya une collision et on applique les collisions et la conservation de momentum.

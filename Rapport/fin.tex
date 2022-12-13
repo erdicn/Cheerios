@@ -25,17 +25,19 @@
         %     \item pour linstant on utilise les equations \textit{aproximatives} on peux les essayer de les resoudres sans approximations en utilisant laproximation de Nicholson(fine difference method)
         %     \item le code marche seulement pour les objets ronds faux ajouter une facon plus complexe pour plus de objets
         % \end{itemize}
-        Notre code, actuellement n'est pas optimisé pour déterminer s'il y a des collisions entre les objets. En effet, nous regardons pour chaque objet s'il est en collision avec tous les autres objets présents. Cela nous donne un algorithme qui s'effectue en $O(NT\,n^2)$ ($NT$: nombre de pas de temps total dans la simulation, $n$: nombre d'objet), alors que nous pourrions l'effectuer en $O(NT\, n\log n)$. En utilisant un algorithme plus intelligent. Seul lamelioration dans la detection des collisions ne sufisrait pas car pour calculer les forcees nous aurons quand meme une complexite de  $O(n^2)$ et notre temps de execution de notre programme augmentrait car pour linstant nous faisons les calculs des forces et test des collisions ensemble. Pour attaindre une complexite plus bas on aurait aussi besoin de optimiser les calcul des forces aussi. Pour cela on peux prendre un point dans le quel on peux projeter tout les forces et pour chaque particule prendre la force entre le point oui les forces sont projete. %Nous pouvons potentiellement améliorer l'algorithme en calculant une seule fois la norme ERDI TU VAS DEVOIR MIEUX M4EXPLIQUER CELA C'EST INCOMPREHENSIBLE.
+        Notre code, actuellement n'est pas optimisé pour déterminer s'il y a des collisions entre les objets. En effet, nous regardons pour chaque objet s'il est en collision avec tous les autres objets présents. Cela nous donne un algorithme qui s'effectue en $O(NT\,n^2)$ ($NT$: nombre de pas de temps total dans la simulation, $n$: nombre d'objet), alors que nous pourrions l'effectuer en $O(NT\, n\log n)$. En utilisant un algorithme plus efficace. Seule l'amélioration dans la detection des collisions ne suffirait pas, car pour calculer les forces nous aurons quand meme une complexité de  $O(n^2)$ et notre temps d'exécution de notre programme augmenterait puisque nous faisons les calculs des forces et le test des collisions en même temps. Pour atteindre une complexité plus basse, nous aurons aussi besoin d'optimiser les calculs des forces. Pour cela, nous pouvons prendre un point dans lequel nous pouvons projeter toutes les forces et pour chaque particule prendre la force entre le point où les forces sont projetées.
 
-        Nous utilisons actuellement certaines équations qui sont approximatives, nous pourrions utiliser des équations plus précises comme l'approximation de Nicholson pour trouver un angle de contact plus precis et robuste.
+        Nous utilisons actuellement certaines équations qui sont approximatives, nous pourrions utiliser des équations plus précises comme l'approximation de Nicholson pour trouver un angle de contact plus précis et plus fiable.
 
-        Enfin, notre code fonctionne uniquement avec des objets sphériques de la meme taille. Nous pourrons ajouter les calculs pour différentes formes géométrique.  
+        Enfin, notre code fonctionne uniquement avec des objets sphériques de même taille. Nous pourrons ajouter les calculs pour différentes formes géométrique.
+\newpage
+\onecolumn
 \section{Nos Résultats}
     Pour tester notre programme nous avons fait l'expérience en vrai. Nous avons mis différents objets sphériques dans un bol rempli d'eau et nous avons filmer leurs mouvements. Nous avons ensuite analysé leurs coordonnées initiales avec Tracker et nous les avons implémentées dans notre code. Nous avons pu, après cela, analyser les différences entre la réalité et notre simulation. Voici sur les Figures suivantes nos comparaisons pour l'une d'elles.
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.4\textwidth, angle = 270]{visualisation3_1000_init.pdf}
+        \includegraphics[width=0.4\textwidth]{visualisation3_1000_init.pdf}
         \caption{Image de notre simulation lorsque les objets sont à leurs positions originales}
         \label{fig:simul_init}
     \end{figure}
@@ -51,7 +53,55 @@
         \caption{Image de notre simulation lorsque les objets se touchent}
         \label{fig:simul_contact}
     \end{figure}
+
+    \begin{figure}
+        \centering
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=.4\linewidth]{visualisation3_1000_init.pdf}
+            \caption{Image de notre simulation lorsque les objets sont à leurs positions originales}
+        \end{subfigure}%
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=.4\linewidth]{5sec.jpg}
+            \caption{Vraie vie en 5s}
+        \end{subfigure}
+        \caption{A figure with two subfigures}
+    \end{figure}
     
+    \begin{figure}
+        \centering
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=.4\linewidth]{visualisation3_1000_init.pdf}
+            \caption{Image de notre simulation lorsque les objets sont à leurs positions originales}
+        \end{subfigure}%
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=.4\linewidth]{millieu.jpg}
+            \caption{Vraie vie en 5s}
+        \end{subfigure}
+        \caption{A figure with two subfigures}
+    \end{figure}
+
+    \begin{figure}
+        \centering
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=.4\linewidth]{visualisation3_1000_contact.pdf}
+            \caption{Image de notre simulation lorsque les objets se touchent}
+        \end{subfigure}%
+        \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=.4\linewidth]{45sec.jpg}
+            \caption{Vraie vie en 5s}
+        \end{subfigure}
+        \caption{A figure with two subfigures}
+    \end{figure}
     
+    Dans ces Figures, nous pouvons visualiser que la simulation n'est pas parfaite car il y a quelques différences avec les vidéos. L'une des raisons et que nous ne prenons pas en compte les légers écoulements d'air qu'il peut y avoir, qui ont des effets importants sur des objets flottants, de par leur faible stabilité. Néanmoins, nous pouvons être satisfait du résultat de nos simulations.
+    
+    %\includemovie{8cm}{6cm}{Figures/visualisationLongPrecis.gif}
+\twocolumn
 \section*{Conclusion}
-    Pour conclure, nous avons réussi à analyser un problème de mécanique afin de créer une simulation de cet effet. Nous avons analysé le problème physique et l'avons résolu. Notre algorithme est fonctionnel et donne des résultats concluants. Cependant, notre code est fonctionnel jusqu'à une certaine durée. Après un certain temps la simulation devient instable. Néanmoins, nous avons su surpasser beaucoup de problème durant ce projet et nous avons pu développer nos techniques en programmation et notre savoir en mécanique des fluides, notamment avec notre recherche bibliographique qui eut une place importante dans ce projet 
+    Pour conclure, nous avons réussi à analyser un problème de mécanique afin de créer une simulation de cet effet. Nous avons analysé le problème physique et l'avons résolu. Notre algorithme est fonctionnel et donne des résultats concluants. Cependant, notre code est fonctionnel jusqu'à une certaine durée. Après un certain temps la simulation devient instable. Néanmoins, nous avons su surpasser beaucoup de problème durant ce projet et nous avons pu développer nos techniques en programmation et notre savoir en mécanique des fluides, notamment avec notre recherche bibliographique qui eut une place importante dans ce projet. 
