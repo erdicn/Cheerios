@@ -109,14 +109,16 @@
         Pour déterminer $\Sigma$, nous avons besoin de l'angle de contact $\theta$. Pour le trouver nous avons suivi l'article \textit{Lattice Boltzmann Simulation of Capillary Interactions among Colloidal Particles}\cite{lattice_boltzmann_caplilary_interaction} dans lequel ils utilisent un angle de contact($\theta$) satisfiant la loi de Young-Dupré supposant que les particules sont assez petites pour que nous puissions négliger les effets de leurs poids sur l'angle de contact. %TODO PAS DU TOUT SUR SI DANS LE NOTRE NOUS AVONS LE DROIT DE FAIRE COMME CA???? (EST QUE ON A UN AUTRE CHOIX ? NOPE :/ DONC ON FAIT TEL QUE CEST NEGLIGABLE DU COUP CEST POUR CA QUE IL NA PAS MARCHE AVEC LES PUNAISES???)
         \begin{equation}
             \cos \theta = \frac{\gamma_{SV}-\gamma_{SL}}{\gamma_{LV}}
+            \label{eq:cos_angle_contact}
         \end{equation}
         Ou $\gamma_{SV,SL,LV}$ est la tension superficielle des interfaces Solide/Vapeur, Solide/Liquide et Liquide/Vapeur.
-        et nous n'avons pas pris pour ce calcul la masse de l'objet en compte.
+        Avec $\arctan z_c^{'} = \sin^{-1}\left(\frac{\pi}{2}B\right)$ \cite{lattice_boltzmann_caplilary_interaction}. 
+        
+        De ici on a besoin des tension superficielle experimentale de chaque millieu ($\gamma_{SV, SL, LV}$) equation \ref{eq:cos_angle_contact} mais comme on a pas les valeurs experimentale pour chaque objet par rapport aux millieux 
         \begin{equation}
-            \theta + \arctan z_c^{'} - \phi_c = \pi 
+            \theta \simeq \pi - \arctan z_c^{'}
         \end{equation}
-        Avec $\arctan z_c^{'} = \sin^{-1}\left(\frac{\pi}{2}B\right) $ \cite{lattice_boltzmann_caplilary_interaction}. 
-        De ici soit on a besoin de trouver des valeurs experimentale pour determiner langle de contact. Mais comme on peux le voir dans la \ref{eq:ForceInteraction} $\theta \simeq $
+        Qui nous donne un aproxximati
         % \begin{equation}
         %     \phi_c = \sin^{-1}\left(\frac{\pi}{2}B\right) = \pi - \theta + \arctan z_c^{'}
         %     \label{eq:phi}
