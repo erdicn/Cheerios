@@ -3,8 +3,10 @@ import matplotlib.animation as animation
 import numpy as np
 from matplotlib.patches import Circle
 
+fichier_donnees_init = "donnees_initiales.txt"
+fichier_donnees      = "donnees.txt"
 #lis le fichier de donnees initiales pour prendre le dt
-donnees_initiales = list(map(str, open("donnees_initiales.txt", 'rt').readlines()))
+donnees_initiales = list(map(str, open(fichier_donnees_init, 'rt').readlines()))
 donnees_initiales_temps = [i for i in donnees_initiales[1].split()]
 nb_cheerios = int  (donnees_initiales_temps[0])
 NT          = int  (donnees_initiales_temps[1])
@@ -16,7 +18,8 @@ bord_centre = (donnees_bord[1], donnees_bord[2])
 
 
 #lis le fichier colonne par colonne 
-Donnees = np.loadtxt(open("donnees.txt", 'rt').readlines())
+Donnees = np.loadtxt(open(fichier_donnees, 'rt').readlines())
+#Donnees = np.loadtxt(open("Experience1.dat", 'rt').readlines())
 T   = Donnees[:, 0]
 X   = Donnees[:, 1]
 Y   = Donnees[:, 2]
@@ -40,16 +43,23 @@ fig, ax = plt.subplots()
 ax.set_aspect('equal', 'box')
 ax.set_xlim([bord_centre[0]-1.1*rayon_bord, bord_centre[0]+1.1*rayon_bord])
 ax.set_ylim([bord_centre[1]-1.1*rayon_bord, bord_centre[1]+1.1*rayon_bord])
-ax.set_title("Positions des cheerios les axes sont en metre")
+ax.set_title("Positions des cheerios au cours du temps")
+ax.set_xlabel("m")
+ax.set_ylabel("m")
+# Pour visualiser les debuts des experiences
 
-# Frame 578
-ax.scatter([
-    0.07656277690458123	,
-0.13247683786691467	    ,
-0.07656277690458123	     
-], [0.11147932954905487,
-0.0871436760732206 ,
-0.11147932954905487]   , c = "k")
+# exp4_x = [0.1069764575751341 , 0.09888094186674559,0.08442466381605179]
+# exp4_y = [0.11290353157591865,0.08283447323047555,0.13400969752993158]
+# ax.scatter(exp4_x, exp4_y)
+# exp3_x = [0.12598498666134594,0.10943857136250557]
+# exp3_y = [0.1087128513932582,0.1426765459540358]
+# ax.scatter(exp3_x, exp3_y)
+# exp2_x = [0.12459489027528355, 0.08089261749579967]
+# exp2_y = [0.10968981048625426, 0.14268357933963946]
+# ax.scatter(exp2_x, exp2_y)
+# exp1_x = [0.07656277690458123, 0.13247683786691467]
+# exp1_y = [0.11147932954905487, 0.0871436760732206 ]
+# ax.scatter(exp1_x, exp1_y)
 
 def init():
     for i in range(len(patches)-1):
@@ -69,8 +79,8 @@ def animate(i):
             patches[p].radius = D[p+i]/2
         time_text.set_text(time_template % (T[i]*dt))
     return patches
-                                                                #[i for i in range(0,NT, 10)] ou NT
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames= [i for i in range(0, len(T) ,  int(1/(dt*10)))]
+augmentation = 1000#int(1/(dt*10))                                       #[i for i in range(0,NT, 10)] ou NT
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames= [i for i in range(0, len(T) , augmentation)]
                                , interval=1, blit=False#, repeat = True 
                                )
 #anim.save('visualisation.gif', fps=100, dpi=200)

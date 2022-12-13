@@ -23,8 +23,8 @@ void Simulate(char* fichier_donnees_initiales, char* fichier_donnees);
 
 int main(){
     gsl_set_error_handler_off(); // Car si on ne le désactive pas, on peux avoir des underflow et ça veux juste dire que notre résultat est plus précis que ce que nous pouvons afficher, mais pour notre application une précision double suffit donc on peux l'arrondir.
-    char fichier_donnees_initiales[30] = "donnees_initiales.txt";
-    char fichier_donnees[30]            = "donnees.txt";
+    char fichier_donnees_initiales[30] =  "donnees_init_exp1.txt"; 
+    char fichier_donnees[30]           =  "Experience1.dat";       
     Simulate(fichier_donnees_initiales, fichier_donnees);
     return 0;
 }
@@ -102,7 +102,7 @@ void Simulate(char* fichier_donnees_initiales, char* fichier_donnees){
 
         // A partir de quel moment on a plus de boost de vitesse pour lecriture 
         // avec 11 1000000 0.001 => chaque iteration ~ 53s, 10 ~ 23s, 100 ~ 23s,  1000 ~ 21s, et si on ecris pas ca prend ~ 20s pour executer
-        if(nt%10 == 0) 
+        if(nt%100 == 0) 
             EcritureData(fichier_donnees, cheerios, nb_cheerios, nt);                             // On fait l'ecriturechawue fois comme ca on a bas besoin de stocker toute les donnees passees. 
     }                  
     free(cheerios);

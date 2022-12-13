@@ -100,11 +100,11 @@ cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* N
 		exit(1);
 	} else {
 		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%s", typeSimulation);
-		double tmp_bord_rayon, tmp_bord_x, tmp_bord_y, tmp_bord_rho, tmp_bord_angle_radian; // TODO ajouter lecture bord 
+		double tmp_bord_rayon, tmp_bord_x, tmp_bord_y, tmp_bord_rho, tmp_angle_contact_radian; // TODO ajouter lecture bord 
 		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%d %ld %lf", nb_cheerios, NT, dt); // la premiere ligne sur le fichier indique le nombre de cheerios(objets flottants)
 		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%lf %lf %lf %lf", rho_liq, rho_air, surface_tension, g);
-        success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%lf %lf %lf %lf %lf", &tmp_bord_rayon, &tmp_bord_x, &tmp_bord_y, &tmp_bord_rho, &tmp_bord_angle_radian);
-		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%lf %lf", &diametre_cheerios, &masse_cheerios);
+        success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%lf %lf %lf %lf", &tmp_bord_rayon, &tmp_bord_x, &tmp_bord_y, &tmp_bord_rho);
+		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%lf %lf %lf", &diametre_cheerios, &masse_cheerios,&tmp_angle_contact_radian);
 		if (!success_scanning){ 
 			printf("Error scanning\n");
 			exit(1);
@@ -113,18 +113,19 @@ cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* N
 		bord->centre.x = tmp_bord_x; 
 		bord->centre.y = tmp_bord_y; 
 		bord->rho = tmp_bord_rho; 
-		bord->angle_contact = tmp_bord_angle_radian;
 		*surface_tension = *surface_tension/1000.; // car on prend les valeurs mN/m
         cheerio_t *cheerios = NULL;
 		cheerios = malloc(sizeof(cheerio_t)* *nb_cheerios);
 		if (typeSimulation[0] == 'R' || typeSimulation[0] == 'r') {
 			cheerio_t cheerio_moyenne;
 			LectureData(fichier_avec_donnees_initiales_cheerios, &cheerio_moyenne, diametre_cheerios, masse_cheerios);
+			cheerio_moyenne.angle_contact = tmp_angle_contact_radian;
 			PutRandomData(*bord, cheerio_moyenne, cheerios, *nb_cheerios);
 			
 		} else {
 			for(int i = 0; i < *nb_cheerios; i++){
 				LectureData(fichier_avec_donnees_initiales_cheerios, &cheerios[i], diametre_cheerios, masse_cheerios);
+				cheerios[i].angle_contact = tmp_angle_contact_radian;
 			}
 		}
 		fclose(fichier_avec_donnees_initiales_cheerios);
