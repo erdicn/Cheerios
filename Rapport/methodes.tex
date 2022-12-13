@@ -1,0 +1,112 @@
+\section{Méthodes numériques et algorithme}
+    \subsection{Integration de Verlet}
+        Pour déterminer nos coordonnées, vitesses et accélérations en fonction du temps nous avons opté pour l'intégration de Verlet. L'intégration de Verlet est un algorithme simple à mettre en place et qui permet de conserver l'énergie dans le système. L'algorithme utilise le développement limité de Taylor de notre vecteur position à l'ordre 3.
+
+        %On prouve lintegration de verlet et montre que on peux lutiliser pour notre probleme
+        %Si on applique le developement limite de x on peux deduir les positions suivant
+        Démonstration du développement limité de Taylor Young de $f(x)$ au point $x_0$\cite{agarwal_introduction_2011} :% TODO citer le livre de introduction a lanalyse complexe et numerique dans la mir 
+        \begin{equation}
+            \mathrm{DL}_n f(x) = \sum_{i=0}^{n}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i+ o((x-x_0)^n)
+        \end{equation}
+        Si on applique le développement limité d'ordre 3 à la position($\vb*{x}(t+\dd t)$) au point $t+\dd t$ on a l'équation suivante avec $t_0$ comme le pas de temps précédent :
+        % On a ca avec le developement limilte a $t$ et $t_0$ cest le pas temps precedent
+        \begin{multline}
+            \mathrm{DL}_3 \vb*{x}(t) = \vb*{x}(t_0)+\vb*{x}^{'}(t_0)(t-t_0)+\frac{\vb*{x}^{''}(t_0)}{2!}(t-t_0)^2 \\+o((t-t_0)^3)
+        \end{multline}
+        Si $t_0$ est le pas de temps précédent, $\vb*{x}^{'}(t)$ la vitesse et $\vb*{x}^{''}(t)$ l'accélération, nous avons :
+        \begin{multline}
+            \mathrm{DL}_3 \vb*{x}(t+\dd t) = \vb*{x}(t)+\vb*{x}^{'}(t)(t+\dd t-t)
+            \\+\frac{\vb*{x}^{''}(t)}{2!}(t+\dd t-t)^2+o((t+\dd t-t)^3)
+            \label{eq:posx}
+        \end{multline}
+        \begin{equation}
+             \mathrm{DL}_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2
+             \\+o(\dd t^3)
+        \end{equation}
+        L'erreur sur le temps $t_n$ est de l'ordre de $o(e^{Lt_n}\dd t^2)$ avec un ordre de 2\cite{crivelli_stormer-verlet_2008}. Avec $L$ la constante de Lipschitz qui est la mesure du changement maximum d'une fonction dans une région dans laquelle il est défini.
+
+        Notre accélération ne dépendant pas du changement de vitesse mais de l'équation (\ref{eq:ForceInteraction}), nous pouvons calculer l'accélération à partir du principe fondamental de la dynamique avec une masse constante. Il est important de faire cela après le calcul de position mais avant celui de la vitesse car la position prend l'accélération précédente mais la vitesse prend celle précédente et au même moment.
+        \begin{equation}
+            \label{PFD}
+            \sum  \vb*{F} = m\vb*{a} \Longrightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}
+        \end{equation}
+
+        Maintenant nous avons la nouvelle position et l'accélération, nous pouvons calculer la nouvelle vitesse de la même façon en utilisant le développement limité de Taylor Young à l'ordre 2.% car après l'accélération nous ne connaissons pas le \textit{jerk} (changement de l'accélération par rapport au temps).
+        \begin{equation}
+            \mathrm{DL}_2\vb*{v}(t) = \vb*{v}(t_0) + \vb*{v}^{'}(t_0)(t-t_0) + o((t-t_0)^2)
+        \end{equation}
+        %Si $t_0$ cest le pas de temps precedent ($t_0 = $) et $\vb'{v}(t)$ l'acceleration, nous avons:
+        De la même façon que nous avons déterminer la position ($\vb*{x}(t+dt)$)(\ref{eq:posx}), nous l'appliquons à la vitesse et nous avons:
+        \begin{equation}
+            \mathrm{DL}_2\vb*{v}(t+\dd t) = \vb*{v}(t) + \vb*{a}(t)(\dd t) + o(\dd t^2)
+        \end{equation}
+
+        % TODO jai limpression que la formule de bas viens de qqpart mais je sais pas de ou ? peut etre une meilleur approwximation ???????
+        Comme nous connaissons l'accélération au pas de temps suivant et précédent en même temps, nous pouvons avoir une meilleure approximation de notre vitesse en prenant le point au milieu au lieu de prendre uniquement l'accélération précédente. On utilise la \textit{velocity-Verlet} a la place de la \textit{Störmer-Verlet} car avec cette dernière nous avons besoin des 2 positions précédentes et nous gardions seulement un pas de temps à chaque fois. De plus, les deux méthodes ont une précision similaire.
+        \begin{equation}
+            \label{eq:verletVitesse}
+            \vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t 
+        \end{equation}
+
+        Même si la méthode d'Euler et de Verlet paraissent similaire, nous n'avons pas opté pour la méthode d'Euler car avec celle-ci notre énergie n'était pas conservé. De plus, les erreurs sont plus hautes avec la méthode d'Euler qu'avec l'intégration de Verlet. Nous avons également décidé de ne pas opter pour la méthode de Runge-Kutta car, pouvant être dissipative, elle aurait demandé plus de calcul, malgré sa plus grande précision. Enfin, l'intégration de Verlet était la plus accessible et la seule à être réversible dans le temps\cite{crivelli_stormer-verlet_2008}.
+        % Euler \(O(h^2)\) order of 1\\
+        % Verlet \(O(h^3)\) order of 2\\
+        % RK4 \(O()\)
+        % est que on mets ca sur lanexe ?
+        % (voir lanexe pour le developement du calcul) 
+        %        \[DL_3 x(t+\dd t)= x(t)+x^{'}(t)(\dd t)+\frac{x^{''}(t)}{2!}(\dd t)^2\]
+        %= & x(t)+x^{'}(t)(t+\dd t-t)+\frac{x^{''}(t)}{2!}(t+\dd t-t)^2\\
+        %Essai avec $x(t)$\[DL x(t) = x(t_0)+x^{'}(t_0)(t-t_0)+\frac{x^{''}(t_0)(t-t_0)^2}{2!}\]
+    \subsection{Collisions}
+        \subsubsection{Collisions Objet-Objet}
+            %Ce que Baptiste a fait 
+            Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre leurs centres est plus petite que leurs rayons additionnés. Si c'est le cas, nous disons qu'il y a collision entre eux et nous appliquons la collision avec la conservation du momentum. 
+            % TODO peut etre metre une partie de cela dans la subsection conclusions ? 
+            Nous avons mis en place les collisions entre deux objets mais également entre un objet et les bords. Le fonctionnement des collisions entre ces deux cas est très différent. Pour les collisions entre objets, nous prenons dans un premier temps le vecteur normé de collision, dans le sens de objet 1(A) vers objet 2(B):
+            % TODO peut etre preciser que cest pour le calcul de A et pour B il faux le refaire ? ou pas jsp ???
+            \begin{equation}
+                \vb*{c} = \frac{\vb*{AB}}{||\vb*{AB}||} \longrightarrow ||\vb*{c}|| = 1
+            \end{equation}
+            Puis nous calculons la vitesse relative $\vb*{v}_{rel} = \vb*{v}_A - \vb*{v}_B$ pour comprendre comment les 2 objets vont s'affecter. Après cela, nous trouvons la vitesse des objets lors de la collision afin de nous être utile pour déterminer l'impulsion qui suivra la collision :
+            % TODO peut etre preciser que la vitesse de collision nest pas un vecteur ?
+            \begin{equation}
+                v_{col}=\vb*{v_{rel}}\cdot\vb*{c}
+            \end{equation}
+            Nous ajoutons à cette vitesse un coefficient compris entre 0.2 et 0.7 car nous n'avons pas de collisions élastiques parfaites. Il faut cependant faire attention à cette constante; Si elle est trop basse, les objets n'auront pas le rebond nécessaire et vont commencer à s'entrer dedans. Si elle est trop haute, les objets vont, à l'inverse, beaucoup rebondir. Toutefois, plus notre pas de temps est petit, plus ces effets vont disparaître.
+            
+            % TODO pas sur de ici faut tester (note pour moi dans le futur)
+            % Le signe de la vitesse de collision nous donne si les objets viens vers eux($v_{col} > 0$) ou si elle s'éloigne($v_{col} < 0$) car cest possible que quand on a fait la collision pour un objet que on a bien modifie lautre objet aussi donc parfoit on a besoin de faire ca une seule foir et parfois entre temps en faisant tout les collisions il peux revenir. % La phrase na pas de sens jsp ??? J'ai rien compris à cette phrase
+            Le signe de la vitesse de la collision nous précise si les objets s'attirent ($v_{col} > 0$) ou s'ils s'éloignent ($v_{col} < 0$).
+            
+            % TODO peut etre faire un schema pour montrer les vecteurs que on parle ?
+            Si la vitesse de collision est plus grande que 0; nous appliquons la conservation de momentum.
+            \begin{equation}
+                I = \frac{2v_{col}}{m_A + m_B}
+            \end{equation}
+            \begin{equation}
+                \vb*{v}_A^{'} = \vb*{v}_A - Im_B\vb*{c}
+            \end{equation}
+            \begin{equation}
+                \vb*{v}_B^{'} = \vb*{v}_B + Im_A\vb*{c}
+            \end{equation}
+            Avec les dérivées de nos nouvelles vitesses. On observe que lorsque les objets se touchent, ils ne rebondissent pas entre eux, pour cela après chaque rebond on multiplie la nouvelle vitesse avec un coefficient de collision ($C_{c} ,\;0 \leq C_{c} \leq  1$). Quand $C_{c}$ est égal à 1 nous avons des collisions élastiques parfaites et s'il vaut 0 nous avons des collisions inélastiques parfaites. Pour determiner ce coefficient nous avons fait des essais et pris celui qui fonctionnait le mieux. Et nous avons remarqué que plus notre pas de temps ($\dd t$) est petit moins le coefficient de collision est important. Généralement, le $C_c$ peut être pris entre 0.3 et  0.7.
+            %Ce que Erdi a fait
+            % Expliquer comment on a deduit que les collisions etait des collisions inelastic parfait et metre les equations utilise
+            % Pour les collisions, nous sommes partis sur un modèle assez simple qui itère chaque objet et regarde si la distance entre eux est plus petite que leur rayons additionnés on dis que il ya une collision et on applique les collisions et la conservation de momentum.
+            
+
+        \subsubsection{Collision des bords}
+            \begin{wrapfigure}{r}{0.25\textwidth}
+                \centering
+                \includegraphics[width = 0.13\textwidth]{rebond.tikz}
+                \caption{Schéma d'un rebond d'un objet sur un bord}
+            \end{wrapfigure}
+            Pour les collisions de bord on a fait tel que si notre objet dépassait le bord de très peu nous inversions le vecteur vitesse par rapport a la normale. Et apres nous multiplions ce vecteur par un coefficient de collision, $0 \leq C_c \leq 1$, qui simule l’absorption de l'énergie a chaque collision. \\
+            % TODO la fiqure ici cest broullion objective de montrer la norme tangent et la vitesse
+            \begin{equation}
+                \vb*{v} = (\vb*{v}\cdot\vb*{n})\vb*{n} +(\vb*{v}\cdot\vb*{t})\vb*{t}
+            \end{equation}
+            Nous inversons le coefficient de la normale pour le faire `rebondir'
+            \begin{equation}
+                \Rightarrow\vb*{v}^{'} = -(\vb*{v}\cdot\vb*{n})\vb*{n} + (\vb*{v}\cdot\vb*{t})\vb*{t}
+            \end{equation}

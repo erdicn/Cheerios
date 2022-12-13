@@ -13,3 +13,6 @@ clean:
 	rm -rf *.bcf
 	rm -rf *.blg
 	rm -rf *run.xml
+	rm -rf *.toc
+	rm -rf *.lot
+	rm -rf *.lof
