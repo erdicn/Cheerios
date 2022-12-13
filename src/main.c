@@ -31,23 +31,23 @@ int main(){
 
 void Simulate(char* fichier_donnees_initiales, char* fichier_donnees){
     // Initialisation des variables 
-    double rho_liq = 1000., rho_air = 1.1, rho_cheerio = 24.;                   // masses volumiques en kg/m^3
+    double rho_liq = 1000., rho_air = 1.1, rho_cheerio;                   // masses volumiques en kg/m^3
     double surface_tension_liq_air = 71.99 / 1000.;                             // tension de surface (gamma) pour l'eau : gamma = 72 mN/m = 72/1000 N/m 
     double g = 9.81;                                                            // Constante de l'intensité de la pesanteur terrestre.
     long int NT;                                                                // nombre de pas de temps 
     double dt;
     int nb_cheerios;
     bord_t bord;
-
     cheerio_t *cheerios= NULL;                                                  // notre tableaux de cheerios.
     // Lecture du fichier de données initiales, fichier de données finales et initialisation des cheerios.
     cheerios = LectureTouteCheerios(fichier_donnees_initiales, 
                                         &nb_cheerios, &NT, &dt, 
-                                            &rho_liq, &rho_air, &rho_cheerio, &surface_tension_liq_air, &g, 
+                                            &rho_liq, &rho_air, &surface_tension_liq_air, &g, 
                                                 &bord);  
     bord.rayon_courbure = cheerios[0].rayon_courbure; // on initialise le rayon du bord au 1er cheerio 
     double capilary_length =  CalculLongeurCapilaire(surface_tension_liq_air, 
                                                         rho_liq, rho_air, g);// capilary lenght = L_c ≡ sqrt(γ/(𝜌*g))  γ = gamma = surface tension//2.7 / 1000; // L_c of water = 2.7 mm
+    rho_cheerio = cheerios[0].masse / CalculVolumeSphere(cheerios[0].diametre_cheerio);
     InitialiseBondEtSigma(cheerios, nb_cheerios, capilary_length, rho_liq, rho_cheerio, &bord); // On initialise le nopmbre de Bond et Sigma pour le bord et les cheerios.
     
     VoirSiNotreLectureABienMarche(cheerios, nb_cheerios, NT, dt, rho_liq, rho_air, rho_cheerio, surface_tension_liq_air, g, &bord); // Test pour vérifier si la lecture a bien fonctionné.
@@ -69,10 +69,10 @@ void Simulate(char* fichier_donnees_initiales, char* fichier_donnees){
                 if (j != i){                                  // si ce n'est pas le même objet car lobjet n'applique pas de force sur lui même.
                     distance = CalculDistance(cheerios[i].pos, cheerios[j].pos);
                     // Si nos objets sont trop en contact(enfonce entre eux), cela veux dire qu'après un moment notre simulation n'est plus stable donc on termine la simulation
-                    if (Explosion(cheerios[i], cheerios[j], distance)){
-                        printf("\nExplossion a pas temps %ld (%.2lfs)\n", nt, dt*nt);
-                        return;
-                    }
+                    // if (Explosion(cheerios[i], cheerios[j], distance)){
+                    //     printf("\nExplossion a pas temps %ld (%.2lfs)\n", nt, dt*nt);
+                    //     return;
+                    // }
                     // On applique les collisions s'il y en a.
                     if( Collision(distance, cheerios[i].rayon_courbure,
                                                 cheerios[j].rayon_courbure) ){

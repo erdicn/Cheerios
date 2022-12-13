@@ -43,7 +43,13 @@ ax.set_ylim([bord_centre[1]-1.1*rayon_bord, bord_centre[1]+1.1*rayon_bord])
 ax.set_title("Positions des cheerios les axes sont en metre")
 
 # Frame 578
- #ax.scatter([4.385e-2, 5.96e-2 , 8.85e-2], [4.785e-2, 4.040e-2, 5.5e-2]   , c = "k")
+ax.scatter([
+    0.07656277690458123	,
+0.13247683786691467	    ,
+0.07656277690458123	     
+], [0.11147932954905487,
+0.0871436760732206 ,
+0.11147932954905487]   , c = "k")
 
 def init():
     for i in range(len(patches)-1):

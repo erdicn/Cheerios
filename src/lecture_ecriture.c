@@ -22,11 +22,11 @@ void VoirSiNotreLectureABienMarche(cheerio_t* cheerios, int nb_cheerios, long in
                                         double rho_cheerio, double surface_tension, double g,
 											bord_t *bord){
     printf("%ld %d %lf\n", NT, nb_cheerios, dt);
-    printf("%lf %lf %lf %lf %lf\n", rho_liq, rho_air, rho_cheerio, surface_tension, g);
-	printf("%lf %lf %lf %lf %lf %lf %lf %lf\n", bord->rayon, bord->centre.x, bord->centre.y, bord->rho, bord->angle_contact, bord->Bond_nb, bord->rayon_courbure, bord->Sigma);
+    printf("rho_l=%lf rho_a=%lf rho_c=%lf surface tension=%lf g=%lf\n", rho_liq, rho_air, rho_cheerio, surface_tension, g);
+	printf("bord:\nr=%lf x=%lf y=%lf rho=%lf %lf° B=%lf R=%lf Sig=%lf\n", bord->rayon, bord->centre.x, bord->centre.y, bord->rho, bord->angle_contact*180/M_PI, bord->Bond_nb, bord->rayon_courbure, bord->Sigma);
     int nb_print = nb_cheerios > 10 ? 10 : nb_cheerios; // Si on a beaucoup de cheerios on n'afiche pas tout, on check maximum les 10 premiers et on assume que si les 10 premiers ont bien fonctioné les autres fonctionnent aussi.
     for(int i = 0; i < nb_print; i++){
-        printf("%lf %lf dia=%lf %lf %lf %lf R_c=%lf B=%lf %lf° Sig=%lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].diametre_cheerio, cheerios[i].v.x, cheerios[i].a.x,
+        printf("%lf %lf dia=%lf v_x=%lf v_y=%lf m=%lf R_c=%lf B=%lf %lf° Sig=%lf\n", cheerios[i].pos.x, cheerios[i].pos.y, cheerios[i].diametre_cheerio, cheerios[i].v.x, cheerios[i].v.y,
                                                     cheerios[i].masse, cheerios[i].rayon_courbure, cheerios[i].Bond_nb, cheerios[i].angle_contact*180/M_PI, cheerios[i].Sigma);
     }
 }
@@ -89,7 +89,7 @@ void PutRandomData(bord_t bord,cheerio_t cheerio_moyenne , cheerio_t *cheerios, 
 // Retourne un tableau de cheerio avec à l'intérieur chaque cheerio avec leurs caractéristique données dans le fichier donnees_initiales.txt
 // Returne l'adresse alouée pour le tableau de cheerios.
 cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* NT, double* dt,
-                                    double* rho_liq, double* rho_air, double* rho_cheerio, double* surface_tension, double* g,
+                                    double* rho_liq, double* rho_air, double* surface_tension, double* g,
 									bord_t *bord){
 	FILE* fichier_avec_donnees_initiales_cheerios = fopen(nom_fichier,"r");
 	int success_scanning = 0;
@@ -102,7 +102,7 @@ cheerio_t* LectureTouteCheerios(char* nom_fichier, int* nb_cheerios, long int* N
 		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%s", typeSimulation);
 		double tmp_bord_rayon, tmp_bord_x, tmp_bord_y, tmp_bord_rho, tmp_bord_angle_radian; // TODO ajouter lecture bord 
 		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%d %ld %lf", nb_cheerios, NT, dt); // la premiere ligne sur le fichier indique le nombre de cheerios(objets flottants)
-		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%lf %lf %lf %lf %lf", rho_liq, rho_air, rho_cheerio, surface_tension, g);
+		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%lf %lf %lf %lf", rho_liq, rho_air, surface_tension, g);
         success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%lf %lf %lf %lf %lf", &tmp_bord_rayon, &tmp_bord_x, &tmp_bord_y, &tmp_bord_rho, &tmp_bord_angle_radian);
 		success_scanning = fscanf(fichier_avec_donnees_initiales_cheerios, "%lf %lf", &diametre_cheerios, &masse_cheerios);
 		if (!success_scanning){ 
