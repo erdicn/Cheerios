@@ -69,7 +69,6 @@ double CalculLongeurCapilaire(double surface_tension_liq_air, double rho_liq, do
     return sqrt(surface_tension_liq_air/(fabs(rho_liq-rho_air)*g));
 }
 
-// TODO je sais pas si le bond number ca marche quand cest plus grand que 0.3
 /**
  * @brief Retourne le nombre de Bond.
  * 
@@ -128,7 +127,7 @@ double ForceBetweenTwoInteractingParticles(double surface_tension, double rayon_
     return -2*M_PI*surface_tension*rayon_courbure*sqrt(pow(Bond_nb,5))*sq(Sigma)*gsl_sf_bessel_K1(distance/capilary_length);
 }
 
-// Retourne la force émise par les bords sur une particule. // TODO à vérifier si cela fonctionne correctement.
+// Retourne la force émise par les bords sur une particule. 
 vec2_t ForceBord(bord_t bord, cheerio_t cheerio, double surface_tension, double capilary_length){
 
     double dist_cheerio_centre = CalculDistance(cheerio.pos, bord.centre);
@@ -153,17 +152,16 @@ void InitialiseBondEtSigma(cheerio_t* cheerios, int nb_cheerios, double capilary
     bord->Bond_nb = CalculLinearBondNumber(bord->rayon_courbure, capilary_length);
     bord->Sigma = CalculSigma(bord->rho, rho_liq, bord->angle_contact);
     // Maintenant nous le faisons pour tous les cheerios.
-    for(int i = 0; i < nb_cheerios; i++){                                                         // TODO peut etre utiliser le normal bond number
+    for(int i = 0; i < nb_cheerios; i++){                                                         // linBondnb = BondNumber dans le cas de nos simulations, si ils sont pas egale ces cas sont hors du sujet de la simulation
         cheerios[i].Bond_nb = CalculLinearBondNumber(cheerios[i].rayon_courbure, capilary_length);//CalculBondNumber(rho_liq, rho_air, cheerios[i].R, surface_tension, g); 
         tmp_B = cheerios[i].Bond_nb;
         tmp_abs_B = fabs(tmp_B);
-        //cheerios[i].angle_contact = fabs(tmp_B) < 0.63 ? asin(M_PI_2 * tmp_B) : asin(tmp_B);     // TODO expliquer pq on prends comme ca pour linstant ca change pas par rapport a la proximite et cest symetyrique mais en realite ca depend de la proximite des particules source Lattice Boltzmann simulation of capillary interactions among colloidal particles equation27 //(M_PI * 30) /180;    faire la funtion qui trouve langle (pour linstant on a une valeur au pif il faux ecrire l'equation pour trouver l'angle)
         if ( tmp_abs_B < 1 ){  
             cheerios[i].angle_contact = asin(tmp_B);
             if (tmp_abs_B < 0.63) // sinon angle de contact nest pas officelement definie
                 cheerios[i].angle_contact = M_PI - asin(M_PI_2 * tmp_B);
-        } else { // si cest plus grand que 0.63 angle de contact nest pas definie et les objets ne bouge pas => pour cela on a mis une valeur normalise pour avoir de laction
-            cheerios[i].angle_contact =M_PI -  asin(fmod(M_PI_2 *tmp_B, 1));
+        } else { // si cest plus grand que 0.63 angle de contact nest pas definie
+            cheerios[i].angle_contact = 0;
             error++;
         }
         tmp_theta = cheerios[i].angle_contact;

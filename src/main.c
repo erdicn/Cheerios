@@ -38,7 +38,6 @@ void Simulate(char* fichier_donnees_initiales, char* fichier_donnees){
     double dt;
     int nb_cheerios;
     bord_t bord;
-    bord.rayon_courbure = 2.7/10000.0; 
 
     cheerio_t *cheerios= NULL;                                                  // notre tableaux de cheerios.
     // Lecture du fichier de données initiales, fichier de données finales et initialisation des cheerios.
