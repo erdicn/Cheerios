@@ -122,56 +122,48 @@
             \phi_c = \sin^{-1}\left(\frac{\pi}{2}B\right) = \pi - \theta + \arctan z_c^{'}
             \label{eq:phi}
         \end{equation}
-        Si on combine les equations \ref{eq:bondsigma} et \ref{eq:phi} on a:
-        \begin{equation}
-            z_c^{'} \sin \left(\sin^-1\left(\frac{\pi}{2}B\right)\right) = B \Sigma
-        \end{equation}
-        \begin{equation}
-            \Rightarrow z_c^{'}\left(\frac{\pi}{2}B\right) = B \Sigma
-        \end{equation}
-        \begin{equation}
-            \Rightarrow z_c^{'}\frac{\pi}{2} = \Sigma = \left(\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta\right)
-            \label{eq:zcpi/2=sigma}
-        \end{equation}
-        Si nous substions \(\phi_c =  \sin^{-1}\left(\frac{\pi}{2}B\right) = \pi - \theta + \arctan z_c^{'} \) On a:
-        \begin{equation}
-            % \Rightarrow \theta = \pi - \sin^{-1}\left(\frac{\pi}{2}B\right) + \arctan z_c^{'}
-            z_c^{'} = \tan\left(\sin^{-1}\left(\frac{\pi}{2}B\right)-\pi+\theta\right)
-            \label{eq:thetafinaly?}
-        \end{equation}
-        Si on remplace le \(z_c^{'}\) dans l'equation \ref{eq:zcpi/2=sigma} avec lequation \ref{eq:thetafinaly} on a:
-        \begin{equation}
-            \tan\left(\sin^{-1}\left(\frac{\pi}{2}B\right)-\pi+\theta\right)\frac{\pi}{2} =\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta 
-        \end{equation}
-        Si on applique deux fois l'egalite trigonometrique: 
-        \begin{equation}
-            \tan (a+b) = \frac{\tan a + \tan b}{1-(\tan a \tan b)}
-        \end{equation}
-        A TESTER VOIR SI JE ME SUIS PAS TROMPE
-        \begin{equation}
-            \Rightarrow \frac{\tan \phi_c + \tan (-\pi) + \tan\theta - (\tan \phi_c\tan (-\pi)\tan\theta)}{1-\tan \phi_c \tan(-\pi) - \tan\theta \tan\phi_c - \tan(-\pi)\tan\theta} = \Sigma 
-        \end{equation}
-        \(\tan(-\pi) = 0\)
-        \begin{equation}
-            \Rightarrow \frac{\tan\phi_c + \tan\theta}{1-\tan\theta\tan\phi_c} = \frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta
-        \end{equation}
-        PEUT ETRE ENLEVER CECI CAR CEST LA MEME QUE LEQUATION DU HAUT SEULEMENT ON A DEVELOPE????
-        %%%%%%%%% A Eenlever????%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        En developant:
-        \begin{equation}
-            0 = \frac{2D-1}{3} + \tan\phi_c(-\frac{2D-1}{3}\tan\theta + \frac{1}{6}\sin^3\theta) - \tan\phi_c+ \frac{1}{6}\cos^3\theta - \frac{1}{2}\cos\theta - \tan\theta
-        \end{equation}
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        Pour le reoudre a la main cest difficile mais numeriquement on peux avoir des solutions. On peux savoir la valeur de $\phi_c$ grace a l'equation \ref{eq:phi} et nous savons que \(D \equiv \frac{\rho_s}{\rho_l}\) alors on peux trouver $\theta$.
-        % WUT ????
-
+        % Si on combine les equations \ref{eq:bondsigma} et \ref{eq:phi} on a:
+        % \begin{equation}
+        %     z_c^{'} \sin \left(\sin^-1\left(\frac{\pi}{2}B\right)\right) = B \Sigma
+        % \end{equation}
+        % \begin{equation}
+        %     \Rightarrow z_c^{'}\left(\frac{\pi}{2}B\right) = B \Sigma
+        % \end{equation}
+        % \begin{equation}
+        %     \Rightarrow z_c^{'}\frac{\pi}{2} = \Sigma = \left(\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta\right)
+        %     \label{eq:zcpi/2=sigma}
+        % \end{equation}
+        %  Si nous substions \(\phi_c =  \sin^{-1}\left(\frac{\pi}{2}B\right) = \pi - \theta + \arctan z_c^{'} \) On a:
+        % \begin{equation}
+        %     % \Rightarrow \theta = \pi - \sin^{-1}\left(\frac{\pi}{2}B\right) + \arctan z_c^{'}
+        %     z_c^{'} = \tan\left(\sin^{-1}\left(\frac{\pi}{2}B\right)-\pi+\theta\right)
+        %     \label{eq:thetafinaly?}
+        % \end{equation}
+        % Si on remplace le \(z_c^{'}\) dans l'equation \ref{eq:zcpi/2=sigma} avec lequation \ref{eq:thetafinaly} on a:
+        % \begin{equation}
+        %     \tan\left(\sin^{-1}\left(\frac{\pi}{2}B\right)-\pi+\theta\right)\frac{\pi}{2} =\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta 
+        % \end{equation}
+        % Si on applique deux fois l'egalite trigonometrique: 
+        % \begin{equation}
+        %     \tan (a+b) = \frac{\tan a + \tan b}{1-(\tan a \tan b)}
+        % \end{equation}
+        % A TESTER VOIR SI JE ME SUIS PAS TROMPE
+        % \begin{equation}
+        %     \Rightarrow \frac{\tan \phi_c + \tan (-\pi) + \tan\theta - (\tan \phi_c\tan (-\pi)\tan\theta)}{1-\tan \phi_c \tan(-\pi) - \tan\theta \tan\phi_c - \tan(-\pi)\tan\theta} = \Sigma 
+        % \end{equation}
+        % \(\tan(-\pi) = 0\)
+        % \begin{equation}
+        %     \Rightarrow \frac{\tan\phi_c + \tan\theta}{1-\tan\theta\tan\phi_c} = \frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta
+        % \end{equation}
+        % Pour le reoudre a la main cest difficile mais numeriquement on peux avoir des solutions. On peux savoir la valeur de $\phi_c$ grace a l'equation \ref{eq:phi} et nous savons que \(D \equiv \frac{\rho_s}{\rho_l}\) alors on peux trouver $\theta$.
+        % WUT ???
         % The expression for the slope of the interface in the vicinity of the spherical particle given in (9) is valid for B << 1 (corresponding to a radius of  1mm or smaller for a sphere at an air-water interface) in which case surface tension is very important. The other dimensionless parameter, , can be thought of as a (non-dimensional) resultant weight of the particle once the Archimedes upthrust has been subtracted out. This physical interpretation arises naturally from the vertical force balance condition (8) and (9) since the resultant weight of the object (in the linearised approximation) is simply 
 
         % L'expression de la pente de l'interface au voisinage de la particule sphérique donnée dans (\ref{eq:bondsigma}) est valable pour B << 1 (correspondant à un rayon de 1mm ou moins pour une sphère à l'interface air-eau), auquel cas la tension superficielle est très importante. L'autre paramètre sans dimension, peut être considéré comme un poids résultant (non dimensionnel) de la particule une fois que la poussée d'Archimède a été soustraite. Cette interprétation physique découle naturellement de la condition d'équilibre de la force verticale (\ref{eq:BalanceOfForces}) et (\ref{eq:bondsigma}) puisque le poids résultant de l'objet (dans l'approximation linéarisée) est simplement 
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        JE SAIS PLUS CE QU4ON DEVAIT DIRE EXACTEMENT POUR JUSTE PARLER DE BESSEL SANS RACONTER TOUT CELA;
         % To calculate the interaction energy using the Nicolson approximation, we must also calculate the interfacial displacement caused by an isolated floating sphere, which is determined by the hydrostatic balance \(\gamma\nabla^2h = \rho gh -\) the co-ordinate invariant statement of equation (1). With the assumption of cylindrical symmetry, this becomes:
+        TODO EST QUEE CEST POSSIBLE DE METTRE UNE FIGURE ICI DUN TUBE AVEC DE LEAU QUE ON VOIS CEST QUOI H ET X ?
         Nous savons le déplacement interfacial\cite{introfluidcambridge} qui est:
         \begin{equation}
             \gamma \frac{\dd^2h}{\dd x^2} = \rho_l g h
