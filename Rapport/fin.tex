@@ -25,7 +25,7 @@
         %     \item pour linstant on utilise les equations \textit{aproximatives} on peux les essayer de les resoudres sans approximations en utilisant laproximation de Nicholson(fine difference method)
         %     \item le code marche seulement pour les objets ronds faux ajouter une facon plus complexe pour plus de objets
         % \end{itemize}
-        Notre code, actuellement n'est pas optimisé pour déterminer s'il y a des collisions entre les objets. En effet, nous regardons pour chaque objet s'il est en collision avec tous les autres objets présents. Cela nous donne un algorithme qui s'effectue en $O(NT\,n^2)$ ($NT$:nb de pas tde temps total dans la simulation, $n$:nombre d'objet), alors que nous pourrions l'effectuer en $O(NT\, n\log n)$. Nous pouvons potentiellement améliorer l'algorithme en calculant une seule fois la norme ERDI TU VAS DEVOIR MIEUX M4EXPLIQUER CELA C'EST INCOMPREHENSIBLE.
+        Notre code, actuellement n'est pas optimisé pour déterminer s'il y a des collisions entre les objets. En effet, nous regardons pour chaque objet s'il est en collision avec tous les autres objets présents. Cela nous donne un algorithme qui s'effectue en $O(NT\,n^2)$ ($NT$: nombre de pas de temps total dans la simulation, $n$: nombre d'objet), alors que nous pourrions l'effectuer en $O(NT\, n\log n)$. %Nous pouvons potentiellement améliorer l'algorithme en calculant une seule fois la norme ERDI TU VAS DEVOIR MIEUX M4EXPLIQUER CELA C'EST INCOMPREHENSIBLE.
 
         Nous utilisons actuellement certaines équations qui sont approximatives, nous pourrions utiliser des équations plus précises avec l'approximation de Nicholson.
 

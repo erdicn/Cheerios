@@ -43,20 +43,19 @@
 
         % TODO jai limpression que la formule de bas viens de qqpart mais je sais pas de ou ? peut etre une meilleur approwximation ???????
         JE SAIS PAS SUR PQ ON DIVISE PAR 2
-        Comme nous connaissons l'accélération au pas de temps suivant et précédent en meme temps, nous pouvons avoir une meilleur approximation de notre vitesse en prenant le point au millieu a la place prendre lacceleration precedente. On utilise velocity Verlet a la place de Störmer-Verlet car avec Störmer-Verlet on a besoin des 2 positions davant et nous on stockait seulement un pas de temps a chaque fois et que avec velocity Verlet on etait autant precis sans avoir besoin des 2 positions davant.
+        Comme nous connaissons l'accélération au pas de temps suivant et précédent en même temps, nous pouvons avoir une meilleure approximation de notre vitesse en prenant le point au milieu au lieu de prendre uniquement l'accélération précédente. On utilise la vitesse de Verlet a la place de Störmer-Verlet car avec cette dernière nous avons besoin des 2 positions précédentes et nous gardions seulement un pas de temps à chaque fois. De plus, les deux méthodes ont une précision similaire.
         \begin{equation}
             \label{eq:verletVitesse}
             \vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t 
         \end{equation}
-        TODO CITER 
-        % https://www2.math.ethz.ch/education/bachelor/seminars/fs2008/nas/crivelli.pdf
-        DIRE QQPART QUE ON A PAS PRIS LES FORCES DE FROTTEMENTS CAR DE UN ILS SONT NEGLIGAABLES AU VITESSES QUE ON Y VAS ET DE DEUX SI ON PRENAIT DES FROTTEMENTS NOTRE ACCELERATION DEPENDRAIT DE LA VITESSE ET DANS CES CAS LES EQUATIONS ET LINTEGRATION DE VERLET DEVINES BEAUCOUP TROP COMPLIQUE.
+        % DIRE QQPART QUE ON A PAS PRIS LES FORCES DE FROTTEMENTS CAR DE UN ILS SONT NEGLIGAABLES AU VITESSES QUE ON Y VAS ET DE DEUX SI ON PRENAIT DES FROTTEMENTS NOTRE ACCELERATION DEPENDRAIT DE LA VITESSE ET DANS CES CAS LES EQUATIONS ET LINTEGRATION DE VERLET DEVINES BEAUCOUP TROP COMPLIQUE. FAIT DANS PARTIE CHEERIOS.
 
-        La raison la quel on a pas utilise la methode de euler meme si on peux avoir limpression que ils sont similaire est que: avec la methode de euler on a pas notre energie conserve et que l'erreur sur les methodes de euler sont plus hautes que celles de verlet. Et a propos de Runge-Kutta la raison la quel on la pas utilise est que meme si la methode Runge-Kutta ordre 4 a un meilleur precission il peux etre discipative a certain cas et prendre plus de calculs  mais il pourait etre quand meme plus precis que lintegration de verlet. Et acote de cela pour limplimentation dans notre cas lintegration de verlet avait laire le plus facile
-        Verlet le seul a etre time recersible dans cela 
-        Euler \(O(h^2)\) order of 1\\
-        Verlet \(O(h^3)\) order of 2\\
-        RK4 \(O()\)
+        % La raison la quel on a pas utilise la methode de euler meme si on peux avoir limpression que ils sont similaire est que: avec la methode de euler on a pas notre energie conserve et que l'erreur sur les methodes de euler sont plus hautes que celles de verlet. Et a propos de Runge-Kutta la raison la quel on la pas utilise est que meme si la methode Runge-Kutta ordre 4 a un meilleur precission il peux etre discipative a certain cas et prendre plus de calculs  mais il pourait etre quand meme plus precis que lintegration de verlet. Et acote de cela pour limplimentation dans notre cas lintegration de verlet avait laire le plus facile
+        % Verlet le seul a etre time recersible dans cela 
+        Même si la méthode d'Euler et de Verlet paraissent similaire, nous n'avons pas opté pour la méthode d'Euler car avec celle-ci notre énergie n'était pas conservé. De plus, les erreurs sont plus hautes avec la méthode d'Euler qu'avec l'intégration de Verlet. Nous avons également décidé de ne pas opter pour la méthode de Runge-Kutta car par, pouvant être dissipative, elle aurait demandé plus de calcul, malgré sa plus grande précision. Enfin, l'intégration de Verlet était la plus accessible et la seule à être réversible dans le temps\cite{crivelli_stormer-verlet_2008}.
+        % Euler \(O(h^2)\) order of 1\\
+        % Verlet \(O(h^3)\) order of 2\\
+        % RK4 \(O()\)
         % est que on mets ca sur lanexe ?
         % (voir lanexe pour le developement du calcul) 
         %        \[DL_3 x(t+\dd t)= x(t)+x^{'}(t)(\dd t)+\frac{x^{''}(t)}{2!}(\dd t)^2\]

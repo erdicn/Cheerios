@@ -33,8 +33,7 @@
         % TODO je pense ca serait bien de dire aussi si ils sont le meme signe de courbure ils se raproche si cest lopose ils se repulse.
         \paragraph*{}{
             Nous voulons déterminer comment ces objets réagissent entre eux et les bords d'un récipient et représenter nos résultats de façon numérique et animée. Nous devons, pour cela, calculer tout d'abord les forces intervenant dans ce phénomène.
-        } 
-        POUR LES PREUVES DES CALCULS LE LECTEUR EST FORTEMENT ENCOURAGE A LIRE LE PAPIER \textit{Cheerios effect}\cite{vella_cheerios_2005} 
+        }
 
         % Ce que Erdi a écrit
         % TODO expliquer de ou viens les forces des angles qui tord la surface ?
@@ -80,11 +79,10 @@
         % \end{equation}
 
         Nous avons donc l'équilibre des forces donné par :
-        \begin{multline}
-            \frac{4}{3}\pi\rho_{s}gR^3 =2\pi\gamma R \sin\phi_c \frac{z_c^{'}}{\sqrt{(1+z_c^{'2})}} 
-            \\+ \pi\rho_l g R^3 \left(\frac{z_c}{R}\sin^2 \phi_c + \frac{2}{3}-\cos\phi_c+\frac{1}{3}\cos^3 \phi_c\right)
+        \begin{equation}
+            \frac{4}{3}\pi\rho_{s}gR^3 =2\pi\gamma R \sin\phi_c \frac{z_c^{'}}{\sqrt{(1+z_c^{'2})}} + \pi\rho_l g R^3 \left(\frac{z_c}{R}\sin^2 \phi_c + \frac{2}{3}-\cos\phi_c+\frac{1}{3}\cos^3 \phi_c\right)
             \label{eq:BalanceOfForces}
-        \end{multline}
+        \end{equation}
 
         % TODO cest quoi $z_c^{'}$??? Un point de contact apparemment 
 
@@ -99,7 +97,7 @@
 
         % On peux voir ceci est bien le cas car on observe bien que \(z_c^{'} = 0\) quand \(\theta = \pi/2\) et \(D = 1/2\) cest ce que on satendais car dans ce cas la pousee de archimede seul lui meme est assez pour equilibrer le poids de la sphere sans deformations du liquide.
 
-        L'équation (\ref{eq:bondsigma}) contient deux paramètres sans dimensions; \textit{le nombre de Bond}$B$ et $\Sigma$, qui sont très importants pour notre modélisation.
+        L'équation (\ref{eq:bondsigma}) contient deux paramètres sans dimensions; \textit{le nombre de Bond} $B$ et $\Sigma$, qui sont très importants pour notre modélisation.
 
         Le nombre de Bond vaut:
         \begin{equation}
@@ -108,12 +106,12 @@
 
         Il nous donne la mesure relative de l'importance des effets de gravité et de la tension de surface; si $B$ est tres grand, cela correspond à des particules grandes ou à une tension de surface petite. 
 
-        Pour déterminer $\Sigma$, nous avons besoin de l'angle de contact $\theta$. Pour le trouver nous avons suivi l'article \textit{Lattice Boltzmann Simulation of Capillary Interactions among Colloidal Particles}\cite{lattice_boltzmann_caplilary_interaction} dans le quel ils utilise un angle de contact($\theta$) a satisfier la loi de Young-Dupré supososnt que les particules sont assez petit pour que on puisse negliger les effets de leurs poids sur langle de contact. %TODO PAS DU TOUT SUR SI DANS LE NOTRE NOUS AVONS LE DROIT DE FAIRE COMME CA???? (EST QUE ON A UN AUTRE CHOIX ? NOPE :/ DONC ON FAIT TEL QUE CEST NEGLIGABLE DU COUP CEST POUR CA QUE IL NA PAS MARCHE AVEC LES PUNAISES???)
+        Pour déterminer $\Sigma$, nous avons besoin de l'angle de contact $\theta$. Pour le trouver nous avons suivi l'article \textit{Lattice Boltzmann Simulation of Capillary Interactions among Colloidal Particles}\cite{lattice_boltzmann_caplilary_interaction} dans lequel ils utilisent un angle de contact($\theta$) satisfiant la loi de Young-Dupré supposant que les particules sont assez petites pour que nous puissions négliger les effets de leurs poids sur l'angle de contact. %TODO PAS DU TOUT SUR SI DANS LE NOTRE NOUS AVONS LE DROIT DE FAIRE COMME CA???? (EST QUE ON A UN AUTRE CHOIX ? NOPE :/ DONC ON FAIT TEL QUE CEST NEGLIGABLE DU COUP CEST POUR CA QUE IL NA PAS MARCHE AVEC LES PUNAISES???)
         \begin{equation}
             \cos \theta = \frac{\gamma_{SV}-\gamma_{SL}}{\gamma_{LV}}
         \end{equation}
         Ou $\gamma_{SV,SL,LV}$ est la tension superficielle des interfaces Solide/Vapeur, Solide/Liquide et Liquide/Vapeur.
-        et nous n'avons pas pris pour son calcul la masse de l'objet en compte (on se mets a des masses negligables). 
+        et nous n'avons pas pris pour ce calcul la masse de l'objet en compte.
         \begin{equation}
             \theta + \arctan z_c^{'} - \phi_c = \pi 
         \end{equation}
@@ -201,10 +199,9 @@
             \label{eq:ForceInteraction}
         \end{equation}
 
-        Nous voyons ( voire ) ?????? bien grace a la figure \ref{fig:bessel} que des que $l/L_c>5$ notre force va etre tres faible et inversement quand $l/L_c << 1 $ la force de atraction va etre tres eleve. La force entre objets flottants depens de la distance entre eux exponentielement. A REPHRASER CE PARAGRAPH 
+        Nous voyons bien grâce a la Figure \ref{fig:bessel} que dès que $l/L_c>5$, notre force sera très faible et inversement quand $l/L_c << 1 $ la force d'attraction sera très élevée. La force entre objets flottants dépend donc de la distance entre eux, et cela de façon exponentiel.
 
-        
-        
+        Nous avons décidé de ne pas prendre en compte les forces de frottement entre les objets et le liquide car elles étaient négligeables et elles auraient grandement complexifiées les calculs de notre algorithme.
 
         % TODO dans le code ajouter un buoyancy force qui calcule la ousee de archimede et dis si notre objet flotte ou pas si il flotte pas on peux metre un option tel quel il prend la valeur automatique ??? Ou on le neglige ????
         % TODO On mets les formules et peut etre demontrer ou ils viennent et surtout les cas ou on peux utiliser ces formules les cas ou ca marche pas etc\ldots
@@ -219,8 +216,7 @@
                 \caption{Schéma des forces des bords.}
                 \label{fig:Force_Bord_schéma}
             \end{wrapfigure}
-            TODO JAI AJOUTE DES CHOSES ICI MAIS PEUT ETRE REPHRASHER
-            Maintenant que nous avons vu l'application des forces entre objets, nous allons expliquer les forces entre les bords et les objets. La force se calcule de la même manière qu'entre deux objets (equation \ref{eq:ForceInteraction}) car la force depend du rayon de courbure($R$), nomre de Bond($B$), Sigma($\Sigma$), longueur capillaire($L_c$) et de la distance entre deux points($l$) de force et tout ces parametres peuvent etre trouver pour le bord. Pour la force appliquée par les bords sur les objets nous avons, à la place de calculer les forces à chaque point du cercle, opté d'utiliser la symétrie dun cercle. Nous avons remarqué que la plupart des forces s'annulent entre elles (en gris) et il nous reste seulement deux forces (en rouge) qui interagissent comme le montre la figure\ref{fig:Force_Bord_schéma}. Les seuls paramètres à changer sont le nombre de Bond et l'angle de contact, que nous prenons à 45 degré, angle du ménisque formé par l'eau dans un récipient en verre. 
+            Maintenant que nous avons vu l'application des forces entre objets, nous allons expliquer les forces entre les bords et les objets. La force se calcule de la même manière qu'entre deux objets (equation \ref{eq:ForceInteraction}) car la force depend du rayon de courbure($R$), du nombre de Bond($B$), de Sigma($\Sigma$), de la longueur capillaire($L_c$) et de la distance entre deux points($l$) de force et tous ces paramètres peuvent être déterminer pour le bord. Pour la force appliquée par les bords sur les objets nous avons, à la place de calculer les forces à chaque point du cercle, opté d'utiliser la symétrie dun cercle. Nous avons remarqué que la plupart des forces s'annulent entre elles (en gris) et il nous reste seulement deux forces (en rouge) qui interagissent comme le montre la figure\ref{fig:Force_Bord_schéma}. Les seuls paramètres à changer sont le nombre de Bond et l'angle de contact, que nous prenons à 45 degré, angle du ménisque formé par l'eau dans un récipient en verre. 
             % Pour la force appliquée par les bords sur les objets nous avons décidé de ne pas calculer les forces de chaque point du bord, au lieu de cela nous avons utilisé la symétrie d'un cercle (nos bords étant un cercle). Seulement deux forces de bords vont s'appliquer sur un objet, les autres s'annulant par symétrie, comme le montre la figure \ref{fig:Force_Bord_schéma}
             % \begin{figure}[H]%[!htb]
             %     \centering
