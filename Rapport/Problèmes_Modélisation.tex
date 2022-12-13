@@ -79,10 +79,10 @@
         % \end{equation}
 
         Nous avons donc l'équilibre des forces donné par :
-        \begin{equation}
-            \frac{4}{3}\pi\rho_{s}gR^3 =2\pi\gamma R \sin\phi_c \frac{z_c^{'}}{\sqrt{(1+z_c^{'2})}} + \pi\rho_l g R^3 \left(\frac{z_c}{R}\sin^2 \phi_c + \frac{2}{3}-\cos\phi_c+\frac{1}{3}\cos^3 \phi_c\right)
+        \begin{multline}
+            \frac{4}{3}\pi\rho_{s}gR^3 =2\pi\gamma R \sin\phi_c \frac{z_c^{'}}{\sqrt{(1+z_c^{'2})}} +\\ \pi\rho_l g R^3 \left(\frac{z_c}{R}\sin^2 \phi_c + \frac{2}{3}-\cos\phi_c+\frac{1}{3}\cos^3 \phi_c\right)
             \label{eq:BalanceOfForces}
-        \end{equation}
+        \end{multline}
 
         % TODO cest quoi $z_c^{'}$??? Un point de contact apparemment 
 
@@ -113,62 +113,9 @@
         \end{equation}
         Ou $\gamma_{SV,SL,LV}$ est la tension superficielle des interfaces Solide/Vapeur, Solide/Liquide et Liquide/Vapeur.
         
-        Avec $\arctan z_c^{'} = \sin^{-1}\left(\frac{\pi}{2}B\right)$ \cite{lattice_boltzmann_caplilary_interaction}. De là, nous avons besoin des tensions superficielles expérimentales de chaque milieu ($\gamma_{SV, SL, LV}$) equation \ref{eq:cos_angle_contact} mais comme nous n'avons pas les valeurs expérimentales pour chaque objet par rapport aux milieux nous avons déterminer $\theta$ avec le nombre de Bond, ce qui nous donne un approximation tel que :
-        \begin{equation}
-            \theta \simeq \pi - \arctan z_c^{'}
-        \end{equation}
-        
-        % \begin{equation}
-        %     \phi_c = \sin^{-1}\left(\frac{\pi}{2}B\right) = \pi - \theta + \arctan z_c^{'}
-        %     \label{eq:phi}
-        % \end{equation}
-        % Si on combine les equations \ref{eq:bondsigma} et \ref{eq:phi} on a:
-        % \begin{equation}
-        %     z_c^{'} \sin \left(\sin^-1\left(\frac{\pi}{2}B\right)\right) = B \Sigma
-        % \end{equation}
-        % \begin{equation}
-        %     \Rightarrow z_c^{'}\left(\frac{\pi}{2}B\right) = B \Sigma
-        % \end{equation}
-        % \begin{equation}
-        %     \Rightarrow z_c^{'}\frac{\pi}{2} = \Sigma = \left(\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta\right)
-        %     \label{eq:zcpi/2=sigma}
-        % \end{equation}
-        %  Si nous substions \(\phi_c =  \sin^{-1}\left(\frac{\pi}{2}B\right) = \pi - \theta + \arctan z_c^{'} \) On a:
-        % \begin{equation}
-        %     % \Rightarrow \theta = \pi - \sin^{-1}\left(\frac{\pi}{2}B\right) + \arctan z_c^{'}
-        %     z_c^{'} = \tan\left(\sin^{-1}\left(\frac{\pi}{2}B\right)-\pi+\theta\right)
-        %     \label{eq:thetafinaly?}
-        % \end{equation}
-        % Si on remplace le \(z_c^{'}\) dans l'equation \ref{eq:zcpi/2=sigma} avec lequation \ref{eq:thetafinaly} on a:
-        % \begin{equation}
-        %     \tan\left(\sin^{-1}\left(\frac{\pi}{2}B\right)-\pi+\theta\right)\frac{\pi}{2} =\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta 
-        % \end{equation}
-        % Si on applique deux fois l'egalite trigonometrique: 
-        % \begin{equation}
-        %     \tan (a+b) = \frac{\tan a + \tan b}{1-(\tan a \tan b)}
-        % \end{equation}
-        % A TESTER VOIR SI JE ME SUIS PAS TROMPE
-        % \begin{equation}
-        %     \Rightarrow \frac{\tan \phi_c + \tan (-\pi) + \tan\theta - (\tan \phi_c\tan (-\pi)\tan\theta)}{1-\tan \phi_c \tan(-\pi) - \tan\theta \tan\phi_c - \tan(-\pi)\tan\theta} = \Sigma 
-        % \end{equation}
-        % \(\tan(-\pi) = 0\)
-        % \begin{equation}
-        %     \Rightarrow \frac{\tan\phi_c + \tan\theta}{1-\tan\theta\tan\phi_c} = \frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta
-        % \end{equation}
-        % Pour le reoudre a la main cest difficile mais numeriquement on peux avoir des solutions. On peux savoir la valeur de $\phi_c$ grace a l'equation \ref{eq:phi} et nous savons que \(D \equiv \frac{\rho_s}{\rho_l}\) alors on peux trouver $\theta$.
-        % WUT ???
-        % The expression for the slope of the interface in the vicinity of the spherical particle given in (9) is valid for B << 1 (corresponding to a radius of  1mm or smaller for a sphere at an air-water interface) in which case surface tension is very important. The other dimensionless parameter, , can be thought of as a (non-dimensional) resultant weight of the particle once the Archimedes upthrust has been subtracted out. This physical interpretation arises naturally from the vertical force balance condition (8) and (9) since the resultant weight of the object (in the linearised approximation) is simply 
+        Meme avec $\arctan z_c^{'} = \sin^{-1}\left(\frac{\pi}{2}B\right)$ \cite{lattice_boltzmann_caplilary_interaction}. De là, nous avons besoin des tensions superficielles expérimentales de chaque milieu ($\gamma_{SV, SL, LV}$) equation \ref{eq:cos_angle_contact} mais comme nous n'avons pas les valeurs expérimentales pour chaque objet par rapport aux milieux nous pouvons seulement determiner ceci avec des experiences. C'est pour cela que dans nos simulations nous avons essaye de prendre des valeurs d'angle de contact deja calcule pour chaque objet. 
+        %avec le nombre de Bond, ce qui nous donne un approximation tel que :
 
-        % L'expression de la pente de l'interface au voisinage de la particule sphérique donnée dans (\ref{eq:bondsigma}) est valable pour B << 1 (correspondant à un rayon de 1mm ou moins pour une sphère à l'interface air-eau), auquel cas la tension superficielle est très importante. L'autre paramètre sans dimension, peut être considéré comme un poids résultant (non dimensionnel) de la particule une fois que la poussée d'Archimède a été soustraite. Cette interprétation physique découle naturellement de la condition d'équilibre de la force verticale (\ref{eq:BalanceOfForces}) et (\ref{eq:bondsigma}) puisque le poids résultant de l'objet (dans l'approximation linéarisée) est simplement 
-
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        % To calculate the interaction energy using the Nicolson approximation, we must also calculate the interfacial displacement caused by an isolated floating sphere, which is determined by the hydrostatic balance \(\gamma\nabla^2h = \rho gh -\) the co-ordinate invariant statement of equation (1). With the assumption of cylindrical symmetry, this becomes:
-        % \begin{figure}[!htb]
-        %     \centering
-        %     \includegraphics[]{schéma_plaque_hx.tikz}
-        %     \caption{Schéma représentant deux plaques de longueur infinie dans un fluide semi-infinie.}
-        %     \label{fig:h_and_x}
-        % \end{figure}
          Ensuite nous avons le déplacement interfacial\cite{introfluidcambridge} qui est:
         \begin{equation}
             \gamma \frac{\dd^2h}{\dd x^2} = \rho_l g h
@@ -216,12 +163,14 @@
         % TODO peut etre rephrase, lidee est la mais lexecution nest pas   
         %\newpage
         \subsection{Force des bords}
-            \begin{wrapfigure}{r}{0.25\textwidth}
-            \centering
-                \includegraphics[width = 0.2\textwidth]{Figure_Force_Bord.pdf}
+            \begin{figure}[H]
+            %\begin{wrapfigure}{r}{0.25\textwidth}
+                \centering
+                \includegraphics[width = 0.3\textwidth]{Figure_Force_Bord.pdf}
                 \caption{Schéma des forces des bords.}
                 \label{fig:Force_Bord_schéma}
-            \end{wrapfigure}
+            %\end{wrapfigure}
+            \end{figure}
             Maintenant que nous avons vu l'application des forces entre objets, nous allons expliquer les forces entre les bords et les objets. La force se calcule de la même manière qu'entre deux objets (equation \ref{eq:ForceInteraction}) car la force depend du rayon de courbure($R$), du nombre de Bond($B$), de Sigma($\Sigma$), de la longueur capillaire($L_c$) et de la distance entre deux points($l$) de force et tous ces paramètres peuvent être déterminer pour le bord. Pour la force appliquée par les bords sur les objets nous avons, à la place de calculer les forces à chaque point du cercle, opté d'utiliser la symétrie dun cercle. Nous avons remarqué que la plupart des forces s'annulent entre elles (en gris) et il nous reste seulement deux forces (en rouge) qui interagissent comme le montre la figure\ref{fig:Force_Bord_schéma}. Les seuls paramètres à changer sont le nombre de Bond et l'angle de contact, que nous prenons à 45 degré, angle du ménisque formé par l'eau dans un récipient en verre. 
             % Pour la force appliquée par les bords sur les objets nous avons décidé de ne pas calculer les forces de chaque point du bord, au lieu de cela nous avons utilisé la symétrie d'un cercle (nos bords étant un cercle). Seulement deux forces de bords vont s'appliquer sur un objet, les autres s'annulant par symétrie, comme le montre la figure \ref{fig:Force_Bord_schéma}
             % \begin{figure}[H]%[!htb]
