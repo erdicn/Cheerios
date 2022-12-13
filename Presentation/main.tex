@@ -1,0 +1,175 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{Antibes}
+\usecolortheme{beaver} 
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsfonts, amsthm, amscd, amssymb}
+\usepackage{tikz} 
+\usepackage[center]{caption}
+\usepackage[vlined]{algorithm2e}
+\usepackage{pgf,tikz}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{graphicx} % Allows including images
+\graphicspath{{Figures/}} %Setting the graphicspath
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{cancel}
+\usepackage{animate}
+\usepackage{array}
+\usepackage{xcolor,colortbl}
+\usepackage{subfigure}
+
+% Pour les diagrams fait avec matcha
+\usepackage{physics}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{extarrows}
+\usepackage{booktabs}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+\usetikzlibrary{shapes}
+
+%\usepackage{physics}
+%\usepackage{amsmath}
+%\usepackage{mathdots}
+%\usepackage{yhmath}
+%\usepackage{siunitx}
+%\usepackage{multirow}
+%\usepackage{gensymb}
+%\usepackage{tabularx}
+%\usepackage{extarrows}
+%\usetikzlibrary{fadings}
+%\usetikzlibrary{patterns}
+%\usetikzlibrary{shadows.blur}
+%\usetikzlibrary{shapes}
+
+\usepackage[%backend=biber,
+style = ieee,
+sorting=none
+]{biblatex} %,bibstyle=ieeehttps://www.overleaf.com/project/624dc5f129c1767e8bb8de67
+\addbibresource{biblio.bib}
+\renewbibmacro*{date}{%
+  \iffieldundef{year}
+    {\bibstring{nodate}}
+    {\printdate}
+}
+
+% \usepackage{ulem}
+
+\newcolumntype{a}{ >{\columncolor{blue}} c }
+
+\setbeamertemplate{navigation symbols}{} % Remove the navigation symbols
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+
+\newcommand{\backupbegin}{
+   \newcounter{framenumberappendix}
+   \setcounter{framenumberappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumberappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumberappendix}} 
+}
+
+\newcommand{\blue}[1]{\textcolor{blue!75}{#1}}
+\newcommand{\green}[1]{\textcolor{teal!90}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\onlyred}[2]{\only<#1>{\red{#2}}}
+\newcommand{\onlyblack}[2]{\only<#1>{#2}}
+\newcommand{\rose}[1]{\textcolor{red!50}{#1}}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+% The title
+\title[Numerical Simulation of the \textit{Cheerios Effect}]{Numerical Simulation of the \textit{Cheerios Effect}}
+% \subtitle{Subtitle}
+
+\author[Nous] {BRAUN-DELVOYE  Baptiste et CAN Erdi}
+\date{6 décembre 2022} % Date, can be changed to a custom date
+
+\institute{Sorbonne Université, CMI Mécanique}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+\newcommand{\mycite}[1]{[\textcolor{blue!50}{#1}]}
+
+\begin{document}
+{
+\setbeamertemplate{headline}{}
+\begin{frame}
+    \titlepage
+    \centering
+    \includegraphics[scale=.2]{SORBONNE_FAC_SCIENCES_DEF_CMJN.png}
+\end{frame}
+}
+
+\begin{frame}
+    \frametitle{Sommaire}
+    \tableofcontents
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{Introduction}% Probleme etudie
+    
+\end{frame}
+
+\begin{frame}{Motivation}
+    
+\end{frame}
+
+\begin{frame}{Modelisation de l'effet de cheerios}
+    
+\end{frame}
+
+\begin{frame}{Methodes Utilise}
+    
+\end{frame}
+
+\begin{frame}{Algorithme du code}
+    % 
+\end{frame}
+
+\begin{frame}{Résultats}
+    
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+    % Le projet peux avoir laire de etre facile mais comme nos forces ne sont pas conservatives et que on arette pas notre simulation quand on a des collisions et continue il ya pas mal de complications qui vienet
+\end{frame}
+
+\begin{frame}[allowframebreaks,noframenumbering]{Références}
+    %\thispagestyle{empty}
+    \nocite{*}
+    %\addcontentsline{toc}{section}{Bibliographie}
+    \printbibliography[title = Références]
+\end{frame}
+
+\end{document}
+
+
