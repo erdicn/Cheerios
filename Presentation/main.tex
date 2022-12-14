@@ -46,6 +46,12 @@
 \usetikzlibrary{shadows.blur}
 \usetikzlibrary{shapes}
 
+\usepackage{tikzit} % Pour les Tikz
+\usepackage{tikzscale}
+\input{Figures/sample.tikzstyles}
+\usetikzlibrary{calc,patterns,angles,quotes}
+
+
 %\usepackage{physics}
 %\usepackage{amsmath}
 %\usepackage{mathdots}
@@ -66,9 +72,9 @@ sorting=none
 ]{biblatex} %,bibstyle=ieeehttps://www.overleaf.com/project/624dc5f129c1767e8bb8de67
 \addbibresource{biblio.bib}
 \renewbibmacro*{date}{%
-  \iffieldundef{year}
-    {\bibstring{nodate}}
-    {\printdate}
+\iffieldundef{year}
+{\bibstring{nodate}}
+{\printdate}
 }
 
 % \usepackage{ulem}
@@ -77,28 +83,29 @@ sorting=none
 
 \setbeamertemplate{navigation symbols}{} % Remove the navigation symbols
 \addtobeamertemplate{navigation symbols}{}{%
-    \usebeamerfont{footline}%
-    \usebeamercolor[fg]{footline}%
-    \hspace{1em}%
-    \insertframenumber/\inserttotalframenumber
+\usebeamerfont{footline}%
+\usebeamercolor[fg]{footline}%
+\hspace{1em}%
+\insertframenumber/\inserttotalframenumber
 }
 
 \newcommand{\backupbegin}{
-   \newcounter{framenumberappendix}
-   \setcounter{framenumberappendix}{\value{framenumber}}
-}
-\newcommand{\backupend}{
-   \addtocounter{framenumberappendix}{-\value{framenumber}}
-   \addtocounter{framenumber}{\value{framenumberappendix}} 
-}
-
-\newcommand{\blue}[1]{\textcolor{blue!75}{#1}}
+    \newcounter{framenumberappendix}
+    \setcounter{framenumberappendix}{\value{framenumber}}
+    }
+    \newcommand{\backupend}{
+        \addtocounter{framenumberappendix}{-\value{framenumber}}
+        \addtocounter{framenumber}{\value{framenumberappendix}} 
+        }
+        
+        \newcommand{\blue}[1]{\textcolor{blue!75}{#1}}
 \newcommand{\green}[1]{\textcolor{teal!90}{#1}}
 \newcommand{\red}[1]{\textcolor{red}{#1}}
 \newcommand{\onlyred}[2]{\only<#1>{\red{#2}}}
 \newcommand{\onlyblack}[2]{\only<#1>{#2}}
 \newcommand{\rose}[1]{\textcolor{red!50}{#1}}
 
+%\input{embed_video.tex}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -108,7 +115,7 @@ sorting=none
 \title[Simulation Numérique de \textit{l'Effet de Cheerios}]{Simulation Numérique de \textit{l'Effet de Cheerios}}
 % \subtitle{Subtitle}
 
-\author[Nous] {BRAUN-DELVOYE  Baptiste et ÇAN Erdi}
+\author[Nous] {Baptiste BRAUN-DELVOYE\\\and Erdi ÇAN \\\and Projet en Calcul Scientifique LU2ME232}
 \date{6 décembre 2022} % Date, can be changed to a custom date
 
 \institute{Sorbonne Université, CMI Mécanique}
@@ -135,7 +142,10 @@ sorting=none
 
 \section{Introduction}
 \begin{frame}{Introduction}% Probleme etudie
-    
+    \begin{center}
+        % il faux que je compile ca dans mon windows je pense 
+        %\embedvideo*{\includegraphics[width=0.4\textwidth]{image3AluFlottant.png}}{VideoDes3AluFlottant.mp4}
+    \end{center}
 \end{frame}
 
 \section{Motivation}
@@ -144,23 +154,118 @@ sorting=none
 \end{frame}
 
 \section{Modélisation de l'Effet de Cheerios}
-\begin{frame}{Modélisation de l'Effet de Cheerios}
-    
+\begin{frame}{Modélisation de l'Effet de Cheerios\cite{vella_cheerios_2005}}
+    \begin{columns}
+        \begin{column}[]{0.3\textwidth}
+            \begin{figure}
+                \centering
+                TODO je sais pas pq ca marche pas 
+                %\includegraphics[]{schema_geom_sphere_eau.tikz}
+                %\caption{Géométrie d'une sphère reposant sur une interface liquide-gaz. La partie rayée représente le poids de liquide équivalent à la force de flottabilité du à la pression hydrostatique appuyant sur la sphère. }
+                %\label{geom_sphere}
+            \end{figure}
+        \end{column}
+        \begin{column}[]{0.6\textwidth}
+            \[z_c^{'}\sin \phi_c = B\left(\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta\right) \equiv B\Sigma\]
+            Avec $B$ la valeur de Bond linerarise et $D \equiv \rho_s / \rho_l$
+            \[E(l)=-2\pi\gamma R^2b^2\Sigma^2K_0\left(\frac{l}{L_c}\right)\]
+        \end{column}
+    \end{columns}
+    \begin{block}{Force d'interaction des objets flottants}
+        \[-\frac{dE}{dl} = F(l)=-2\pi\gamma RB^{5/2}\Sigma^2K_1\left(\frac{l}{l_c}\right)\]
+    \end{block}
 \end{frame}
 
 \section{Méthodes Utilisées}
-\begin{frame}{Méthodes Utilisées}
-    
+\subsection{Integration de Verlet}
+\begin{frame}{Méthodes Utilisées-\textit{Velocity Verlet}\cite{crivelli_stormer-verlet_2008}}
+    \[\mathrm{DL}_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)\]
+    \[\sum  \vb*{F} = m\vb*{a} \Rightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}\]
+    \[\vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t \]
+    % \begin{block}{}
+    % \end{block}
 \end{frame}
+
+\subsection{Detection des collisions}
+\begin{frame}{Méthodes Utilisées-Colisions Bords}
+    \begin{columns}
+        \begin{column}[]{0.5\textwidth}
+            On peux decomposer le vecteur vitesse en:
+            \[\vb*{v} = (\vb*{v}\cdot\vb*{n})\vb*{n} +(\vb*{v}\cdot\vb*{t})\vb*{t}\]
+            \[\Rightarrow\vb*{v}^{'} = -(\vb*{v}\cdot\vb*{n})\vb*{n} + (\vb*{v}\cdot\vb*{t})\vb*{t}\]
+        \end{column}
+        \begin{column}[]{0.5\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[height = 0.7\textwidth]{rebond.tikz}
+                \caption{Schéma d'un rebond d'un objet sur un bord}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Méthodes Utilisées-Colisions Objet-Objet}
+    On detecte des collisions quand nos objets se chevauche. Puis on applique la conservation de momentum.
+    \begin{columns}
+        \begin{column}[]{0.25\textwidth}
+            \[\vb*{c} = \frac{\vb*{AB}}{||\vb*{AB}||}\]
+            \[\vb*{v}_{rel} = \vb*{v}_A - \vb*{v}_B\]
+            \[v_{col}=\vb*{v_{rel}}\cdot\vb*{c}\]
+            % \[I = \frac{2v_{col}}{m_A + m_B}\]
+            % \[\vb*{v}_A^{'} = \vb*{v}_A - Im_B\vb*{c}\]
+            % \[\vb*{v}_B^{'} = \vb*{v}_B + Im_A\vb*{c}\]
+        \end{column}
+        \begin{column}[]{0.25\textwidth}
+            % \[\vb*{c} = \frac{\vb*{AB}}{||\vb*{AB}||}\]
+            % \[\vb*{v}_{rel} = \vb*{v}_A - \vb*{v}_B\]
+            % \[v_{col}=\vb*{v_{rel}}\cdot\vb*{c}\]
+            \[I = \frac{2v_{col}}{m_A + m_B}\]
+            \[\vb*{v}_A^{'} = \vb*{v}_A - Im_B\vb*{c}\]
+            \[\vb*{v}_B^{'} = \vb*{v}_B + Im_A\vb*{c}\]
+        \end{column}
+        \begin{column}[]{0.5\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[]{schema_collisions.tikz}
+                \caption{Schéma d'une collision}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
 
 \section{Algorithme du code}
 \begin{frame}{Algorithme du code}
-    % 
+    \begin{columns}
+        \begin{column}[]{0.7\textwidth}
+            \begin{itemize}
+                \item[] Pour tout les pas de temps 
+                {\setlength\itemindent{15pt} \item[] pour tous les objets}
+                {\setlength\itemindent{30pt} \item[] pour tous les objets }
+                {\setlength\itemindent{45pt} \item[] si collision }
+                {\setlength\itemindent{60pt} \item[] applique collision}
+                {\setlength\itemindent{45pt} \item[] sinon}
+                {\setlength\itemindent{60pt} \item[] calcul force}
+                {\setlength\itemindent{15pt} \item[] mets la force dans lobjet}
+                \item[] Trouve nouvelles positions avec lintegration de verlet 
+                \item[] Ecriture data a chaque iterations ou n iterations
+            \end{itemize}
+        \end{column}
+        \begin{column}[]{0.35\textwidth}
+            \begin{block}{Complexite}
+                \begin{itemize}
+                    \item Time complexity de $O(NT\;n^2)$ 
+                    \item Space Complexity de $O(n)$
+                \end{itemize}
+                Avec n le nombre dobjet simule
+            \end{block}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \section{Résultats}
 \begin{frame}{Résultats}
-    
+    Cest ici que on execute notre code?
 \end{frame}
 
 \section{Conclusion}
