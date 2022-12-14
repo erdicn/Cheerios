@@ -7,7 +7,7 @@
 \tikzstyle{point}=[fill=none, draw=black, shape=circle]
 \tikzstyle{point_fill}=[fill=black, draw=black, shape=circle, minimum size=0.01cm]
 \tikzstyle{point_blanc}=[fill=white, draw=black, shape=circle]
-\tikzstyle{cercle}=[fill=none, draw=black, shape=circle, minimum size=4cm]
+\tikzstyle{cercle}=[fill=none, draw=black, shape=circle, minimum size=4.5cm]
 
 % Edge styles
 \tikzstyle{edge_epais}=[-, ultra thick, fill=none]

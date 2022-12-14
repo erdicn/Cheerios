@@ -50,6 +50,7 @@
 \usepackage{tikzscale}
 \input{Figures/sample.tikzstyles}
 \usetikzlibrary{calc,patterns,angles,quotes}
+%,scale=0.5, every node/.style={scale=0.5}
 
 
 %\usepackage{physics}
@@ -126,6 +127,7 @@ sorting=none
 \newcommand{\mycite}[1]{[\textcolor{blue!50}{#1}]}
 
 \begin{document}
+\usetikzlibrary{patterns,patterns.meta}
 {
 \setbeamertemplate{headline}{}
 \begin{frame}
@@ -150,34 +152,59 @@ sorting=none
 
 \section{Motivation}
 \begin{frame}{Motivation}
-    Erdi aime trop la mécanique des fluides. Vous lui avez refusé son idée, on a pris cela à la place
+    % Erdi aime trop la mécanique des fluides. Vous lui avez refusé son idée, on a pris cela à la place
+    \begin{itemize}
+        \item Nous aimons la mécanique des fluides
+        \item Un projet trop ambitieux au départ\dots
+        \item M. FULLANA nous a présenté l'Effet Cheerios
+        \item Nous avons voulu simuler cet effet du mieux qu'on pouvait
+    \end{itemize}
 \end{frame}
 
 \section{Modélisation de l'Effet de Cheerios}
+% \begin{frame}{Modélisation de l'Effet de Cheerios\cite{vella_cheerios_2005}}
+%     \begin{columns}
+%         \begin{column}[]{0.3\textwidth}
+%             \begin{figure}
+%                 \centering
+%                 \includegraphics[width=1.3\textwidth]{schema_geom_sphere_eau.tikz}
+%                 \caption{\tiny{Géométrie d'une sphère reposant sur une interface liquide-gaz. La partie rayée représente le poids de liquide équivalent à la force de flottabilité du à la pression hydrostatique appuyant sur la sphère.}}
+%                 \label{geom_sphere}
+%             \end{figure}
+%         \end{column}
+%         \begin{column}[]{0.6\textwidth}
+%             \[z_c^{'}\sin \phi_c = B\left(\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta\right) \equiv B\Sigma\]
+%             Avec $B$ le nombre de Bond linéarisé et $D \equiv \rho_s / \rho_l$
+%             \[E(l)=-2\pi\gamma R^2b^2\Sigma^2K_0\left(\frac{l}{L_c}\right)\]
+%         \end{column}
+%     \end{columns}
+%     \begin{block}{Force d'interaction des objets flottants}
+%         \[-\frac{dE}{dl} = F(l)=-2\pi\gamma RB^{5/2}\Sigma^2K_1\left(\frac{l}{l_c}\right)\]
+%     \end{block}
+% \end{frame}
+
 \begin{frame}{Modélisation de l'Effet de Cheerios\cite{vella_cheerios_2005}}
-    \begin{columns}
-        \begin{column}[]{0.3\textwidth}
-            \begin{figure}
-                \centering
-                TODO je sais pas pq ca marche pas 
-                %\includegraphics[]{schema_geom_sphere_eau.tikz}
-                %\caption{Géométrie d'une sphère reposant sur une interface liquide-gaz. La partie rayée représente le poids de liquide équivalent à la force de flottabilité du à la pression hydrostatique appuyant sur la sphère. }
-                %\label{geom_sphere}
-            \end{figure}
-        \end{column}
-        \begin{column}[]{0.6\textwidth}
-            \[z_c^{'}\sin \phi_c = B\left(\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta\right) \equiv B\Sigma\]
-            Avec $B$ la valeur de Bond linerarise et $D \equiv \rho_s / \rho_l$
-            \[E(l)=-2\pi\gamma R^2b^2\Sigma^2K_0\left(\frac{l}{L_c}\right)\]
-        \end{column}
-    \end{columns}
+    \centering
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{schema_geom_sphere_eau.tikz}
+        \caption{Géométrie d'une sphère reposant sur une interface liquide-gaz.}
+        \label{geom_sphere}
+    \end{figure} 
+    \[z_c^{'}\sin \phi_c = B\left(\frac{2D-1}{3}-\frac{1}{2}\cos \theta + \frac{1}{6} \cos^3 \theta\right) \equiv B\Sigma\]
+    Avec $B$ le nombre de Bond linéarisé et $D \equiv \rho_s / \rho_l$
+\end{frame}
+
+\begin{frame}{Modélisation de l'Effet de Cheerios\cite{vella_cheerios_2005}}
+    \[E(l)=-2\pi\gamma R^2b^2\Sigma^2K_0\left(\frac{l}{L_c}\right)\]
     \begin{block}{Force d'interaction des objets flottants}
         \[-\frac{dE}{dl} = F(l)=-2\pi\gamma RB^{5/2}\Sigma^2K_1\left(\frac{l}{l_c}\right)\]
     \end{block}
+
 \end{frame}
 
 \section{Méthodes Utilisées}
-\subsection{Integration de Verlet}
+\subsection{Intégration de Verlet}
 \begin{frame}{Méthodes Utilisées-\textit{Velocity Verlet}\cite{crivelli_stormer-verlet_2008}}
     \[\mathrm{DL}_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)\]
     \[\sum  \vb*{F} = m\vb*{a} \Rightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}\]
@@ -186,11 +213,11 @@ sorting=none
     % \end{block}
 \end{frame}
 
-\subsection{Detection des collisions}
+\subsection{Détection des Collisions}
 \begin{frame}{Méthodes Utilisées-Colisions Bords}
     \begin{columns}
         \begin{column}[]{0.5\textwidth}
-            On peux decomposer le vecteur vitesse en:
+            On peux décomposer le vecteur vitesse en:
             \[\vb*{v} = (\vb*{v}\cdot\vb*{n})\vb*{n} +(\vb*{v}\cdot\vb*{t})\vb*{t}\]
             \[\Rightarrow\vb*{v}^{'} = -(\vb*{v}\cdot\vb*{n})\vb*{n} + (\vb*{v}\cdot\vb*{t})\vb*{t}\]
         \end{column}
@@ -205,7 +232,7 @@ sorting=none
 \end{frame}
 
 \begin{frame}{Méthodes Utilisées-Colisions Objet-Objet}
-    On detecte des collisions quand nos objets se chevauche. Puis on applique la conservation de momentum.
+    On détecte des collisions quand nos objets se chevauchent. Puis on applique la conservation du momentum.
     \begin{columns}
         \begin{column}[]{0.25\textwidth}
             \[\vb*{c} = \frac{\vb*{AB}}{||\vb*{AB}||}\]
@@ -240,24 +267,24 @@ sorting=none
         \begin{column}[]{0.7\textwidth}
             \begin{itemize}
                 \item[] Pour tout les pas de temps 
-                {\setlength\itemindent{15pt} \item[] pour tous les objets}
-                {\setlength\itemindent{30pt} \item[] pour tous les objets }
-                {\setlength\itemindent{45pt} \item[] si collision }
-                {\setlength\itemindent{60pt} \item[] applique collision}
-                {\setlength\itemindent{45pt} \item[] sinon}
-                {\setlength\itemindent{60pt} \item[] calcul force}
-                {\setlength\itemindent{15pt} \item[] mets la force dans lobjet}
-                \item[] Trouve nouvelles positions avec lintegration de verlet 
-                \item[] Ecriture data a chaque iterations ou n iterations
+                {\setlength\itemindent{15pt} \item[] Pour tout les objets}
+                {\setlength\itemindent{30pt} \item[] Pour tout les objets }
+                {\setlength\itemindent{45pt} \item[] Si collision }
+                {\setlength\itemindent{60pt} \item[] Applique collision}
+                {\setlength\itemindent{45pt} \item[] Sinon}
+                {\setlength\itemindent{60pt} \item[] Calcul force}
+                {\setlength\itemindent{15pt} \item[] Met la force dans l'objet}
+                \item[] Trouve nouvelles positions avec l'integration de Verlet 
+                \item[] Écriture données à chaque itérations.
             \end{itemize}
         \end{column}
         \begin{column}[]{0.35\textwidth}
-            \begin{block}{Complexite}
+            \begin{block}{Complexité}
                 \begin{itemize}
-                    \item Time complexity de $O(NT\;n^2)$ 
-                    \item Space Complexity de $O(n)$
+                    \item Complexité du temps de $O(NT\;n^2)$ 
+                    \item Complexité de l'espace de $O(n)$
                 \end{itemize}
-                Avec n le nombre dobjet simule
+                Avec n le nombre d'objets simulés
             \end{block}
         \end{column}
     \end{columns}
@@ -271,6 +298,11 @@ sorting=none
 \section{Conclusion}
 \begin{frame}{Conclusion}
     % Le projet peux avoir laire de etre facile mais comme nos forces ne sont pas conservatives et que on arette pas notre simulation quand on a des collisions et continue il ya pas mal de complications qui vienet
+    \begin{itemize}
+        \item Programme fonctionnel, mais pour qu'un diamètre en même temps.
+        \item Résultats concluants par rapport à des expériences.
+        \item Améliorations de nos compétences en programmation, calcul numérique et en mécanique du fluide.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}[allowframebreaks,noframenumbering]{Références}
