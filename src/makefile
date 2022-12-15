@@ -44,6 +44,9 @@ vis:
 gif:
 	python3 visualisationMakeGIF.py 
 
+present:
+	make clean && make && time ./cheerio.exe && make vis
+
 visualise: 
 	python3 visualisationMakeGIF.py & python3 visualisation.py && fg
 #   le premier cest pour visualise tout suite car le sauvgarder en gif ca prends pas mal de temps
