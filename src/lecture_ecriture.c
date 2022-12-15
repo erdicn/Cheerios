@@ -83,6 +83,7 @@ void PutRandomData(bord_t bord,cheerio_t cheerio_moyenne , cheerio_t *cheerios, 
 		cheerios[i].v          = vec_nulle;//cheerio_moyenne.v;//vec_nulle;
 		cheerios[i].a          = vec_nulle;//cheerio_moyenne.a;//vec_nulle;
 		cheerios[i].f_applique = vec_nulle;//cheerio_moyenne.f_applique;//vec_nulle;
+		cheerios[i].angle_contact = cheerio_moyenne.angle_contact;
 	}
 }
 
