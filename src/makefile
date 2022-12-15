@@ -46,6 +46,9 @@ gif:
 
 visualise: 
 	python3 visualisationMakeGIF.py & python3 visualisation.py && fg
+
+make present:
+	make clean && make && time ./cheerio.exe && make vis
 #   le premier cest pour visualise tout suite car le sauvgarder en gif ca prends pas mal de temps
 #https://stackoverflow.com/questions/3004811/how-do-you-run-multiple-programs-in-parallel-from-a-bash-script
 # prog1 & prog2 && fg

@@ -106,7 +106,7 @@ sorting=none
 \newcommand{\onlyblack}[2]{\only<#1>{#2}}
 \newcommand{\rose}[1]{\textcolor{red!50}{#1}}
 
-%\input{embed_video.tex}
+\input{embed_video.tex}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -146,7 +146,7 @@ sorting=none
 \begin{frame}{Introduction}% Probleme etudie
     \begin{center}
         % il faux que je compile ca dans mon windows je pense 
-        %\embedvideo*{\includegraphics[width=0.4\textwidth]{image3AluFlottant.png}}{VideoDes3AluFlottant.mp4}
+        \embedvideo*{\includegraphics[width=0.45\textwidth]{image3AluFlottant.png}}{VideoDes3AluFlottant.mp4}
     \end{center}
 \end{frame}
 
@@ -206,11 +206,22 @@ sorting=none
 \section{Méthodes Utilisées}
 \subsection{Intégration de Verlet}
 \begin{frame}{Méthodes Utilisées-\textit{Velocity Verlet}\cite{crivelli_stormer-verlet_2008}}
-    \[\mathrm{DL}_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)\]
-    \[\sum  \vb*{F} = m\vb*{a} \Rightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}\]
-    \[\vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t \]
-    % \begin{block}{}
-    % \end{block}
+    \begin{columns}
+        \begin{column}[]{0.6\textwidth}
+            \[\mathrm{DL}_3 \vb*{x}(t+\dd t)= \vb*{x}(t)+\vb*{v}(t)(\dd t)+\frac{\vb*{a}(t)}{2!}(\dd t)^2+o(\dd t^3)\]
+            \[\sum  \vb*{F} = m\vb*{a} \Rightarrow \vb*{a} = \frac{\sum \vb*{F}}{m}\]
+            \[\vb*{v}(t+\dd t) = \vb*{v}(t)+\frac{\vb*{a}(t)+\vb*{a}(t+\dd t)}{2}\dd t \]
+        \end{column}
+        \begin{column}[]{0.35\textwidth}
+            \begin{block}{}
+                \begin{itemize}
+                    \item D'ordre 2 
+                    \item Erreur global $O(\dd t^2)$
+                    \item Erreur au pas de temps $t_n$ $o(e^{Lt_n}\dd t^2)$
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \subsection{Détection des Collisions}
@@ -292,7 +303,10 @@ sorting=none
 
 \section{Résultats}
 \begin{frame}{Résultats}
-    Cest ici que on execute notre code?
+    \begin{center}
+        % il faux que je compile ca dans mon windows je pense 
+        \embedvideo*{\includegraphics[height=0.9\textheight]{visualisation3_1000_init.pdf}}{Comparison.mp4}
+    \end{center}
 \end{frame}
 
 \section{Conclusion}
