@@ -7,6 +7,9 @@ Ceci est un projet dans le cadre de l'UE Projet en Calcul Scientifique au sein d
 
 ## Notre Programme
 
+Notre programme se trouve dans le dossier "src". Il se compose en 5 fichiers et 2 fichiers de visualisation. Un fichier Make est à votre disposition pour executer le code et la visualisation directement. 
+**Attention : L'algorithme utilise la bibliothèque GSL. Il est impérative de la télécharger pour utiliser ce programme. Lien vers le site officiel de GSL : https://www.gnu.org/software/gsl/**
+
 ## Conclusion sur nos résultats
 
 ## Quelques Ressources

@@ -2,7 +2,7 @@
 #include "cheerios.h"
 #include <math.h>
 
-// Retourne si notre sisteme a explose ou pas(ca nous dis si notre systeme est toujours stable ou pas) 
+// Retourne si notre système a explosé ou non (ça nous dit si notre système est toujours stable ou pas) 
 int Explosion(cheerio_t c_i, cheerio_t c_j, double distance){
     return distance < fmin(c_i.diametre_cheerio/4., c_j.diametre_cheerio/4.);
 }
