@@ -11,7 +11,6 @@
 void ProgressBar(long int nt, long int NT, double dt){
 	if (nt % (NT / 100) == 0){
 		printf("\r%%%ld nt = %ld (%.2lfs)", nt/(NT/100), nt, nt*dt); // pour voir l'avancement
-		// TODO voir avec erdi "flush"
 		fflush(stdout); // le \r écrit par dessus la ligne et il ne faut pas mettre \n car ça fait tun flush implicitement mais nous on a besoin de flush apres pour reecrir
 	}
 }
